@@ -62,6 +62,12 @@
 		804785101AF99A15001B451E /* xinlang.png in Resources */ = {isa = PBXBuildFile; fileRef = 804784FC1AF99A15001B451E /* xinlang.png */; };
 		804785111AF99A15001B451E /* yihaodian.png in Resources */ = {isa = PBXBuildFile; fileRef = 804784FD1AF99A15001B451E /* yihaodian.png */; };
 		804785121AF99A15001B451E /* youyuan.png in Resources */ = {isa = PBXBuildFile; fileRef = 804784FE1AF99A15001B451E /* youyuan.png */; };
+		804E96BB1B01EAC800803F5C /* AddAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 804E96B91B01EAC800803F5C /* AddAddressViewController.m */; };
+		804E96BC1B01EAC800803F5C /* AddAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 804E96BA1B01EAC800803F5C /* AddAddressViewController.xib */; };
+		804E96C21B02311D00803F5C /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 804E96BF1B02311D00803F5C /* BaseNavigationController.m */; };
+		804E96C31B02311D00803F5C /* CustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 804E96C11B02311D00803F5C /* CustomTabBarViewController.m */; };
+		804E96C71B02325400803F5C /* Toolkit.m in Sources */ = {isa = PBXBuildFile; fileRef = 804E96C61B02325400803F5C /* Toolkit.m */; };
+		804E96CB1B0234AC00803F5C /* UIImage+NSBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 804E96CA1B0234AC00803F5C /* UIImage+NSBundle.m */; };
 		8060232E1ADFB71400E1C498 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8060231C1ADFB71400E1C498 /* AFHTTPRequestOperation.m */; };
 		8060232F1ADFB71400E1C498 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8060231E1ADFB71400E1C498 /* AFHTTPRequestOperationManager.m */; };
 		806023301ADFB71400E1C498 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 806023201ADFB71400E1C498 /* AFHTTPSessionManager.m */; };
@@ -293,6 +299,18 @@
 		804784FC1AF99A15001B451E /* xinlang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xinlang.png; sourceTree = "<group>"; };
 		804784FD1AF99A15001B451E /* yihaodian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yihaodian.png; sourceTree = "<group>"; };
 		804784FE1AF99A15001B451E /* youyuan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = youyuan.png; sourceTree = "<group>"; };
+		804E96B81B01EAC800803F5C /* AddAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAddressViewController.h; sourceTree = "<group>"; };
+		804E96B91B01EAC800803F5C /* AddAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAddressViewController.m; sourceTree = "<group>"; };
+		804E96BA1B01EAC800803F5C /* AddAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddAddressViewController.xib; sourceTree = "<group>"; };
+		804E96BE1B02311D00803F5C /* BaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
+		804E96BF1B02311D00803F5C /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
+		804E96C01B02311D00803F5C /* CustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarViewController.h; sourceTree = "<group>"; };
+		804E96C11B02311D00803F5C /* CustomTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarViewController.m; sourceTree = "<group>"; };
+		804E96C51B02325400803F5C /* Toolkit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Toolkit.h; sourceTree = "<group>"; };
+		804E96C61B02325400803F5C /* Toolkit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Toolkit.m; sourceTree = "<group>"; };
+		804E96C81B0232B000803F5C /* CommenDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommenDef.h; sourceTree = "<group>"; };
+		804E96C91B0234AC00803F5C /* UIImage+NSBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NSBundle.h"; sourceTree = "<group>"; };
+		804E96CA1B0234AC00803F5C /* UIImage+NSBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NSBundle.m"; sourceTree = "<group>"; };
 		8060231B1ADFB71400E1C498 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		8060231C1ADFB71400E1C498 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		8060231D1ADFB71400E1C498 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -560,6 +578,8 @@
 		80067C991ADCA0F100394FB7 = {
 			isa = PBXGroup;
 			children = (
+				804E96C41B02321100803F5C /* Util */,
+				804E96BD1B02311D00803F5C /* CustomViewController */,
 				803D49181AFDB8CF0099138A /* libsqlite3.0.dylib */,
 				803D49161AFDB8A90099138A /* libc++.dylib */,
 				803D49141AFDB8760099138A /* Security.framework */,
@@ -662,6 +682,29 @@
 				803D49031AFDB7E30099138A /* libWeChatSDK.a */,
 			);
 			path = Channels;
+			sourceTree = "<group>";
+		};
+		804E96BD1B02311D00803F5C /* CustomViewController */ = {
+			isa = PBXGroup;
+			children = (
+				804E96BE1B02311D00803F5C /* BaseNavigationController.h */,
+				804E96BF1B02311D00803F5C /* BaseNavigationController.m */,
+				804E96C01B02311D00803F5C /* CustomTabBarViewController.h */,
+				804E96C11B02311D00803F5C /* CustomTabBarViewController.m */,
+			);
+			path = CustomViewController;
+			sourceTree = "<group>";
+		};
+		804E96C41B02321100803F5C /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				804E96C91B0234AC00803F5C /* UIImage+NSBundle.h */,
+				804E96CA1B0234AC00803F5C /* UIImage+NSBundle.m */,
+				804E96C81B0232B000803F5C /* CommenDef.h */,
+				804E96C51B02325400803F5C /* Toolkit.h */,
+				804E96C61B02325400803F5C /* Toolkit.m */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		806023191ADFB69400E1C498 /* AFNetWorking */ = {
@@ -910,6 +953,9 @@
 				80864AB51AFB4BCB00B64BAD /* OrderForSureViewController.h */,
 				80864AB61AFB4BCB00B64BAD /* OrderForSureViewController.m */,
 				80864AB71AFB4BCB00B64BAD /* OrderForSureViewController.xib */,
+				804E96B81B01EAC800803F5C /* AddAddressViewController.h */,
+				804E96B91B01EAC800803F5C /* AddAddressViewController.m */,
+				804E96BA1B01EAC800803F5C /* AddAddressViewController.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1175,6 +1221,7 @@
 				80D5EEE01AFDEEB600C95421 /* first.png in Resources */,
 				804785091AF99A15001B451E /* quna.png in Resources */,
 				80793F961AEF30C60066C62C /* jia.png in Resources */,
+				804E96BC1B01EAC800803F5C /* AddAddressViewController.xib in Resources */,
 				804785081AF99A15001B451E /* qicheweizhang.png in Resources */,
 				804785071AF99A15001B451E /* kuaidi.png in Resources */,
 				809C10031AF714E90059A317 /* SC.png in Resources */,
@@ -1273,6 +1320,7 @@
 				80A529401AE48EDE00FE6F90 /* TAPageControl.m in Sources */,
 				8060232E1ADFB71400E1C498 /* AFHTTPRequestOperation.m in Sources */,
 				80067CAE1ADCA0F100394FB7 /* ViewController.m in Sources */,
+				804E96C71B02325400803F5C /* Toolkit.m in Sources */,
 				80793F921AEF26D50066C62C /* GoodsTableViewCell.m in Sources */,
 				806383F71AF0BE6500AF9866 /* UIImageView+HighlightedWebCache.m in Sources */,
 				808995E81AE0DE290059038D /* InvitationViewControllerEx.m in Sources */,
@@ -1299,10 +1347,14 @@
 				80843F111AE257E3006AC3B7 /* WaiMAIViewController.m in Sources */,
 				80864AB81AFB4BCB00B64BAD /* OrderForSureViewController.m in Sources */,
 				808995EA1AE0DE290059038D /* SectionsViewControllerFriends.m in Sources */,
+				804E96C31B02311D00803F5C /* CustomTabBarViewController.m in Sources */,
 				8088515A1AE8D83E002614AC /* TQStarRatingView.m in Sources */,
 				806383BF1AF0624E00AF9866 /* JSBadgeView.m in Sources */,
 				808995FB1AE0DED90059038D /* YJViewController.m in Sources */,
+				804E96CB1B0234AC00803F5C /* UIImage+NSBundle.m in Sources */,
+				804E96C21B02311D00803F5C /* BaseNavigationController.m in Sources */,
 				806383F41AF0BE6500AF9866 /* UIImage+GIF.m in Sources */,
+				804E96BB1B01EAC800803F5C /* AddAddressViewController.m in Sources */,
 				806383F61AF0BE6500AF9866 /* UIImage+WebP.m in Sources */,
 				806023321ADFB71400E1C498 /* AFSecurityPolicy.m in Sources */,
 				80A5294C1AE4DD4E00FE6F90 /* AutoLocationViewController.m in Sources */,

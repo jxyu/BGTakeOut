@@ -252,6 +252,24 @@
     }
 }
 
+-(void)GetUserAddressListWithPage:(NSString *)page andnum:(NSString *)num anduserid:(NSString *)userid andisgetdefault:(NSString *)isgetdefault
+{
+    if (page&&num&&userid&&isgetdefault) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/User/api_getaddress",KURL];
+        NSDictionary * prm=@{@"page":page,@"num":num,@"userid":userid,@"isgetdefault":isgetdefault};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)saveAddress:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@addaddress.php",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
 {
     AFHTTPRequestOperationManager * manage=[[AFHTTPRequestOperationManager alloc] init];
