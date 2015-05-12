@@ -2,8 +2,8 @@
 //  RegViewController.m
 //  SMS_SDKDemo
 //
-//  Created by 掌淘科技 on 14-6-4.
-//  Copyright (c) 2014年 掌淘科技. All rights reserved.
+//  Created by 中扬科技 on 14-6-4.
+//  Copyright (c) 2014年 中扬科技. All rights reserved.
 //
 
 #import "RegViewController.h"
@@ -83,10 +83,10 @@
             if (!isMatch)
             {
                 //手机号码不正确
-                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil)
-                                                              message:NSLocalizedString(@"errorphonenumber", nil)
+                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"通知", nil)
+                                                              message:NSLocalizedString(@"错误的号码格式", nil)
                                                              delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"sure", nil)
+                                                    cancelButtonTitle:NSLocalizedString(@"确定", nil)
                                                     otherButtonTitles:nil, nil];
                 [alert show];
                 return;
@@ -100,22 +100,22 @@
         if (self.telField.text.length!=11)
         {
             //手机号码不正确
-           UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil)
-                                                         message:NSLocalizedString(@"errorphonenumber", nil)
+           UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"通知", nil)
+                                                         message:NSLocalizedString(@"错误的号码格式", nil)
                                                         delegate:self
-                                               cancelButtonTitle:NSLocalizedString(@"sure", nil)
+                                               cancelButtonTitle:NSLocalizedString(@"确定", nil)
                                                otherButtonTitles:nil, nil];
             [alert show];
             return;
         }
     }
 
-    NSString* str=[NSString stringWithFormat:@"%@:%@ %@",NSLocalizedString(@"willsendthecodeto", nil),self.areaCodeField.text,self.telField.text];
+    NSString* str=[NSString stringWithFormat:@"%@:%@ %@",NSLocalizedString(@"号码确认", nil),self.areaCodeField.text,self.telField.text];
     _str=[NSString stringWithFormat:@"%@",self.telField.text];
-    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"surephonenumber", nil)
+    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"号码为：", nil)
                                                   message:str delegate:self
-                                        cancelButtonTitle:NSLocalizedString(@"cancel", nil)
-                                        otherButtonTitles:NSLocalizedString(@"sure", nil), nil];
+                                        cancelButtonTitle:NSLocalizedString(@"取消", nil)
+                                        otherButtonTitles:NSLocalizedString(@"确定", nil), nil];
     [alert show];
 }
 
@@ -170,24 +170,24 @@
     //创建一个导航栏
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0+statusBarHeight, self.view.frame.size.width, 44)];
     UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil)
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"返回", nil)
                                                                    style:UIBarButtonItemStyleBordered
                                                                   target:self
                                                                   action:@selector(clickLeftButton)];
-    [navigationItem setTitle:NSLocalizedString(@"register", nil)];
+    [navigationItem setTitle:NSLocalizedString(@"注册", nil)];
     [navigationBar pushNavigationItem:navigationItem animated:NO];
     [navigationItem setLeftBarButtonItem:leftButton];
     [self.view addSubview:navigationBar];
     
-    //
-    UILabel* label=[[UILabel alloc] init];
-    label.frame=CGRectMake(15, 56+statusBarHeight, self.view.frame.size.width - 30, 50);
-    label.text=[NSString stringWithFormat:NSLocalizedString(@"labelnotice", nil)];
-    label.numberOfLines = 0;
-    label.textAlignment = UITextAlignmentCenter;
-    label.font = [UIFont fontWithName:@"Helvetica" size:16];
-    label.textColor=[UIColor darkGrayColor];
-    [self.view addSubview:label];
+    
+//    UILabel* label=[[UILabel alloc] init];
+//    label.frame=CGRectMake(15, 56+statusBarHeight, self.view.frame.size.width - 30, 50);
+//    label.text=[NSString stringWithFormat:NSLocalizedString(@"labelnotice", nil)];
+//    label.numberOfLines = 0;
+//    label.textAlignment = UITextAlignmentCenter;
+//    label.font = [UIFont fontWithName:@"Helvetica" size:16];
+//    label.textColor=[UIColor darkGrayColor];
+//    [self.view addSubview:label];
     
     UITableView* tableView=[[UITableView alloc] initWithFrame:CGRectMake(10, 106+statusBarHeight, self.view.frame.size.width - 20, 45) style:UITableViewStylePlain];
     [self.view addSubview:tableView];
@@ -213,7 +213,7 @@
     
     //
     UIButton* nextBtn=[UIButton buttonWithType:UIButtonTypeSystem];
-    [nextBtn setTitle:NSLocalizedString(@"nextbtn", nil) forState:UIControlStateNormal];
+    [nextBtn setTitle:NSLocalizedString(@"下一步", nil) forState:UIControlStateNormal];
     NSString *icon = [NSString stringWithFormat:@"smssdk.bundle/button4.png"];
     [nextBtn setBackgroundImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
     nextBtn.frame=CGRectMake(10, 220+statusBarHeight, self.view.frame.size.width - 20, 42);
@@ -234,22 +234,7 @@
     
     //设置本地区号
     [self setTheLocalAreaCode];
-    //获取支持的地区列表
-    [SMS_SDK getZone:^(enum SMS_ResponseState state, NSArray *array)
-    {
-        if (1==state)
-        {
-            NSLog(@"sucessfully get the area code");
-            //区号数据
-            _areaArray=[NSMutableArray arrayWithArray:array];
-        }
-        else if (0==state)
-        {
-            NSLog(@"failed to get the area code");
-        }
-        
-    }];
-}
+    }
 
 -(void)setTheLocalAreaCode
 {
@@ -316,12 +301,10 @@
                                @"239", @"ST", @"252", @"SO", @"47", @"SJ", @"963", @"SY",
                                @"886", @"TW", @"255", @"TZ", @"670", @"TL", @"58", @"VE",
                                @"84", @"VN", @"1", @"VG", @"1", @"VI", nil];
-    
-    NSString* tt=[locale objectForKey:NSLocaleCountryCode];
-    NSString* defaultCode=[dictCodes objectForKey:tt];
+    NSString* defaultCode=[dictCodes objectForKey:@"CN"];
     _areaCodeField.text=[NSString stringWithFormat:@"+%@",defaultCode];
     
-    NSString* defaultCountryName=[locale displayNameForKey:NSLocaleCountryCode value:tt];
+    NSString* defaultCountryName=[locale displayNameForKey:NSLocaleCountryCode value:@"CN"];
     _defaultCode=defaultCode;
     _defaultCountryName=defaultCountryName;
 }
@@ -341,7 +324,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] ;
         
     }
-    cell.textLabel.text=NSLocalizedString(@"countrylable", nil);
+    cell.textLabel.text=NSLocalizedString(@"地区", nil);
     cell.textLabel.textColor=[UIColor darkGrayColor];
     
     if (_data2)
@@ -354,23 +337,23 @@
     }
     cell.detailTextLabel.textColor=[UIColor blackColor];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
-    UIView *tempView = [[UIView alloc] init];
-    [cell setBackgroundView:tempView];
-    [cell setBackgroundColor:[UIColor clearColor]];
-    
+//    
+//    UIView *tempView = [[UIView alloc] init];
+//    [cell setBackgroundView:tempView];
+//    [cell setBackgroundColor:[UIColor clearColor]];
+//    
     return cell;
 
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SectionsViewController* country2=[[SectionsViewController alloc] init];
-    country2.delegate=self;
-    [country2 setAreaArray:_areaArray];
-    [self presentViewController:country2 animated:YES completion:^{
-        ;
-    }];
+//    SectionsViewController* country2=[[SectionsViewController alloc] init];
+//    country2.delegate=self;
+//    [country2 setAreaArray:_areaArray];
+//    [self presentViewController:country2 animated:YES completion:^{
+//        ;
+//    }];
 }
 
 @end

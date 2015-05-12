@@ -12,6 +12,7 @@
 #define RefreshViewHeight 65.0f
 #define TEXT_COLOR	 [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0]
 #define FLIP_ANIMATION_DURATION 0.18f
+#define KSetHeaderViewY 64
 
 /**************************************************************************************************
  *********************************RefreshHeaderView************************************************
@@ -37,7 +38,6 @@
         label.textAlignment = UITextAlignmentCenter;
         [self addSubview:label];
         _lastUpdatedLabel=label;
-        [label release];
 		
 		label = [[UILabel alloc] initWithFrame:CGRectZero];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -49,7 +49,6 @@
 		label.textAlignment = UITextAlignmentCenter;
 		[self addSubview:label];
 		_statusLabel=label;
-		[label release];
 		
 		CALayer *layer = [CALayer layer];
 		layer.contentsGravity = kCAGravityResizeAspect;
@@ -67,7 +66,6 @@
 		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 		[self addSubview:view];
 		_activityView = view;
-		[view release];
 		
 		
 		[self setState:PullRefreshNormal];
@@ -83,10 +81,10 @@
 }
 -(void)layoutSubviews
 {
-    _lastUpdatedLabel.frame = CGRectMake(0.0f, self.frame.size.height - 30.0f, self.frame.size.width, 20.0f);
-    _statusLabel.frame = CGRectMake(0.0f, self.frame.size.height - 48.0f, self.frame.size.width, 20.0f);
-    _arrowImage.frame = CGRectMake(25.0f, self.frame.size.height - 65.0f, 30.0f, 55.0f);
-    _activityView.frame = CGRectMake(25.0f, self.frame.size.height - 38.0f, 20.0f, 20.0f);
+    _lastUpdatedLabel.frame = CGRectMake(0.0f, self.frame.size.height - 30.0f+KSetHeaderViewY, self.frame.size.width, 20.0f);
+    _statusLabel.frame = CGRectMake(0.0f, self.frame.size.height - 48.0f+KSetHeaderViewY, self.frame.size.width, 20.0f);
+    _arrowImage.frame = CGRectMake(25.0f, self.frame.size.height - 65.0f+KSetHeaderViewY, 30.0f, 55.0f);
+    _activityView.frame = CGRectMake(25.0f, self.frame.size.height - 38.0f+KSetHeaderViewY, 20.0f, 20.0f);
 }
 #pragma mark -
 #pragma mark Setters
@@ -117,7 +115,6 @@
     _lastUpdatedLabel.text = [NSString stringWithFormat:@"%@: %@",
                        NSLocalizedString(@"最后更新", @""),
                        dateString];
-    [df release];
 }
 
 - (void)setState:(PullRefreshState)state{
@@ -175,7 +172,6 @@
 	_statusLabel = nil;
 	_arrowImage = nil;
     _lastUpdatedLabel = nil;
-    [super dealloc];
 }
 @end
 
@@ -207,7 +203,6 @@
 		label.textAlignment = UITextAlignmentCenter;
 		[self addSubview:label];
 		_statusLabel=label;
-		[label release];
 		
         CALayer *layer = [CALayer layer];
 		layer.contentsGravity = kCAGravityResizeAspect;
@@ -225,7 +220,6 @@
 		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 		[self addSubview:view];
 		_activityView = view;
-		[view release];
 		[self setState:PullRefreshNormal];
         
     }
@@ -302,7 +296,6 @@
     _arrowImage = nil;
 	_activityView = nil;
 	_statusLabel = nil;
-    [super dealloc];
 }
 
 @end
@@ -315,7 +308,7 @@
 
 @implementation RefreshHeaderAndFooterView
 @synthesize refreshHeaderView = _refreshHeaderView;
-@synthesize refreshFooterView = _refreshFooterView;
+//@synthesize refreshFooterView = _refreshFooterView;
 @synthesize delegate =_delegate;
 
 - (id)initWithFrame:(CGRect)frame
@@ -326,12 +319,10 @@
         RefreshHeaderView * headerView  = [[RefreshHeaderView alloc] initWithFrame:CGRectZero];
         [self addSubview:headerView];
         self.refreshHeaderView = headerView;
-        [headerView release];
         
-        RefreshFooterView * footerView = [[RefreshFooterView alloc] initWithFrame:CGRectZero];
-        [self addSubview:footerView];
-        self.refreshFooterView = footerView;
-        [footerView release];
+//        RefreshFooterView * footerView = [[RefreshFooterView alloc] initWithFrame:CGRectZero];
+//        [self addSubview:footerView];
+//        self.refreshFooterView = footerView;
     }
     return self;
 }
@@ -345,15 +336,15 @@
  }
  */
 -(void)layoutSubviews{
-    self.refreshHeaderView.frame = CGRectMake(0, 0 - self.frame.size.height, self.frame.size.width, self.frame.size.height);
-    self.refreshFooterView.frame = CGRectMake(0, self.frame.size.height, self.frame.size.width, self.frame.size.height);
+    self.refreshHeaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+//    self.refreshFooterView.frame = CGRectMake(0, self.frame.size.height, self.frame.size.width, self.frame.size.height);
 }
 #pragma mark -
 #pragma mark ScrollView Methods
 //手指屏幕上不断拖动调用此方法
 - (void)RefreshScrollViewDidScroll:(UIScrollView *)scrollView {
 	
-	if (self.refreshHeaderView.state == PullRefreshLoading || self.refreshFooterView.state == PullRefreshLoading) {
+	if (self.refreshHeaderView.state == PullRefreshLoading) {
 		return;
 	}
     if (scrollView.isDragging) {
@@ -370,22 +361,22 @@
         if (scrollView.contentInset.top != 0) {
 			scrollView.contentInset = UIEdgeInsetsZero;
 		}
-		if (self.refreshFooterView.state == PullRefreshPulling && scrollView.contentOffset.y + (scrollView.frame.size.height) < scrollView.contentSize.height + RefreshViewHeight && scrollView.contentOffset.y > 0.0f && !_loading) {
-			self.refreshFooterView.state = PullRefreshNormal;
-		} else if (self.refreshFooterView.state == PullRefreshNormal &&  scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height + RefreshViewHeight  && !_loading) {
-			self.refreshFooterView.state = PullRefreshPulling;
-		}
-		
-		if (scrollView.contentInset.bottom != 0) {
-			scrollView.contentInset = UIEdgeInsetsZero;
-		}
+//		if (self.refreshFooterView.state == PullRefreshPulling && scrollView.contentOffset.y + (scrollView.frame.size.height) < scrollView.contentSize.height + RefreshViewHeight && scrollView.contentOffset.y > 0.0f && !_loading) {
+//			self.refreshFooterView.state = PullRefreshNormal;
+//		} else if (self.refreshFooterView.state == PullRefreshNormal &&  scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height + RefreshViewHeight  && !_loading) {
+//			self.refreshFooterView.state = PullRefreshPulling;
+//		}
+//		
+//		if (scrollView.contentInset.bottom != 0) {
+//			scrollView.contentInset = UIEdgeInsetsZero;
+//		}
 		
 	}
 	
 }
 //当用户停止拖动，并且手指从屏幕中拿开的的时候调用此方法
 - (void)RefreshScrollViewDidEndDragging:(UIScrollView *)scrollView {
-	if (self.refreshHeaderView.state == PullRefreshLoading || self.refreshFooterView.state == PullRefreshLoading) {
+	if (self.refreshHeaderView.state == PullRefreshLoading) {
 		return;
 	}
 	BOOL _loading = NO;
@@ -404,17 +395,19 @@
 		[UIView commitAnimations];
 		
 	}
-	if (scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height + RefreshViewHeight && !_loading) {
-		self.refreshFooterView.state = PullRefreshLoading;
-		if ([_delegate respondsToSelector:@selector(RefreshHeaderAndFooterDidTriggerRefresh:)]) {
-			[_delegate RefreshHeaderAndFooterDidTriggerRefresh:self];
-		}
-		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.2];
-		scrollView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, RefreshViewHeight, 0.0f);
-		[UIView commitAnimations];
-		
-	}
+//	if (scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height + RefreshViewHeight && !_loading) {
+//		self.refreshFooterView.state = PullRefreshLoading;
+//		if ([_delegate respondsToSelector:@selector(RefreshHeaderAndFooterDidTriggerRefresh:)]) {
+//			[_delegate RefreshHeaderAndFooterDidTriggerRefresh:self];
+//		}
+//		[UIView beginAnimations:nil context:NULL];
+//		[UIView setAnimationDuration:0.2];
+//		scrollView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, RefreshViewHeight, 0.0f);
+//		[UIView commitAnimations];
+//		
+//	}
+    
+    
 	
 }
 //当开发者页面页面刷新完毕调用此方法，[delegate RefreshScrollViewDataSourceDidFinishedLoading: scrollView];
@@ -427,9 +420,9 @@
         }
         [self.refreshHeaderView updateRefreshDate:date];
     }
-    else if (self.refreshFooterView.state ==PullRefreshLoading) {
-        self.refreshFooterView.state = PullRefreshNormal;
-    }
+//    else if (self.refreshFooterView.state ==PullRefreshLoading) {
+//        self.refreshFooterView.state = PullRefreshNormal;
+//    }
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:.3];
 	[scrollView setContentInset:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
@@ -444,7 +437,5 @@
     
     self.delegate = nil;
 	self.refreshHeaderView = nil;
-	self.refreshFooterView = nil;
-    [super dealloc];
 }
 @end

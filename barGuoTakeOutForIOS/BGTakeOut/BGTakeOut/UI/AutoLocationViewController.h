@@ -10,4 +10,6 @@
 
 @interface AutoLocationViewController : UIViewController
 
+-(void)clickLeftButton;
+
 @end

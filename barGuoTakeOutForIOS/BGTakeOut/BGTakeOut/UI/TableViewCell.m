@@ -8,16 +8,31 @@
 
 #import "TableViewCell.h"
 
+
 @implementation TableViewCell
 
 - (void)awakeFromNib {
     // Initialization code
+    
+//    _starRatingView = [[TQStarRatingView alloc] initWithFrame:CGRectMake(0,0 , _PingjiaView.frame.size.width, _PingjiaView.frame.size.height) numberOfStar:5];
+//    _starRatingView.delegate = self;
+//    UIButton * zhezhao=[[UIButton alloc] initWithFrame:CGRectMake(0,0 , _PingjiaView.frame.size.width, _PingjiaView.frame.size.height)];
+//    
+//    [_PingjiaView addSubview:_starRatingView];
+//    [_PingjiaView addSubview:zhezhao];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+    
+}
+
+-(void)starRatingView:(TQStarRatingView *)view score:(float)score
+{
+//    self.scoreLabel.text = [NSString stringWithFormat:@"%0.2f",score * 10 ];
 }
 
 @end

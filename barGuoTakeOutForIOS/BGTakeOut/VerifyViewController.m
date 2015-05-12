@@ -17,6 +17,8 @@
 #import <SMS_SDK/SMS_UserInfo.h>
 #import <SMS_SDK/SMS_AddressBook.h>
 
+#import "DataProvider.h"
+
 @interface VerifyViewController ()
 {
     NSString* _phone;
@@ -45,6 +47,7 @@
     UIAlertView* _alert3;
     
     UIAlertView *_tryVoiceCallAlertView;
+    UITextField * txt_pwd;
 
 }
 
@@ -95,24 +98,27 @@ static NSMutableArray* _userData2;
         [SMS_SDK commitVerifyCode:self.verifyCodeField.text result:^(enum SMS_ResponseState state) {
             if (1==state)
             {
+                [self inputPwd];
+                NSLog(@"%@",self.telLabel.text);
                 NSLog(@"验证成功");
-                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"verifycoderightmsg", nil)];
-                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"verifycoderighttitle", nil)
-                                                              message:str
-                                                             delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"sure", nil)
-                                                    otherButtonTitles:nil, nil];
-                [alert show];
-                _alert3=alert;
+//                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"验证成功", nil)];
+//                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"通知", nil)
+//                                                              message:str
+//                                                             delegate:self
+//                                                    cancelButtonTitle:NSLocalizedString(@"确定", nil)
+//                                                    otherButtonTitles:nil, nil];
+//                [alert show];
+//                _alert3=alert;
+                
             }
             else if(0==state)
             {
                 NSLog(@"验证失败");
-                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"verifycodeerrormsg", nil)];
-                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"verifycodeerrortitle", nil)
+                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"验证失败", nil)];
+                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"通知", nil)
                                                               message:str
                                                              delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"sure", nil)
+                                                    cancelButtonTitle:NSLocalizedString(@"确定", nil)
                                                     otherButtonTitles:nil, nil];
                 [alert show];
             }
@@ -237,14 +243,14 @@ static NSMutableArray* _userData2;
                                                                   action:@selector(clickLeftButton)];
     
     //设置导航栏内容
-    [navigationItem setTitle:NSLocalizedString(@"verifycode", nil)];
+    [navigationItem setTitle:NSLocalizedString(@"验证码", nil)];
     [navigationBar pushNavigationItem:navigationItem animated:NO];
     [navigationItem setLeftBarButtonItem:leftButton];
     [self.view addSubview:navigationBar];
     
     UILabel* label=[[UILabel alloc] init];
     label.frame=CGRectMake(15, 53+statusBarHeight, self.view.frame.size.width - 30, 21);
-    label.text=[NSString stringWithFormat:NSLocalizedString(@"verifylabel", nil)];
+    label.text=[NSString stringWithFormat:NSLocalizedString(@"请输入验证码", nil)];
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"Helvetica" size:17];
     [self.view addSubview:label];
@@ -260,7 +266,7 @@ static NSMutableArray* _userData2;
     _verifyCodeField.frame=CGRectMake(15, 111+statusBarHeight, self.view.frame.size.width - 30, 46);
     _verifyCodeField.borderStyle=UITextBorderStyleBezel;
     _verifyCodeField.textAlignment=UITextAlignmentCenter;
-    _verifyCodeField.placeholder=NSLocalizedString(@"verifycode", nil);
+    _verifyCodeField.placeholder=NSLocalizedString(@"验证码", nil);
     _verifyCodeField.font=[UIFont fontWithName:@"Helvetica" size:18];
     _verifyCodeField.keyboardType=UIKeyboardTypePhonePad;
     _verifyCodeField.clearButtonMode=UITextFieldViewModeWhileEditing;
@@ -276,12 +282,12 @@ static NSMutableArray* _userData2;
     
     _repeatSMSBtn=[UIButton buttonWithType:UIButtonTypeSystem];
     _repeatSMSBtn.frame=CGRectMake(15, 169+statusBarHeight, self.view.frame.size.width - 30, 30);
-    [_repeatSMSBtn setTitle:NSLocalizedString(@"repeatsms", nil) forState:UIControlStateNormal];
+    [_repeatSMSBtn setTitle:NSLocalizedString(@"重新发送验证码", nil) forState:UIControlStateNormal];
     [_repeatSMSBtn addTarget:self action:@selector(CannotGetSMS) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_repeatSMSBtn];
     
     _submitBtn=[UIButton buttonWithType:UIButtonTypeSystem];
-    [_submitBtn setTitle:NSLocalizedString(@"submit", nil) forState:UIControlStateNormal];
+    [_submitBtn setTitle:NSLocalizedString(@"确定", nil) forState:UIControlStateNormal];
     NSString *icon = [NSString stringWithFormat:@"smssdk.bundle/button4.png"];
     [_submitBtn setBackgroundImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
     _submitBtn.frame=CGRectMake(15, 220+statusBarHeight, self.view.frame.size.width - 30, 42);
@@ -353,20 +359,20 @@ static NSMutableArray* _userData2;
         return;
     }
     //NSLog(@"更新时间");
-    self.timeLabel.text=[NSString stringWithFormat:@"%@%i%@",NSLocalizedString(@"timelablemsg", nil),60-count,NSLocalizedString(@"second", nil)];
+    self.timeLabel.text=[NSString stringWithFormat:@"%@%i%@",NSLocalizedString(@"", nil),60-count,NSLocalizedString(@"秒后重新发送", nil)];
     
-    if (count == 30)
-    {
-        if (_voiceCallMsgLabel.hidden)
-        {
-            _voiceCallMsgLabel.hidden = NO;
-        }
-        
-        if (_voiceCallButton.hidden)
-        {
-            _voiceCallButton.hidden = NO;
-        }
-    }
+//    if (count == 30)
+//    {
+//        if (_voiceCallMsgLabel.hidden)
+//        {
+//            _voiceCallMsgLabel.hidden = NO;
+//        }
+//        
+//        if (_voiceCallButton.hidden)
+//        {
+//            _voiceCallButton.hidden = NO;
+//        }
+//    }
 }
 
 -(void)showRepeatButton{
@@ -375,6 +381,55 @@ static NSMutableArray* _userData2;
     
     [_timer1 invalidate];
     return;
+}
+
+-(void)inputPwd
+{
+    UIView * backForPwd =[[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height)];
+    backForPwd.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+    UILabel * Pwd =[[UILabel alloc ] initWithFrame:CGRectMake(10, 40, 80, 30)];
+    Pwd.text=@"密码：";
+    [backForPwd addSubview:Pwd];
+    UIView * lastView=[[backForPwd subviews] lastObject];
+    CGFloat x=lastView.frame.origin.x+lastView.frame.size.width;
+    txt_pwd=[[UITextField alloc] initWithFrame:CGRectMake(x, 40, 200, 30)];
+    [txt_pwd setPlaceholder:@"输入密码"];
+    [txt_pwd setKeyboardType:UIKeyboardTypeAlphabet];
+    txt_pwd.layer.borderWidth=1;
+    [backForPwd addSubview:txt_pwd];
+    
+    UIButton * tijiao=[[UIButton alloc] initWithFrame:CGRectMake(30, 90, 260, 30)];
+    [tijiao setTitle:@"确定" forState:UIControlStateNormal];
+    [tijiao setTintColor:[UIColor whiteColor]];
+    [tijiao setBackgroundColor:[UIColor redColor]];
+    [tijiao addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchUpInside];
+    [backForPwd addSubview:tijiao];
+    [self.view addSubview:backForPwd];
+
+}
+
+-(void)submitClick
+{
+    NSLog(@"phone:%@,pwd:%@",self.telLabel.text,txt_pwd.text);
+    NSString * phonenum=[self.telLabel.text substringFromIndex:4];
+    DataProvider * dataprovider =[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"isSubmitFinish:"];
+    [dataprovider registerPerson:phonenum andPwd:txt_pwd.text];
+//    [self.view removeFromSuperview];
+}
+
+-(void)isSubmitFinish:(id)dict
+{
+    NSLog(@"%@",dict);
+    if (1==[dict[@"status"] integerValue]) {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"注册成功", nil)
+                                                      message:NSLocalizedString(@"通知", nil)
+                                                     delegate:self
+                                            cancelButtonTitle:@"确定"
+                                            otherButtonTitles:nil, nil];
+        [alert show];
+        [self.view removeFromSuperview];
+    }
 }
 
 @end

@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface ShoppingCarModel : NSObject
-
+@property(nonatomic,copy)NSDictionary * Goods;
+@property(nonatomic)int Num;
 @end

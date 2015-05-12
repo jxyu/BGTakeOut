@@ -2,8 +2,8 @@
 //  RegViewController.h
 //  SMS_SDKDemo
 //
-//  Created by 掌淘科技 on 14-6-4.
-//  Copyright (c) 2014年 掌淘科技. All rights reserved.
+//  Created by 中扬科技 on 14-6-4.
+//  Copyright (c) 2014年 中扬科技. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

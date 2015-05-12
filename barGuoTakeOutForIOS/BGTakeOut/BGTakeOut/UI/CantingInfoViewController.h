@@ -7,7 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DataProvider.h"
+#import "NYSegmentedControl.h"
+#import "OrderForSureViewController.h"
 
-@interface CantingInfoViewController : UIViewController
+@interface CantingInfoViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
+@property(nonatomic,strong)NSString *resid;
+@property(nonatomic,strong)NSString *name;
+@property(nonatomic,strong)NSString *peisongData;
+@property(nonatomic,strong)OrderForSureViewController *myOrderView;
+
+-(void)CantingclickLeftButton;
+-(void)CantingItemClick:(UIButton *)sender;
+- (UIColor *) stringTOColor:(NSString *)str;
+
 
 @end

@@ -25,5 +25,6 @@
 -(void)setPhone:(NSString*)phone AndAreaCode:(NSString*)areaCode;
 -(void)submit;
 -(void)CannotGetSMS;
+-(void)inputPwd;
 
 @end

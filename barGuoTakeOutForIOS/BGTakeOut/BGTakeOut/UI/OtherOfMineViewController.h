@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OtherOfMineViewController : UIViewController
-
+@interface OtherOfMineViewController : UIViewController <UITextViewDelegate>
+@property(nonatomic,strong)NSString *Othertitle;
+@property(nonatomic)NSInteger celltag;
+@property(nonatomic,copy)id UserInfoData;
 @end

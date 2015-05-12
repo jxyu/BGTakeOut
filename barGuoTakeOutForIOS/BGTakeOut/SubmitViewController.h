@@ -3,7 +3,7 @@
 //  SMS_SDKDemo
 //
 //  Created by ljh on 2/4/15.
-//  Copyright (c) 2015 掌淘科技. All rights reserved.
+//  Copyright (c) 2015 中扬科技. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

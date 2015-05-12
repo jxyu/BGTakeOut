@@ -3,7 +3,7 @@
 //  SMS_SDKDemo
 //
 //  Created by ljh on 1/24/15.
-//  Copyright (c) 2015 掌淘科技. All rights reserved.
+//  Copyright (c) 2015 中扬科技. All rights reserved.
 //
 
 #import "RegisterByVoiceCallViewController.h"
@@ -213,7 +213,7 @@
     
     //
     UIButton* nextBtn=[UIButton buttonWithType:UIButtonTypeSystem];
-    [nextBtn setTitle:NSLocalizedString(@"nextbtn", nil) forState:UIControlStateNormal];
+    [nextBtn setTitle:NSLocalizedString(@"下一步", nil) forState:UIControlStateNormal];
     NSString *icon = [NSString stringWithFormat:@"smssdk.bundle/button4.png"];
     [nextBtn setBackgroundImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
     nextBtn.frame=CGRectMake(10, 220+statusBarHeight, self.view.frame.size.width - 20, 42);
@@ -340,7 +340,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] ;
         
     }
-    cell.textLabel.text=NSLocalizedString(@"countrylable", nil);
+    cell.textLabel.text=NSLocalizedString(@"地区", nil);
     cell.textLabel.textColor=[UIColor darkGrayColor];
     
     if (_data2)

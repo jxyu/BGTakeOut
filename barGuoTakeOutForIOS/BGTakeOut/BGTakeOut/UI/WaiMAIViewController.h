@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CantingInfoViewController.h"
 
 @interface WaiMAIViewController : UIViewController
+@property(nonatomic,strong)CantingInfoViewController * myCantingView;
+
+-(void)clickLeftButton;
 
 @end

@@ -217,7 +217,7 @@
 - (void)setValue:(NSString *)value
 {
     if ( ! [_value isEqualToString: value] ) {
-        [_value release];
+//        [_value release];
         _value = [value copy];
         
         CGSize size = [self badgeSize];
@@ -246,16 +246,16 @@
     }
 }
 
-- (void)dealloc
-{
-    [_value release];
-    [_font release];
-    [_fillColor release];
-    [_strokeColor release];
-    [_textColor release];
-    
-    [super dealloc];
-}
+//- (void)dealloc
+//{
+//    [_value release];
+//    [_font release];
+//    [_fillColor release];
+//    [_strokeColor release];
+//    [_textColor release];
+//    
+//    [super dealloc];
+//}
 
 - (CGSize)badgeSize
 {	
@@ -294,7 +294,7 @@
     SMS_HYZBadgeView *badge = [[SMS_HYZBadgeView alloc]initWithFrame:CGRectZero];
     badge.tag = HYZ_BADGE_TAG;
     [self addSubview:badge];
-    return [badge autorelease];
+    return badge;
 }
 
 @end

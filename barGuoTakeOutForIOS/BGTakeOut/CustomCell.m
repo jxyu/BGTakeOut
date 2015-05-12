@@ -44,7 +44,7 @@
         [self.contentView addSubview:_nameDescLabel];
         
         _btn=[UIButton buttonWithType:UIButtonTypeSystem];
-        [_btn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
+//        [_btn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
         [_btn setTitle:@"邀请" forState:UIControlStateNormal];
         NSString *icon = [NSString stringWithFormat:@"smssdk.bundle/button2.png"];
         [_btn setBackgroundImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
