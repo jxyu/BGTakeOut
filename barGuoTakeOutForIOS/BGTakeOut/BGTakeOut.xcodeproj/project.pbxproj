@@ -219,6 +219,9 @@
 		80F3BD171AF8D11A00408624 /* FoundViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F3BD151AF8D11A00408624 /* FoundViewController.xib */; };
 		80F3BD1B1AF8D37D00408624 /* FoundTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F3BD191AF8D37D00408624 /* FoundTableViewCell.m */; };
 		80F3BD1C1AF8D37D00408624 /* FoundTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F3BD1A1AF8D37D00408624 /* FoundTableViewCell.xib */; };
+		8A71D0A81B01DE1600D6C01D /* CreditNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A71D0A31B01DE1600D6C01D /* CreditNavigationController.m */; };
+		8A71D0A91B01DE1600D6C01D /* CreditWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A71D0A51B01DE1600D6C01D /* CreditWebView.m */; };
+		8A71D0AA1B01DE1600D6C01D /* CreditWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A71D0A71B01DE1600D6C01D /* CreditWebViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -536,6 +539,13 @@
 		80F3BD181AF8D37D00408624 /* FoundTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoundTableViewCell.h; sourceTree = "<group>"; };
 		80F3BD191AF8D37D00408624 /* FoundTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoundTableViewCell.m; sourceTree = "<group>"; };
 		80F3BD1A1AF8D37D00408624 /* FoundTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FoundTableViewCell.xib; sourceTree = "<group>"; };
+		8A71D0A11B01DE1600D6C01D /* CreditConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditConstant.h; sourceTree = "<group>"; };
+		8A71D0A21B01DE1600D6C01D /* CreditNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditNavigationController.h; sourceTree = "<group>"; };
+		8A71D0A31B01DE1600D6C01D /* CreditNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditNavigationController.m; sourceTree = "<group>"; };
+		8A71D0A41B01DE1600D6C01D /* CreditWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditWebView.h; sourceTree = "<group>"; };
+		8A71D0A51B01DE1600D6C01D /* CreditWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditWebView.m; sourceTree = "<group>"; };
+		8A71D0A61B01DE1600D6C01D /* CreditWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditWebViewController.h; sourceTree = "<group>"; };
+		8A71D0A71B01DE1600D6C01D /* CreditWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditWebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1057,6 +1067,7 @@
 		80F04CC51AE7959C00A29052 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				8A71D09F1B01DD7600D6C01D /* Duiba */,
 				80895EEB1AFF1FA300908181 /* RefreshScroll */,
 				80B9F23B1AF87722003C264D /* UpLoadImage */,
 				806383C81AF0BE0200AF9866 /* SDWebImage */,
@@ -1091,6 +1102,28 @@
 				80F04CD51AE7963C00A29052 /* icon_chose_bottom@2x.png */,
 			);
 			path = DropDownMenu;
+			sourceTree = "<group>";
+		};
+		8A71D09F1B01DD7600D6C01D /* Duiba */ = {
+			isa = PBXGroup;
+			children = (
+				8A71D0A01B01DE1600D6C01D /* sdk */,
+			);
+			path = Duiba;
+			sourceTree = "<group>";
+		};
+		8A71D0A01B01DE1600D6C01D /* sdk */ = {
+			isa = PBXGroup;
+			children = (
+				8A71D0A11B01DE1600D6C01D /* CreditConstant.h */,
+				8A71D0A21B01DE1600D6C01D /* CreditNavigationController.h */,
+				8A71D0A31B01DE1600D6C01D /* CreditNavigationController.m */,
+				8A71D0A41B01DE1600D6C01D /* CreditWebView.h */,
+				8A71D0A51B01DE1600D6C01D /* CreditWebView.m */,
+				8A71D0A61B01DE1600D6C01D /* CreditWebViewController.h */,
+				8A71D0A71B01DE1600D6C01D /* CreditWebViewController.m */,
+			);
+			path = sdk;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1332,6 +1365,7 @@
 				806383EE1AF0BE6500AF9866 /* SDWebImageDecoder.m in Sources */,
 				806383F11AF0BE6500AF9866 /* SDWebImageManager.m in Sources */,
 				80B9F23E1AF87757003C264D /* VPImageCropperViewController.m in Sources */,
+				8A71D0AA1B01DE1600D6C01D /* CreditWebViewController.m in Sources */,
 				809551A21AEDCD7D00511E20 /* CantingInfoViewController.m in Sources */,
 				802DB4781AEA203E00140AA9 /* BGBangViewController.m in Sources */,
 				809C10201AF74AA00059A317 /* LoginViewController.m in Sources */,
@@ -1358,6 +1392,7 @@
 				806383F61AF0BE6500AF9866 /* UIImage+WebP.m in Sources */,
 				806023321ADFB71400E1C498 /* AFSecurityPolicy.m in Sources */,
 				80A5294C1AE4DD4E00FE6F90 /* AutoLocationViewController.m in Sources */,
+				8A71D0A91B01DE1600D6C01D /* CreditWebView.m in Sources */,
 				806023301ADFB71400E1C498 /* AFHTTPSessionManager.m in Sources */,
 				808995F61AE0DE520059038D /* SMS_HYZBadgeView.m in Sources */,
 				80F3BD1B1AF8D37D00408624 /* FoundTableViewCell.m in Sources */,
@@ -1374,6 +1409,7 @@
 				80A529411AE48EDE00FE6F90 /* UIView+SDExtension.m in Sources */,
 				802DB47D1AEA418200140AA9 /* BGBangTableViewCell.m in Sources */,
 				808996001AE0DEFB0059038D /* RegisterByVoiceCallViewController.m in Sources */,
+				8A71D0A81B01DE1600D6C01D /* CreditNavigationController.m in Sources */,
 				806383F21AF0BE6500AF9866 /* SDWebImagePrefetcher.m in Sources */,
 				80B9F2371AF8600A003C264D /* UserInfoViewController.m in Sources */,
 				80067CAB1ADCA0F100394FB7 /* AppDelegate.m in Sources */,
