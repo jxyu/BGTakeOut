@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>E0454440-5EE4-490F-9AA4-7E9570C96C87</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>BGTakeOut</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>4FED5594CB7176534849F49CD1CE4E6475BF5D6C</key>
 		<string>https://github.com/yanglicheng8/BGTakeOut.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>barGuoTakeOutForIOS/BGTakeOut/BGTakeOut.xcodeproj/project.xcworkspace</string>
+	<string>barGuoTakeOutForIOS/BGTakeOut/BGTakeOut.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>4FED5594CB7176534849F49CD1CE4E6475BF5D6C</key>
