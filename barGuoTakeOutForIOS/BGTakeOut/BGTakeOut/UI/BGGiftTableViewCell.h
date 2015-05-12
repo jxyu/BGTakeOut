@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface BGGiftTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *GiftImage;
+@property (weak, nonatomic) IBOutlet UILabel *GiftName;
+@property (weak, nonatomic) IBOutlet UILabel *Giftmoney;
+@property (weak, nonatomic) IBOutlet UIButton *GiftChange;
 
 @end

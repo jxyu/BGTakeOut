@@ -4,7 +4,7 @@
 //  SMS_SDKDemo
 //
 //  Created by ljh on 2/4/15.
-//  Copyright (c) 2015 掌淘科技. All rights reserved.
+//  Copyright (c) 2015 中扬科技. All rights reserved.
 //
 
 #import "SubmitViewController.h"
@@ -215,7 +215,7 @@ static NSMutableArray* _userData2;
     //创建一个导航栏
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0+statusBarHeight, self.view.frame.size.width, 44)];
     UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil)
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"返回", nil)
                                                                    style:UIBarButtonItemStyleBordered
                                                                   target:self
                                                                   action:@selector(clickLeftButton)];

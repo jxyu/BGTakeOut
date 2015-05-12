@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface JokeTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *jokename;
+@property (weak, nonatomic) IBOutlet UILabel *jokedate;
+@property (weak, nonatomic) IBOutlet UILabel *jokecontent;
 
 @end

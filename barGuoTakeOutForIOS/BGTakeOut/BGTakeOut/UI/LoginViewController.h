@@ -9,5 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface LoginViewController : UIViewController
+{
+    id CallBackObject;
+    NSString * callBackFunctionName;
+}
+
+//执行回调函数
+- (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName;
 
 @end

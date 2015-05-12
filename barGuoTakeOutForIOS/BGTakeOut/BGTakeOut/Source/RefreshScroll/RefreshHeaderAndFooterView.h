@@ -43,11 +43,10 @@ typedef enum{
 @interface RefreshHeaderAndFooterView : UIView{
     RefreshHeaderView   *refreshHeaderView;
     RefreshFooterView   *refreshFooterView;
-    id _delegate;
+    __unsafe_unretained id _delegate;
 }
 @property(nonatomic,assign) id <RefreshHeaderAndFooterViewDelegate> delegate;
 @property(nonatomic,strong)RefreshHeaderView   *refreshHeaderView;
-@property(nonatomic,strong)RefreshFooterView   *refreshFooterView;
 
 - (void)RefreshScrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)RefreshScrollViewDidEndDragging:(UIScrollView *)scrollView;

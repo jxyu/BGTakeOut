@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FoundViewController : UIViewController
+@interface FoundViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITabBar *tabbar;
+@property (weak, nonatomic) IBOutlet UITabBarItem *itemFoundtabbar;
 
 @end

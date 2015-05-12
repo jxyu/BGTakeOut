@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BGGiftViewController : UIViewController
+@interface BGGiftViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
 
 @end

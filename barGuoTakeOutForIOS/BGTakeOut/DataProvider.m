@@ -9,91 +9,308 @@
 #import "DataProvider.h"
 #import "AFHTTPRequestOperation.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "AFURLRequestSerialization.h"
+#define KURL @"http://121.42.139.60/baguo/"
 
 
 
-@implementation DataProvider 
+@implementation DataProvider
+{
+    NSString * str;
+}
 
+#pragma mark 赋值回调
+- (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName
+{
+    CallBackObject = cbobject;
+    callBackFunctionName = selectorName;
+}
 
 #pragma mark 获取轮播图片信息
--(void)PostGetMsg:(NSString *)uri
+-(void)PostGetMsg
 {
-    NSString * str=uri;
-    NSURL * url=[NSURL URLWithString:[str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString * uri=[NSString stringWithFormat:@"%@indexAds.php",KURL];
+    NSURL * url=[NSURL URLWithString:[uri stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     NSURLRequest * request = [NSURLRequest requestWithURL:url];
     
     AFHTTPRequestOperation * httprequest=[[AFHTTPRequestOperation alloc] initWithRequest:request];
     [httprequest setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        NSString * datastr= httprequest.responseString;
-        NSData * data=httprequest.responseData;
-        
-        id dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        NSLog(@"返回数据：%@",dict);
+        _data=httprequest.responseData;
+        id dict =[NSJSONSerialization JSONObjectWithData:_data options:0 error:nil];
+        //执行回调操作
+        SEL func_selector = NSSelectorFromString(callBackFunctionName);
+        if ([CallBackObject respondsToSelector:func_selector]) {
+            NSLog(@"获取轮播图片回调成功...");
+            [CallBackObject performSelector:func_selector withObject:dict];
+        }else{
+            NSLog(@"获取轮播图片回调失败...");
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"发生错误！%@",error);
+        NSLog(@"获取轮播图片发生错误！%@",error);
     }];
-    
-    
     NSOperationQueue * queue =[[NSOperationQueue alloc] init];
     [queue addOperation:httprequest];
 }
 
 #pragma mark 获取笑话信息
 -(void)GetJoke{
-//    NSString * xiaohua=[NSString stringWithFormat:@"http://121.42.139.60/baguo/dailyjokes.php"];
-//    AFHTTPRequestOperationManager * manage=[[AFHTTPRequestOperationManager alloc] init];
-//    manage.responseSerializer=[AFHTTPResponseSerializer serializer];
-//    manage.requestSerializer=[AFHTTPRequestSerializer serializer];
-//    manage.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/html"];//可接收到的数据类型
-//    
-//    NSDictionary * prm=@{@"page":@"1",@"num":@"2"};
-//    
-//    [manage POST:xiaohua parameters:prm success:^(AFHTTPRequestOperation *operation, id responseObject) {
-////        NSDictionary * dict =responseObject;
-//        NSString * str=[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-//        NSData * data =[str dataUsingEncoding:NSUTF8StringEncoding];
-//        
-//        id dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-//        for (int i=0; i<[dict[@"data"] count]; i++) {
-//            NSLog(@"%@",dict[@"data"][i][@"content"]);
-//        }
-////        NSLog(@"Json:%@",dict[@"data"] );
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"error:%@",error);
-//    }];
-    [self initMapView];
-    [self initSearch];
+    NSString * xiaohua=[NSString stringWithFormat:@"%@dailyjokes.php",KURL];
+    NSDictionary * prm=@{@"page":@"1",@"num":@"2"};
+    [self PostRequest:xiaohua andpram:prm];
+//    NSLog(@"%@",str);
+
+
 }
 
+#pragma mark 获取礼品列表
 -(void)GetLipin{
-    NSString * xiaohua=[NSString stringWithFormat:@"http://121.42.139.60/baguo/gifts.php"];
-    [self PostGetMsg:xiaohua];
-}
-
--(void)GetLocation
-{
+    NSString * lipin=[NSString stringWithFormat:@"%@gifts.php",KURL];
+    NSDictionary * prm=@{@"page":@"1",@"num":@"2"};
+    [self PostRequest:lipin andpram:prm];
+//    NSLog(@"%@",str);
+    
     
 }
--(void)initMapView
+
+#pragma mark 获取城市列表
+-(void)GetArea:(NSString *) areaid andareatype:(NSString *)areatype
 {
-    [MAMapServices sharedServices].apiKey=APIKey;
-    _mapView=[[MAMapView alloc] init];
-    _mapView.delegate=self;
-    _mapView.showsUserLocation=YES;
+    NSString * url=[NSString stringWithFormat:@"%@getaddress.php",KURL];
+    NSDictionary * prm =@{@"areaid":areaid,@"type":areatype};
+    [self PostRequest:url andpram:prm];
+    
 }
 
--(void)initSearch
+#pragma mark 获取餐厅活动列表
+-(void)GetActivityList
 {
-    _search=[[AMapSearchAPI alloc] initWithSearchKey:APIKey Delegate:self];
+    NSString * url=[NSString stringWithFormat:@"%@getactivites.php",KURL];
+    NSDictionary * prm=@{@"page":@"1",@"num":@"2"};
+    [self PostRequest:url andpram:prm];
 }
 
-
-
--(void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
+#pragma mark 获取餐厅列表
+-(void)GetrestaurantList:(NSDictionary *)pram
 {
-    NSLog(@"userLocation: %@", userLocation.location);
-    _location = [userLocation.location copy];
+    NSString * url=[NSString stringWithFormat:@"%@server/Home/Node/api_getRestaurants",KURL];
+    NSDictionary * prm =pram;
+    [self PostRequest:url andpram:prm];
+}
+
+-(void)GetBGBangText:(NSDictionary *)pram
+{
+    NSString * url=[NSString stringWithFormat:@"%@getbaguorank.php",KURL];
+    NSDictionary * prm =pram;
+    [self PostRequest:url andpram:prm];
+}
+
+-(void)GetGiftList
+{
+    NSString * url=[NSString stringWithFormat:@"%@gifts.php",KURL];
+    NSDictionary * prm=@{@"page":@"1",@"num":@"6"};
+    [self PostRequest:url andpram:prm];
+}
+
+-(void)GetCantingCategory:(NSString *)resid
+{
+    NSString * url=[NSString stringWithFormat:@"%@getgoodscat.php",KURL];
+    NSDictionary * prm=@{@"resid":resid};
+    [self PostRequest:url andpram:prm];
+}
+
+-(void)GetGoodsinCategory:(NSString *)categoryid
+{
+    NSString * url=[NSString stringWithFormat:@"%@getgoods.php",KURL];
+    NSDictionary * prm=@{@"catid":categoryid};
+    [self PostRequest:url andpram:prm];
+}
+
+-(void)registerPerson:(NSString *)phone andPwd:(NSString *)pwd
+{
+    if (phone!=nil &&pwd!=nil) {
+        NSString * url=[NSString stringWithFormat:@"%@register.php",KURL];
+        NSDictionary * prm=@{@"phonenum":phone,@"password":pwd};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)Login:(NSString *)phone andPwd:(NSString *)pwd
+{
+    if (phone!=nil &&pwd!=nil) {
+        NSString * url=[NSString stringWithFormat:@"%@login.php",KURL];
+        NSDictionary * prm=@{@"phonenum":phone,@"password":pwd};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)UpLoadImage:(NSString *)imagePath
+{
+    if (imagePath) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Upload/uploadImage",KURL];
+        [self uploadImageWithImage:imagePath andurl:url];
+    }
+}
+
+-(void)ResetPwd:(NSString * )oldpwd andNewpwd:(NSString *)newpwd anduserid:(NSString *)userid
+{
+    if (oldpwd!=nil &&newpwd!=nil&&userid) {
+        NSString * url=[NSString stringWithFormat:@"%@resetpwd.php",KURL];
+        NSDictionary * prm=@{@"userid":userid,@"oldpwd":oldpwd,@"newpwd":newpwd};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)ChangeNickName:(NSString *)name anduserid:(NSString *)userid
+{
+    if (name && userid) {
+        NSString * url=[NSString stringWithFormat:@"%@edituserinfo.php",KURL];
+        NSDictionary * prm=@{@"userid":userid,@"nickname":name};
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)ChangeAvatar:(NSString *)avatarPath anduserid:(NSString *)userid
+{
+    if (avatarPath && userid) {
+        NSString * url=[NSString stringWithFormat:@"%@edituserinfo.php",KURL];
+        NSDictionary * prm=@{@"userid":userid,@"avatar":avatarPath};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)GetWeather:(NSString *)city
+{
+    NSString * url=[NSString stringWithFormat:@"http://apistore.baidu.com/microservice/weather?citypinyin=%@",city];
+    [self PostRequest:url andpram:nil];
+}
+-(void)GetUserInfoWithUserID:(NSString *)userid
+{
+    if (userid) {
+        NSString * url=[NSString stringWithFormat:@"%@getuserinfo.php",KURL];
+        NSDictionary * prm=@{@"userid":userid};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)SubmitTousu:(NSString *)content anduserid:(NSString *)userid
+{
+    if (userid&&content) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/User/api_lodgeComplaint",KURL];
+        NSDictionary * prm=@{@"userid":userid,@"content":content};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)SubmitOrder:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Order/api_commitOrder",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)GetCantingXiangqing:(NSString *)resid
+{
+    if (resid) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Node/getResDetail",KURL];
+        NSDictionary * prm=@{@"resid":resid};
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)GetPinglun:(NSString *)resid andpage:(NSString *)page andnumInPage:(NSString *)num andiscontaintext:(NSString *)iscontaintext
+{
+    if (resid&&page&&num) {
+        NSString * url=[NSString stringWithFormat:@"%@getcomments.php",KURL];
+        NSDictionary * prm=@{@"resid":resid,@"page":page,@"num":num,@"iscontaintext":iscontaintext};
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)GetchargeForPay:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@ping++/pay.php",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)GetOrderInfoWithOrderNum:(NSString *)ordernum
+{
+    if (ordernum) {
+        NSString * url=[NSString stringWithFormat:@"%@getorderdetail.php",KURL];
+        NSDictionary * prm=@{@"ordernum":ordernum};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)CancelOrderWithOrderNum:(NSString *)ordernum
+{
+    if (ordernum) {
+        NSString * url=[NSString stringWithFormat:@"%@cancelorder.php",KURL];
+        NSDictionary * prm=@{@"ordernum":ordernum};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
+{
+    AFHTTPRequestOperationManager * manage=[[AFHTTPRequestOperationManager alloc] init];
+    manage.responseSerializer=[AFHTTPResponseSerializer serializer];
+    manage.requestSerializer=[AFHTTPRequestSerializer serializer];
+    manage.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/html"];//可接收到的数据类型
+    NSDictionary * prm =[[NSDictionary alloc] init];
+    if (pram!=nil) {
+        prm=pram;
+    }
+    [manage POST:url parameters:prm success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //        NSDictionary * dict =responseObject;
+        NSString *str=[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSData * data =[str dataUsingEncoding:NSUTF8StringEncoding];
+    id dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
+        SEL func_selector = NSSelectorFromString(callBackFunctionName);
+        if ([CallBackObject respondsToSelector:func_selector]) {
+            NSLog(@"回调成功...");
+            [CallBackObject performSelector:func_selector withObject:dict];
+        }else{
+            NSLog(@"回调失败...");
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error:%@",error);
+    }];
+    
+}
+
+- (void)uploadImageWithImage:(NSString *)imagePath andurl:(NSString *)url
+{
+    NSData *data=[NSData dataWithContentsOfFile:imagePath];
+     NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+         [formData appendPartWithFileData:data name:@"image" fileName:@"avatar.png" mimeType:@"image/png"];
+     }];
+    
+    
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+         NSString *str=[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSData * data =[str dataUsingEncoding:NSUTF8StringEncoding];
+        id dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
+        SEL func_selector = NSSelectorFromString(callBackFunctionName);
+        if ([CallBackObject respondsToSelector:func_selector]) {
+            NSLog(@"回调成功...");
+            [CallBackObject performSelector:func_selector withObject:dict];
+        }else{
+            NSLog(@"回调失败...");
+        }
+        NSLog(@"上传完成");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"上传失败->%@", error);
+    }];
+    
+    //执行
+    NSOperationQueue * queue =[[NSOperationQueue alloc] init];
+    [queue addOperation:op];
 
 }
 

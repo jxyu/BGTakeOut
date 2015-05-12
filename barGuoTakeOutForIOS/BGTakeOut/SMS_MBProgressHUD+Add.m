@@ -15,7 +15,7 @@
     SMS_MBProgressHUD *hud = [SMS_MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.labelText = error;
     // 设置图片
-    hud.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"alert_failed_icon.png"]] autorelease];
+    hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"alert_failed_icon.png"]];
     // 再设置模式
     hud.mode = MBProgressHUDModeCustomView;
     

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JokeViewController : UIViewController
+@interface JokeViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
 
+-(void)clickLeftButton;
 @end

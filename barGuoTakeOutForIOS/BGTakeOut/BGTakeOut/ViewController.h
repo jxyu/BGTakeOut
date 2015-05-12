@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
+- (IBAction)GetImg:(UIButton *)sender;
 
+- (IBAction)GetJoke:(UIButton *)sender;
+- (IBAction)GetLiPin:(UIButton *)sender;
+- (IBAction)GetArea:(UIButton *)sender;
+- (IBAction)LoadIndex:(UIButton *)sender;
 
 @end
 

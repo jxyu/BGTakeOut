@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "DataProvider.h"
+#define appKey @"6d6636b9d200"
+#define appSecret @"04507a9ebfb819fedcb19e598d8be0f1"
 
 @interface AppDelegate ()
 
@@ -17,6 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [SMS_SDK registerApp:appKey withSecret:appSecret];
     return YES;
 }
 
@@ -42,4 +46,146 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+
+-(void)PostGetMsg
+{
+    DataProvider *dataProvider=[[DataProvider alloc] init];
+    
+    [dataProvider PostGetMsg];
+}
+
+-(void)GetJoke
+{
+    DataProvider *dataProvider=[[DataProvider alloc] init];
+    
+    [dataProvider GetJoke];
+}
+
+-(void)GetLipin
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetLipin];
+}
+-(void)GetArea:(NSString *) areaid andareatype:(NSString *)areatype
+{
+    DataProvider * dataprovider = [[DataProvider alloc] init];
+    [dataprovider GetArea:areaid andareatype:areatype];
+}
+
+-(void)GetrestaurantList:(NSDictionary *)pram
+{
+    DataProvider * dataprovider = [[DataProvider alloc] init];
+    [dataprovider GetrestaurantList:pram];
+}
+
+-(void)GetActivityList
+{
+    DataProvider * dataprovider = [[DataProvider alloc] init];
+    [dataprovider GetActivityList];
+}
+-(void)GetBGBangText:(NSDictionary *)pram
+{
+    DataProvider * dataprovider = [[DataProvider alloc] init];
+    [dataprovider GetBGBangText:pram];
+}
+
+-(void)GetGiftList
+{
+    DataProvider * dataprovider = [[DataProvider alloc] init];
+    [dataprovider GetGiftList];
+}
+
+-(void)GetCantingCategory:(NSString *)resid;
+{
+    DataProvider * dataprovider = [[DataProvider alloc] init];
+    [dataprovider GetCantingCategory:resid];
+}
+
+-(void)GetGoodsinCategory:(NSString *)categoryid
+{
+    DataProvider * dataprovider = [[DataProvider alloc] init];
+    [dataprovider GetGoodsinCategory:categoryid];
+}
+
+-(void)registerPerson:(NSString *)phone andPwd:(NSString *)pwd
+{
+    DataProvider *dataprovider=[[DataProvider alloc] init];
+    [dataprovider registerPerson:phone andPwd:pwd];
+}
+
+-(void)Login:(NSString *)phone andPwd:(NSString *)pwd
+{
+    DataProvider *dataprovider=[[DataProvider alloc] init];
+    [dataprovider Login:phone andPwd:pwd];
+}
+-(void)UpLoadImage:(NSString *)imagePath
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider UpLoadImage:imagePath];
+}
+
+-(void)ResetPwd:(NSString * )oldpwd andNewpwd:(NSString *)newpwd anduserid:(NSString *)userid
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider ResetPwd:oldpwd andNewpwd:newpwd anduserid:userid];
+}
+
+-(void)ChangeNickName:(NSString *)name anduserid:(NSString *)userid
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider ChangeNickName:name anduserid:userid];
+}
+
+-(void)GetWeather:(NSString *)city
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetWeather:city];
+}
+-(void)ChangeAvatar:(NSString *)avatarPath anduserid:(NSString *)userid
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider ChangeAvatar:avatarPath anduserid:userid];
+}
+-(void)GetUserInfoWithUserID:(NSString *)userid
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetUserInfoWithUserID:userid];
+}
+-(void)SubmitTousu:(NSString *)content anduserid:(NSString *)userid
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider SubmitTousu:content anduserid:userid];
+}
+-(void)SubmitOrder:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider SubmitOrder:prm];
+}
+
+-(void)GetCantingXiangqing:(NSString *)resid
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetCantingXiangqing:resid];
+}
+-(void)GetPinglun:(NSString *)resid andpage:(NSString *)page andnumInPage:(NSString *)num andiscontaintext:(NSString *)iscontaintext
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetPinglun:resid andpage:page andnumInPage:num andiscontaintext:iscontaintext];
+}
+-(void)GetchargeForPay:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetchargeForPay:prm];
+}
+
+-(void)GetOrderInfoWithOrderNum:(NSString *)ordernum
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetOrderInfoWithOrderNum:ordernum];
+}
+-(void)CancelOrderWithOrderNum:(NSString *)ordernum
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider CancelOrderWithOrderNum:ordernum];
+}
 @end
