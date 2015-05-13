@@ -10,6 +10,7 @@
 #import "SDCycleScrollView.h"
 #import "DataProvider.h"
 #import "CCLocationManager.h"
+#import "CommenDef.h"
 #define kSWidth self.view.bounds.size.width
 #define kSHeight self.view.bounds.size.height
 #define kJianXi 5
@@ -42,37 +43,34 @@
 //    _BaGuoBang.
     page=[[UIView alloc ] initWithFrame:CGRectMake(0, 0, kSWidth, kSHeight-49)];
     [self.view addSubview:page];
-    _mytablebar.delegate=self;
-    _mytablebar.selectedItem=_index;
     //添加top
-    UIView * top =[[UIView alloc] initWithFrame:CGRectMake(0, 0, kSWidth, 64)];
-    UIColor * bgColor = [UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    top.backgroundColor=bgColor;
-    _AutoLocation = [[UIButton alloc] initWithFrame:CGRectMake(20, (64-10)/2, kSWidth-40, 25)];
-    [_AutoLocation setTitle:@"自动定位" forState:UIControlStateNormal];
-    [_AutoLocation setImage:[UIImage imageNamed:@"ic_location"] forState:UIControlStateNormal];
-    [_AutoLocation addTarget:self action:@selector(GetLocation) forControlEvents:UIControlEventTouchUpInside];
-    [page addSubview:top];
-    [top addSubview:_AutoLocation];
-    [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
-        NSRange range=[addressString rangeOfString:@"中国"];
-        [_AutoLocation setTitle:[addressString substringFromIndex:range.length+range.location] forState:UIControlStateNormal];
-    }];
+//    UIView * top =[[UIView alloc] initWithFrame:CGRectMake(0, 0, kSWidth, 64)];
+//    UIColor * bgColor = [UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
+//    top.backgroundColor=bgColor;
+//    _AutoLocation = [[UIButton alloc] initWithFrame:CGRectMake(20, (64-10)/2, kSWidth-40, 25)];
+//    [_AutoLocation setTitle:@"自动定位" forState:UIControlStateNormal];
+//    [_AutoLocation setImage:[UIImage imageNamed:@"ic_location"] forState:UIControlStateNormal];
+//    [_AutoLocation addTarget:self action:@selector(GetLocation) forControlEvents:UIControlEventTouchUpInside];
+//    [page addSubview:top];
+//    [top addSubview:_AutoLocation];
+//    [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
+//        NSRange range=[addressString rangeOfString:@"中国"];
+//        [_AutoLocation setTitle:[addressString substringFromIndex:range.length+range.location] forState:UIControlStateNormal];
+//    }];
     
     
-    UIView * lastinarray=[page.subviews lastObject] ;
-    CGFloat y=[lastinarray frame].origin.y+lastinarray.frame.size.height;
+    //    _package=[[UIView alloc] initWithFrame:CGRectMake(0, y, kSWidth, kSHeight-y-49)];
+    //    [self.view addSubview:_package];
+    //    _Page=[[UIView alloc] initWithFrame:CGRectMake(0, y, kSWidth, kSHeight-y-49)];
 
-//    _package=[[UIView alloc] initWithFrame:CGRectMake(0, y, kSWidth, kSHeight-y-49)];
-//    [self.view addSubview:_package];
-//    _Page=[[UIView alloc] initWithFrame:CGRectMake(0, y, kSWidth, kSHeight-y-49)];
-    UIView * fillview=[[UIView alloc] initWithFrame:CGRectMake(0, y, kSWidth, 120)];
+
+    UIView * fillview=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, kSWidth, 120)];
     fillview.tag=101;
     [page addSubview:fillview];
     
     //添加我要点餐按钮
-    lastinarray=[page.subviews lastObject];
-    y=[lastinarray frame].origin.y+lastinarray.frame.size.height+kJianXi;
+    UIView *lastinarray=[page.subviews lastObject];
+    CGFloat y=[lastinarray frame].origin.y+lastinarray.frame.size.height+kJianXi;
     UIButton * WaiMai= [[UIButton alloc] initWithFrame:CGRectMake(0, y, kSWidth, 100)];
     [WaiMai setImage:[UIImage imageNamed:@"WaiMai.jpg"] forState:UIControlStateNormal];
     [WaiMai addTarget:self action:@selector(DoMyWaiMai) forControlEvents:UIControlEventTouchUpInside];
@@ -195,51 +193,6 @@
     self.myJoke=[[JokeViewController alloc] initWithNibName:@"JokeViewController" bundle:[NSBundle mainBundle]];
     UIView * item =_myJoke.view;
     [self.view addSubview:item];
-}
-
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
-{
-    NSLog(@"%ld",item.tag);
-    switch (item.tag) {
-        case 1:
-        {
-            _mytablebar.selectedItem=_index;
-            if (self.myBGBang) {
-                [_myBGBang.view removeFromSuperview];
-            }
-            if (self.myFound) {
-                [_myFound.view removeFromSuperview];
-            }
-            if (self.myMine) {
-                [_myMine.view removeFromSuperview];
-            }
-        }
-            break;
-        case 2:
-        {
-            self.myBGBang=[[BGBangViewController alloc] initWithNibName:@"BGBangViewController" bundle:[NSBundle mainBundle]];
-            UIView * item =_myBGBang.view;
-            [page addSubview:item];
-            
-        }
-            break;
-        case 3:
-        {
-            self.myFound=[[FoundViewController alloc] initWithNibName:@"FoundViewController" bundle:[NSBundle mainBundle]];
-            UIView * item=_myFound.view;
-            [page addSubview:item];
-        }
-            break;
-        case 4:
-        {
-            self.myMine=[[MineViewController alloc] initWithNibName:@"MineViewController" bundle:[NSBundle mainBundle]];
-            UIView * item=_myMine.view;
-            [page addSubview:item];
-        }
-            break;
-        default:
-            break;
-    }
 }
 
 -(void)MoreGift

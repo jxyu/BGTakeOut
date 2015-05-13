@@ -10,10 +10,9 @@
 #import "LoginViewController.h"
 #import "UserInfoViewController.h"
 #import "OtherOfMineViewController.h"
+#import "BaseNavigationController.h"
 
-@interface MineViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UITabBar *tabbar;
-@property (weak, nonatomic) IBOutlet UITabBarItem *minetabbaritem;
+@interface MineViewController : BaseNavigationController <UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)OtherOfMineViewController * myOther;
 

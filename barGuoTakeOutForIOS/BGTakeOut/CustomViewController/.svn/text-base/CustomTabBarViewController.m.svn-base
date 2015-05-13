@@ -1,0 +1,279 @@
+//
+//  CustomTabBarViewController.m
+//  Blinq
+//
+//  Created by Sugar on 13-8-12.
+//  Copyright (c) 2013年 Sugar Hou. All rights reserved.
+//
+
+#import "CustomTabBarViewController.h"
+#import "CommenDef.h"
+#import "Toolkit.h"
+#import "LuckSearchViewController.h"
+#import "CityDateViewController.h"
+#import "SingleRecViewController.h"
+#import "MessageViewController.h"
+#import "UserInforViewController.h"
+#import "RecentChatViewController.h"
+
+
+#import "UIImage+NSBundle.h"
+
+#import "FriendsDb.h"
+#define tabBarButtonNum 5
+
+@interface CustomTabBarViewController ()
+{
+    NSArray *_arrayImages;
+    UIButton *_btnSelected;
+    UIView *_tabBarBG;
+}
+@end
+
+@implementation CustomTabBarViewController
+@synthesize scroll,page;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    //    NSLog(@" scrollViewDidScroll");
+//    int index = fabs(scrollView.contentOffset.x) /scrollView.frame.size.width;
+//    page.currentPage = index;
+//    //NSLog(@"ContentOffset  x is  %f,yis %f",scrollView.contentOffset.x,scrollView.contentOffset.y);
+//}
+
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    //隐藏系统tabbar
+    self.tabBar.hidden = YES;
+    self.hidesBottomBarWhenPushed = YES;
+     NSArray *arrayImages_H = [[NSArray alloc] initWithObjects:@"search_H@2x.png",@"date_H@2x.png" ,@"rec_H@2x.png" ,@"message_H@2x.png",@"user_H@2x.png", nil];
+ 	NSArray *arrayImages = [[NSArray alloc] initWithObjects:@"search@2x.png",@"date@2x.png" ,@"rec@2x.png" ,@"message@2x.png",@"user@2x.png",  nil];
+    NSArray *arrayTitle=[[NSArray alloc]initWithObjects:@"缘分搜索",@"同城约会",@"单身推荐",@"消息",@"我", nil];
+    _tabBarBG = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - TabBar_HEIGHT, SCREEN_WIDTH, TabBar_HEIGHT)];
+    _tabBarBG.backgroundColor = [UIColor darkGrayColor];
+    
+    [self.view addSubview:_tabBarBG];
+     
+    //自定义tabbar的按钮和图片
+	
+    int tabBarWitdh = SCREEN_WIDTH * 1.0f / tabBarButtonNum;
+	for(int i = 0; i < tabBarButtonNum; i++)
+	{
+		CGRect frame=CGRectMake(i * tabBarWitdh, 0, tabBarWitdh, 40);
+    
+		UIButton * btnTabBar = [[UIButton alloc] initWithFrame:frame];
+		 [btnTabBar setImage: [UIImage imageWithBundleName:[arrayImages objectAtIndex:i]] forState:UIControlStateNormal];
+         [btnTabBar setImage:[UIImage imageWithBundleName:[arrayImages_H objectAtIndex:i]]forState:UIControlStateSelected] ;
+//        btnTabBar.titleLabel.font=[UIFont systemFontOfSize:8.0];
+//        btnTabBar.titleLabel.textAlignment=NSTextAlignmentCenter;
+//         [btnTabBar setTitle:[arrayTitle objectAtIndex:i] forState:UIControlStateNormal];
+//         [btnTabBar setTitleEdgeInsets:UIEdgeInsetsMake(30, -30, 0, 0)];
+//         [btnTabBar setImageEdgeInsets:UIEdgeInsetsMake(-10, 15, 0, 0)];
+		btnTabBar.tag = i + 1000;
+		[btnTabBar addTarget:self action:@selector(onTabButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+		[_tabBarBG addSubview:btnTabBar];
+        
+        
+        UILabel *lbl_title = [[UILabel alloc] initWithFrame:CGRectMake(btnTabBar.frame.origin.x, 37, btnTabBar.frame.size.width, 9)];
+        lbl_title.text =[arrayTitle objectAtIndex:i];
+        lbl_title.textAlignment=NSTextAlignmentCenter;
+        lbl_title.numberOfLines = 0;
+        lbl_title.font = [UIFont systemFontOfSize:8];
+        lbl_title.textColor = [UIColor whiteColor];
+        lbl_title.backgroundColor = [UIColor clearColor];
+        [_tabBarBG addSubview:lbl_title];
+        
+        if(i==3)
+        {
+            
+            jsbChat = [[JSBadgeView alloc] initWithParentView:btnTabBar alignment:JSBadgeViewAlignmentInTopRight];
+            
+        }
+        else if (i==4)
+        {
+            jsbwhoviewme = [[JSBadgeView alloc] initWithParentView:btnTabBar alignment:JSBadgeViewAlignmentInTopRight];
+        }
+        
+        
+        
+	}
+    
+    //缘分搜索
+   
+    LuckSearchViewController *LuckSearchView=[[LuckSearchViewController alloc]init];
+    if ([Toolkit isSystemIOS7]||[Toolkit isSystemIOS8])
+        LuckSearchView.automaticallyAdjustsScrollViewInsets = NO;
+    UINavigationController * LuckSearchViewnav=[[UINavigationController alloc]initWithRootViewController:LuckSearchView];
+//    homePageNavigation.automaticallyAdjustsScrollViewInsets = YES;
+    LuckSearchView.hidesBottomBarWhenPushed = YES;
+    LuckSearchViewnav.navigationBar.hidden=YES;
+    //同城约会
+    CityDateViewController *CityDateView=[[CityDateViewController alloc]init];
+    UINavigationController *CityDateViewnav = [[UINavigationController alloc] initWithRootViewController:CityDateView];
+    CityDateView.hidesBottomBarWhenPushed=YES;
+    CityDateViewnav.navigationBar.hidden=YES;
+    //单身推荐
+    SingleRecViewController *SingleRecView=[[SingleRecViewController alloc]init];
+    UINavigationController *SingleRecViewnav = [[UINavigationController alloc] initWithRootViewController:SingleRecView];
+    SingleRecView.hidesBottomBarWhenPushed = YES;
+    SingleRecViewnav.navigationBarHidden=YES;
+    //消息
+    
+    RecentChatViewController *mychat=[[RecentChatViewController alloc]init];
+    UINavigationController *mychatnav = [[UINavigationController alloc] initWithRootViewController:mychat];
+    mychat.hidesBottomBarWhenPushed=YES;
+    mychatnav.navigationBar.hidden=YES;
+//    MessageViewController *MessageView=[[MessageViewController alloc]init];
+//    UINavigationController *MessageViewnav=[[UINavigationController alloc]initWithRootViewController:MessageView];
+//    MessageView.hidesBottomBarWhenPushed = YES;
+//    MessageViewnav.navigationBarHidden=YES;
+    //我的信息
+    UserInforViewController *UserInforView=[[UserInforViewController alloc]init];
+    UINavigationController *UserInforViewnav=[[UINavigationController alloc]initWithRootViewController:UserInforView];
+    UserInforView.hidesBottomBarWhenPushed = YES;
+    UserInforViewnav.navigationBarHidden=YES;
+    //加入到真正的tabbar
+    self.viewControllers=[NSArray arrayWithObjects:LuckSearchViewnav,CityDateViewnav,SingleRecViewnav,mychatnav,UserInforViewnav,nil];
+    
+    UIButton *btnSender = (UIButton *)[self.view viewWithTag:0 + 1000];
+    [self onTabButtonPressed:btnSender];
+    
+    [XMPPServer sharedServer].unReadMessageDelegate = self;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeTabbarUnreadMessage) name:@"changetabbarunreadmessage" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeTabbarUnreadwhoViewme) name:@"wholooksme" object:nil];
+    [UIApplication sharedApplication].applicationIconBadgeNumber=[FriendsDb getAllFriendsUnreadNum];
+    [self changeTabbarUnreadMessage];
+    [self changeTabbarUnreadwhoViewme];
+}
+
+-(void)changeTabbarUnreadwhoViewme
+{
+    jsbwhoviewme.badgeText=@"";
+    
+    int unReadviewers;
+    unReadviewers=[FriendsDb getFriendsUnreadNum:@"whoviewdme"];
+    if (unReadviewers>0) {
+        jsbwhoviewme.badgeText = [NSString stringWithFormat:@"%d",unReadviewers];
+    }
+}
+
+-(void)changeTabbarUnreadMessage
+{
+    
+    jsbChat.badgeText=@"";
+    
+    int num;
+    
+    //2. 未读聊天信息 + 未读好友信息
+    
+    num = [FriendsDb getAllFriendsUnreadNum];
+    
+    if(num>0)
+    {
+        
+        jsbChat.badgeText = [NSString stringWithFormat:@"%d",num];
+        
+    }
+      [UIApplication sharedApplication].applicationIconBadgeNumber=num;
+    
+}
+
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//    [self newMessageReceived:nil];
+//}
+-(void)newMessageReceived:(NSDictionary *)messageCotent{
+    
+    
+    //获取未读消息数量，填写到 下面的 按钮上面
+    //1. 未读任务聊天信息
+    
+    jsbChat.badgeText=@"";
+    
+    int unReadchatnum;
+    
+    //2. 未读聊天信息 + 未读好友信息
+    unReadchatnum = [FriendsDb getAllFriendsUnreadNum];
+     
+    if(unReadchatnum>0)
+    {
+        
+        jsbChat.badgeText = [NSString stringWithFormat:@"%d",unReadchatnum];
+        
+    }
+    
+    int unReadviewers;
+    unReadviewers=[FriendsDb getFriendsUnreadNum:@"whoviewdme"];
+    if (unReadviewers>0) {
+        jsbwhoviewme.badgeText = [NSString stringWithFormat:@"%d",unReadviewers];
+    }
+    
+    
+}
+
+
+
+//点击tab页时的响应
+-(void)onTabButtonPressed:(UIButton *)sender
+{
+    
+    
+    
+    if (_btnSelected == sender)
+        return ;
+    
+    if (_btnSelected)
+        _btnSelected.selected = !_btnSelected.selected;
+    
+    sender.selected = !sender.selected;
+    _btnSelected = sender;
+    [self setSelectedIndex:sender.tag - 1000];
+}
+
+- (void)selectTableBarIndex:(NSInteger)index
+{
+    if (index < 0 || index > 5)
+        return ;
+    UIButton *btnSender = (UIButton *)[self.view viewWithTag:index + 1000];
+    [self onTabButtonPressed:btnSender];
+}
+
+//隐藏tabbar
+- (void)hideCustomTabBar
+{
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.3];
+	_tabBarBG.frame=CGRectMake(0, SCREEN_HEIGHT, 320, _tabBarBG.frame.size.height);
+	[UIView commitAnimations];
+	
+}
+//显示tabbar
+-(void)showTabBar
+{
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.3];
+	_tabBarBG.frame=CGRectMake(0, SCREEN_HEIGHT - TabBar_HEIGHT, SCREEN_WIDTH, _tabBarBG.frame.size.height);
+	[UIView commitAnimations];
+}
+
+- (void)goToHomePage
+{
+    [self setSelectedIndex:0];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+@end

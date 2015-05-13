@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import <SMS_SDK/SMS_SDK.h>
+#import "CustomTabBarViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+{
+    CustomTabBarViewController *_tabBarViewCol;
+}
 
+- (void)showTabBar;
+- (void)hiddenTabBar;
+-(CustomTabBarViewController *)getTabBar;
 @property (strong, nonatomic) UIWindow *window;
 
 

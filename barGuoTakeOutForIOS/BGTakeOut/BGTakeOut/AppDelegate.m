@@ -21,6 +21,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [SMS_SDK registerApp:appKey withSecret:appSecret];
+    _tabBarViewCol = [[CustomTabBarViewController alloc] init];
+    self.window.rootViewController=_tabBarViewCol;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
@@ -44,6 +47,25 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(void)changeRootView
+{
+    self.window.rootViewController=_tabBarViewCol;
+}
+
+
+- (void)showTabBar
+{
+    [_tabBarViewCol showTabBar];
+}
+- (void)hiddenTabBar
+{
+    [_tabBarViewCol hideCustomTabBar];
+}
+-(CustomTabBarViewController *)getTabBar
+{
+    return _tabBarViewCol;
 }
 
 
@@ -187,5 +209,16 @@
 {
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider CancelOrderWithOrderNum:ordernum];
+}
+
+-(void)GetUserAddressListWithPage:(NSString *)page andnum:(NSString *)num anduserid:(NSString *)userid andisgetdefault:(NSString *)isgetdefault
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetUserAddressListWithPage:page andnum:num anduserid:userid andisgetdefault:isgetdefault];
+}
+-(void)saveAddress:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider saveAddress:prm];
 }
 @end

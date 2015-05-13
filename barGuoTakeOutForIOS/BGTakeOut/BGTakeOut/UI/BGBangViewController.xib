@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BGBangViewController">
             <connections>
-                <outlet property="BGBang" destination="pxn-ZZ-wG6" id="Cvd-C9-vNI"/>
-                <outlet property="Find" destination="fEp-LM-7IG" id="i45-PX-JY3"/>
-                <outlet property="Mine" destination="fCs-ZE-u8b" id="chf-3b-Pew"/>
-                <outlet property="index" destination="abX-mC-hYK" id="esx-mE-ySJ"/>
-                <outlet property="mytableBar" destination="CDW-tl-M0P" id="pRk-0E-M2S"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,27 +14,8 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <tabBar contentMode="scaleToFill" fixedFrame="YES" itemPositioning="centered" translatesAutoresizingMaskIntoConstraints="NO" id="CDW-tl-M0P">
-                    <rect key="frame" x="0.0" y="519" width="320" height="49"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <items>
-                        <tabBarItem tag="1" title="首页" image="index_10.png" id="abX-mC-hYK"/>
-                        <tabBarItem tag="2" title="巴国榜" image="index_12.png" id="pxn-ZZ-wG6"/>
-                        <tabBarItem tag="3" title="发现" image="index_14.png" id="fEp-LM-7IG"/>
-                        <tabBarItem tag="4" title="我的" image="index_16.png" id="fCs-ZE-u8b"/>
-                    </items>
-                    <color key="tintColor" red="0.85882352939999995" green="0.31550755110000001" blue="0.18509048419999999" alpha="1" colorSpace="calibratedRGB"/>
-                </tabBar>
-            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
-    <resources>
-        <image name="index_10.png" width="42" height="40"/>
-        <image name="index_12.png" width="42" height="40"/>
-        <image name="index_14.png" width="42" height="40"/>
-        <image name="index_16.png" width="42" height="40"/>
-    </resources>
 </document>

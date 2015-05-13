@@ -10,6 +10,7 @@
 #import "MineTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "DataProvider.h"
+#import "CommenDef.h"
 
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
@@ -33,13 +34,16 @@
     UIView * BackGroundOfLogin;
     UIImageView * touxiang;
     id UserInfoData;
+    NSDictionary * userinfoWithFile;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    _tabbar.selectedItem=_minetabbaritem;
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+    userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
     imageArray1=[[NSArray alloc]initWithObjects:@"gw.png",@"gsjj.png",@"tscl.png",nil];
     imageArray2=[[NSArray alloc]initWithObjects:@"cp.png", @"zsjm.png",nil];
     imageArray3=[[NSArray alloc]initWithObjects:@"set.png",nil];
@@ -47,52 +51,93 @@
     nameArray1=[[NSArray alloc]initWithObjects:@"官网",@"公司简介",@"投诉处理",nil];
     nameArray2=[[NSArray alloc]initWithObjects:@"诚聘", @"招商加盟",nil];
     nameArray3=[[NSArray alloc]initWithObjects:@"设置",nil];
-    //添加导航栏
-    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, 64)];
-    navigationBar.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    navigationBar.translucent=YES;
-    _mynavigationItem = [[UINavigationItem alloc] initWithTitle:@"自动定位"];
-    [navigationBar pushNavigationItem:_mynavigationItem animated:NO];
-    [self.view addSubview:navigationBar];
     
-    UIView * lastview=[[self.view subviews] lastObject];
-    BackGroundOfLogin=[[UIView alloc] initWithFrame:CGRectMake(0, lastview.frame.size.height, KWidth, 80)];
-    UIImageView * backImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KWidth, 80)];
-    backImageView.image=[UIImage imageNamed:@"MineBackImage.png"];
-    [BackGroundOfLogin addSubview:backImageView];
-    UIButton * login_btn=[[UIButton alloc] initWithFrame:CGRectMake((KWidth-100)/2, (70-30)/2, 100, 30)];
-    [login_btn setBackgroundColor:[UIColor whiteColor]];
-    [login_btn setTitle:@"登录／注册" forState:UIControlStateNormal];
-    [login_btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [login_btn addTarget:self action:@selector(Login) forControlEvents:UIControlEventTouchUpInside];
-    login_btn.layer.cornerRadius=12.5;
-    [BackGroundOfLogin addSubview:login_btn];
-    [self.view addSubview:BackGroundOfLogin];
+    if (!userinfoWithFile) {
+        UIView * lastview=[[self.view subviews] lastObject];
+        BackGroundOfLogin=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 80)];
+        UIImageView * backImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KWidth, 80)];
+        backImageView.image=[UIImage imageNamed:@"MineBackImage.png"];
+        [BackGroundOfLogin addSubview:backImageView];
+        UIButton * login_btn=[[UIButton alloc] initWithFrame:CGRectMake((KWidth-100)/2, (70-30)/2, 100, 30)];
+        [login_btn setBackgroundColor:[UIColor whiteColor]];
+        [login_btn setTitle:@"登录／注册" forState:UIControlStateNormal];
+        [login_btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [login_btn addTarget:self action:@selector(Login) forControlEvents:UIControlEventTouchUpInside];
+        login_btn.layer.cornerRadius=12.5;
+        [BackGroundOfLogin addSubview:login_btn];
+        [self.view addSubview:BackGroundOfLogin];
+        
+    }
+    else
+    {
+        UserInfoData=userinfoWithFile;
+        UIView * lastview=[[self.view subviews] lastObject];
+        UIView * UserBackGroundView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 80)];
+        UIImageView * backImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KWidth, 80)];
+        backImageView.image=[UIImage imageNamed:@"MineBackImage.png"];
+        [UserBackGroundView addSubview:backImageView];
+        touxiang =[[UIImageView alloc] initWithFrame:CGRectMake(10, (UserBackGroundView.frame.size.height-50)/2, 50, 50)];
+        [touxiang setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,userinfoWithFile[@"avatar"]]]]]];
+        touxiang.layer.masksToBounds=YES;
+        touxiang.layer.cornerRadius=25;
+        [UserBackGroundView addSubview:touxiang];
+        
+        UILabel * username=[[UILabel alloc] initWithFrame:CGRectMake(touxiang.frame.size.width+20, touxiang.frame.origin.y, 150, 25)];
+        NSMutableString *String1 = [[NSMutableString alloc] initWithString:userinfoWithFile[@"username"]];
+        if (String1.length>10) {
+            [String1 replaceCharactersInRange:NSMakeRange(3,4) withString:@"****"];
+            username.text=String1;
+        }
+        [username setTextColor:[UIColor whiteColor]];
+        [UserBackGroundView addSubview:username];
+        
+        
+        UILabel * tishi=[[UILabel alloc] initWithFrame:CGRectMake(touxiang.frame.size.width+20, touxiang.frame.origin.y+25, 180, 25)];
+        tishi.text=@"完成购买才能获得巴国币哦";
+        [tishi setTextColor:[UIColor whiteColor]];
+        [UserBackGroundView addSubview:tishi];
+        
+        UIImageView * goImage=[[UIImageView alloc] initWithFrame:CGRectMake(KWidth-10-20, (UserBackGroundView.frame.size.height-25)/2, 20, 25)];
+        goImage.image=[UIImage imageNamed:@"go.png"];
+        [UserBackGroundView addSubview:goImage];
+        
+        
+        UIButton * mybtn=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, KWidth, 80)];
+        [mybtn addTarget:self action:@selector(myBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [UserBackGroundView addSubview:mybtn];
+        [self.view addSubview:UserBackGroundView];
+        [BackGroundOfLogin removeFromSuperview];
+        [_myLogin.view removeFromSuperview];
+
+        
+        lastview =[[self.view subviews] lastObject];
+        CGFloat y=lastview.frame.size.height+lastview.frame.origin.y;
+        UIButton * BGB =[[UIButton alloc] initWithFrame:CGRectMake(0,y , KWidth/3, 80)];
+        [BGB setImage:[UIImage imageNamed:@"BGB.png"] forState:UIControlStateNormal];
+        [self.view addSubview:BGB];
+        
+        lastview =[[self.view subviews] lastObject];
+        CGFloat x=lastview.frame.size.width;
+        UIButton *  DD_btn=[[UIButton alloc] initWithFrame:CGRectMake(x,y , KWidth/3, 80)];
+        [DD_btn setImage:[UIImage imageNamed:@"DingDan.png"] forState:UIControlStateNormal];
+        [self.view addSubview:DD_btn];
+        
+        lastview =[[self.view subviews] lastObject];
+        x=lastview.frame.size.width+lastview.frame.origin.x;
+        UIButton *  SC_btn=[[UIButton alloc] initWithFrame:CGRectMake(x,y , KWidth/3, 80)];
+        [SC_btn setImage:[UIImage imageNamed:@"SC.png"] forState:UIControlStateNormal];
+        [self.view addSubview:SC_btn];
+        
+        lastview =[[self.view subviews] lastObject];
+        y=lastview.frame.origin.y+lastview.frame.size.height;
+        UITableView * MineTableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, KWidth, KHeight-49-y) style:UITableViewStyleGrouped];
+        MineTableView.delegate=self;
+        MineTableView.dataSource=self;
+        [self.view addSubview:MineTableView];
+    }
     
-    lastview =[[self.view subviews] lastObject];
-    CGFloat y=lastview.frame.size.height+lastview.frame.origin.y;
-    UIButton * BGB =[[UIButton alloc] initWithFrame:CGRectMake(0,y , KWidth/3, 80)];
-    [BGB setImage:[UIImage imageNamed:@"BGB.png"] forState:UIControlStateNormal];
-    [self.view addSubview:BGB];
     
-    lastview =[[self.view subviews] lastObject];
-    CGFloat x=lastview.frame.size.width;
-    UIButton *  DD_btn=[[UIButton alloc] initWithFrame:CGRectMake(x,y , KWidth/3, 80)];
-    [DD_btn setImage:[UIImage imageNamed:@"DingDan.png"] forState:UIControlStateNormal];
-    [self.view addSubview:DD_btn];
     
-    lastview =[[self.view subviews] lastObject];
-    x=lastview.frame.size.width+lastview.frame.origin.x;
-    UIButton *  SC_btn=[[UIButton alloc] initWithFrame:CGRectMake(x,y , KWidth/3, 80)];
-    [SC_btn setImage:[UIImage imageNamed:@"SC.png"] forState:UIControlStateNormal];
-    [self.view addSubview:SC_btn];
-    
-    lastview =[[self.view subviews] lastObject];
-    y=lastview.frame.origin.y+lastview.frame.size.height;
-    UITableView * MineTableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, KWidth, KHeight-49-y) style:UITableViewStyleGrouped];
-    MineTableView.delegate=self;
-    MineTableView.dataSource=self;
-    [self.view addSubview:MineTableView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -228,7 +273,7 @@
 -(void)CallBackFuc:(id)dict
 {
     NSLog(@"回调成功啊啊啊%@",dict);
-    UserInfoData=dict;
+    UserInfoData=dict[@"data"];
     UIView * UserBackGroundView=[[UIView alloc] init];
     UserBackGroundView.frame=BackGroundOfLogin.frame;
     UIImageView * backImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KWidth, 80)];
@@ -281,12 +326,12 @@
 {
     DataProvider *dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetUserInfo:"];
-    [dataprovider GetUserInfoWithUserID:UserInfoData[@"data"][@"userid"]];
+    [dataprovider GetUserInfoWithUserID:UserInfoData[@"userid"]];
 }
 -(void)GetUserInfo:(id)dict
 {
     if (dict) {
-         UserInfoData=dict;
+         UserInfoData=dict[@"data"];
     }
     [touxiang setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,dict[@"data"][@"avatar"]]]]]];
     NSLog(@"%@getuserinfo",dict);
