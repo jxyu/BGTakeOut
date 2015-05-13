@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNavigationController.h"
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : BaseNavigationController
 {
     id CallBackObject;
     NSString * callBackFunctionName;

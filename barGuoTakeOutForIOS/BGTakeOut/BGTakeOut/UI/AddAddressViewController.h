@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNavigationController.h"
 
-@interface AddAddressViewController : UIViewController
+@interface AddAddressViewController : BaseNavigationController
 @property(nonatomic,strong)NSString * userid;
 
 @end

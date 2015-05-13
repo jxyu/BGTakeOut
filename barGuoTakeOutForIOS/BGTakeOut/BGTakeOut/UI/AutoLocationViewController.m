@@ -9,6 +9,8 @@
 #import "AutoLocationViewController.h"
 #import "CCLocationManager.h"
 #import "DataProvider.h"
+#import "CommenDef.h"
+#import "AppDelegate.h"
 
 #define kSWidth self.view.bounds.size.width
 #define kSHeight self.view.bounds.size.height
@@ -38,23 +40,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     //添加导航栏
-    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, 64)];
-    navigationBar.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    navigationBar.translucent=YES;
-    _mynavigationItem = [[UINavigationItem alloc] initWithTitle:@"自动定位"];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Image-2"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(clickLeftButton)];
-    [navigationBar pushNavigationItem:_mynavigationItem animated:NO];
-    [_mynavigationItem setLeftBarButtonItem:leftButton];
-    [self.view addSubview:navigationBar];
+    [self addLeftButton:@"ic_actionbar_back.png"];
     
 #pragma mark 添加手动切换按钮
     UIView * lastObject=[self.view.subviews lastObject];
     CGFloat y=lastObject.frame.size.height;
     CGFloat h=60*kSHeight/568;
-    _selectArea=[[UIButton alloc] initWithFrame:CGRectMake(0, y, kSWidth, h)];
+    _selectArea=[[UIButton alloc] initWithFrame:CGRectMake(0,NavigationBar_HEIGHT+20 , kSWidth, h)];
     _selectArea.backgroundColor=[UIColor whiteColor];
     _selectArea.contentHorizontalAlignment=UIControlContentHorizontalAlignmentLeft ;
     [_selectArea setTitle:@"    手动切换省 市 区 街道" forState:UIControlStateNormal];
@@ -115,16 +107,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
-*/
-
 #pragma mark 自动定位
 -(void)AutoGetLocation
 {

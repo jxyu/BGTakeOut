@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "AddAddressViewController.h"
+#import "BaseNavigationController.h"
 
-@interface UserInfoViewController : UIViewController
+@interface UserInfoViewController : BaseNavigationController
 {
     id CallBackObject;
     NSString * callBackFunctionName;

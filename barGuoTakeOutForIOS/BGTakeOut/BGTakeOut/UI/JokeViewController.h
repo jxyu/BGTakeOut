@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNavigationController.h"
 
-@interface JokeViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
+@interface JokeViewController : BaseNavigationController <UITableViewDelegate,UITableViewDataSource>
 
 -(void)clickLeftButton;
 @end

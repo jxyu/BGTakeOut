@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNavigationController.h"
 
-@interface AutoLocationViewController : UIViewController
+@interface AutoLocationViewController : BaseNavigationController
 
 -(void)clickLeftButton;
 

@@ -10,12 +10,12 @@
 #import "ShoppingCarModel.h"
 #import "DataProvider.h"
 #import "Pingpp.h"
+#import "CommenDef.h"
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 
 
 @interface OrderForSureViewController ()
-@property(nonatomic,strong)UINavigationItem *mynavigationItem;
 @property(nonatomic,strong)RefreshHeaderAndFooterView * refreshHeaderAndFooterView;
 @property(nonatomic,assign)BOOL reloading;
 @end
@@ -23,7 +23,6 @@
 @implementation OrderForSureViewController
 {
     NSDictionary *OrderInfo;
-    UINavigationBar *navigationBar;
     UIView * myPage;
     UITextField *txt_phoneNum;
     UITextField *txt_address;
@@ -52,22 +51,10 @@
     // Do any additional setup after loading the view from its nib.
     PayOnLineForChange=YES;
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-    navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, 64)];
-    navigationBar.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    navigationBar.translucent=YES;
-    _mynavigationItem = [[UINavigationItem alloc] initWithTitle:@"确认订单"];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Image-2"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(BackBtnClick)];
-    UIBarButtonItem * rightButton=[[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(RightButtonClick)];
+    [self setBarTitle:@"订单确认"];
+    [self addLeftButton:@"ic_actionbar_back.png"];
     
-    [navigationBar pushNavigationItem:_mynavigationItem animated:NO];
-    [_mynavigationItem setLeftBarButtonItem:leftButton];
-    [_mynavigationItem setRightBarButtonItem:rightButton];
-    [self.view addSubview:navigationBar];
-    
-    myPage=[[UIView alloc]initWithFrame:CGRectMake(0, navigationBar.frame.size.height+1, KWidth, KHeight-navigationBar.frame.size.height)];
+    myPage=[[UIView alloc]initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+21, KWidth, KHeight-NavigationBar_HEIGHT-20)];
     myPage.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self.view addSubview:myPage];
     
@@ -424,7 +411,7 @@
             cansalOrder.layer.borderWidth=1.0;
             [cansalOrder addTarget:self action:@selector(CancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
             
-            OrderAfterPay =[[UIView alloc] initWithFrame:CGRectMake(0, navigationBar.frame.size.height, KWidth, 800)];
+            OrderAfterPay =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 800)];
             OrderAfterPay.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
             [OrderAfterPay addSubview:BackView_OrderTitle];
             UIView * BackView_img_status=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_OrderTitle.frame.origin.y+BackView_OrderTitle.frame.size.height+5, KWidth, 60)];
@@ -511,7 +498,7 @@
     
     
     
-    OrderAfterPay =[[UIView alloc] initWithFrame:CGRectMake(0, navigationBar.frame.size.height, KWidth, 800)];
+    OrderAfterPay =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 800)];
     OrderAfterPay.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [OrderAfterPay addSubview:BackView_OrderTitle];
     UIView * BackView_img_status=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_OrderTitle.frame.origin.y+BackView_OrderTitle.frame.size.height+5, KWidth, 60)];
@@ -671,7 +658,6 @@
     [scrollView_AfterPay setContentSize:CGSizeMake(KWidth, OrderAfterPay.frame.size.height)];
     [scrollView_AfterPay addSubview:OrderAfterPay];
     [self.view addSubview:scrollView_AfterPay];
-    [self.view addSubview:navigationBar];
     
     
     
@@ -761,6 +747,10 @@
         }
         }];
     }
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
 @end

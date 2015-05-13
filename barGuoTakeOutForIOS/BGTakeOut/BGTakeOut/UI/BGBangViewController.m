@@ -11,6 +11,7 @@
 #import "DataProvider.h"
 #import "CommenDef.h"
 #import "BGBangTableViewCell.h"
+#import "AppDelegate.h"
 
 
 #define KWidth self.view.frame.size.width
@@ -96,6 +97,11 @@
 
     [self MakePramAndGetData:@"1" andNum:@"2" andSort:@"1" andOneid:@"1" andTwoid:@"2" andThreeid:@"9"];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
 }
 
 - (void)didReceiveMemoryWarning {

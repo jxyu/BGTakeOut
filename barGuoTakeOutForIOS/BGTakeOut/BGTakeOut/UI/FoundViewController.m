@@ -9,6 +9,7 @@
 #import "FoundViewController.h"
 #import "FoundTableViewCell.h"
 #import "DataProvider.h"
+#import "AppDelegate.h"
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 
@@ -232,5 +233,9 @@
     weather.text=dict[@"retData"][@"weather"];
     [v_city addSubview:weather];
     [Weather addSubview:v_city];
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
 }
 @end
