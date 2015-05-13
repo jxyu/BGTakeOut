@@ -42,6 +42,7 @@
 		803D49151AFDB8760099138A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49141AFDB8760099138A /* Security.framework */; };
 		803D49171AFDB8A90099138A /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49161AFDB8A90099138A /* libc++.dylib */; };
 		803D49191AFDB8CF0099138A /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49181AFDB8CF0099138A /* libsqlite3.0.dylib */; };
+		803D593F1B03238A00EF17D3 /* OrderInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 803D593E1B03238A00EF17D3 /* OrderInfoViewController.m */; };
 		804784FF1AF99A15001B451E /* baidu.png in Resources */ = {isa = PBXBuildFile; fileRef = 804784EB1AF99A15001B451E /* baidu.png */; };
 		804785001AF99A15001B451E /* caipiao.png in Resources */ = {isa = PBXBuildFile; fileRef = 804784EC1AF99A15001B451E /* caipiao.png */; };
 		804785011AF99A15001B451E /* EBook.png in Resources */ = {isa = PBXBuildFile; fileRef = 804784ED1AF99A15001B451E /* EBook.png */; };
@@ -282,6 +283,8 @@
 		803D49141AFDB8760099138A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		803D49161AFDB8A90099138A /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		803D49181AFDB8CF0099138A /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		803D593D1B03238A00EF17D3 /* OrderInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderInfoViewController.h; sourceTree = "<group>"; };
+		803D593E1B03238A00EF17D3 /* OrderInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderInfoViewController.m; sourceTree = "<group>"; };
 		804784EB1AF99A15001B451E /* baidu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = baidu.png; sourceTree = "<group>"; };
 		804784EC1AF99A15001B451E /* caipiao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = caipiao.png; sourceTree = "<group>"; };
 		804784ED1AF99A15001B451E /* EBook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EBook.png; sourceTree = "<group>"; };
@@ -966,6 +969,8 @@
 				804E96B81B01EAC800803F5C /* AddAddressViewController.h */,
 				804E96B91B01EAC800803F5C /* AddAddressViewController.m */,
 				804E96BA1B01EAC800803F5C /* AddAddressViewController.xib */,
+				803D593D1B03238A00EF17D3 /* OrderInfoViewController.h */,
+				803D593E1B03238A00EF17D3 /* OrderInfoViewController.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1343,6 +1348,7 @@
 				806383F91AF0BE6500AF9866 /* UIView+WebCacheOperation.m in Sources */,
 				806383F31AF0BE6500AF9866 /* UIButton+WebCache.m in Sources */,
 				808995F51AE0DE520059038D /* NSDictionary-DeepMutableCopy.m in Sources */,
+				803D593F1B03238A00EF17D3 /* OrderInfoViewController.m in Sources */,
 				80F04CCF1AE795FB00A29052 /* NYSegmentIndicator.m in Sources */,
 				808851551AE8CA0F002614AC /* TableViewCell.m in Sources */,
 				809C10091AF73E490059A317 /* MineTableViewCell.m in Sources */,

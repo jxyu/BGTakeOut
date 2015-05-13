@@ -11,5 +11,5 @@
 
 @interface AddAddressViewController : BaseNavigationController
 @property(nonatomic,strong)NSString * userid;
-
+@property(nonatomic,strong)NSDictionary * dict;
 @end

@@ -17,6 +17,7 @@
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 #define KtextNum 6
+#define KURL @"http://121.42.139.60/baguo/"
 
 
 @interface BGBangViewController ()
@@ -235,7 +236,7 @@
         cell  = [[[NSBundle mainBundle] loadNibNamed:@"BGBangTableViewCell" owner:self options:nil] lastObject];
         cell.Name.text=_TextArray[indexPath.row][@"resname"];
         cell.adress.text=_TextArray[indexPath.row][@"resaddress"];
-        cell.logoImage.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_TextArray[indexPath.row][@"reslogo"]]]];
+        cell.logoImage.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,_TextArray[indexPath.row][@"reslogo"]]]]];
         [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
     }
     else

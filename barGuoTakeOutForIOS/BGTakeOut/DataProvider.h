@@ -44,6 +44,7 @@
 -(void)CancelOrderWithOrderNum:(NSString *)ordernum;
 -(void)GetUserAddressListWithPage:(NSString *)page andnum:(NSString *)num anduserid:(NSString *)userid andisgetdefault:(NSString *)isgetdefault;
 -(void)saveAddress:(id)prm;
+-(void)EditAddress:(id)prm;
 
 //执行回调函数
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName;

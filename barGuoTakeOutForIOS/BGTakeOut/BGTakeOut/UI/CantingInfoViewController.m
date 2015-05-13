@@ -472,8 +472,7 @@
     _myOrderView.resid=_resid;
     _myOrderView.peiSongFeiData=_peisongData;
     _myOrderView.orderSumPrice=_lableinShoppingList.text;
-    UIView * item =_myOrderView.view;
-    [self.view addSubview:item];
+    [self.navigationController pushViewController:_myOrderView animated:YES];
 }
 
 -(void)CanTingXiangqingBackCall:(id)dict

@@ -221,4 +221,9 @@
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider saveAddress:prm];
 }
+-(void)EditAddress:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider EditAddress:prm];
+}
 @end
