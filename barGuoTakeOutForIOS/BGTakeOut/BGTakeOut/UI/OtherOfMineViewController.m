@@ -38,6 +38,7 @@
     UILabel * lbl_yijian;
     UIButton * logout;
     UILabel * lbl_zhongyang;
+    UILabel * lbl_banquanfuhao;
     
 }
 
@@ -139,8 +140,15 @@
             [logout setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [self.view addSubview:logout];
             
+            lbl_banquanfuhao=[[UILabel alloc] initWithFrame:CGRectMake(30, KHeight-80, KWidth-60, 20)];
+            lbl_banquanfuhao.text=@"Coryright©2015-2018";
+            [lbl_banquanfuhao setTextAlignment:NSTextAlignmentCenter];
+            lbl_banquanfuhao.font=[UIFont fontWithName:@"Helvetica" size:12];
+            lbl_banquanfuhao.textColor=[UIColor grayColor];
+            [self.view addSubview:lbl_banquanfuhao];
+            
             lbl_zhongyang=[[UILabel alloc] initWithFrame:CGRectMake(30, KHeight-50, KWidth-60, 20)];
-            lbl_zhongyang.text=@"山东中扬科技公司";
+            lbl_zhongyang.text=@"阿克苏巴国城网络科技有限公司";
             [lbl_zhongyang setTextAlignment:NSTextAlignmentCenter];
             lbl_zhongyang.font=[UIFont fontWithName:@"Helvetica" size:12];
             lbl_zhongyang.textColor=[UIColor grayColor];
@@ -156,7 +164,7 @@
     NSLog(@"提交投诉");
     DataProvider * dataprovider =[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"SubmitBackCall:"];
-    [dataprovider SubmitTousu:tousu.text anduserid:_UserInfoData[@"data"][@"userid"]];
+    [dataprovider SubmitTousu:tousu.text anduserid:_UserInfoData[@"userid"]];
 }
 -(void)textViewDidChange:(UITextView *)textView
 {

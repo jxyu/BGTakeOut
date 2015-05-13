@@ -9,6 +9,7 @@
 #import "BGBangViewController.h"
 #import "NYSegmentedControl.h"
 #import "DataProvider.h"
+#import "CommenDef.h"
 #import "BGBangTableViewCell.h"
 
 
@@ -43,26 +44,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    _mytableBar.delegate=self;
-    _mytableBar.selectedItem=_BGBang;
     
     //添加导航栏
-    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, 64)];
-    navigationBar.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    navigationBar.translucent=YES;
-    _mynavigationItem = [[UINavigationItem alloc] initWithTitle:@"自动定位"];
-//    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Image-2"]
-//                                                                   style:UIBarButtonItemStylePlain
-//                                                                  target:self
-//                                                                  action:@selector(clickLeftButton)];
-    [navigationBar pushNavigationItem:_mynavigationItem animated:NO];
-//    [_mynavigationItem setLeftBarButtonItem:leftButton];
-    [self.view addSubview:navigationBar];
+   
     
     
     //添加Segmented Control
     UIView * lastView=[self.view.subviews lastObject];
-    UIView * segmentView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height, KWidth, 40)];
+    UIView * segmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 40)];
     segmentView.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
     self.segmentedControl = [[NYSegmentedControl alloc] initWithItems:@[@"区域榜", @"新推荐"]];
     [_segmentedControl addTarget:self action:@selector(SegMentControlClick) forControlEvents:UIControlEventValueChanged];
@@ -87,7 +76,7 @@
     
     lastView=[self.view.subviews lastObject];
     CGFloat ViewHeight=lastView.frame.origin.y+lastView.frame.size.height;
-    _Page=[[UIView alloc] initWithFrame:CGRectMake(0,ViewHeight , KWidth, KHeight-ViewHeight-_mytableBar.frame.size.height)];
+    _Page=[[UIView alloc] initWithFrame:CGRectMake(0,ViewHeight , KWidth, KHeight-ViewHeight-49)];
     [self.view addSubview:_Page];
     
     
@@ -114,27 +103,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
-{
-    NSLog(@"%ld",item.tag);
-    switch (item.tag) {
-        case 1:
-        {
-            [self.view removeFromSuperview];
-        }
-            break;
-        case 2:
-        {
-            
-        }
-            break;
-            
-        default:
-            break;
-    }
-    _mytableBar.selectedItem=_BGBang;
-}
 
 -(void)clickLeftButton
 {

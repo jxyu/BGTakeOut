@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddAddressViewController.h"
 
 @interface UserInfoViewController : UIViewController
 {
@@ -18,5 +19,6 @@
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName;
 
 @property(nonatomic,copy)id UserInfoData;
+@property(nonatomic,strong)AddAddressViewController * myAddress;
 
 @end

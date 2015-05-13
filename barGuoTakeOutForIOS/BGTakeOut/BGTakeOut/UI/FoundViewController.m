@@ -27,8 +27,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _tabbar.selectedItem=_itemFoundtabbar;
     LinkArray1=[NSArray arrayWithObjects:@"http://www.baidu.com",@"http://www.sina.com.cn/",@"http://www.sohu.com/"@"http://www.qq.com/",@"http://www.ifeng.com/",nil];
     LinkArray2=[NSArray arrayWithObjects:@"http://www.taobao.com",@"http://www.jd.com/",@"http://www.tmall.com/"@"http://www.yhd.com/",@"http://www.vip.com/",nil];
     LinkArray3=[NSArray arrayWithObjects:@"http://www.ganji.com",@"http://www.youyuan.com/",@"http://tv.sohu.com/"@"http://ios.d.cn/",@"http://www.qidian.com/Default.aspx",nil];
@@ -40,15 +38,9 @@
     DataProvider * dataprovider =[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetWeatherCallBack:"];
     [dataprovider GetWeather:@"linyi"];
-    //添加导航栏
-    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, 64)];
-    navigationBar.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    navigationBar.translucent=YES;
-    _mynavigationItem = [[UINavigationItem alloc] initWithTitle:@"自动定位"];
-    [navigationBar pushNavigationItem:_mynavigationItem animated:NO];
-    [self.view addSubview:navigationBar];
+   
     
-    Weather =[[UIView alloc] initWithFrame:CGRectMake(0, navigationBar.frame.size.height+5, KWidth, 60)];
+    Weather =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+25, KWidth, 60)];
     Weather.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];;
     [self.view addSubview:Weather];
     
