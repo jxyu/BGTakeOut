@@ -11,6 +11,7 @@
 #import "DataProvider.h"
 #import "CCLocationManager.h"
 #import "CommenDef.h"
+#import "AppDelegate.h"
 #define kSWidth self.view.bounds.size.width
 #define kSHeight self.view.bounds.size.height
 #define kJianXi 5
@@ -32,6 +33,7 @@
 {
     UIView * page;
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,7 +64,9 @@
     //    _package=[[UIView alloc] initWithFrame:CGRectMake(0, y, kSWidth, kSHeight-y-49)];
     //    [self.view addSubview:_package];
     //    _Page=[[UIView alloc] initWithFrame:CGRectMake(0, y, kSWidth, kSHeight-y-49)];
-
+    UIButton * btn_location=[[UIButton alloc] initWithFrame:CGRectMake(50, 0, kSWidth-100, 64)];
+    [btn_location addTarget:self action:@selector(GetLocation) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn_location];
 
     UIView * fillview=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, kSWidth, 120)];
     fillview.tag=101;
@@ -128,6 +132,10 @@
     [dataprovider PostGetMsg];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
+}
 
 -(void)ContinueAddUIView:(id)dict
 {
@@ -160,12 +168,6 @@
     
 }
 
-//点击tab页时的响应
--(void)onTabButtonPressed:(UIButton *)sender
-{
-    
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -177,29 +179,26 @@
 -(void)GetLocation
 {
     self.autolocation=[[AutoLocationViewController alloc] initWithNibName:@"AutoLocationViewController" bundle:[NSBundle mainBundle]];
-    UIView *itemview=_autolocation.view;
-    [self.view addSubview:itemview];
+    [self.navigationController pushViewController:_autolocation animated:YES];
 }
 
 -(void)DoMyWaiMai
 {
     self.myWaiMai=[[WaiMAIViewController alloc] initWithNibName:@"WaiMAIViewController" bundle:[NSBundle mainBundle]];
-                   UIView * item =_myWaiMai.view;
-                   [self.view addSubview:item];
-                   }
+    [self.navigationController pushViewController:_myWaiMai animated:YES];
+    
+}
 
 -(void)JumpToJoke
 {
     self.myJoke=[[JokeViewController alloc] initWithNibName:@"JokeViewController" bundle:[NSBundle mainBundle]];
-    UIView * item =_myJoke.view;
-    [self.view addSubview:item];
+    [self.navigationController pushViewController:_myJoke animated:YES];
 }
 
 -(void)MoreGift
 {
     self.myGiftView=[[BGGiftViewController alloc] initWithNibName:@"BGGiftViewController" bundle:[NSBundle mainBundle]];
-    UIView * item =_myGiftView.view;
-    [self.view addSubview:item];
+    [self.navigationController pushViewController:_myGiftView animated:YES];
 }
 
 -(void)testclick

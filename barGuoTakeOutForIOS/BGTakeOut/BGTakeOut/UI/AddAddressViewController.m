@@ -8,6 +8,8 @@
 
 #import "AddAddressViewController.h"
 #import "DataProvider.h"
+#import "CommenDef.h"
+#import "AppDelegate.h"
 
 @interface AddAddressViewController ()
 
@@ -32,24 +34,11 @@
     ScreenWidth=[UIScreen mainScreen].bounds.size.width;
     
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-    UINavigationBar * navigationBarsub = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, ScreenWidth, 64)];
-    navigationBarsub.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    navigationBarsub.translucent=YES;
-    UINavigationItem *mynavigationItemsub = [[UINavigationItem alloc] initWithTitle:@"收货地址"];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Image-2"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(sub_navigationLeftClickforAddress)];
-    UIBarButtonItem * rightButtom=[[UIBarButtonItem alloc] initWithTitle:@"保存"
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(SaveAddress)];
-    [navigationBarsub pushNavigationItem:mynavigationItemsub animated:NO];
-    [mynavigationItemsub setLeftBarButtonItem:leftButton];
-    [mynavigationItemsub setRightBarButtonItem:rightButtom];
-    [self.view addSubview:navigationBarsub];
+    [self setBarTitle:@"收货地址"];
+   [self addLeftButton:@"ic_actionbar_back.png"];
+    [self addRightbuttontitle:@"保存"];
     
-    UIView * BackView_name=[[UIView alloc] initWithFrame:CGRectMake(0, navigationBarsub.frame.size.height, ScreenWidth, 40)];
+    UIView * BackView_name=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, ScreenWidth, 40)];
     BackView_name.backgroundColor=[UIColor whiteColor];
     UILabel * lbl_nameTitle=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 20)];
     lbl_nameTitle.text=@"收货人";
@@ -133,7 +122,7 @@
     [self.view removeFromSuperview];
 }
 
--(void)SaveAddress
+-(void)clickRightButton:(UIButton *)sender
 {
     NSMutableDictionary * dict=[[NSMutableDictionary alloc] init];
     [dict setObject:_userid forKey:@"userid"];
@@ -214,6 +203,10 @@
     if (1==[dict[@"status"] intValue]) {
         [self.view removeFromSuperview];
     }
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
 @end

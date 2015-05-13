@@ -9,6 +9,8 @@
 #import "JokeViewController.h"
 #import "DataProvider.h"
 #import "JokeTableViewCell.h"
+#import "CommenDef.h"
+#import "AppDelegate.h"
 
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
@@ -28,18 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 //    self.view.backgroundColor=[UIColor colorWithRed:245/255 green:245/255 blue:245/255 alpha:1.0];
-    //添加导航栏
-    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, 64)];
-    navigationBar.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    navigationBar.translucent=YES;
-    _mynavigationItem = [[UINavigationItem alloc] initWithTitle:@"每日一乐呵"];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Image-2"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(clickLeftButton)];
-    [navigationBar pushNavigationItem:_mynavigationItem animated:NO];
-    [_mynavigationItem setLeftBarButtonItem:leftButton];
-    [self.view addSubview:navigationBar];
+    [self addLeftButton:@"ic_actionbar_back.png"];
     
     
 
@@ -58,22 +49,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
-*/
 
 -(void)BuildJokeView:(id)dict
 {
     NSLog(@"%@",dict);
     JokeArray=dict[@"data"];
     UIView * lastView=[self.view.subviews lastObject];
-    UITableView * mytableView=[[UITableView alloc] initWithFrame:CGRectMake(10, lastView.frame.size.height, KWidth-20, KHeight-lastView.frame.size.height)];
+    UITableView * mytableView=[[UITableView alloc] initWithFrame:CGRectMake(10, NavigationBar_HEIGHT+20, KWidth-20, KHeight-lastView.frame.size.height)];
     mytableView.delegate=self;
     mytableView.dataSource=self;
     [self.view addSubview:mytableView];

@@ -8,8 +8,11 @@
 
 #import "LoginViewController.h"
 #import "RegViewController.h"
+#import "CommenDef.h"
 #import "DataProvider.h"
 #import <SMS_SDK/SMS_SDK.h>
+#import "AppDelegate.h"
+
 
 #define KWidth self.view.frame.size.width
 
@@ -24,6 +27,11 @@
     UITextField * txt_pwd;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+
 #pragma mark 赋值回调
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName
 {
@@ -36,27 +44,16 @@
     // Do any additional setup after loading the view from its nib.
     
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, KWidth, 64)];
-    navigationBar.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    navigationBar.translucent=YES;
-    _mynavigationItem = [[UINavigationItem alloc] initWithTitle:@"登录"];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Image-2"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(clickLoginLeftButton)];
-    UIBarButtonItem *rightButton=[[UIBarButtonItem alloc] initWithTitle:@"注册" style:UIBarButtonItemStylePlain target:self action:@selector(clickLoginRightButton)];
-    [navigationBar pushNavigationItem:_mynavigationItem animated:NO];
-    [_mynavigationItem setLeftBarButtonItem:leftButton];
-    [_mynavigationItem setRightBarButtonItem:rightButton];
-    [self.view addSubview:navigationBar];
+    [self addLeftButton:@"ic_actionbar_back.png"];
+    [self addRightbuttontitle:@"注册"];
     
-    UIView * lastView=navigationBar;
-    UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+5, KWidth, 40)];
+    
+    UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+25, KWidth, 40)];
     BackgroundView1.backgroundColor=[UIColor whiteColor];
     UILabel * PhoneNum =[[UILabel alloc ] initWithFrame:CGRectMake(10, 5, 80, 30)];
     PhoneNum.text=@"手机号：";
     [BackgroundView1 addSubview:PhoneNum];
-    lastView=[[BackgroundView1 subviews] lastObject];
+    UIView * lastView=[[BackgroundView1 subviews] lastObject];
     CGFloat x=lastView.frame.origin.x+lastView.frame.size.width;
     txt_phoneNum=[[UITextField alloc] initWithFrame:CGRectMake(x, 0, 200, 40)];
     [txt_phoneNum setKeyboardType:UIKeyboardTypeNumberPad];
@@ -93,26 +90,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
--(void)clickLoginLeftButton
-{
-    [self.view removeFromSuperview];
-}
--(void)clickLoginRightButton
-{
-    RegViewController* reg=[[RegViewController alloc] init];
-    [self presentViewController:reg animated:YES completion:^{
-        
-    }];
-}
 
 -(void)LoginClick
 {
@@ -164,5 +141,12 @@
                                             otherButtonTitles:nil, nil];
         [alert show];
     }
+}
+-(void)clickRightButton:(UIButton *)sender
+{
+    RegViewController* reg=[[RegViewController alloc] init];
+    [self presentViewController:reg animated:YES completion:^{
+        
+    }];
 }
 @end

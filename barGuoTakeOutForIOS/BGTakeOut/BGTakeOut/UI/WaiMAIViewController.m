@@ -13,6 +13,8 @@
 #import "CCLocationManager.h"
 #import "TableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "CommenDef.h"
+#import "AppDelegate.h"
 
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
@@ -59,22 +61,11 @@
 //        _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
 //    }];
     //添加导航栏
-    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, 64)];
-    navigationBar.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    navigationBar.translucent=YES;
-    _mynavigationItem = [[UINavigationItem alloc] initWithTitle:@"自动定位"];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Image-2"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(clickLeftButton)];
-    [navigationBar pushNavigationItem:_mynavigationItem animated:NO];
-    [_mynavigationItem setLeftBarButtonItem:leftButton];
-    [self.view addSubview:navigationBar];
-    
+    [self addLeftButton:@"ic_actionbar_back.png"];
     
     //添加Segmented Control
     UIView * lastView=[self.view.subviews lastObject];
-    UIView * segmentView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height, KWidth, 40)];
+    UIView * segmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 40)];
     segmentView.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
     self.segmentedControl = [[NYSegmentedControl alloc] initWithItems:@[@"附近餐厅", @"其他订购"]];
     [_segmentedControl addTarget:self action:@selector(SegMentControlClick) forControlEvents:UIControlEventValueChanged];
@@ -376,7 +367,10 @@
 ////            break;
 ////    }
 //}
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
 
 
 @end
