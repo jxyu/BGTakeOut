@@ -546,6 +546,8 @@
 		8A71D0A51B01DE1600D6C01D /* CreditWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditWebView.m; sourceTree = "<group>"; };
 		8A71D0A61B01DE1600D6C01D /* CreditWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditWebViewController.h; sourceTree = "<group>"; };
 		8A71D0A71B01DE1600D6C01D /* CreditWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditWebViewController.m; sourceTree = "<group>"; };
+		8AD6616A1B03764400D61EDA /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		8AD6616B1B037FFC00D61EDA /* CommenDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommenDef.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -646,9 +648,11 @@
 		80067CA51ADCA0F100394FB7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8AD6616B1B037FFC00D61EDA /* CommenDef.h */,
 				80067CA61ADCA0F100394FB7 /* Info.plist */,
 				80067CA71ADCA0F100394FB7 /* main.m */,
 				809ABD531AFC4DB000E7C662 /* UserInfo.plist */,
+				8AD6616A1B03764400D61EDA /* PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1552,6 +1556,7 @@
 					2/lib/Channels,
 					"$(PROJECT_DIR)/Ping++/Channels",
 				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/BGTakeOut/PrefixHeader.pch";
 				INFOPLIST_FILE = BGTakeOut/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1581,6 +1586,7 @@
 					2/lib/Channels,
 					"$(PROJECT_DIR)/Ping++/Channels",
 				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/BGTakeOut/PrefixHeader.pch";
 				INFOPLIST_FILE = BGTakeOut/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
