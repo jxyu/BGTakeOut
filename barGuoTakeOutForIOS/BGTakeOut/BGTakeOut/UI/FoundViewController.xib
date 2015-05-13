@@ -7,8 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FoundViewController">
             <connections>
-                <outlet property="itemFoundtabbar" destination="fWs-l5-lBu" id="Yrz-A3-Pju"/>
-                <outlet property="tabbar" destination="QwM-3y-NsU" id="GVd-iz-r8N"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,27 +14,8 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <tabBar contentMode="scaleToFill" fixedFrame="YES" itemPositioning="centered" translatesAutoresizingMaskIntoConstraints="NO" id="QwM-3y-NsU">
-                    <rect key="frame" x="0.0" y="519" width="320" height="49"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <items>
-                        <tabBarItem tag="1" title="首页" image="index_10.png" id="oN9-l1-VzA"/>
-                        <tabBarItem tag="2" title="巴国榜" image="index_12.png" id="hKl-zx-VGD"/>
-                        <tabBarItem tag="3" title="发现" image="index_14.png" id="fWs-l5-lBu"/>
-                        <tabBarItem tag="4" title="我的" image="index_16.png" id="w3u-A1-7N7"/>
-                    </items>
-                    <color key="tintColor" red="0.85882352939999995" green="0.31550755110000001" blue="0.18509048419999999" alpha="1" colorSpace="calibratedRGB"/>
-                </tabBar>
-            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
-    <resources>
-        <image name="index_10.png" width="42" height="40"/>
-        <image name="index_12.png" width="42" height="40"/>
-        <image name="index_14.png" width="42" height="40"/>
-        <image name="index_16.png" width="42" height="40"/>
-    </resources>
 </document>

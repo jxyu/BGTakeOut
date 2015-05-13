@@ -10,6 +10,7 @@
 #import "MineTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "DataProvider.h"
+#import "CommenDef.h"
 
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
@@ -43,8 +44,6 @@
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
     userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
-    
-    _tabbar.selectedItem=_minetabbaritem;
     imageArray1=[[NSArray alloc]initWithObjects:@"gw.png",@"gsjj.png",@"tscl.png",nil];
     imageArray2=[[NSArray alloc]initWithObjects:@"cp.png", @"zsjm.png",nil];
     imageArray3=[[NSArray alloc]initWithObjects:@"set.png",nil];
@@ -52,16 +51,10 @@
     nameArray1=[[NSArray alloc]initWithObjects:@"官网",@"公司简介",@"投诉处理",nil];
     nameArray2=[[NSArray alloc]initWithObjects:@"诚聘", @"招商加盟",nil];
     nameArray3=[[NSArray alloc]initWithObjects:@"设置",nil];
-    //添加导航栏
-    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, 64)];
-    navigationBar.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    navigationBar.translucent=YES;
-    _mynavigationItem = [[UINavigationItem alloc] initWithTitle:@"自动定位"];
-    [navigationBar pushNavigationItem:_mynavigationItem animated:NO];
-    [self.view addSubview:navigationBar];
+    
     if (!userinfoWithFile) {
         UIView * lastview=[[self.view subviews] lastObject];
-        BackGroundOfLogin=[[UIView alloc] initWithFrame:CGRectMake(0, lastview.frame.size.height, KWidth, 80)];
+        BackGroundOfLogin=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 80)];
         UIImageView * backImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KWidth, 80)];
         backImageView.image=[UIImage imageNamed:@"MineBackImage.png"];
         [BackGroundOfLogin addSubview:backImageView];
@@ -74,13 +67,12 @@
         [BackGroundOfLogin addSubview:login_btn];
         [self.view addSubview:BackGroundOfLogin];
         
-        
     }
     else
     {
         UserInfoData=userinfoWithFile;
         UIView * lastview=[[self.view subviews] lastObject];
-        UIView * UserBackGroundView=[[UIView alloc] initWithFrame:CGRectMake(0, lastview.frame.size.height, KWidth, 80)];
+        UIView * UserBackGroundView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 80)];
         UIImageView * backImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KWidth, 80)];
         backImageView.image=[UIImage imageNamed:@"MineBackImage.png"];
         [UserBackGroundView addSubview:backImageView];

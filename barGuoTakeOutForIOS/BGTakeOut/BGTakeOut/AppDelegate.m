@@ -22,6 +22,8 @@
     // Override point for customization after application launch.
     [SMS_SDK registerApp:appKey withSecret:appSecret];
     _tabBarViewCol = [[CustomTabBarViewController alloc] init];
+    self.window.rootViewController=_tabBarViewCol;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

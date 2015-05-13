@@ -15,7 +15,7 @@
 #import "MineViewController.h"
 
 
-//#import "UIImage+NSBundle.h"
+#import "UIImage+NSBundle.h"
 
 
 #define tabBarButtonNum 4
@@ -44,8 +44,9 @@
     //隐藏系统tabbar
     self.tabBar.hidden = YES;
     self.hidesBottomBarWhenPushed = YES;
-     NSArray *arrayImages_H = [[NSArray alloc] initWithObjects:@"home_H@2x.png",@"classes_H@2x.png" ,@"cate_H@2x.png",@"user_H@2x.png", nil];
- 	NSArray *arrayImages = [[NSArray alloc] initWithObjects:@"home@2x.png",@"class@2x.png",@"cate@2x.png",@"user@2x.png",  nil];
+     NSArray *arrayImages_H = [[NSArray alloc] initWithObjects:@"index_11@2x.png",@"index_13@2x.png" ,@"index_15@2x.png",@"index_17@2x.png", nil];
+ 	NSArray *arrayImages = [[NSArray alloc] initWithObjects:@"index_10@2x.png",@"index_12@2x.png",@"index_14@2x.png",@"index_16@2x.png",  nil];
+    NSArray * arrayTitles=[[NSArray alloc] initWithObjects:@"首页",@"巴国榜",@"发现",@"我的", nil];
  
     _tabBarBG = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - TabBar_HEIGHT, SCREEN_WIDTH, TabBar_HEIGHT)];
       _tabBarBG.backgroundColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.99 alpha:1];
@@ -64,21 +65,21 @@
 		CGRect frame=CGRectMake(i * tabBarWitdh, 0, tabBarWitdh, 49);
     
 		UIButton * btnTabBar = [[UIButton alloc] initWithFrame:frame];
-//		 [btnTabBar setImage: [UIImage imageWithBundleName:[arrayImages objectAtIndex:i]] forState:UIControlStateNormal];
-//         [btnTabBar setImage:[UIImage imageWithBundleName:[arrayImages_H objectAtIndex:i]]forState:UIControlStateSelected] ;
+		 [btnTabBar setImage: [UIImage imageWithBundleName:[arrayImages objectAtIndex:i]] forState:UIControlStateNormal];
+         [btnTabBar setImage:[UIImage imageWithBundleName:[arrayImages_H objectAtIndex:i]]forState:UIControlStateSelected] ;
 		btnTabBar.tag = i + 1000;
 		[btnTabBar addTarget:self action:@selector(onTabButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 		[_tabBarBG addSubview:btnTabBar];
         
         
-//        UILabel *lbl_title = [[UILabel alloc] initWithFrame:CGRectMake(btnTabBar.frame.origin.x, 37, btnTabBar.frame.size.width, 9)];
-//        lbl_title.text =[arrayTitle objectAtIndex:i];
-//        lbl_title.textAlignment=NSTextAlignmentCenter;
-//        lbl_title.numberOfLines = 0;
-//        lbl_title.font = [UIFont systemFontOfSize:10];
-//        lbl_title.textColor = [UIColor darkGrayColor];
-//        lbl_title.backgroundColor = [UIColor clearColor];
-//        [_tabBarBG addSubview:lbl_title];
+        UILabel *lbl_title = [[UILabel alloc] initWithFrame:CGRectMake(btnTabBar.frame.origin.x, 37, btnTabBar.frame.size.width, 9)];
+        lbl_title.text =[arrayTitles objectAtIndex:i];
+        lbl_title.textAlignment=NSTextAlignmentCenter;
+        lbl_title.numberOfLines = 0;
+        lbl_title.font = [UIFont systemFontOfSize:10];
+        lbl_title.textColor = [UIColor darkGrayColor];
+        lbl_title.backgroundColor = [UIColor clearColor];
+        [_tabBarBG addSubview:lbl_title];
         
         
         

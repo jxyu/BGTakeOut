@@ -38,7 +38,7 @@
     //_topView.backgroundColor = [UIColor colorWithRed:238 / 255.0f green:225 / 255.0f blue:208 / 255.0f alpha:1.0f];
     
     _topView.userInteractionEnabled = YES;
-     _topView.backgroundColor = [UIColor colorWithRed:0.97 green:0.96 blue:0.96 alpha:1];
+     _topView.backgroundColor = [UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
     [self.view addSubview:_topView];
 //    UIImageView *imageline1=[[UIImageView alloc]initWithFrame:CGRectMake(0,NavigationBar_HEIGHT + _orginY-0.3, SCREEN_WIDTH, 0.3)];
 //    imageline1.backgroundColor=[UIColor colorWithRed:0.88 green:0.89 blue:0.89 alpha:1];
@@ -50,7 +50,8 @@
     _lblTitle.adjustsFontSizeToFitWidth = YES;
     //[_lblTitle setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
     //_lblTitle.font = [UIFont boldSystemFontOfSize:20];
-    _lblTitle.textColor = [UIColor darkGrayColor];
+    _lblTitle.textColor = [UIColor whiteColor];
+    _lblTitle.text=@"自动定位";
     _lblTitle.font=[UIFont boldSystemFontOfSize:18];
     _lblTitle.textAlignment = NSTextAlignmentCenter;
     _lblTitle.lineBreakMode = NSLineBreakByTruncatingTail;

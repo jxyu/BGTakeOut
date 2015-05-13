@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommenDef.h"
+#import "BaseNavigationController.h"
 
-@interface FoundViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UITabBar *tabbar;
-@property (weak, nonatomic) IBOutlet UITabBarItem *itemFoundtabbar;
+@interface FoundViewController : BaseNavigationController <UITableViewDelegate,UITableViewDataSource>
 
 @end

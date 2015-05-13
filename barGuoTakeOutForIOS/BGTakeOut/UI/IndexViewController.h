@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AutoLocationViewController.h"
+#import "BaseNavigationController.h"
 #import "WaiMAIViewController.h"
 #import "JokeViewController.h"
 #import "BGBangViewController.h"
@@ -15,7 +16,7 @@
 #import "MineViewController.h"
 #import "FoundViewController.h"
 
-@interface IndexViewController : UIViewController<NSURLConnectionDataDelegate,UITabBarDelegate>
+@interface IndexViewController : BaseNavigationController<NSURLConnectionDataDelegate,UITabBarDelegate>
 @property(nonatomic,strong)AutoLocationViewController * autolocation;
 @property(nonatomic,strong)WaiMAIViewController * myWaiMai;
 @property(nonatomic,strong)JokeViewController * myJoke;
@@ -25,12 +26,6 @@
 @property(nonatomic,strong)MineViewController * myMine;
 
 
-
-@property (weak, nonatomic) IBOutlet UITabBarItem *index;
-@property (weak, nonatomic) IBOutlet UITabBarItem *BaGuoBang;
-@property (weak, nonatomic) IBOutlet UITabBarItem *Find;
-@property (weak, nonatomic) IBOutlet UITabBarItem *Mine;
-@property (weak, nonatomic) IBOutlet UITabBar *mytablebar;
 
 //自定义tabbar点击响应
 - (void)onTabButtonPressed:(id)sender;

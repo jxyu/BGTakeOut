@@ -7,14 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNavigationController.h"
 #import "DOPDropDownMenu.h"
 
-@interface BGBangViewController : UIViewController <UITabBarDelegate,DOPDropDownMenuDelegate,DOPDropDownMenuDataSource,UITableViewDelegate,UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UITabBar *mytableBar;
-@property (weak, nonatomic) IBOutlet UITabBarItem *index;
-@property (weak, nonatomic) IBOutlet UITabBarItem *BGBang;
-@property (weak, nonatomic) IBOutlet UITabBarItem *Find;
-@property (weak, nonatomic) IBOutlet UITabBarItem *Mine;
+@interface BGBangViewController : BaseNavigationController <UITabBarDelegate,DOPDropDownMenuDelegate,DOPDropDownMenuDataSource,UITableViewDelegate,UITableViewDataSource>
+
 
 -(void)clickLeftButton;
 @end
