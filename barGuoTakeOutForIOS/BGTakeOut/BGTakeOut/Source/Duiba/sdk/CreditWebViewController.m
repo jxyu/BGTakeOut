@@ -158,7 +158,8 @@ static NSString *originUserAgent;
     [self.activity startAnimating];
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
-    self.title=[webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    self.title=@"礼品站";
+//    [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     
     NSString *content=[webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('duiba-share-url').getAttribute('content');"];
     if(content.length>0){

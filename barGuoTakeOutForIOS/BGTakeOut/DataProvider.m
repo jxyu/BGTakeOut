@@ -268,7 +268,21 @@
         [self PostRequest:url andpram:prm];
     }
 }
-
+/**
+ *  获得兑吧自动登录url
+ *
+ *  @param appkey    appkey
+ *  @param appsecret appsecret
+ *  @param userid    用户id
+ */
+-(void)getduibaurlWithAppkey:(NSString*)appkey appsecret:(NSString*)appsecret userid:(NSString*)userid{
+    if (appkey&&appsecret&&userid) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/User/api_getduibaurl",KURL];
+        NSDictionary * prm=@{@"appkey":appkey,@"appsecret":appsecret,@"userid":userid};
+        [self PostRequest:url andpram:prm];
+    }
+    
+}
 
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
 {

@@ -44,7 +44,14 @@
 -(void)CancelOrderWithOrderNum:(NSString *)ordernum;
 -(void)GetUserAddressListWithPage:(NSString *)page andnum:(NSString *)num anduserid:(NSString *)userid andisgetdefault:(NSString *)isgetdefault;
 -(void)saveAddress:(id)prm;
-
+/**
+ *  获得兑吧自动登录url
+ *
+ *  @param appkey    appkey
+ *  @param appsecret appsecret
+ *  @param userid    用户id
+ */
+-(void)getduibaurlWithAppkey:(NSString*)appkey appsecret:(NSString*)appsecret userid:(NSString*)userid;
 //执行回调函数
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName;
 
