@@ -12,6 +12,8 @@
 #import "CCLocationManager.h"
 #import "CommenDef.h"
 #import "AppDelegate.h"
+#import "CreditWebViewController.h"
+#import "CreditNavigationController.h"
 #define kSWidth self.view.bounds.size.width
 #define kSHeight self.view.bounds.size.height
 #define kJianXi 5
@@ -194,13 +196,36 @@
     self.myJoke=[[JokeViewController alloc] initWithNibName:@"JokeViewController" bundle:[NSBundle mainBundle]];
     [self.navigationController pushViewController:_myJoke animated:YES];
 }
-
+#pragma mark - 兑吧链接
 -(void)MoreGift
 {
-    self.myGiftView=[[BGGiftViewController alloc] initWithNibName:@"BGGiftViewController" bundle:[NSBundle mainBundle]];
-    [self.navigationController pushViewController:_myGiftView animated:YES];
-}
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+    NSDictionary* userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    if(userinfoWithFile){
+        //TODO: 已经登录完成，调用接口获取免登陆链接在页面中显示
+        DataProvider* dataProvider=[[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"getDuibaAutoLoginUrl:"];
+[        dataProvider getduibaurlWithAppkey:duiba_app_key appsecret:duiba_app_secret userid:userinfoWithFile[@"userid"]];
+    }else{
+        //TODO: 还没有登录，跳转登录页面，登录成功后返回这一页面
+LoginViewController* loginVC=        [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:loginVC animated:YES];
 
+    }
+    
+}
+-(void)getDuibaAutoLoginUrl:(id)dict{
+    NSLog(@"%@",dict);
+NSDictionary* d=    (    NSDictionary*)dict;
+NSString* url=    d[@"data"][@"url"];
+    CreditWebViewController *web=[[CreditWebViewController alloc]initWithUrlByPresent:url];
+    CreditNavigationController *nav=[[CreditNavigationController alloc]initWithRootViewController:web];
+    [nav setNavColorStyle:[UIColor orangeColor]];
+    [self presentViewController:nav animated:YES completion:nil];
+
+}
 -(void)testclick
 {
 //    ResInfoViewController * myrest=[[ResInfoViewController alloc] initWithNibName:@"ResInfoViewController" bundle:[NSBundle mainBundle]];

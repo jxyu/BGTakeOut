@@ -72,14 +72,14 @@
 		[_tabBarBG addSubview:btnTabBar];
         
         
-        UILabel *lbl_title = [[UILabel alloc] initWithFrame:CGRectMake(btnTabBar.frame.origin.x, 37, btnTabBar.frame.size.width, 9)];
-        lbl_title.text =[arrayTitles objectAtIndex:i];
-        lbl_title.textAlignment=NSTextAlignmentCenter;
-        lbl_title.numberOfLines = 0;
-        lbl_title.font = [UIFont systemFontOfSize:10];
-        lbl_title.textColor = [UIColor darkGrayColor];
-        lbl_title.backgroundColor = [UIColor clearColor];
-        [_tabBarBG addSubview:lbl_title];
+//        UILabel *lbl_title = [[UILabel alloc] initWithFrame:CGRectMake(btnTabBar.frame.origin.x, 37, btnTabBar.frame.size.width, 9)];
+//        lbl_title.text =[arrayTitles objectAtIndex:i];
+//        lbl_title.textAlignment=NSTextAlignmentCenter;
+//        lbl_title.numberOfLines = 0;
+//        lbl_title.font = [UIFont systemFontOfSize:10];
+//        lbl_title.textColor = [UIColor darkGrayColor];
+//        lbl_title.backgroundColor = [UIColor clearColor];
+//        [_tabBarBG addSubview:lbl_title];
         
         
         
