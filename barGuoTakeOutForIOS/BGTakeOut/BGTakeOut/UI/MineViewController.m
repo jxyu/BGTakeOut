@@ -11,13 +11,13 @@
 #import "UIImageView+WebCache.h"
 #import "DataProvider.h"
 #import "CommenDef.h"
+#import "AppDelegate.h"
 
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 #define KURL @"http://121.42.139.60/baguo/"
 
 @interface MineViewController ()
-@property(nonatomic,strong)UINavigationItem *mynavigationItem;
 
 @end
 
@@ -265,8 +265,7 @@
             break;
     }
     _myOther.celltag=sender.tag;
-    UIView * item=_myOther.view;
-    [self.view addSubview:item];
+    [self.navigationController pushViewController:_myOther animated:YES];
     
 }
 
@@ -314,12 +313,11 @@
 }
 -(void)myBtnClick
 {
-    NSLog(@"账户信息");
+    NSLog(@"账户信息,%@",self.navigationController);
     _myUserInfo=[[UserInfoViewController alloc] initWithNibName:@"UserInfoViewController" bundle:[NSBundle mainBundle]];
     _myUserInfo.UserInfoData=UserInfoData;
     [_myUserInfo setDelegateObject:self setBackFunctionName:@"UserInfoViewBackCall"];
-    UIView * item =_myUserInfo.view;
-    [self.view addSubview:item];
+    [self.navigationController pushViewController:_myUserInfo animated:YES];
 }
 
 -(void)UserInfoViewBackCall
@@ -335,5 +333,9 @@
     }
     [touxiang setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,dict[@"data"][@"avatar"]]]]]];
     NSLog(@"%@getuserinfo",dict);
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
 }
 @end

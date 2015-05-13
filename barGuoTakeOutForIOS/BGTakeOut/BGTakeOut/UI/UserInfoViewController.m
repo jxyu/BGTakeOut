@@ -10,6 +10,8 @@
 #import "UIImageView+WebCache.h"
 #import "VPImageCropperViewController.h"
 #import "DataProvider.h"
+#import "CommenDef.h"
+#import "AppDelegate.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
@@ -19,7 +21,6 @@
 #define KURL @"http://121.42.139.60/baguo/"
 
 @interface UserInfoViewController () <UINavigationControllerDelegate,UIImagePickerControllerDelegate, UIActionSheetDelegate, VPImageCropperDelegate>
-@property(nonatomic,strong)UINavigationItem *mynavigationItem;
 @property (nonatomic, strong) UIImageView *portraitImageView;
 @property(nonatomic,strong)UIView * page;
 @end
@@ -30,7 +31,6 @@
     UITextField *txt_pwd;
     UITextField * txt_phoneNum;
     UIView * touxiangView;
-    UINavigationBar *navigationBar;
 }
 
 
@@ -43,19 +43,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-    navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, 64)];
-    navigationBar.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    navigationBar.translucent=YES;
-    _mynavigationItem = [[UINavigationItem alloc] initWithTitle:@"我的账户"];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Image-2"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(BackBtnClick)];
-    [navigationBar pushNavigationItem:_mynavigationItem animated:NO];
-    [_mynavigationItem setLeftBarButtonItem:leftButton];
-    [self.view addSubview:navigationBar];
+    [self setBarTitle:@"帐户信息"];
+    [self addLeftButton:@"ic_actionbar_back.png"];
     if (_UserInfoData) {
         [self BuildView];
     }
@@ -64,7 +53,7 @@
 }
 -(void)BuildView
 {
-    UIView * BackOfUserPhonenum =[[UIView alloc] initWithFrame:CGRectMake(0, navigationBar.frame.size.height+2, KWidth, 40)];
+    UIView * BackOfUserPhonenum =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+22, KWidth, 40)];
     BackOfUserPhonenum.backgroundColor=[UIColor whiteColor];
     UILabel * Phonenum=[[UILabel alloc] initWithFrame:CGRectMake(10, (BackOfUserPhonenum.frame.size.height-20)/2, KWidth-100, 20)];
     NSMutableString *String1 = [[NSMutableString alloc] initWithString:_UserInfoData[@"username"]];
@@ -600,12 +589,15 @@
     
     self.myAddress=[[AddAddressViewController alloc] initWithNibName:@"AddAddressViewController" bundle:[NSBundle mainBundle]];
     _myAddress.userid=_UserInfoData[@"userid"];
-    UIView * item =_myAddress.view;
-    [self.view addSubview:item];
+    [self.navigationController pushViewController:_myAddress animated:YES];
 }
 
 -(void)CellClickFuc:(UIButton * )sender
 {
     NSLog(@"%ld",(long)sender.tag);
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 @end

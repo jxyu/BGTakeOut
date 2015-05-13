@@ -8,12 +8,13 @@
 
 #import "OtherOfMineViewController.h"
 #import "DataProvider.h"
+#import "CommenDef.h"
+#import "AppDelegate.h"
 
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 
 @interface OtherOfMineViewController ()
-@property(nonatomic,strong)UINavigationItem *mynavigationItem;
 @end
 
 @implementation OtherOfMineViewController
@@ -47,17 +48,8 @@
     // Do any additional setup after loading the view from its nib.
     
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, 64)];
-    navigationBar.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    navigationBar.translucent=YES;
-    _mynavigationItem = [[UINavigationItem alloc] initWithTitle:_Othertitle];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Image-2"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(BackBtnClick)];
-    [navigationBar pushNavigationItem:_mynavigationItem animated:NO];
-    [_mynavigationItem setLeftBarButtonItem:leftButton];
-    [self.view addSubview:navigationBar];
+    [self addLeftButton:@"ic_actionbar_back.png"];
+    [self setBarTitle:_Othertitle];
     
     
     switch (_celltag) {
@@ -65,7 +57,7 @@
             
             break;
         case 1:
-            companyshow=[[UILabel alloc] initWithFrame:CGRectMake(10, navigationBar.frame.size.height+10, KWidth-20, KHeight-navigationBar.frame.size.height-20)];
+            companyshow=[[UILabel alloc] initWithFrame:CGRectMake(10, NavigationBar_HEIGHT+30, KWidth-20, KHeight-NavigationBar_HEIGHT-40)];
             companyshow.text=@"公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介";
             companyshow.lineBreakMode=UILineBreakModeWordWrap;
             companyshow.numberOfLines=0;
@@ -74,17 +66,17 @@
             [self.view addSubview:companyshow];
             break;
         case 2:
-            tousu=[[UITextView alloc] initWithFrame:CGRectMake(0, navigationBar.frame.size.height, KWidth, 80)];
+            tousu=[[UITextView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 80)];
             [tousu setKeyboardType:UIKeyboardTypeDefault];
             tousu.delegate=self;
             [self.view addSubview:tousu];
             
-            uilabel=[[UILabel alloc] initWithFrame:CGRectMake(17, navigationBar.frame.size.height+8, 100, 10)];
+            uilabel=[[UILabel alloc] initWithFrame:CGRectMake(17, NavigationBar_HEIGHT+20+8, 100, 10)];
             uilabel.text = @"请填写投诉内容..";
             uilabel.enabled = NO;//lable必须设置为不可用
             uilabel.backgroundColor = [UIColor clearColor];
             [self.view addSubview:uilabel];
-            lbl_zishu=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, navigationBar.frame.size.height+tousu.frame.size.height-30, 150, 10)];
+            lbl_zishu=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, NavigationBar_HEIGHT+20+tousu.frame.size.height-30, 150, 10)];
             lbl_zishu.text=@"还能输入140个字";
             lbl_zishu.enabled=NO;
             lbl_zishu.backgroundColor=[UIColor clearColor];
@@ -102,7 +94,7 @@
 //            <#statements#>
 //            break;
         case 20:
-            lbl_SetgroupTitle=[[UILabel alloc] initWithFrame:CGRectMake(10, navigationBar.frame.size.height+10, 80, 15)];
+            lbl_SetgroupTitle=[[UILabel alloc] initWithFrame:CGRectMake(10, NavigationBar_HEIGHT+20+10, 80, 15)];
             lbl_SetgroupTitle.text=@"帮助";
             [self.view addSubview:lbl_SetgroupTitle];
             pushMsg=[[UIView alloc] initWithFrame:CGRectMake(0, lbl_SetgroupTitle.frame.origin.y+lbl_SetgroupTitle.frame.size.height+2, KWidth, 40)];
@@ -197,14 +189,9 @@
     [self.view removeFromSuperview];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
-*/
 
 @end

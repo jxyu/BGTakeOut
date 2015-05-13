@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNavigationController.h"
 
-@interface BGGiftViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
+@interface BGGiftViewController : BaseNavigationController <UITableViewDelegate,UITableViewDataSource>
 
 @end

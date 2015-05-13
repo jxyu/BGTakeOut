@@ -10,8 +10,9 @@
 #import "DataProvider.h"
 #import "NYSegmentedControl.h"
 #import "OrderForSureViewController.h"
+#import "BaseNavigationController.h"
 
-@interface CantingInfoViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
+@interface CantingInfoViewController : BaseNavigationController <UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)NSString *resid;
 @property(nonatomic,strong)NSString *name;
 @property(nonatomic,strong)NSString *peisongData;

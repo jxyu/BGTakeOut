@@ -14,6 +14,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+WebCache.h"
 #import "TQStarRatingView.h"
+#import "CommenDef.h"
+#import "AppDelegate.h"
 
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
@@ -22,7 +24,6 @@
 
 @interface CantingInfoViewController ()
 
-@property(nonatomic,strong)UINavigationItem *mynavigationItem;
 @property(nonatomic,strong) NYSegmentedControl *CantingsegmentedControl;
 @property(nonatomic,strong)UIView * CantingPage;
 @property(nonatomic,strong)UIView * CantingOtherPage;
@@ -44,28 +45,23 @@
     UIButton *  choseDone;
     UIView * CantingsegmentView;//放segmentcontrol的view
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     ShoppingCar=[[NSMutableArray alloc] init];
     isClick=NO;
-    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, KWidth, 64)];
-    navigationBar.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    navigationBar.translucent=YES;
-    _mynavigationItem = [[UINavigationItem alloc] initWithTitle:_name];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Image-2"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(CantingclickLeftButton)];
-    [navigationBar pushNavigationItem:_mynavigationItem animated:NO];
-    [_mynavigationItem setLeftBarButtonItem:leftButton];
-    [self.view addSubview:navigationBar];
+    [self setBarTitle:_name];
+    [self addLeftButton:@"ic_actionbar_back.png"];
     
     
     //添加Segmented Control
     UIView * lastView=[self.view.subviews lastObject];
-    CantingsegmentView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height, KWidth, 40)];
+    CantingsegmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 40)];
     CantingsegmentView.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
     self.CantingsegmentedControl = [[NYSegmentedControl alloc] initWithItems:@[@"餐厅菜单", @"店铺详情"]];
     [self.CantingsegmentedControl addTarget:self action:@selector(CantingSegMentControlClick) forControlEvents:UIControlEventValueChanged];
