@@ -62,7 +62,13 @@
  *  @param userid    用户id
  */
 -(void)getduibaurlWithAppkey:(NSString*)appkey appsecret:(NSString*)appsecret userid:(NSString*)userid;
-
+/**
+ *  提交当前用户的devicetoken
+ *
+ *  @param userid 当前用户的id
+ *  @param token  用户的token
+ */
+-(void)commitdevicetokenWithUserid:(NSString*)userid token:(NSString*)token;
 //执行回调函数
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName;
 
