@@ -210,11 +210,11 @@
     }
 }
 
--(void)GetCantingXiangqing:(NSString *)resid
+-(void)GetCantingXiangqing:(NSString *)resid anduserid:(NSString *)userid
 {
     if (resid) {
         NSString * url=[NSString stringWithFormat:@"%@server/Home/Node/getResDetail",KURL];
-        NSDictionary * prm=@{@"resid":resid};
+        NSDictionary * prm=@{@"resid":resid,@"userid":userid};
         [self PostRequest:url andpram:prm];
     }
 }
@@ -296,7 +296,55 @@
         [self PostRequest:url andpram:prm];
     }
 }
+-(void)GetOrdersList:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@getorders.php",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+#pragma mark 添加或者删除收藏
+-(void)AddOrDelcollection:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@addcollection.php",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
 
+-(void)GetAllCollection:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@getcollections.php",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)chengpinInfo
+{
+    NSString * url=[NSString stringWithFormat:@"%@server/Home/My/apiget_employdetail",KURL];
+    [self PostRequest:url andpram:nil];
+}
+-(void)chengpinSubmit:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/User/api_Employ",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)GetZhaoShangInfo
+{
+    NSString * url=[NSString stringWithFormat:@"%@server/Home/My/apiget_zhaoshangdetail",KURL];
+    [self PostRequest:url andpram:nil];
+}
+-(void)zhaoshangSubmit:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/User/api_ZhaoShang",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
 {
     AFHTTPRequestOperationManager * manage=[[AFHTTPRequestOperationManager alloc] init];

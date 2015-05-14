@@ -117,9 +117,6 @@
         NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                                   NSUserDomainMask, YES) objectAtIndex:0];
         NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
-//        NSString * data=[[NSString alloc] initWithFormat:dict];
-//        NSDictionary * userdata=@{@"userdata":data};
-//        NSArray * dataarray =[[NSArray alloc] initWithObjects:data, nil];
         BOOL result= [dict[@"data"] writeToFile:plistPath atomically:YES];
         if (result) {
 //            NSLog(@"congsdfksadjfjsadklfjsadkjfkasdjfsdakjfkal%@",[[NSDictionary alloc] initWithContentsOfFile:plistPath]);
@@ -141,6 +138,7 @@
                                             otherButtonTitles:nil, nil];
         [alert show];
     }
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 -(void)clickRightButton:(UIButton *)sender
 {

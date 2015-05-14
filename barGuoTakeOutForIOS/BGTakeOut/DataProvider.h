@@ -37,15 +37,21 @@
 -(void)GetUserInfoWithUserID:(NSString *)userid;
 -(void)SubmitTousu:(NSString *)content anduserid:(NSString *)userid;
 -(void)SubmitOrder:(id)prm;
--(void)GetCantingXiangqing:(NSString *)resid;
+-(void)GetCantingXiangqing:(NSString *)resid anduserid:(NSString *)userid;
 -(void)GetPinglun:(NSString *)resid andpage:(NSString *)page andnumInPage:(NSString *)num andiscontaintext:(NSString *)iscontaintext;
 -(void)GetOrderInfoWithOrderNum:(NSString *)ordernum;
 -(void)GetchargeForPay:(id)prm;
 -(void)CancelOrderWithOrderNum:(NSString *)ordernum;
 -(void)GetUserAddressListWithPage:(NSString *)page andnum:(NSString *)num anduserid:(NSString *)userid andisgetdefault:(NSString *)isgetdefault;
 -(void)saveAddress:(id)prm;
-
 -(void)EditAddress:(id)prm;
+-(void)GetOrdersList:(id)prm;
+-(void)AddOrDelcollection:(id)prm;
+-(void)GetAllCollection:(id)prm;
+-(void)chengpinInfo;
+-(void)chengpinSubmit:(id)prm;
+-(void)GetZhaoShangInfo;
+-(void)zhaoshangSubmit:(id)prm;
 
 
 /**

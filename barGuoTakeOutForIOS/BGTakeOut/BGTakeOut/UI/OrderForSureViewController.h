@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "LoginViewController.h"
-#import "RefreshHeaderAndFooterView.h"
 #import "BaseNavigationController.h"
 #import "AppDelegate.h"
 
-@interface OrderForSureViewController : BaseNavigationController<UITextViewDelegate,UIScrollViewDelegate,RefreshHeaderAndFooterViewDelegate>
+@interface OrderForSureViewController : BaseNavigationController<UITextViewDelegate,UIScrollViewDelegate>
 @property(nonatomic,strong)NSArray * orderData;
 @property(nonatomic,strong)NSString * peiSongFeiData;
 @property(nonatomic,strong)NSString * resid;

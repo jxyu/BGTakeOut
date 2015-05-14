@@ -184,10 +184,10 @@
     [dataprovider SubmitOrder:prm];
 }
 
--(void)GetCantingXiangqing:(NSString *)resid
+-(void)GetCantingXiangqing:(NSString *)resid anduserid:(NSString *)userid
 {
     DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider GetCantingXiangqing:resid];
+    [dataprovider GetCantingXiangqing:resid anduserid:userid];
 }
 -(void)GetPinglun:(NSString *)resid andpage:(NSString *)page andnumInPage:(NSString *)num andiscontaintext:(NSString *)iscontaintext
 {
@@ -225,5 +225,40 @@
 {
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider EditAddress:prm];
+}
+-(void)GetOrdersList:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetOrdersList:prm];
+}
+-(void)AddOrDelcollection:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider AddOrDelcollection:prm];
+}
+-(void)GetAllCollection:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetAllCollection:prm];
+}
+-(void)chengpinInfo
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider chengpinInfo];
+}
+-(void)chengpinSubmit:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider chengpinSubmit:prm];
+}
+-(void)GetZhaoShangInfo
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetZhaoShangInfo];
+}
+-(void)zhaoshangSubmit:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider zhaoshangSubmit:prm];
 }
 @end

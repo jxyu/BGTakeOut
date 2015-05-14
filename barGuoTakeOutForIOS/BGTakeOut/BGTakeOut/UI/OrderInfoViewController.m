@@ -44,11 +44,10 @@
     RefreshHeaderAndFooterView *view= [[RefreshHeaderAndFooterView alloc] initWithFrame:CGRectMake(scrollView_AfterPay.frame.origin.x, scrollView_AfterPay.frame.origin.y-20, scrollView_AfterPay.frame.size.width, scrollView_AfterPay.contentSize.height)];
     view.delegate = self;
     [scrollView_AfterPay addSubview:view];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetOrderInfoBackCall:"];
+    [dataprovider GetOrderInfoWithOrderNum:_orderInfoDetial[@"ordernum"]];
     self.refreshHeaderAndFooterView=view;
-    if (_orderInfoDetial) {
-        OrderInfo=_orderInfoDetial;
-        [self PayForOrder:_orderInfoDetial];
-    }
     
     [self.view addSubview:scrollView_AfterPay];
     [super viewDidLoad];
@@ -64,6 +63,14 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+-(void)GetOrderInfoBackCall:(id)dict
+{
+    NSLog(@"获取订单信息%@",dict);
+    if (1==[dict[@"status"] intValue]) {
+        [self PayForOrder:dict[@"data"]];
+        _orderData=dict[@"data"][@"goodsdetail"];
+    }
 }
 
 -(void)PayForOrder:(NSDictionary *)dict
@@ -116,7 +123,8 @@
     img_Status_icon.image=[UIImage imageNamed:imagename];
     [BackView_OrderTitle addSubview:img_Status_icon];
     [BackView_OrderTitle addSubview:lbl_Status];
-    switch ([dict[@"status"] intValue]) {
+    
+        switch ([dict[@"status"] intValue]) {
         case 0:
         {
             
@@ -513,7 +521,7 @@
             UILabel * lbl_title=[[UILabel alloc] initWithFrame:CGRectMake(0, 10, backview_StatusInfo.frame.size.width, 20)];
             [lbl_title setTextAlignment:NSTextAlignmentCenter];
             lbl_title.font=[UIFont systemFontOfSize:12];
-            lbl_title.text=@"订单取消成功，正在退款";
+            lbl_title.text=@"订单取消成功";
             [lbl_title setLineBreakMode:NSLineBreakByWordWrapping];
             lbl_title.numberOfLines=0;
             lbl_title.textColor=[UIColor grayColor];

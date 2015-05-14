@@ -255,69 +255,60 @@
 #pragma mark 构建提交订餐所需的参数
 -(void)BuildDataToSubmit:(id)dict
 {
-    NSString * phonenum=txt_phoneNum.text;
     NSMutableDictionary * prm=[[NSMutableDictionary alloc] init];
     [prm setObject:[NSString stringWithFormat:@"%d",[_orderSumPrice intValue]+[_peiSongFeiData intValue]] forKey:@"orderprice"];
     
     [prm setObject:dict[@"userid"] forKey:@"realname"];//此处需修改
     
-    if (txt_phoneNum.text) {
-        [prm setObject:txt_phoneNum.text forKey:@"phonenum"];
-        if (dict[@"userid"]) {
-            if (address) {
-                [prm setObject:address[0][@"addressdetail"] forKey:@"address"];
-            }
-            else
-            {
-                [prm setObject:txt_address.text forKey:@"address"];
-            }
-            [prm setObject:dict[@"userid"] forKey:@"userid"];
-            
-            if (dict[@"username"]) {
-                 [prm setObject:dict[@"userid"] forKey:@"username"];
-                
-                    if (PayOnLineForChange) {
-                        [prm setObject:@"0"forKey:@"payway"];
-                    }else
-                    {
-                        [prm setObject:@"1"forKey:@"payway"];
-                    }
-                    if (Costommessage.text) {
-                        [prm setObject:Costommessage.text forKey:@"remark"];
-                    }
-//                    NSMutableArray * orderdataArray=[[NSMutableArray alloc] init];
-                    NSMutableString * orderdataStr=[[NSMutableString alloc] init];
-                    
-                    for (int i=0; i<_orderData.count; i++) {
-                        ShoppingCarModel *item=_orderData[i];
-                        NSString * jsonStr;
-                        if (i ==(_orderData.count-1)) {
-                            jsonStr=[NSString stringWithFormat:@"{\"goodsid\":%@,\"goodsname\":%@,\"count\":%d,\"activity\":%@}",item.Goods[@"goodsid"],item.Goods[@"name"],item.Num,item.Goods[@"activity"]];
-                        }
-                        else{
-                            jsonStr=[NSString stringWithFormat:@"{\"goodsid\":%@,\"goodsname\":%@,\"count\":%d,\"activity\":%@},",item.Goods[@"goodsid"],item.Goods[@"name"],item.Num,item.Goods[@"activity"]];
-                        }
-                        [orderdataStr appendString:jsonStr];
-                        [prm setObject:item.Goods[@"resid"] forKey:@"resid"];
-                    }
-                    
-                    [prm setObject:orderdataStr  forKey:@"goodsdetail"];
-                    DataProvider * dataprovider=[[DataProvider alloc] init];
-                    [dataprovider setDelegateObject:self setBackFunctionName:@"submitOrderBackCall:"];
-                    [dataprovider SubmitOrder:prm];
-                    
-            
-            }
+    if (dict[@"userid"]) {
+        if (address) {
+            [prm setObject:address[0][@"addressdetail"] forKey:@"address"];
+            [prm setObject:address[0][@"phonenum"] forKey:@"phonenum"];
         }
-    }else
-    {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"通知", nil)
-                                                      message:NSLocalizedString(@"请填写手机号", nil)
-                                                     delegate:self
-                                            cancelButtonTitle:@"确定"
-                                            otherButtonTitles:nil, nil];
-        [alert show];
+        else
+        {
+            [prm setObject:txt_address.text forKey:@"address"];
+            [prm setObject:txt_phoneNum.text forKey:@"phonenum"];
+        }
+        [prm setObject:dict[@"userid"] forKey:@"userid"];
+        
+        if (dict[@"username"]) {
+            [prm setObject:dict[@"userid"] forKey:@"username"];
+            
+            if (PayOnLineForChange) {
+                [prm setObject:@"0"forKey:@"payway"];
+            }else
+            {
+                [prm setObject:@"1"forKey:@"payway"];
+            }
+            if (Costommessage.text) {
+                [prm setObject:Costommessage.text forKey:@"remark"];
+            }
+            //                    NSMutableArray * orderdataArray=[[NSMutableArray alloc] init];
+            NSMutableString * orderdataStr=[[NSMutableString alloc] init];
+            
+            for (int i=0; i<_orderData.count; i++) {
+                ShoppingCarModel *item=_orderData[i];
+                NSString * jsonStr;
+                if (i ==(_orderData.count-1)) {
+                    jsonStr=[NSString stringWithFormat:@"{\"goodsid\":%@,\"goodsname\":%@,\"count\":%d,\"activity\":%@}",item.Goods[@"goodsid"],item.Goods[@"name"],item.Num,item.Goods[@"activity"]];
+                }
+                else{
+                    jsonStr=[NSString stringWithFormat:@"{\"goodsid\":%@,\"goodsname\":%@,\"count\":%d,\"activity\":%@},",item.Goods[@"goodsid"],item.Goods[@"name"],item.Num,item.Goods[@"activity"]];
+                }
+                [orderdataStr appendString:jsonStr];
+                [prm setObject:item.Goods[@"resid"] forKey:@"resid"];
+            }
+            
+            [prm setObject:orderdataStr  forKey:@"goodsdetail"];
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            [dataprovider setDelegateObject:self setBackFunctionName:@"submitOrderBackCall:"];
+            [dataprovider SubmitOrder:prm];
+            
+            
+        }
     }
+    
 }
 
 -(void)submitOrderBackCall:(id)dict
@@ -325,14 +316,14 @@
     NSLog(@"提交订单%@",dict);
     if ([dict[@"status"] intValue]==1) {
         OrderInfo=dict[@"data"];
-//        DataProvider * dataprovider=[[DataProvider alloc] init];
-//        [dataprovider setDelegateObject:self setBackFunctionName:@"GetChargeBackCall:"];
-//        NSDictionary * prm=@{@"channel":@"alipay",@"amount":@"22",@"ordernum":@"2015050900088",@"subject":@"外卖2",@"body":@"外卖"};
-//        [dataprovider GetchargeForPay:prm];
-        OrderInfoViewController * orderinfoVC=[[OrderInfoViewController alloc] init];
-        orderinfoVC.orderInfoDetial=dict[@"data"];
-        orderinfoVC.orderData=_orderData;
-        [self.navigationController pushViewController:orderinfoVC animated:YES];
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"GetChargeBackCall:"];
+        NSDictionary * prm=@{@"channel":@"alipay",@"amount":@"22",@"ordernum":@"2015050900088",@"subject":@"外卖2",@"body":@"外卖"};
+        [dataprovider GetchargeForPay:prm];
+//        OrderInfoViewController * orderinfoVC=[[OrderInfoViewController alloc] init];
+//        orderinfoVC.orderInfoDetial=dict[@"data"];
+//        orderinfoVC.orderData=_orderData;
+//        [self.navigationController pushViewController:orderinfoVC animated:YES];
     }
 }
 

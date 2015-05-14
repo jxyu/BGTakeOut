@@ -44,6 +44,8 @@
     BOOL isClick;
     UIButton *  choseDone;
     UIView * CantingsegmentView;//放segmentcontrol的view
+    NSDictionary * dictionary;
+    NSMutableArray * lbl_array;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -189,10 +191,15 @@
         if (_badgeView) {
             _badgeView.hidden=YES;
         }
-        DataProvider *dataprovider=[[DataProvider alloc] init];
-        [dataprovider setDelegateObject:self setBackFunctionName:@"CanTingXiangqingBackCall:"];
-        [dataprovider GetCantingXiangqing:_resid];
-        
+        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+        dictionary =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+        if (dictionary) {
+            DataProvider *dataprovider=[[DataProvider alloc] init];
+            [dataprovider setDelegateObject:self setBackFunctionName:@"CanTingXiangqingBackCall:"];
+            [dataprovider GetCantingXiangqing:_resid anduserid:dictionary[@"userid"]];
+        }
     }
     else
     {
@@ -256,9 +263,26 @@
         cell.goodPrice.text=[NSString stringWithFormat:@"¥%@",GoodsListArray[indexPath.row][@"price"]];
         cell.goodSell.text=[NSString stringWithFormat:@"已售%@份",GoodsListArray[indexPath.row][@"soldnum"]];
         cell.personPush.text=[NSString stringWithFormat:@"推荐%@",GoodsListArray[indexPath.row][@"recommendnum"]];
-        [cell.goodAdd addTarget:self action:@selector(GoodsAddClick:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.goodAdd setTag:indexPath.row];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
+        UIButton * image_add=[[UIButton alloc] initWithFrame:CGRectMake(187, 57, 20, 20)];
+        image_add.layer.masksToBounds=YES;
+        image_add.layer.cornerRadius=12.5;
+        [image_add setImage:[UIImage imageNamed:@"jia_quan.png"] forState:UIControlStateNormal];
+        [image_add addTarget:self action:@selector(GoodsAddClick:) forControlEvents:UIControlEventTouchUpInside];
+        [image_add setTag:indexPath.row];
+        [cell addSubview:image_add];
+        
+        UIButton * image_jian=[[UIButton alloc] initWithFrame:CGRectMake(131, 57, 20, 20)];
+        image_jian.layer.masksToBounds=YES;
+        image_jian.layer.cornerRadius=12.5;
+        [image_jian setImage:[UIImage imageNamed:@"jian_quan.png"] forState:UIControlStateNormal];
+        [image_jian setTag:indexPath.row];
+        [cell addSubview:image_jian];
+        UILabel * lbl_cellNum=[[UILabel alloc] initWithFrame:CGRectMake(150, 57, 37, 20)];
+        [lbl_cellNum setTextAlignment:NSTextAlignmentCenter];
+        lbl_cellNum.tag=indexPath.row;
+        lbl_cellNum.font=[UIFont systemFontOfSize:13];
+        [cell addSubview:lbl_cellNum];
+        [lbl_array addObject:lbl_cellNum];
     }
     else
     {
@@ -280,6 +304,11 @@
     NSLog(@"添加一份");
     [choseDone setEnabled:YES];
     [choseDone setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
+    for (UILabel *item in lbl_array) {
+        if (item.tag==sender.tag) {
+            item.text=[NSString stringWithFormat:@"%d",[item.text intValue]+1];
+        }
+    }
     ShoppingCarModel * shopModel=[[ShoppingCarModel alloc] init];
     if (ShoppingCar.count>0) {
         int i=0;
@@ -479,6 +508,7 @@
 {
     NSLog(@"%@",dict);
     if (dict[@"data"]) {
+        [self addRightButton:@"shoucang@2x.png"];
         CGFloat y=CantingsegmentView.frame.origin.y+CantingsegmentView.frame.size.height;
         _CantingOtherPage=[[UIView alloc] initWithFrame:CGRectMake(0, y, KWidth, KHeight-y)];
         _CantingOtherPage.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
@@ -669,6 +699,28 @@
 -(void)getPinglunBackCall:(id)dict
 {
     NSLog(@"评论%@",dict);
+}
+
+-(void)clickRightButton:(UIButton *)sender
+{
+    
+    if (dictionary) {
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"AddColctionBackCall:"];
+        NSDictionary * prm=@{@"resid":_resid,@"userid":dictionary[@"userid"],@"type":@"1"};
+        [dataprovider AddOrDelcollection:prm];
+    }else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:@"请先登录" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+        [alert show];
+    }
+    
+}
+-(void)AddColctionBackCall:(id)dict
+{
+    UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:dict[@"msg"] delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+    [alert show];
+    [self addRightButton:@"shoucang-@2x.png"];
 }
 
 @end

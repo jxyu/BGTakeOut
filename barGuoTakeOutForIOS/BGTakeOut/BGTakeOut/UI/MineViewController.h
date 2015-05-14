@@ -11,6 +11,8 @@
 #import "UserInfoViewController.h"
 #import "OtherOfMineViewController.h"
 #import "BaseNavigationController.h"
+#import "OrderListViewController.h"
+#import "ClictionViewController.h"
 
 @interface MineViewController : BaseNavigationController <UITableViewDelegate,UITableViewDataSource>
 
@@ -18,4 +20,6 @@
 
 @property(nonatomic,strong)LoginViewController * myLogin;
 @property(nonatomic,strong)UserInfoViewController * myUserInfo;
+@property(nonatomic,strong)OrderListViewController * myOrderList;
+@property(nonatomic,strong)ClictionViewController * myCollection;
 @end

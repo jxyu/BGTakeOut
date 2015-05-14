@@ -15,5 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *personPush;
 @property (weak, nonatomic) IBOutlet UILabel *goodPrice;
 @property (weak, nonatomic) IBOutlet UIButton *goodAdd;
+@property (weak, nonatomic) IBOutlet UIButton *goodjian;
+@property (weak, nonatomic) IBOutlet UILabel *goodnum;
 
 @end

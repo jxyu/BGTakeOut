@@ -53,8 +53,7 @@
     nameArray2=[[NSArray alloc]initWithObjects:@"诚聘", @"招商加盟",nil];
     nameArray3=[[NSArray alloc]initWithObjects:@"设置",nil];
     
-    if (!userinfoWithFile) {
-        UIView * lastview=[[self.view subviews] lastObject];
+    if (!userinfoWithFile[@"userid"]) {
         BackGroundOfLogin=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 80)];
         UIImageView * backImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KWidth, 80)];
         backImageView.image=[UIImage imageNamed:@"MineBackImage.png"];
@@ -109,33 +108,34 @@
         [self.view addSubview:UserBackGroundView];
         [BackGroundOfLogin removeFromSuperview];
         [_myLogin.view removeFromSuperview];
+}
+    UIView * lastview =[[self.view subviews] lastObject];
+    CGFloat y=lastview.frame.size.height+lastview.frame.origin.y;
+    UIButton * BGB =[[UIButton alloc] initWithFrame:CGRectMake(0,y , KWidth/3, 80)];
+    [BGB setImage:[UIImage imageNamed:@"BGB.png"] forState:UIControlStateNormal];
+    [self.view addSubview:BGB];
+    
+    lastview =[[self.view subviews] lastObject];
+    CGFloat x=lastview.frame.size.width;
+    UIButton *  DD_btn=[[UIButton alloc] initWithFrame:CGRectMake(x,y , KWidth/3, 80)];
+    [DD_btn setImage:[UIImage imageNamed:@"DingDan.png"] forState:UIControlStateNormal];
+    [DD_btn addTarget:self action:@selector(ShowOrderListView) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:DD_btn];
+    
+    lastview =[[self.view subviews] lastObject];
+    x=lastview.frame.size.width+lastview.frame.origin.x;
+    UIButton *  SC_btn=[[UIButton alloc] initWithFrame:CGRectMake(x,y , KWidth/3, 80)];
+    [SC_btn setImage:[UIImage imageNamed:@"SC.png"] forState:UIControlStateNormal];
+    [SC_btn addTarget:self action:@selector(ShowCollectionVC) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:SC_btn];
+    
+    lastview =[[self.view subviews] lastObject];
+    y=lastview.frame.origin.y+lastview.frame.size.height;
 
-        
-        lastview =[[self.view subviews] lastObject];
-        CGFloat y=lastview.frame.size.height+lastview.frame.origin.y;
-        UIButton * BGB =[[UIButton alloc] initWithFrame:CGRectMake(0,y , KWidth/3, 80)];
-        [BGB setImage:[UIImage imageNamed:@"BGB.png"] forState:UIControlStateNormal];
-        [self.view addSubview:BGB];
-        
-        lastview =[[self.view subviews] lastObject];
-        CGFloat x=lastview.frame.size.width;
-        UIButton *  DD_btn=[[UIButton alloc] initWithFrame:CGRectMake(x,y , KWidth/3, 80)];
-        [DD_btn setImage:[UIImage imageNamed:@"DingDan.png"] forState:UIControlStateNormal];
-        [self.view addSubview:DD_btn];
-        
-        lastview =[[self.view subviews] lastObject];
-        x=lastview.frame.size.width+lastview.frame.origin.x;
-        UIButton *  SC_btn=[[UIButton alloc] initWithFrame:CGRectMake(x,y , KWidth/3, 80)];
-        [SC_btn setImage:[UIImage imageNamed:@"SC.png"] forState:UIControlStateNormal];
-        [self.view addSubview:SC_btn];
-        
-        lastview =[[self.view subviews] lastObject];
-        y=lastview.frame.origin.y+lastview.frame.size.height;
-        UITableView * MineTableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, KWidth, KHeight-49-y) style:UITableViewStyleGrouped];
-        MineTableView.delegate=self;
-        MineTableView.dataSource=self;
-        [self.view addSubview:MineTableView];
-    }
+    UITableView * MineTableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, KWidth, KHeight-49-y) style:UITableViewStyleGrouped];
+    MineTableView.delegate=self;
+    MineTableView.dataSource=self;
+    [self.view addSubview:MineTableView];
     
     
     
@@ -175,9 +175,6 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    static NSString *CellIdentifier = @"GoodsTableViewCell";
-//    GoodsTableViewCell *cell = (GoodsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
     static NSString * CellIdentifier=@"MineTableViewCell";
     MineTableViewCell * cell=(MineTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -224,7 +221,7 @@
     _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
     UIView * item =_myLogin.view;
     [_myLogin setDelegateObject:self setBackFunctionName:@"CallBackFuc:"];
-    [self.view addSubview:item];
+    [self.navigationController pushViewController:_myLogin animated:YES];
 }
 -(void)cellBtnBackCall:(UIButton *)sender
 {
@@ -310,7 +307,6 @@
     [UserBackGroundView addSubview:mybtn];
     [self.view addSubview:UserBackGroundView];
     [BackGroundOfLogin removeFromSuperview];
-    [_myLogin.view removeFromSuperview];
 }
 -(void)myBtnClick
 {
@@ -334,6 +330,18 @@
     }
     [touxiang setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,dict[@"data"][@"avatar"]]]]]];
     NSLog(@"%@getuserinfo",dict);
+}
+-(void)ShowOrderListView
+{
+    self.myOrderList=[[OrderListViewController alloc] init];
+    _myOrderList.userid=userinfoWithFile[@"userid"];
+    [self.navigationController pushViewController:_myOrderList animated:YES];
+}
+-(void)ShowCollectionVC
+{
+    self.myCollection=[[ClictionViewController alloc] init];
+    _myCollection.userid=userinfoWithFile[@"userid"];
+    [self.navigationController pushViewController:_myCollection animated:YES];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
