@@ -246,7 +246,7 @@
 -(void)CancelOrderWithOrderNum:(NSString *)ordernum
 {
     if (ordernum) {
-        NSString * url=[NSString stringWithFormat:@"%@cancelorder.php",KURL];
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Order/api_cancelOrder",KURL];
         NSDictionary * prm=@{@"ordernum":ordernum};
         [self PostRequest:url andpram:prm];
     }
@@ -268,6 +268,10 @@
         [self PostRequest:url andpram:prm];
     }
 }
+
+
+
+
 /**
  *  获得兑吧自动登录url
  *
@@ -282,6 +286,15 @@
         [self PostRequest:url andpram:prm];
     }
     
+
+}
+
+-(void)EditAddress:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@changeaddress.php",KURL];
+        [self PostRequest:url andpram:prm];
+    }
 }
 
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
@@ -349,3 +362,4 @@
 
 
 @end
+

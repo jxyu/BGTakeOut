@@ -342,9 +342,7 @@
         _myCantingView.resid=restid;
         _myCantingView.peisongData=Canting[indexPath.row][@"deliveryprice"];
         _myCantingView.name=Canting[indexPath.row][@"name"];
-        UIView * item =_myCantingView.view;
-        
-        [self.view addSubview:item];
+        [self.navigationController pushViewController:_myCantingView animated:YES];
         
     }
     else{

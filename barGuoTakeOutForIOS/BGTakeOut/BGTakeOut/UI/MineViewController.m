@@ -44,6 +44,7 @@
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
     userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    
     imageArray1=[[NSArray alloc]initWithObjects:@"gw.png",@"gsjj.png",@"tscl.png",nil];
     imageArray2=[[NSArray alloc]initWithObjects:@"cp.png", @"zsjm.png",nil];
     imageArray3=[[NSArray alloc]initWithObjects:@"set.png",nil];
