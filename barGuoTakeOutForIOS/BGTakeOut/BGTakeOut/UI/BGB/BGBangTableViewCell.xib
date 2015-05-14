@@ -38,26 +38,26 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PJG-p3-vAw">
-                        <rect key="frame" x="250" y="64" width="61" height="25"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <state key="normal" title="分享" image="share_icon.png">
-                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="shareClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Qwe-SU-Dmq"/>
-                        </connections>
-                    </button>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GmA-Xb-peU">
-                        <rect key="frame" x="89" y="64" width="86" height="27"/>
+                        <rect key="frame" x="89" y="63" width="86" height="27"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <state key="normal" title="(10)喜欢" image="like_icon.png">
+                        <state key="normal" title="(10)喜欢" image="zanhui@2x">
                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <connections>
                             <action selector="likeclick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="I9a-pG-5Xf"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PJG-p3-vAw">
+                        <rect key="frame" x="218" y="64" width="61" height="25"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="分享" image="fenxianghui@2x">
+                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="shareClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Qwe-SU-Dmq"/>
                         </connections>
                     </button>
                 </subviews>
@@ -72,7 +72,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="like_icon.png" width="33" height="33"/>
-        <image name="share_icon.png" width="25" height="25"/>
+        <image name="fenxianghui@2x" width="22" height="22"/>
+        <image name="zanhui@2x" width="22" height="22"/>
     </resources>
 </document>

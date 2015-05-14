@@ -198,6 +198,10 @@
 		80D309C11B04B73F009A2BF3 /* OtherOfMineViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80D309B01B04B73F009A2BF3 /* OtherOfMineViewController.xib */; };
 		80D309C21B04B73F009A2BF3 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80D309B21B04B73F009A2BF3 /* UserInfoViewController.m */; };
 		80D309C31B04B73F009A2BF3 /* UserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80D309B31B04B73F009A2BF3 /* UserInfoViewController.xib */; };
+		80D309C81B04C2B9009A2BF3 /* fenxianghong.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D309C41B04C2B9009A2BF3 /* fenxianghong.png */; };
+		80D309C91B04C2B9009A2BF3 /* fenxianghui.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D309C51B04C2B9009A2BF3 /* fenxianghui.png */; };
+		80D309CA1B04C2B9009A2BF3 /* zanhong.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D309C61B04C2B9009A2BF3 /* zanhong.png */; };
+		80D309CB1B04C2B9009A2BF3 /* zanhui.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D309C71B04C2B9009A2BF3 /* zanhui.png */; };
 		80D5EEE01AFDEEB600C95421 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D5EED71AFDEEB600C95421 /* first.png */; };
 		80D5EEE11AFDEEB600C95421 /* no.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D5EED81AFDEEB600C95421 /* no.png */; };
 		80D5EEE21AFDEEB600C95421 /* paysure.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D5EED91AFDEEB600C95421 /* paysure.png */; };
@@ -551,6 +555,10 @@
 		80D309B11B04B73F009A2BF3 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
 		80D309B21B04B73F009A2BF3 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		80D309B31B04B73F009A2BF3 /* UserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoViewController.xib; sourceTree = "<group>"; };
+		80D309C41B04C2B9009A2BF3 /* fenxianghong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fenxianghong.png; sourceTree = "<group>"; };
+		80D309C51B04C2B9009A2BF3 /* fenxianghui.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fenxianghui.png; sourceTree = "<group>"; };
+		80D309C61B04C2B9009A2BF3 /* zanhong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zanhong.png; sourceTree = "<group>"; };
+		80D309C71B04C2B9009A2BF3 /* zanhui.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zanhui.png; sourceTree = "<group>"; };
 		80D5EED71AFDEEB600C95421 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
 		80D5EED81AFDEEB600C95421 /* no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no.png; sourceTree = "<group>"; };
 		80D5EED91AFDEEB600C95421 /* paysure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paysure.png; sourceTree = "<group>"; };
@@ -913,6 +921,10 @@
 		80843EFC1AE2376B006AC3B7 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				80D309C41B04C2B9009A2BF3 /* fenxianghong.png */,
+				80D309C51B04C2B9009A2BF3 /* fenxianghui.png */,
+				80D309C61B04C2B9009A2BF3 /* zanhong.png */,
+				80D309C71B04C2B9009A2BF3 /* zanhui.png */,
 				80DCBB451B04427600D2D3A1 /* shoucang-@2x.png */,
 				80DCBB461B04427600D2D3A1 /* shoucang@2x.png */,
 				8A4B99761B02F9FE0051B915 /* index_10@2x.png */,
@@ -1509,6 +1521,7 @@
 				80843F181AE25ACC006AC3B7 /* joke.jpg in Resources */,
 				802DB4861AEA44FF00140AA9 /* share_icon.png in Resources */,
 				80843F1A1AE25ACC006AC3B7 /* luck.jpg in Resources */,
+				80D309CB1B04C2B9009A2BF3 /* zanhui.png in Resources */,
 				80D309B51B04B73F009A2BF3 /* AddAddressViewController.xib in Resources */,
 				80D5EEE31AFDEEB600C95421 /* radio_btn_selected.png in Resources */,
 				8A5D7F5D1B04332200F96831 /* UMShareEditViewControlleriPad.xib in Resources */,
@@ -1523,6 +1536,7 @@
 				8072B9081AEB34D800597ABB /* lipin_weidan.png in Resources */,
 				80D5EEE21AFDEEB600C95421 /* paysure.png in Resources */,
 				809ABD561AFCAC6B00E7C662 /* placeholder.png in Resources */,
+				80D309C81B04C2B9009A2BF3 /* fenxianghong.png in Resources */,
 				80D309611B04B706009A2BF3 /* AutoLocationViewController.xib in Resources */,
 				8A5D7F5E1B04332200F96831 /* UMSLoginViewController.xib in Resources */,
 				8047850D1AF99A15001B451E /* tengxun.png in Resources */,
@@ -1542,6 +1556,7 @@
 				8088515E1AE8D90F002614AC /* Star_light.png in Resources */,
 				80D3098E1B04B721009A2BF3 /* TableViewCell.xib in Resources */,
 				80067CB61ADCA0F100394FB7 /* LaunchScreen.xib in Resources */,
+				80D309C91B04C2B9009A2BF3 /* fenxianghui.png in Resources */,
 				804785021AF99A15001B451E /* fenghuang.png in Resources */,
 				80A5294F1AE4DF0400FE6F90 /* ic_actionbar_back.png in Resources */,
 				8A5D7F671B04332200F96831 /* ios-social-sdk-shake.html in Resources */,
@@ -1550,6 +1565,7 @@
 				80D3096B1B04B706009A2BF3 /* WaiMAIViewController.xib in Resources */,
 				80D5EEE01AFDEEB600C95421 /* first.png in Resources */,
 				80D309671B04B706009A2BF3 /* JokeTableViewCell.xib in Resources */,
+				80D309CA1B04C2B9009A2BF3 /* zanhong.png in Resources */,
 				804785091AF99A15001B451E /* quna.png in Resources */,
 				80D309C11B04B73F009A2BF3 /* OtherOfMineViewController.xib in Resources */,
 				80793F961AEF30C60066C62C /* jia.png in Resources */,
