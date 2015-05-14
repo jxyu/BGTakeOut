@@ -52,6 +52,7 @@
 -(void)chengpinSubmit:(id)prm;
 -(void)GetZhaoShangInfo;
 -(void)zhaoshangSubmit:(id)prm;
+-(void)GetBGBangDetialWith:(NSString * )articleid;
 
 
 /**

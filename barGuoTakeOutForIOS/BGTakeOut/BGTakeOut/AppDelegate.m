@@ -369,7 +369,11 @@
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider zhaoshangSubmit:prm];
 }
-
+-(void)GetBGBangDetialWith:(NSString * )articleid
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetBGBangDetialWith:articleid];
+}
 
 
 

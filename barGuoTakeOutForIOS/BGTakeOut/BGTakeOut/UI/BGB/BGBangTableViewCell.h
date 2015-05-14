@@ -13,7 +13,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *Name;
 @property (weak, nonatomic) IBOutlet UIImageView *renzheng;
 @property (weak, nonatomic) IBOutlet UILabel *adress;
-- (IBAction)likeclick:(UIButton *)sender;
-- (IBAction)shareClick:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UIButton *dianzan;
+@property (weak, nonatomic) IBOutlet UIButton *Btn_share;
+
 
 @end

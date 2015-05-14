@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "BaseNavigationController.h"
 #import "DOPDropDownMenu.h"
+#import "BGBangDetialViewController.h"
 
 @interface BGBangViewController : BaseNavigationController <UITabBarDelegate,DOPDropDownMenuDelegate,DOPDropDownMenuDataSource,UITableViewDelegate,UITableViewDataSource>
-
-
--(void)clickLeftButton;
+@property(nonatomic,strong)BGBangDetialViewController *BGBangDetialVC;
 @end

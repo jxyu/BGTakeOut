@@ -111,11 +111,6 @@
 }
 
 
--(void)clickLeftButton
-{
-    [self.view removeFromSuperview];
-}
-
 #pragma mark 返回菜单数量
 - (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu
 {
@@ -237,6 +232,7 @@
         cell.Name.text=_TextArray[indexPath.row][@"resname"];
         cell.adress.text=_TextArray[indexPath.row][@"resaddress"];
         cell.logoImage.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,_TextArray[indexPath.row][@"reslogo"]]]]];
+        [cell.Btn_share addTarget:self action:@selector(BGBangShare:) forControlEvents:UIControlEventTouchUpInside];
         [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
     }
     else
@@ -254,6 +250,12 @@
     CGFloat height=100.0;
     return height;
 }
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.BGBangDetialVC=[[BGBangDetialViewController alloc] init];
+    _BGBangDetialVC.articleid=_TextArray[indexPath.row][@"articleid"];
+    [self.navigationController pushViewController:_BGBangDetialVC animated:YES];
+}
 
 -(void)SegMentControlClick
 {
@@ -266,6 +268,11 @@
     {
         _Page.hidden=NO;
     }
+}
+
+-(void)BGBangShare:(UIButton *)sender
+{
+    //分享巴国榜
 }
 
 @end
