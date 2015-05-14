@@ -288,7 +288,13 @@
     
 
 }
-
+-(void)commitdevicetokenWithUserid:(NSString*)userid token:(NSString*)token{
+    if(userid&&token){
+        NSString * url=[NSString stringWithFormat:@"%@commitdevicetoken.php",KURL];
+        NSDictionary * prm=@{@"userid":userid,@"token":token};
+        [self PostRequest:url andpram:prm];
+    }
+};
 -(void)EditAddress:(id)prm
 {
     if (prm) {

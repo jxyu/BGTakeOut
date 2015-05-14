@@ -23,10 +23,10 @@
 #define CurrentLanguage ([[NSLocale preferredLanguages] objectAtIndex:0])
 
 
-#define remove_sp(a) [[NSUserDefaults standardUserDefaults] removeObjectForKey:a]
-#define get_sp(a) [[NSUserDefaults standardUserDefaults] objectForKey:a]
-#define get_Dsp(a) [[NSUserDefaults standardUserDefaults]dictionaryForKey:a]
-#define set_sp(a,b) [[NSUserDefaults standardUserDefaults] setObject:b forKey:a]
+#define remove_sp(key) [[NSUserDefaults standardUserDefaults] removeObjectForKey:key]
+#define get_sp(key) [[NSUserDefaults standardUserDefaults] objectForKey:key]
+#define get_Dsp(key) [[NSUserDefaults standardUserDefaults]dictionaryForKey:key]
+#define set_sp(object,key) [[NSUserDefaults standardUserDefaults] setObject:object forKey:key]
 #define sp [NSUserDefaults standardUserDefaults]
 #define img(a) [UIImage imageNamed:a]
 #define _app_ ((AppDelegate *)[UIApplication sharedApplication].delegate)

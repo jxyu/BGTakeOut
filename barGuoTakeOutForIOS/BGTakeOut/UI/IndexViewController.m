@@ -204,12 +204,12 @@
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
     NSDictionary* userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
     if(userinfoWithFile){
-        //TODO: 已经登录完成，调用接口获取免登陆链接在页面中显示
+        //!!!:  已经登录完成，调用接口获取免登陆链接在页面中显示
         DataProvider* dataProvider=[[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getDuibaAutoLoginUrl:"];
 [        dataProvider getduibaurlWithAppkey:duiba_app_key appsecret:duiba_app_secret userid:userinfoWithFile[@"userid"]];
     }else{
-        //TODO: 还没有登录，跳转登录页面，登录成功后返回这一页面
+        //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
 LoginViewController* loginVC=        [[LoginViewController alloc] init];
         [self.navigationController pushViewController:loginVC animated:YES];
 

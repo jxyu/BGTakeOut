@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseNavigationController.h"
-
+#import "UMessage.h"
 @interface LoginViewController : BaseNavigationController
 {
     id CallBackObject;

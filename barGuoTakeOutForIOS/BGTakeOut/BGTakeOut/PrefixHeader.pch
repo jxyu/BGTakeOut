@@ -12,9 +12,16 @@
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+/**
+ *  兑吧appkey&appsecret
+ */
 #define duiba_app_key @"3Zxiw1dny8Msn4P8TmyoeECqtKdu"
 #define duiba_app_secret @"3zW6J9ZaqMJq6jxK3NqEWmYQrKTx"
 
+/**
+ *  友盟appkey
+ */
+#define umeng_app_key @"5551c648e0f55a492500099c"
 
 
 #endif

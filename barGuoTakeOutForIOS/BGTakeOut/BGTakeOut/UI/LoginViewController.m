@@ -131,7 +131,13 @@
                 NSLog(@"回调失败...");
             }
         }
-        
+        NSString * token=[[NSString alloc] initWithData:    get_sp(@"devicetoken") encoding:NSUTF8StringEncoding];
+
+            //!!!:  已经登录完成，
+            DataProvider* dataProvider=[[DataProvider alloc] init];
+            [dataProvider setDelegateObject:self setBackFunctionName:@"commitSuccess:"];
+            [dataProvider commitdevicetokenWithUserid:dict[@"data"][@"userid"] token:token];
+       
     }else
     {
         UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"通知", nil)
@@ -141,6 +147,9 @@
                                             otherButtonTitles:nil, nil];
         [alert show];
     }
+}
+-(void)commitSuccess:(id)dict{
+    DLog(@"commitDeviceTokenSuccess:%@",dict);
 }
 -(void)clickRightButton:(UIButton *)sender
 {
