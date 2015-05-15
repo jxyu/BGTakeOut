@@ -351,6 +351,14 @@
         [self PostRequest:url andpram:prm];
     }
 }
+-(void)GetBGBangDetialWith:(NSString * )articleid
+{
+    if (articleid) {
+        NSString * url=[NSString stringWithFormat:@"%@getbaguorankdetail.php",KURL];
+        NSDictionary * prm=@{@"articleid":articleid};
+        [self PostRequest:url andpram:prm];
+    }
+}
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
 {
     AFHTTPRequestOperationManager * manage=[[AFHTTPRequestOperationManager alloc] init];

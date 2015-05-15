@@ -262,11 +262,4 @@
 }
 
 
-
-#pragma mark 返回按钮
--(void)clickLeftButton
-{
-    [self.view removeFromSuperview];
-}
-
 @end

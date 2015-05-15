@@ -20,9 +20,4 @@
     // Configure the view for the selected state
 }
 
-- (IBAction)likeclick:(UIButton *)sender {
-}
-
-- (IBAction)shareClick:(UIButton *)sender {
-}
 @end

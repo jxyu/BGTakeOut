@@ -127,8 +127,6 @@
 		808995FB1AE0DED90059038D /* YJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808995FA1AE0DED90059038D /* YJViewController.m */; };
 		808996001AE0DEFB0059038D /* RegisterByVoiceCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808995FD1AE0DEFA0059038D /* RegisterByVoiceCallViewController.m */; };
 		808996011AE0DEFB0059038D /* SubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808995FF1AE0DEFA0059038D /* SubmitViewController.m */; };
-		8089960A1AE0F4A50059038D /* IndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808996081AE0F4A50059038D /* IndexViewController.m */; };
-		8089960B1AE0F4A50059038D /* IndexViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 808996091AE0F4A50059038D /* IndexViewController.xib */; };
 		809ABD541AFC4DB000E7C662 /* UserInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 809ABD531AFC4DB000E7C662 /* UserInfo.plist */; };
 		809ABD561AFCAC6B00E7C662 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 809ABD551AFCAC6B00E7C662 /* placeholder.png */; };
 		809C10011AF714E90059A317 /* BGB.png in Resources */ = {isa = PBXBuildFile; fileRef = 809C0FFE1AF714E90059A317 /* BGB.png */; };
@@ -202,6 +200,9 @@
 		80D309C91B04C2B9009A2BF3 /* fenxianghui.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D309C51B04C2B9009A2BF3 /* fenxianghui.png */; };
 		80D309CA1B04C2B9009A2BF3 /* zanhong.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D309C61B04C2B9009A2BF3 /* zanhong.png */; };
 		80D309CB1B04C2B9009A2BF3 /* zanhui.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D309C71B04C2B9009A2BF3 /* zanhui.png */; };
+		80D309CE1B04CB4D009A2BF3 /* BGBangDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80D309CD1B04CB4D009A2BF3 /* BGBangDetialViewController.m */; };
+		80D309D21B04DABA009A2BF3 /* IndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80D309D01B04DABA009A2BF3 /* IndexViewController.m */; };
+		80D309D31B04DABA009A2BF3 /* IndexViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80D309D11B04DABA009A2BF3 /* IndexViewController.xib */; };
 		80D5EEE01AFDEEB600C95421 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D5EED71AFDEEB600C95421 /* first.png */; };
 		80D5EEE11AFDEEB600C95421 /* no.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D5EED81AFDEEB600C95421 /* no.png */; };
 		80D5EEE21AFDEEB600C95421 /* paysure.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D5EED91AFDEEB600C95421 /* paysure.png */; };
@@ -451,9 +452,6 @@
 		808995FD1AE0DEFA0059038D /* RegisterByVoiceCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterByVoiceCallViewController.m; sourceTree = "<group>"; };
 		808995FE1AE0DEFA0059038D /* SubmitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitViewController.h; sourceTree = "<group>"; };
 		808995FF1AE0DEFA0059038D /* SubmitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitViewController.m; sourceTree = "<group>"; };
-		808996071AE0F4A50059038D /* IndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IndexViewController.h; path = UI/IndexViewController.h; sourceTree = "<group>"; };
-		808996081AE0F4A50059038D /* IndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IndexViewController.m; path = UI/IndexViewController.m; sourceTree = "<group>"; };
-		808996091AE0F4A50059038D /* IndexViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IndexViewController.xib; path = UI/IndexViewController.xib; sourceTree = "<group>"; };
 		809ABD531AFC4DB000E7C662 /* UserInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInfo.plist; sourceTree = "<group>"; };
 		809ABD551AFCAC6B00E7C662 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		809C0FFE1AF714E90059A317 /* BGB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BGB.png; sourceTree = "<group>"; };
@@ -559,6 +557,11 @@
 		80D309C51B04C2B9009A2BF3 /* fenxianghui.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fenxianghui.png; sourceTree = "<group>"; };
 		80D309C61B04C2B9009A2BF3 /* zanhong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zanhong.png; sourceTree = "<group>"; };
 		80D309C71B04C2B9009A2BF3 /* zanhui.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zanhui.png; sourceTree = "<group>"; };
+		80D309CC1B04CB4D009A2BF3 /* BGBangDetialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGBangDetialViewController.h; sourceTree = "<group>"; };
+		80D309CD1B04CB4D009A2BF3 /* BGBangDetialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGBangDetialViewController.m; sourceTree = "<group>"; };
+		80D309CF1B04DABA009A2BF3 /* IndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexViewController.h; sourceTree = "<group>"; };
+		80D309D01B04DABA009A2BF3 /* IndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexViewController.m; sourceTree = "<group>"; };
+		80D309D11B04DABA009A2BF3 /* IndexViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IndexViewController.xib; sourceTree = "<group>"; };
 		80D5EED71AFDEEB600C95421 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
 		80D5EED81AFDEEB600C95421 /* no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no.png; sourceTree = "<group>"; };
 		80D5EED91AFDEEB600C95421 /* paysure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paysure.png; sourceTree = "<group>"; };
@@ -1129,9 +1132,6 @@
 				806383C41AF062D300AF9866 /* CoreGraphics.framework */,
 				806383C21AF062C300AF9866 /* UIKit.framework */,
 				806383C01AF062AC00AF9866 /* QuartzCore.framework */,
-				808996071AE0F4A50059038D /* IndexViewController.h */,
-				808996081AE0F4A50059038D /* IndexViewController.m */,
-				808996091AE0F4A50059038D /* IndexViewController.xib */,
 				808995C21AE0D4BD0059038D /* MessageUI.framework */,
 				808995C01AE0D4B00059038D /* libz.dylib */,
 				808995BE1AE0D4A00059038D /* libicucore.dylib */,
@@ -1144,6 +1144,9 @@
 		80D3094D1B04B706009A2BF3 /* index */ = {
 			isa = PBXGroup;
 			children = (
+				80D309CF1B04DABA009A2BF3 /* IndexViewController.h */,
+				80D309D01B04DABA009A2BF3 /* IndexViewController.m */,
+				80D309D11B04DABA009A2BF3 /* IndexViewController.xib */,
 				80D3094E1B04B706009A2BF3 /* AutoLocationViewController.h */,
 				80D3094F1B04B706009A2BF3 /* AutoLocationViewController.m */,
 				80D309501B04B706009A2BF3 /* AutoLocationViewController.xib */,
@@ -1175,6 +1178,8 @@
 				80D309701B04B718009A2BF3 /* BGBangViewController.h */,
 				80D309711B04B718009A2BF3 /* BGBangViewController.m */,
 				80D309721B04B718009A2BF3 /* BGBangViewController.xib */,
+				80D309CC1B04CB4D009A2BF3 /* BGBangDetialViewController.h */,
+				80D309CD1B04CB4D009A2BF3 /* BGBangDetialViewController.m */,
 			);
 			path = BGB;
 			sourceTree = "<group>";
@@ -1512,7 +1517,6 @@
 				80D5EEE51AFDEEB600C95421 /* sencond.png in Resources */,
 				8047850A1AF99A15001B451E /* souhu.png in Resources */,
 				80D309BA1B04B73F009A2BF3 /* MineTableViewCell.xib in Resources */,
-				8089960B1AE0F4A50059038D /* IndexViewController.xib in Resources */,
 				804785001AF99A15001B451E /* caipiao.png in Resources */,
 				809ABD541AFC4DB000E7C662 /* UserInfo.plist in Resources */,
 				80D5EEE41AFDEEB600C95421 /* radio_btn_unselected.png in Resources */,
@@ -1573,6 +1577,7 @@
 				804785071AF99A15001B451E /* kuaidi.png in Resources */,
 				8A5D7F5B1B04332200F96831 /* UMSCommentInputControlleriPad.xib in Resources */,
 				809C10031AF714E90059A317 /* SC.png in Resources */,
+				80D309D31B04DABA009A2BF3 /* IndexViewController.xib in Resources */,
 				80D5EEE61AFDEEB600C95421 /* sure.png in Resources */,
 				80D5EEEA1AFDF74800C95421 /* no_icon.png in Resources */,
 				8A5D7F561B04332200F96831 /* UMSocialLocalizable.strings in Resources */,
@@ -1707,13 +1712,13 @@
 				80A5293F1AE48EDE00FE6F90 /* TADotView.m in Sources */,
 				806023331ADFB71400E1C498 /* AFURLConnectionOperation.m in Sources */,
 				80D309B41B04B73F009A2BF3 /* AddAddressViewController.m in Sources */,
-				8089960A1AE0F4A50059038D /* IndexViewController.m in Sources */,
 				80D3098A1B04B721009A2BF3 /* OrderForSureViewController.m in Sources */,
 				808995DB1AE0DE100059038D /* RegViewController.m in Sources */,
 				80D309C01B04B73F009A2BF3 /* OtherOfMineViewController.m in Sources */,
 				806383F81AF0BE6500AF9866 /* UIImageView+WebCache.m in Sources */,
 				808995EA1AE0DE290059038D /* SectionsViewControllerFriends.m in Sources */,
 				804E96C31B02311D00803F5C /* CustomTabBarViewController.m in Sources */,
+				80D309D21B04DABA009A2BF3 /* IndexViewController.m in Sources */,
 				8088515A1AE8D83E002614AC /* TQStarRatingView.m in Sources */,
 				806383BF1AF0624E00AF9866 /* JSBadgeView.m in Sources */,
 				808995FB1AE0DED90059038D /* YJViewController.m in Sources */,
@@ -1728,6 +1733,7 @@
 				808995F61AE0DE520059038D /* SMS_HYZBadgeView.m in Sources */,
 				80D309621B04B706009A2BF3 /* BGGiftTableViewCell.m in Sources */,
 				80A5293B1AE48EDE00FE6F90 /* SDCollectionViewCell.m in Sources */,
+				80D309CE1B04CB4D009A2BF3 /* BGBangDetialViewController.m in Sources */,
 				80D309BF1B04B73F009A2BF3 /* OrderListViewController.m in Sources */,
 				80A5293D1AE48EDE00FE6F90 /* TAAbstractDotView.m in Sources */,
 				806023341ADFB71400E1C498 /* AFURLRequestSerialization.m in Sources */,
