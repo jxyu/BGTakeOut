@@ -15,7 +15,7 @@
 #import "BGGiftViewController.h"
 #import "MineViewController.h"
 #import "FoundViewController.h"
-
+#import "LuckyGameViewController.h"
 @interface IndexViewController : BaseNavigationController<NSURLConnectionDataDelegate,UITabBarDelegate>
 @property(nonatomic,strong)AutoLocationViewController * autolocation;
 @property(nonatomic,strong)WaiMAIViewController * myWaiMai;

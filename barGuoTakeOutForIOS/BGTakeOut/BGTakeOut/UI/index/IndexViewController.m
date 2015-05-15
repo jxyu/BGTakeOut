@@ -77,6 +77,7 @@
     CGFloat x=lastinarray.frame.size.width+2;
     UIButton * luck= [[UIButton alloc] initWithFrame:CGRectMake(x, y, kSWidth/2-1, 70)];
     [luck setImage:[UIImage imageNamed:@"luck.jpg"] forState:UIControlStateNormal];
+        [luck addTarget:self action:@selector(jumpToLuck) forControlEvents:UIControlEventTouchUpInside];
     [page addSubview:luck];
     
     //更多礼品按钮
@@ -128,14 +129,15 @@
     NSMutableArray *images = [[NSMutableArray alloc] init];
     for (int i=0; i<[result[@"data"] count]; i++) {
         UIImageView * img=[[UIImageView alloc] init];
-        [img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,result[@"data"][i][@"adurl"]]] placeholderImage:[UIImage imageNamed:@"fenxianghong.png"] ];
+        [img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,result[@"data"][i][@"adurl"]]] placeholderImage:[UIImage imageNamed:@"placeholder@2x.png"] ];
+
         [images addObject:img];
     }
     
-    NSArray *titles = @[@"第一张轮播图",
-                        @"第二张轮播图",
-                        @"第三张轮播图",
-                        @"第四张轮播图"
+    NSArray *titles = @[@"",
+                        @"",
+                        @"",
+                        @""
                         ];
     // 创建带标题的图片轮播器
     for (UIView *item in page.subviews) {
@@ -144,7 +146,7 @@
             _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:item.frame imagesGroup:images ];
         }
     }
-    _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    _cycleScrollView.pageControlAliment =     SDCycleScrollViewPageContolAlimentCenter;
     _cycleScrollView.delegate = self;
     _cycleScrollView.titlesGroup = titles;
     
@@ -215,5 +217,8 @@ NSString* url=    d[@"data"][@"url"];
 //    UIView * item =myrest.view;
 //    [self.view addSubview:item];
 }
-
+-(void)jumpToLuck{
+    LuckyGameViewController* luck=[[LuckyGameViewController alloc]init];
+    [self.navigationController pushViewController:luck animated:YES];
+}
 @end
