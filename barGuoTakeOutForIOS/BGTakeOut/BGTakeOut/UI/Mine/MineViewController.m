@@ -231,7 +231,7 @@
 {
     NSLog(@"%ld",(long)sender.tag);
     _myOther=[[OtherOfMineViewController alloc] initWithNibName:@"OtherOfMineViewController" bundle:[NSBundle mainBundle]];
-    
+    _myOther.UserInfoData=UserInfoData;
     switch (sender.tag) {
         case 0:
             
@@ -242,7 +242,6 @@
         case 2:
             if (UserInfoData) {
                 _myOther.Othertitle=@"投诉处理";
-                _myOther.UserInfoData=UserInfoData;
             }else
             {
                 UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"通知", nil)

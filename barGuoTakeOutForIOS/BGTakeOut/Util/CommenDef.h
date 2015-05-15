@@ -13,7 +13,7 @@
 #define StatusBar_HEIGHT 20
 #define TabBar_HEIGHT 49
 
-
+#define KURL @"http://121.42.139.60/baguo/"
 
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)

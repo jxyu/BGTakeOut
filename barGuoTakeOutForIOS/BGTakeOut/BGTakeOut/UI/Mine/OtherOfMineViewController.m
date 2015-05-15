@@ -42,7 +42,11 @@
     UILabel * lbl_banquanfuhao;
     
     UITextView * zhiwei;
+    UILabel *uilabelzhiwei;
+    UILabel * lbl_zishuzhiwei;
     UITextView * zhaoshang;
+    UILabel *uilabelzhaoshang;
+    UILabel * lbl_zishuzhaoshang;
     
 }
 
@@ -172,6 +176,10 @@
     }else{
         uilabel.text = @"";
         lbl_zishu.text=[NSString stringWithFormat:@"还能输入%d个字",140-textlength];
+        uilabelzhiwei.text = @"";
+        lbl_zishuzhiwei.text=[NSString stringWithFormat:@"还能输入%d个字",140-textlength];
+        uilabelzhaoshang.text = @"";
+        lbl_zishuzhaoshang.text=[NSString stringWithFormat:@"还能输入%d个字",140-textlength];
     }
 }
 -(void)SubmitBackCall:(id)dict
@@ -255,12 +263,12 @@
     zhiwei.delegate=self;
     [self.view addSubview:zhiwei];
     
-    UILabel *uilabelzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(17, lastView.frame.origin.y+lastView.frame.size.height+5+8, 100, 10)];
-    uilabelzhiwei.text = @"请填写投诉内容..";
+    uilabelzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(17, lastView.frame.origin.y+lastView.frame.size.height+5+8, 100, 10)];
+    uilabelzhiwei.text = @"请填写您的信息..";
     uilabelzhiwei.enabled = NO;//lable必须设置为不可用
     uilabelzhiwei.backgroundColor = [UIColor clearColor];
     [self.view addSubview:uilabelzhiwei];
-    UILabel * lbl_zishuzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, lastView.frame.origin.y+lastView.frame.size.height+5+zhiwei.frame.size.height-30, 150, 10)];
+    lbl_zishuzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, lastView.frame.origin.y+lastView.frame.size.height+5+zhiwei.frame.size.height-30, 150, 10)];
     lbl_zishuzhiwei.text=@"还能输入140个字";
     lbl_zishuzhiwei.enabled=NO;
     lbl_zishuzhiwei.backgroundColor=[UIColor clearColor];
@@ -311,7 +319,7 @@
             BackView_zhaopinxinxi=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+lastView.frame.origin.y, SCREEN_WIDTH, 100)];
         }
         UILabel * lbl_zhiweiname=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, 20)];
-        lbl_zhiweiname.text=[NSString stringWithFormat:@"%d、%@",i,array[i][@"zhiwei"]];
+        lbl_zhiweiname.text=[NSString stringWithFormat:@"%d、%@",i,array[i][@"title"]];
         [BackView_zhaopinxinxi addSubview:lbl_zhiweiname];
         UILabel * lbl_zhiweicontent=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_zhiweiname.frame.size.height+10, SCREEN_WIDTH-20, 60)];
         [lbl_zhiweicontent setLineBreakMode:NSLineBreakByWordWrapping];
@@ -327,19 +335,19 @@
     zhaoshang.delegate=self;
     [self.view addSubview:zhaoshang];
     
-    UILabel *uilabelzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(17, lastView.frame.origin.y+lastView.frame.size.height+5+8, 100, 10)];
-    uilabelzhiwei.text = @"请填写投诉内容..";
-    uilabelzhiwei.enabled = NO;//lable必须设置为不可用
-    uilabelzhiwei.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:uilabelzhiwei];
+    uilabelzhaoshang=[[UILabel alloc] initWithFrame:CGRectMake(17, lastView.frame.origin.y+lastView.frame.size.height+5+8, 100, 10)];
+    uilabelzhaoshang.text = @"请填写招商信息..";
+    uilabelzhaoshang.enabled = NO;//lable必须设置为不可用
+    uilabelzhaoshang.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:uilabelzhaoshang];
     UILabel * lbl_zishuzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, lastView.frame.origin.y+lastView.frame.size.height+5+zhiwei.frame.size.height-30, 150, 10)];
-    lbl_zishuzhiwei.text=@"还能输入140个字";
-    lbl_zishuzhiwei.enabled=NO;
-    lbl_zishuzhiwei.backgroundColor=[UIColor clearColor];
-    [self.view addSubview:lbl_zishuzhiwei];
-    UIButton * btn_zhiwei=[[UIButton alloc] initWithFrame:CGRectMake(20, zhiwei.frame.origin.y+zhiwei.frame.size.height+10, SCREEN_WIDTH-40, 35)];
+    lbl_zishuzhaoshang.text=@"还能输入140个字";
+    lbl_zishuzhaoshang.enabled=NO;
+    lbl_zishuzhaoshang.backgroundColor=[UIColor clearColor];
+    [self.view addSubview:lbl_zishuzhaoshang];
+    UIButton * btn_zhiwei=[[UIButton alloc] initWithFrame:CGRectMake(20, zhaoshang.frame.origin.y+zhaoshang.frame.size.height+10, SCREEN_WIDTH-40, 35)];
     btn_zhiwei.backgroundColor=[UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
-    [btn_zhiwei addTarget:self action:@selector(zhiweiSubmit) forControlEvents:UIControlEventTouchUpInside];
+    [btn_zhiwei addTarget:self action:@selector(zhaoshangSubmit) forControlEvents:UIControlEventTouchUpInside];
     [btn_zhiwei setTitle:@"提交" forState:UIControlStateNormal];
     [self.view addSubview:btn_zhiwei];
 

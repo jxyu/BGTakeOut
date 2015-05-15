@@ -101,7 +101,7 @@
 
 -(void)GetBGBangText:(NSDictionary *)pram
 {
-    NSString * url=[NSString stringWithFormat:@"%@getbaguorank.php",KURL];
+    NSString * url=[NSString stringWithFormat:@"%@server/Home/Rank/api_getBaguoRank",KURL];
     NSDictionary * prm =pram;
     [self PostRequest:url andpram:prm];
 }
@@ -354,8 +354,16 @@
 -(void)GetBGBangDetialWith:(NSString * )articleid
 {
     if (articleid) {
-        NSString * url=[NSString stringWithFormat:@"%@getbaguorankdetail.php",KURL];
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Rank/api_getBaguoRankDetail",KURL];
         NSDictionary * prm=@{@"articleid":articleid};
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)GetBGBangTypewithtype:(NSString *)type andupid :(NSString *)upid
+{
+    if (type&&upid) {
+        NSString * url=[NSString stringWithFormat:@"%@getbaguorankcate.php",KURL];
+        NSDictionary * prm=@{@"type":type,@"upid":upid};
         [self PostRequest:url andpram:prm];
     }
 }
