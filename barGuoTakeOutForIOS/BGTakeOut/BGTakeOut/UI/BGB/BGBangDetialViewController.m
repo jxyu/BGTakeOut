@@ -113,6 +113,32 @@
     lbl_baguobangContent.numberOfLines=0;
     lbl_baguobangContent.text=dict[@"data"][@"content"];
     [page addSubview:lbl_baguobangContent];
+    UIButton * btn_mydianzan=[[UIButton alloc] initWithFrame:CGRectMake(10, SCREEN_HEIGHT-40, (SCREEN_WIDTH-20)/3, 30)];
+    [btn_mydianzan setImage:[UIImage imageNamed:@"zanhui@2x"] forState:UIControlStateNormal];
+    [btn_mydianzan setTitle:[NSString stringWithFormat:@"（%@）喜欢",dict[@"data"][@"starnum"]] forState:UIControlStateNormal];
+    btn_mydianzan.titleLabel.font=[UIFont systemFontOfSize:13];
+    [btn_mydianzan setTitleColor:[UIColor colorWithRed:121/255.0 green:121/255.0 blue:121/255.0 alpha:1.0] forState:UIControlStateNormal];
+    btn_mydianzan.layer.borderWidth=1;
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 220/255.0,220/255.0, 220/255.0, 1 });
+    btn_mydianzan.layer.borderColor=colorref;
+    [self.view addSubview:btn_mydianzan];
+    UIButton * btn_pinglun=[[UIButton alloc] initWithFrame:CGRectMake(btn_mydianzan.frame.origin.x+btn_mydianzan.frame.size.width, SCREEN_HEIGHT-40, (SCREEN_WIDTH-20)/3, 30 )];
+    [btn_pinglun setImage:[UIImage imageNamed:@"pinglunhui@2x.png"] forState:UIControlStateNormal];
+    [btn_pinglun setTitle:[NSString stringWithFormat:@"（%@）评论",dict[@"data"][@"authenscore"]] forState:UIControlStateNormal];
+    [btn_pinglun setTitleColor:[UIColor colorWithRed:121/255.0 green:121/255.0 blue:121/255.0 alpha:1.0] forState:UIControlStateNormal];
+    btn_pinglun.titleLabel.font=[UIFont systemFontOfSize:13];
+    btn_pinglun.layer.borderWidth=1;
+    btn_pinglun.layer.borderColor=colorref;
+    [self.view addSubview:btn_pinglun];
+    UIButton * btn_share=[[UIButton alloc] initWithFrame:CGRectMake(btn_pinglun.frame.origin.x+btn_pinglun.frame.size.width, SCREEN_HEIGHT-40, (SCREEN_WIDTH-20)/3, 30 )];
+    [btn_share setImage:[UIImage imageNamed:@"fenxianghui@2x"] forState:UIControlStateNormal];
+    [btn_share setTitle:[NSString stringWithFormat:@"分享"] forState:UIControlStateNormal];
+    [btn_share setTitleColor:[UIColor colorWithRed:121/255.0 green:121/255.0 blue:121/255.0 alpha:1.0] forState:UIControlStateNormal];
+    btn_share.titleLabel.font=[UIFont systemFontOfSize:13];
+    btn_share.layer.borderWidth=1;
+    btn_share.layer.borderColor=colorref;
+    [self.view addSubview:btn_share];
     
 }
 

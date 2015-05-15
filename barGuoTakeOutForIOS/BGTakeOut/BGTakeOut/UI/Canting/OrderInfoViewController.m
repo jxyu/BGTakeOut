@@ -39,7 +39,8 @@
     scrollView_AfterPay.scrollEnabled=YES;
     scrollView_AfterPay.delegate=self;
     
-    
+    OrderAfterPay =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 800)];
+    OrderAfterPay.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     
     RefreshHeaderAndFooterView *view= [[RefreshHeaderAndFooterView alloc] initWithFrame:CGRectMake(scrollView_AfterPay.frame.origin.x, scrollView_AfterPay.frame.origin.y-20, scrollView_AfterPay.frame.size.width, scrollView_AfterPay.contentSize.height)];
     view.delegate = self;
@@ -68,8 +69,13 @@
 {
     NSLog(@"获取订单信息%@",dict);
     if (1==[dict[@"status"] intValue]) {
+        NSData * data=[dict[@"data"][@"goodsdetail"] dataUsingEncoding:NSUTF8StringEncoding];
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:data
+                                                        options:NSJSONReadingAllowFragments
+                                                          error:nil];
+        _orderData=(NSArray *)jsonObject;
         [self PayForOrder:dict[@"data"]];
-        _orderData=dict[@"data"][@"goodsdetail"];
+        
     }
 }
 
@@ -156,8 +162,7 @@
             [cansalOrder addTarget:self action:@selector(CancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
             [BackView_OrderTitle addSubview:cansalOrder];
             
-            OrderAfterPay =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 800)];
-            OrderAfterPay.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+            
             [OrderAfterPay addSubview:BackView_OrderTitle];
             UIView * BackView_img_status=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_OrderTitle.frame.origin.y+BackView_OrderTitle.frame.size.height+5, KWidth, 60)];
             BackView_img_status.backgroundColor=[UIColor whiteColor];
@@ -257,7 +262,6 @@
             CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
             CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 1,116/255.0, 15/255.0, 1 });
             [btn_ReciveGood.layer setBorderColor:colorref];
-            //    btn_ReciveGood.layer.borderColor=(__bridge CGColorRef)([UIColor colorWithRed:255/255.0 green:116/255.0 blue:15/255.0 alpha:1.0]);
             [btn_ReciveGood addTarget:self action:@selector(OrderReciver) forControlEvents:UIControlEventTouchUpInside];
             [BackView_OrderTitle addSubview:btn_ReciveGood];
             
@@ -691,18 +695,17 @@
             UIView *orderBackground=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+1, KWidth,30)];
             lastView=[self.view.subviews lastObject];
             orderBackground.backgroundColor=[UIColor whiteColor];
-            ShoppingCarModel *item=_orderData[i];
             UILabel *itemName=[[UILabel alloc] initWithFrame:CGRectMake(15, 5, 150, 20)];
-            itemName.text=item.Goods[@"name"];
+            itemName.text=_orderData[i][@"goodsname"];
             [orderBackground addSubview:itemName];
             UILabel * itemnum=[[UILabel alloc] initWithFrame:CGRectMake(itemName.frame.origin.x+itemName.frame.size.width, 5, 40, 20)];
-            itemnum.text=[NSString stringWithFormat:@"X%d",item.Num];
+            itemnum.text=[NSString stringWithFormat:@"X%@",_orderData[i][@"goodsNum"]];
             [orderBackground addSubview:itemnum];
             UILabel * itemprice=[[UILabel alloc] initWithFrame:CGRectMake(itemnum.frame.origin.x+itemnum.frame.size.width, 5, 90, 20)];
-            itemprice.text=[NSString stringWithFormat:@"%.2f",item.Num*[item.Goods[@"price"] floatValue]];
+            itemprice.text=[NSString stringWithFormat:@"%.2f",[_orderData[i][@"goodsNum"] intValue]*[_orderData[i][@"goodsprice"] floatValue]];
             [orderBackground addSubview:itemprice];
             [OrderAfterPay addSubview:orderBackground];
-            sumprice+=item.Num*[item.Goods[@"price"] floatValue];
+            sumprice+=[_orderData[i][@"goodsNum"] intValue]*[_orderData[i][@"goodsprice"] floatValue];
         }
     }
     

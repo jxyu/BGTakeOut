@@ -40,12 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
-//    [NSThread detachNewThreadSelector:@selector(PostGetMsg) toTarget:dataprovider withObject:nil];
-//    NSThread * newthread=[[NSThread alloc] initWithTarget:dataprovider selector:@selector(PostGetMsg) object:nil];
-//    [newthread start];
-//    _BaGuoBang.
     page=[[UIView alloc ] initWithFrame:CGRectMake(0, 0, kSWidth, kSHeight-49)];
     [self.view addSubview:page];
     UIButton * btn_location=[[UIButton alloc] initWithFrame:CGRectMake(50, 0, kSWidth-100, 64)];

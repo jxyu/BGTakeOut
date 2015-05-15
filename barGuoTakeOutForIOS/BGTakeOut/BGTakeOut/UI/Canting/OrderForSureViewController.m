@@ -284,23 +284,27 @@
             if (Costommessage.text) {
                 [prm setObject:Costommessage.text forKey:@"remark"];
             }
-            //                    NSMutableArray * orderdataArray=[[NSMutableArray alloc] init];
-            NSMutableString * orderdataStr=[[NSMutableString alloc] init];
+            NSMutableArray * orderdataArray=[[NSMutableArray alloc] init];
             
             for (int i=0; i<_orderData.count; i++) {
+                NSMutableDictionary * dict=[[NSMutableDictionary alloc] init];
                 ShoppingCarModel *item=_orderData[i];
-                NSString * jsonStr;
-                if (i ==(_orderData.count-1)) {
-                    jsonStr=[NSString stringWithFormat:@"{\"goodsid\":%@,\"goodsname\":%@,\"count\":%d,\"activity\":%@}",item.Goods[@"goodsid"],item.Goods[@"name"],item.Num,item.Goods[@"activity"]];
-                }
-                else{
-                    jsonStr=[NSString stringWithFormat:@"{\"goodsid\":%@,\"goodsname\":%@,\"count\":%d,\"activity\":%@},",item.Goods[@"goodsid"],item.Goods[@"name"],item.Num,item.Goods[@"activity"]];
-                }
-                [orderdataStr appendString:jsonStr];
+                [dict setObject:item.Goods[@"goodsid"] forKey:@"goodsid"];
+                [dict setObject:item.Goods[@"name"] forKey:@"goodsname"];
+                [dict setObject:item.Goods[@"activity"] forKey:@"activity"];
+                [dict setObject:[NSString stringWithFormat:@"%d",item.Num] forKey:@"goodsNum"];
+                [dict setObject:item.Goods[@"price"] forKey:@"goodsprice"];
+                
+                [orderdataArray addObject:dict];
+                
                 [prm setObject:item.Goods[@"resid"] forKey:@"resid"];
             }
-            
-            [prm setObject:orderdataStr  forKey:@"goodsdetail"];
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:orderdataArray
+                                                               options:NSJSONWritingPrettyPrinted
+                                                                 error:nil];
+            NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                         encoding:NSUTF8StringEncoding];
+            [prm setObject:jsonString  forKey:@"goodsdetail"];
             DataProvider * dataprovider=[[DataProvider alloc] init];
             [dataprovider setDelegateObject:self setBackFunctionName:@"submitOrderBackCall:"];
             [dataprovider SubmitOrder:prm];
