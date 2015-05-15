@@ -387,7 +387,11 @@
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider GetBGBangDetialWith:articleid];
 }
-
+-(void)GetBGBangTypewithtype:(NSString *)type andupid :(NSString *)upid
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetBGBangTypewithtype:type andupid:upid];
+}
 
 
 @end

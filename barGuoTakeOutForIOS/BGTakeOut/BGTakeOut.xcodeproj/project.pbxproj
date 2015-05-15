@@ -23,15 +23,15 @@
 		802DB4851AEA44FF00140AA9 /* share_icon_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 802DB4811AEA44FF00140AA9 /* share_icon_light.png */; };
 		802DB4861AEA44FF00140AA9 /* share_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 802DB4821AEA44FF00140AA9 /* share_icon.png */; };
 		803D49091AFDB7E30099138A /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 803D49001AFDB7E30099138A /* AlipaySDK.bundle */; };
-		803D490A1AFDB7E30099138A /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49011AFDB7E30099138A /* AlipaySDK.framework */; };
+		803D490A1AFDB7E30099138A /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49011AFDB7E30099138A /* AlipaySDK.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		803D490B1AFDB7E30099138A /* libUPPayPlugin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49021AFDB7E30099138A /* libUPPayPlugin.a */; };
 		803D490C1AFDB7E30099138A /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49031AFDB7E30099138A /* libWeChatSDK.a */; };
 		803D490D1AFDB7E30099138A /* libpingpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49041AFDB7E30099138A /* libpingpp.a */; };
 		803D490E1AFDB7E30099138A /* libpingpp+applepay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49051AFDB7E30099138A /* libpingpp+applepay.a */; };
 		803D490F1AFDB7E30099138A /* Pingpp.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 803D49061AFDB7E30099138A /* Pingpp.bundle */; };
-		803D49111AFDB81C0099138A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49101AFDB81C0099138A /* CFNetwork.framework */; };
-		803D49131AFDB8640099138A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49121AFDB8640099138A /* SystemConfiguration.framework */; };
-		803D49151AFDB8760099138A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49141AFDB8760099138A /* Security.framework */; };
+		803D49111AFDB81C0099138A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49101AFDB81C0099138A /* CFNetwork.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		803D49131AFDB8640099138A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49121AFDB8640099138A /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		803D49151AFDB8760099138A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49141AFDB8760099138A /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		803D49171AFDB8A90099138A /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49161AFDB8A90099138A /* libc++.dylib */; };
 		803D49191AFDB8CF0099138A /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D49181AFDB8CF0099138A /* libsqlite3.0.dylib */; };
 		804784FF1AF99A15001B451E /* baidu.png in Resources */ = {isa = PBXBuildFile; fileRef = 804784EB1AF99A15001B451E /* baidu.png */; };
@@ -69,9 +69,9 @@
 		806023361ADFB71400E1C498 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8060232D1ADFB71400E1C498 /* AFURLSessionManager.m */; };
 		8060233B1ADFB89900E1C498 /* DataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 8060233A1ADFB89900E1C498 /* DataProvider.m */; };
 		806383BF1AF0624E00AF9866 /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 806383BE1AF0624E00AF9866 /* JSBadgeView.m */; };
-		806383C11AF062AC00AF9866 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806383C01AF062AC00AF9866 /* QuartzCore.framework */; };
-		806383C31AF062C300AF9866 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806383C21AF062C300AF9866 /* UIKit.framework */; };
-		806383C51AF062D300AF9866 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806383C41AF062D300AF9866 /* CoreGraphics.framework */; };
+		806383C11AF062AC00AF9866 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806383C01AF062AC00AF9866 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		806383C31AF062C300AF9866 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806383C21AF062C300AF9866 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		806383C51AF062D300AF9866 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806383C41AF062D300AF9866 /* CoreGraphics.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		806383EA1AF0BE6500AF9866 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 806383CA1AF0BE6500AF9866 /* MKAnnotationView+WebCache.m */; };
 		806383EB1AF0BE6500AF9866 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 806383CC1AF0BE6500AF9866 /* NSData+ImageContentType.m */; };
 		806383EC1AF0BE6500AF9866 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 806383CE1AF0BE6500AF9866 /* SDImageCache.m */; };
@@ -106,13 +106,13 @@
 		80895F071AFF34DC00908181 /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 80895F031AFF34DC00908181 /* blueArrow.png */; };
 		80895F081AFF34DC00908181 /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80895F041AFF34DC00908181 /* blueArrow@2x.png */; };
 		80895F091AFF34DC00908181 /* RefreshHeaderAndFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80895F061AFF34DC00908181 /* RefreshHeaderAndFooterView.m */; };
-		808995B31AE08D370059038D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808995B21AE08D370059038D /* CoreLocation.framework */; };
-		808995B51AE08D400059038D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808995B41AE08D400059038D /* MapKit.framework */; };
+		808995B31AE08D370059038D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808995B21AE08D370059038D /* CoreLocation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		808995B51AE08D400059038D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808995B41AE08D400059038D /* MapKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		808995BB1AE0AD510059038D /* CCLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 808995BA1AE0AD510059038D /* CCLocationManager.m */; };
 		808995BF1AE0D4A00059038D /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 808995BE1AE0D4A00059038D /* libicucore.dylib */; };
 		808995C11AE0D4B00059038D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 808995C01AE0D4B00059038D /* libz.dylib */; };
-		808995C31AE0D4BD0059038D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808995C21AE0D4BD0059038D /* MessageUI.framework */; };
-		808995C61AE0D5900059038D /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808995C51AE0D5900059038D /* SMS_SDK.framework */; };
+		808995C31AE0D4BD0059038D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808995C21AE0D4BD0059038D /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		808995C61AE0D5900059038D /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808995C51AE0D5900059038D /* SMS_SDK.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		808995DB1AE0DE100059038D /* RegViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808995DA1AE0DE100059038D /* RegViewController.m */; };
 		808995E71AE0DE290059038D /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 808995DD1AE0DE290059038D /* CustomCell.m */; };
 		808995E81AE0DE290059038D /* InvitationViewControllerEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 808995DF1AE0DE290059038D /* InvitationViewControllerEx.m */; };
@@ -128,7 +128,7 @@
 		808996001AE0DEFB0059038D /* RegisterByVoiceCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808995FD1AE0DEFA0059038D /* RegisterByVoiceCallViewController.m */; };
 		808996011AE0DEFB0059038D /* SubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808995FF1AE0DEFA0059038D /* SubmitViewController.m */; };
 		809ABD541AFC4DB000E7C662 /* UserInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 809ABD531AFC4DB000E7C662 /* UserInfo.plist */; };
-		809ABD561AFCAC6B00E7C662 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 809ABD551AFCAC6B00E7C662 /* placeholder.png */; };
+		809ABD561AFCAC6B00E7C662 /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 809ABD551AFCAC6B00E7C662 /* placeholder@2x.png */; };
 		809C10011AF714E90059A317 /* BGB.png in Resources */ = {isa = PBXBuildFile; fileRef = 809C0FFE1AF714E90059A317 /* BGB.png */; };
 		809C10031AF714E90059A317 /* SC.png in Resources */ = {isa = PBXBuildFile; fileRef = 809C10001AF714E90059A317 /* SC.png */; };
 		809C10051AF720750059A317 /* DingDan.png in Resources */ = {isa = PBXBuildFile; fileRef = 809C10041AF720750059A317 /* DingDan.png */; };
@@ -244,7 +244,7 @@
 		8A5D7F601B04332200F96831 /* UMSShareListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A5D7F3F1B04332200F96831 /* UMSShareListController.xib */; };
 		8A5D7F611B04332200F96831 /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A5D7F401B04332200F96831 /* UMSocialSDKResourcesNew.bundle */; };
 		8A5D7F621B04332200F96831 /* libSocialQQ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D7F441B04332200F96831 /* libSocialQQ.a */; };
-		8A5D7F631B04332200F96831 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D7F451B04332200F96831 /* TencentOpenAPI.framework */; };
+		8A5D7F631B04332200F96831 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D7F451B04332200F96831 /* TencentOpenAPI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		8A5D7F641B04332200F96831 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A5D7F461B04332200F96831 /* TencentOpenApi_IOS_Bundle.bundle */; };
 		8A5D7F651B04332200F96831 /* ios-social-sdk-shake.html in Resources */ = {isa = PBXBuildFile; fileRef = 8A5D7F491B04332200F96831 /* ios-social-sdk-shake.html */; };
 		8A5D7F661B04332200F96831 /* libUMSocial_Sdk_ScreenShot_1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D7F4A1B04332200F96831 /* libUMSocial_Sdk_ScreenShot_1.0.a */; };
@@ -255,7 +255,7 @@
 		8A5D7F6E1B04335100F96831 /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D7F6C1B04335100F96831 /* libUMessage_Sdk_1.1.0.a */; };
 		8A5D7F701B04375F00F96831 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D7F6F1B04375F00F96831 /* libiconv.dylib */; };
 		8A5D7F721B04379F00F96831 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D7F711B04379F00F96831 /* libsqlite3.dylib */; };
-		8A5D7F741B0437BC00F96831 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D7F731B0437BC00F96831 /* CoreTelephony.framework */; };
+		8A5D7F741B0437BC00F96831 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D7F731B0437BC00F96831 /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		8A5D7F761B0437D700F96831 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D7F751B0437D700F96831 /* libstdc++.dylib */; };
 		8A70AC1A1B058F5300F37311 /* LuckyGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A70AC181B058F5300F37311 /* LuckyGameViewController.m */; };
 		8A70AC1B1B058F5300F37311 /* LuckyGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A70AC191B058F5300F37311 /* LuckyGameViewController.xib */; };
@@ -463,7 +463,7 @@
 		808995FE1AE0DEFA0059038D /* SubmitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitViewController.h; sourceTree = "<group>"; };
 		808995FF1AE0DEFA0059038D /* SubmitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitViewController.m; sourceTree = "<group>"; };
 		809ABD531AFC4DB000E7C662 /* UserInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInfo.plist; sourceTree = "<group>"; };
-		809ABD551AFCAC6B00E7C662 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
+		809ABD551AFCAC6B00E7C662 /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
 		809C0FFE1AF714E90059A317 /* BGB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BGB.png; sourceTree = "<group>"; };
 		809C10001AF714E90059A317 /* SC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SC.png; sourceTree = "<group>"; };
 		809C10041AF720750059A317 /* DingDan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DingDan.png; sourceTree = "<group>"; };
@@ -977,7 +977,7 @@
 				80D5EEDD1AFDEEB600C95421 /* sure.png */,
 				80D5EEDE1AFDEEB600C95421 /* thitd.png */,
 				80D5EEDF1AFDEEB600C95421 /* timer.png */,
-				809ABD551AFCAC6B00E7C662 /* placeholder.png */,
+				809ABD551AFCAC6B00E7C662 /* placeholder@2x.png */,
 				804784EB1AF99A15001B451E /* baidu.png */,
 				804784EC1AF99A15001B451E /* caipiao.png */,
 				804784ED1AF99A15001B451E /* EBook.png */,
@@ -1575,7 +1575,7 @@
 				8A5D7F5F1B04332200F96831 /* UMSnsAccountViewController.xib in Resources */,
 				8072B9081AEB34D800597ABB /* lipin_weidan.png in Resources */,
 				80D5EEE21AFDEEB600C95421 /* paysure.png in Resources */,
-				809ABD561AFCAC6B00E7C662 /* placeholder.png in Resources */,
+				809ABD561AFCAC6B00E7C662 /* placeholder@2x.png in Resources */,
 				80D309C81B04C2B9009A2BF3 /* fenxianghong.png in Resources */,
 				80D309611B04B706009A2BF3 /* AutoLocationViewController.xib in Resources */,
 				8A5D7F5E1B04332200F96831 /* UMSLoginViewController.xib in Resources */,

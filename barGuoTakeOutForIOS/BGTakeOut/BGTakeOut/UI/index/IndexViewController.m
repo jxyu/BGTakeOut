@@ -14,7 +14,7 @@
 #import "AppDelegate.h"
 #import "CreditWebViewController.h"
 #import "CreditNavigationController.h"
-#import "LuckyGameViewController.h"
+#import "UIImageView+WebCache.h"
 #define kSWidth self.view.bounds.size.width
 #define kSHeight self.view.bounds.size.height
 #define kJianXi 5
@@ -48,25 +48,6 @@
 //    _BaGuoBang.
     page=[[UIView alloc ] initWithFrame:CGRectMake(0, 0, kSWidth, kSHeight-49)];
     [self.view addSubview:page];
-    //添加top
-//    UIView * top =[[UIView alloc] initWithFrame:CGRectMake(0, 0, kSWidth, 64)];
-//    UIColor * bgColor = [UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
-//    top.backgroundColor=bgColor;
-//    _AutoLocation = [[UIButton alloc] initWithFrame:CGRectMake(20, (64-10)/2, kSWidth-40, 25)];
-//    [_AutoLocation setTitle:@"自动定位" forState:UIControlStateNormal];
-//    [_AutoLocation setImage:[UIImage imageNamed:@"ic_location"] forState:UIControlStateNormal];
-//    [_AutoLocation addTarget:self action:@selector(GetLocation) forControlEvents:UIControlEventTouchUpInside];
-//    [page addSubview:top];
-//    [top addSubview:_AutoLocation];
-//    [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
-//        NSRange range=[addressString rangeOfString:@"中国"];
-//        [_AutoLocation setTitle:[addressString substringFromIndex:range.length+range.location] forState:UIControlStateNormal];
-//    }];
-    
-    
-    //    _package=[[UIView alloc] initWithFrame:CGRectMake(0, y, kSWidth, kSHeight-y-49)];
-    //    [self.view addSubview:_package];
-    //    _Page=[[UIView alloc] initWithFrame:CGRectMake(0, y, kSWidth, kSHeight-y-49)];
     UIButton * btn_location=[[UIButton alloc] initWithFrame:CGRectMake(50, 0, kSWidth-100, 64)];
     [btn_location addTarget:self action:@selector(GetLocation) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn_location];
@@ -96,7 +77,6 @@
     CGFloat x=lastinarray.frame.size.width+2;
     UIButton * luck= [[UIButton alloc] initWithFrame:CGRectMake(x, y, kSWidth/2-1, 70)];
     [luck setImage:[UIImage imageNamed:@"luck.jpg"] forState:UIControlStateNormal];
-    [luck addTarget:self action:@selector(JumpToLucky) forControlEvents:UIControlEventTouchUpInside];
     [page addSubview:luck];
     
     //更多礼品按钮
@@ -147,7 +127,8 @@
     id result =dict;
     NSMutableArray *images = [[NSMutableArray alloc] init];
     for (int i=0; i<[result[@"data"] count]; i++) {
-        UIImage * img=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,result[@"data"][i][@"adurl"]]]]] ;
+        UIImageView * img=[[UIImageView alloc] init];
+        [img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,result[@"data"][i][@"adurl"]]] placeholderImage:[UIImage imageNamed:@"fenxianghong.png"] ];
         [images addObject:img];
     }
     
@@ -192,10 +173,7 @@
     [self.navigationController pushViewController:_myWaiMai animated:YES];
     
 }
--(void)JumpToLucky{
-    LuckyGameViewController* luck=[[LuckyGameViewController alloc] init];
-    [self.navigationController pushViewController:luck animated:YES];
-}
+
 -(void)JumpToJoke
 {
     self.myJoke=[[JokeViewController alloc] initWithNibName:@"JokeViewController" bundle:[NSBundle mainBundle]];
@@ -227,7 +205,7 @@ NSDictionary* d=    (    NSDictionary*)dict;
 NSString* url=    d[@"data"][@"url"];
     CreditWebViewController *web=[[CreditWebViewController alloc]initWithUrlByPresent:url];
     CreditNavigationController *nav=[[CreditNavigationController alloc]initWithRootViewController:web];
-    [nav setNavColorStyle:[UIColor redColor]];
+    [nav setNavColorStyle:[UIColor orangeColor]];
     [self presentViewController:nav animated:YES completion:nil];
 
 }

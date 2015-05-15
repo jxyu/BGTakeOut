@@ -53,6 +53,7 @@
 -(void)GetZhaoShangInfo;
 -(void)zhaoshangSubmit:(id)prm;
 -(void)GetBGBangDetialWith:(NSString * )articleid;
+-(void)GetBGBangTypewithtype:(NSString *)type andupid :(NSString *)upid;
 
 
 /**

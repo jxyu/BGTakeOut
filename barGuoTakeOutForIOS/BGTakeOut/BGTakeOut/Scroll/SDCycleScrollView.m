@@ -164,7 +164,7 @@ NSString * const ID = @"cycleCell";
 {
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
     long itemIndex = indexPath.item % self.imagesGroup.count;
-    cell.imageView.image = self.imagesGroup[itemIndex];
+    cell.imageView = self.imagesGroup[itemIndex];
     if (_titlesGroup.count) {
         cell.title = _titlesGroup[itemIndex];
     }
