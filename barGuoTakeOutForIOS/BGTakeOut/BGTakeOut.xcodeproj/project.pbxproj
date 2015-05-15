@@ -264,6 +264,7 @@
 		8A71D0A81B01DE1600D6C01D /* CreditNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A71D0A31B01DE1600D6C01D /* CreditNavigationController.m */; };
 		8A71D0A91B01DE1600D6C01D /* CreditWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A71D0A51B01DE1600D6C01D /* CreditWebView.m */; };
 		8A71D0AA1B01DE1600D6C01D /* CreditWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A71D0A71B01DE1600D6C01D /* CreditWebViewController.m */; };
+		8A9C81931B061B8A004611CF /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9C81921B061B8A004611CF /* PassKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		8AACCBC81B05E02500895916 /* FirstScrollController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AACCBC61B05E02500895916 /* FirstScrollController.m */; };
 		8AACCBC91B05E02500895916 /* FirstScrollController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AACCBC71B05E02500895916 /* FirstScrollController.xib */; };
 		8AACCBCD1B05E0E500895916 /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AACCBCA1B05E0E500895916 /* 3.jpg */; };
@@ -661,6 +662,7 @@
 		8A71D0A51B01DE1600D6C01D /* CreditWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditWebView.m; sourceTree = "<group>"; };
 		8A71D0A61B01DE1600D6C01D /* CreditWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditWebViewController.h; sourceTree = "<group>"; };
 		8A71D0A71B01DE1600D6C01D /* CreditWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditWebViewController.m; sourceTree = "<group>"; };
+		8A9C81921B061B8A004611CF /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		8AACCBC51B05E02500895916 /* FirstScrollController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstScrollController.h; sourceTree = "<group>"; };
 		8AACCBC61B05E02500895916 /* FirstScrollController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstScrollController.m; sourceTree = "<group>"; };
 		8AACCBC71B05E02500895916 /* FirstScrollController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstScrollController.xib; sourceTree = "<group>"; };
@@ -677,6 +679,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A9C81931B061B8A004611CF /* PassKit.framework in Frameworks */,
 				8A5D7F761B0437D700F96831 /* libstdc++.dylib in Frameworks */,
 				8A5D7F741B0437BC00F96831 /* CoreTelephony.framework in Frameworks */,
 				8A5D7F721B04379F00F96831 /* libsqlite3.dylib in Frameworks */,
@@ -725,6 +728,7 @@
 		80067C991ADCA0F100394FB7 = {
 			isa = PBXGroup;
 			children = (
+				8A9C81921B061B8A004611CF /* PassKit.framework */,
 				80D3094C1B04B3E0009A2BF3 /* FrameWork */,
 				806023381ADFB87D00E1C498 /* DataProvider */,
 				8060231A1ADFB6B700E1C498 /* ThreeFram */,
