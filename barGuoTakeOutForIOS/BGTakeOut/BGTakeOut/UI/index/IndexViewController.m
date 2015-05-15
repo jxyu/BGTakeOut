@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "CreditWebViewController.h"
 #import "CreditNavigationController.h"
+#import "LuckyGameViewController.h"
 #define kSWidth self.view.bounds.size.width
 #define kSHeight self.view.bounds.size.height
 #define kJianXi 5
@@ -95,6 +96,7 @@
     CGFloat x=lastinarray.frame.size.width+2;
     UIButton * luck= [[UIButton alloc] initWithFrame:CGRectMake(x, y, kSWidth/2-1, 70)];
     [luck setImage:[UIImage imageNamed:@"luck.jpg"] forState:UIControlStateNormal];
+    [luck addTarget:self action:@selector(JumpToLucky) forControlEvents:UIControlEventTouchUpInside];
     [page addSubview:luck];
     
     //更多礼品按钮
@@ -190,7 +192,10 @@
     [self.navigationController pushViewController:_myWaiMai animated:YES];
     
 }
-
+-(void)JumpToLucky{
+    LuckyGameViewController* luck=[[LuckyGameViewController alloc] init];
+    [self.navigationController pushViewController:luck animated:YES];
+}
 -(void)JumpToJoke
 {
     self.myJoke=[[JokeViewController alloc] initWithNibName:@"JokeViewController" bundle:[NSBundle mainBundle]];
@@ -222,7 +227,7 @@ NSDictionary* d=    (    NSDictionary*)dict;
 NSString* url=    d[@"data"][@"url"];
     CreditWebViewController *web=[[CreditWebViewController alloc]initWithUrlByPresent:url];
     CreditNavigationController *nav=[[CreditNavigationController alloc]initWithRootViewController:web];
-    [nav setNavColorStyle:[UIColor orangeColor]];
+    [nav setNavColorStyle:[UIColor redColor]];
     [self presentViewController:nav animated:YES completion:nil];
 
 }
