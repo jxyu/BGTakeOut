@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <SMS_SDK/SMS_SDK.h>
 #import "CustomTabBarViewController.h"
-
+#import "FirstScrollController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {
     CustomTabBarViewController *_tabBarViewCol;
+        FirstScrollController *firstCol;
 }
 
 - (void)showTabBar;

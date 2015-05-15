@@ -257,9 +257,19 @@
 		8A5D7F721B04379F00F96831 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D7F711B04379F00F96831 /* libsqlite3.dylib */; };
 		8A5D7F741B0437BC00F96831 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D7F731B0437BC00F96831 /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		8A5D7F761B0437D700F96831 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D7F751B0437D700F96831 /* libstdc++.dylib */; };
+		8A70AC1A1B058F5300F37311 /* LuckyGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A70AC181B058F5300F37311 /* LuckyGameViewController.m */; };
+		8A70AC1B1B058F5300F37311 /* LuckyGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A70AC191B058F5300F37311 /* LuckyGameViewController.xib */; };
+		8A70AC1E1B05936700F37311 /* game_plate.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A70AC1C1B05936600F37311 /* game_plate.png */; };
+		8A70AC1F1B05936700F37311 /* game_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A70AC1D1B05936700F37311 /* game_pin.png */; };
 		8A71D0A81B01DE1600D6C01D /* CreditNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A71D0A31B01DE1600D6C01D /* CreditNavigationController.m */; };
 		8A71D0A91B01DE1600D6C01D /* CreditWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A71D0A51B01DE1600D6C01D /* CreditWebView.m */; };
 		8A71D0AA1B01DE1600D6C01D /* CreditWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A71D0A71B01DE1600D6C01D /* CreditWebViewController.m */; };
+		8AACCBC81B05E02500895916 /* FirstScrollController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AACCBC61B05E02500895916 /* FirstScrollController.m */; };
+		8AACCBC91B05E02500895916 /* FirstScrollController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AACCBC71B05E02500895916 /* FirstScrollController.xib */; };
+		8AACCBCD1B05E0E500895916 /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AACCBCA1B05E0E500895916 /* 3.jpg */; };
+		8AACCBCE1B05E0E500895916 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AACCBCB1B05E0E500895916 /* 1.jpg */; };
+		8AACCBCF1B05E0E500895916 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AACCBCC1B05E0E500895916 /* 2.jpg */; };
+		8AACCBD11B05E41900895916 /* 1136-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AACCBD01B05E41900895916 /* 1136-1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -639,6 +649,11 @@
 		8A5D7F711B04379F00F96831 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		8A5D7F731B0437BC00F96831 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		8A5D7F751B0437D700F96831 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		8A70AC171B058F5300F37311 /* LuckyGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuckyGameViewController.h; sourceTree = "<group>"; };
+		8A70AC181B058F5300F37311 /* LuckyGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuckyGameViewController.m; sourceTree = "<group>"; };
+		8A70AC191B058F5300F37311 /* LuckyGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LuckyGameViewController.xib; sourceTree = "<group>"; };
+		8A70AC1C1B05936600F37311 /* game_plate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = game_plate.png; sourceTree = "<group>"; };
+		8A70AC1D1B05936700F37311 /* game_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = game_pin.png; sourceTree = "<group>"; };
 		8A71D0A11B01DE1600D6C01D /* CreditConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditConstant.h; sourceTree = "<group>"; };
 		8A71D0A21B01DE1600D6C01D /* CreditNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditNavigationController.h; sourceTree = "<group>"; };
 		8A71D0A31B01DE1600D6C01D /* CreditNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditNavigationController.m; sourceTree = "<group>"; };
@@ -646,6 +661,13 @@
 		8A71D0A51B01DE1600D6C01D /* CreditWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditWebView.m; sourceTree = "<group>"; };
 		8A71D0A61B01DE1600D6C01D /* CreditWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditWebViewController.h; sourceTree = "<group>"; };
 		8A71D0A71B01DE1600D6C01D /* CreditWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditWebViewController.m; sourceTree = "<group>"; };
+		8AACCBC51B05E02500895916 /* FirstScrollController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstScrollController.h; sourceTree = "<group>"; };
+		8AACCBC61B05E02500895916 /* FirstScrollController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstScrollController.m; sourceTree = "<group>"; };
+		8AACCBC71B05E02500895916 /* FirstScrollController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstScrollController.xib; sourceTree = "<group>"; };
+		8AACCBCA1B05E0E500895916 /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
+		8AACCBCB1B05E0E500895916 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		8AACCBCC1B05E0E500895916 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
+		8AACCBD01B05E41900895916 /* 1136-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1136-1.png"; sourceTree = "<group>"; };
 		8AD6616A1B03764400D61EDA /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		8AD6616B1B037FFC00D61EDA /* CommenDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommenDef.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -924,6 +946,12 @@
 		80843EFC1AE2376B006AC3B7 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				8AACCBD01B05E41900895916 /* 1136-1.png */,
+				8AACCBCA1B05E0E500895916 /* 3.jpg */,
+				8AACCBCB1B05E0E500895916 /* 1.jpg */,
+				8AACCBCC1B05E0E500895916 /* 2.jpg */,
+				8A70AC1C1B05936600F37311 /* game_plate.png */,
+				8A70AC1D1B05936700F37311 /* game_pin.png */,
 				80D309C41B04C2B9009A2BF3 /* fenxianghong.png */,
 				80D309C51B04C2B9009A2BF3 /* fenxianghui.png */,
 				80D309C61B04C2B9009A2BF3 /* zanhong.png */,
@@ -1144,6 +1172,9 @@
 		80D3094D1B04B706009A2BF3 /* index */ = {
 			isa = PBXGroup;
 			children = (
+				8AACCBC51B05E02500895916 /* FirstScrollController.h */,
+				8AACCBC61B05E02500895916 /* FirstScrollController.m */,
+				8AACCBC71B05E02500895916 /* FirstScrollController.xib */,
 				80D309CF1B04DABA009A2BF3 /* IndexViewController.h */,
 				80D309D01B04DABA009A2BF3 /* IndexViewController.m */,
 				80D309D11B04DABA009A2BF3 /* IndexViewController.xib */,
@@ -1165,6 +1196,9 @@
 				80D3095D1B04B706009A2BF3 /* WaiMAIViewController.h */,
 				80D3095E1B04B706009A2BF3 /* WaiMAIViewController.m */,
 				80D3095F1B04B706009A2BF3 /* WaiMAIViewController.xib */,
+				8A70AC171B058F5300F37311 /* LuckyGameViewController.h */,
+				8A70AC181B058F5300F37311 /* LuckyGameViewController.m */,
+				8A70AC191B058F5300F37311 /* LuckyGameViewController.xib */,
 			);
 			path = index;
 			sourceTree = "<group>";
@@ -1521,10 +1555,12 @@
 				809ABD541AFC4DB000E7C662 /* UserInfo.plist in Resources */,
 				80D5EEE41AFDEEB600C95421 /* radio_btn_unselected.png in Resources */,
 				8A5D7F601B04332200F96831 /* UMSShareListController.xib in Resources */,
+				8A70AC1B1B058F5300F37311 /* LuckyGameViewController.xib in Resources */,
 				804785031AF99A15001B451E /* game.png in Resources */,
 				80843F181AE25ACC006AC3B7 /* joke.jpg in Resources */,
 				802DB4861AEA44FF00140AA9 /* share_icon.png in Resources */,
 				80843F1A1AE25ACC006AC3B7 /* luck.jpg in Resources */,
+				8AACCBCF1B05E0E500895916 /* 2.jpg in Resources */,
 				80D309CB1B04C2B9009A2BF3 /* zanhui.png in Resources */,
 				80D309B51B04B73F009A2BF3 /* AddAddressViewController.xib in Resources */,
 				80D5EEE31AFDEEB600C95421 /* radio_btn_selected.png in Resources */,
@@ -1545,7 +1581,9 @@
 				8A5D7F5E1B04332200F96831 /* UMSLoginViewController.xib in Resources */,
 				8047850D1AF99A15001B451E /* tengxun.png in Resources */,
 				804785061AF99A15001B451E /* jingdong.png in Resources */,
+				8A70AC1F1B05936700F37311 /* game_pin.png in Resources */,
 				80067CB11ADCA0F100394FB7 /* Main.storyboard in Resources */,
+				8A70AC1E1B05936700F37311 /* game_plate.png in Resources */,
 				8A5D7F591B04332200F96831 /* UMSCommentDetailController.xib in Resources */,
 				802DB4851AEA44FF00140AA9 /* share_icon_light.png in Resources */,
 				8A4B99821B02F9FE0051B915 /* index_14@2x.png in Resources */,
@@ -1554,6 +1592,7 @@
 				8A4B99841B02F9FE0051B915 /* index_16@2x.png in Resources */,
 				8A5D7F651B04332200F96831 /* ios-social-sdk-shake.html in Resources */,
 				809C10171AF7408E0059A317 /* gw.png in Resources */,
+				8AACCBCE1B05E0E500895916 /* 1.jpg in Resources */,
 				8A4B99811B02F9FE0051B915 /* index_13@2x.png in Resources */,
 				8072B9091AEB34D800597ABB /* lipin_xiaomi.png in Resources */,
 				809C10181AF7408E0059A317 /* jia_quan.png in Resources */,
@@ -1595,6 +1634,7 @@
 				80843F1B1AE25ACC006AC3B7 /* top.jpg in Resources */,
 				809C10151AF7408E0059A317 /* go.png in Resources */,
 				8047850F1AF99A15001B451E /* vip.png in Resources */,
+				8AACCBD11B05E41900895916 /* 1136-1.png in Resources */,
 				80DCBB471B04427600D2D3A1 /* shoucang-@2x.png in Resources */,
 				80793F971AEF30C60066C62C /* jian.png in Resources */,
 				808995EB1AE0DE290059038D /* smssdk.bundle in Resources */,
@@ -1628,6 +1668,7 @@
 				80D309891B04B721009A2BF3 /* GoodsTableViewCell.xib in Resources */,
 				80D309BE1B04B73F009A2BF3 /* OrderListTableViewCell.xib in Resources */,
 				803D490F1AFDB7E30099138A /* Pingpp.bundle in Resources */,
+				8AACCBC91B05E02500895916 /* FirstScrollController.xib in Resources */,
 				804785041AF99A15001B451E /* ganji.png in Resources */,
 				8A4B997F1B02F9FE0051B915 /* index_11@2x.png in Resources */,
 				809C101A1AF7408E0059A317 /* set.png in Resources */,
@@ -1641,6 +1682,7 @@
 				8047850B1AF99A15001B451E /* souhushipin.png in Resources */,
 				80895F071AFF34DC00908181 /* blueArrow.png in Resources */,
 				809C101B1AF7408E0059A317 /* tscl.png in Resources */,
+				8AACCBCD1B05E0E500895916 /* 3.jpg in Resources */,
 				80D5EEE71AFDEEB600C95421 /* thitd.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1682,7 +1724,9 @@
 				806383F31AF0BE6500AF9866 /* UIButton+WebCache.m in Sources */,
 				808995F51AE0DE520059038D /* NSDictionary-DeepMutableCopy.m in Sources */,
 				80F04CCF1AE795FB00A29052 /* NYSegmentIndicator.m in Sources */,
+				8A70AC1A1B058F5300F37311 /* LuckyGameViewController.m in Sources */,
 				808995F81AE0DE520059038D /* SMS_MBProgressHUD+Add.m in Sources */,
+				8AACCBC81B05E02500895916 /* FirstScrollController.m in Sources */,
 				806383ED1AF0BE6500AF9866 /* SDWebImageCompat.m in Sources */,
 				806383EF1AF0BE6500AF9866 /* SDWebImageDownloader.m in Sources */,
 				806383EB1AF0BE6500AF9866 /* NSData+ImageContentType.m in Sources */,
@@ -1885,6 +1929,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1922,6 +1967,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
