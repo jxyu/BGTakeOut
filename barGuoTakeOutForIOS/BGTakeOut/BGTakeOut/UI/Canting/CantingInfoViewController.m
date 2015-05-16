@@ -16,7 +16,7 @@
 #import "TQStarRatingView.h"
 #import "CommenDef.h"
 #import "AppDelegate.h"
-
+#import "ShopAlbumViewController.h"
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 #define KAreaListHeight 50 //scollview中的button的高度
@@ -626,6 +626,7 @@
         [BackView_pic addSubview:goImg];
         [otherViewScroll addSubview:BackView_pic];
         UIButton * btn_pic=[[UIButton alloc] initWithFrame:BackView_pic.frame];
+        [btn_pic addTarget:self action:@selector(gotoShopAlbum) forControlEvents:UIControlEventTouchUpInside];
         [otherViewScroll addSubview:btn_pic];
         
         lastView=BackView_pic;
@@ -695,6 +696,11 @@
     [dataprovider setDelegateObject:self setBackFunctionName:@"getPinglunBackCall:"];
     [dataprovider GetPinglun:_resid andpage:@"1" andnumInPage:@"6" andiscontaintext:@"1"];
     
+}
+-(void)gotoShopAlbum{
+    ShopAlbumViewController* album=[[ShopAlbumViewController alloc] init];
+//    [self.navigationController pushViewController:album animated:YES];
+    [self presentViewController:album animated:YES completion:nil];
 }
 -(void)getPinglunBackCall:(id)dict
 {
