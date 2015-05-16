@@ -378,6 +378,9 @@
         lbl_address.textColor=[UIColor whiteColor];
         [BackgroundView1 addSubview:lbl_address];
         [myPage addSubview:BackgroundView1];
+    }else
+    {
+        
     }
     
 }

@@ -127,8 +127,10 @@
     }
     else
     {
-        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:@"请先登录" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
-        [alert show];
+        _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
+        UIView * item =_myLogin.view;
+        [_myLogin setDelegateObject:self setBackFunctionName:@"LoginBackCall:"];
+        [self.view addSubview:item];
     }
     
     
@@ -216,7 +218,7 @@
     if (indexPath.item >= 0) {
         //        NSLog(@"点击了 %ld - %ld - %ld 项目",indexPath.column,indexPath.row,indexPath.item);
     }else {
-        NSLog(@"点击了 %ld - %ld 项目",indexPath.column,indexPath.row);
+        NSLog(@"点击了 %ld - %ld 项目",(long)indexPath.column,(long)indexPath.row);
         //!!!: 跳转我要推荐页面
         if(indexPath.column==2&&indexPath.row==0){
             WantRecommendViewController* wantRecommendVC=[[WantRecommendViewController alloc] init];

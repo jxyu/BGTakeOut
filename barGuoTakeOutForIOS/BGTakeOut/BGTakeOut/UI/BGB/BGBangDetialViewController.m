@@ -42,6 +42,7 @@
     fillview.tag=101;
     [page addSubview:fillview];
     ScrollView_page=[[UIScrollView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, SCREEN_HEIGHT-NavigationBar_HEIGHT-20-35)];
+    ScrollView_page.scrollEnabled=YES;
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetBGBangDetialBackCall:"];
     [dataprovider GetBGBangDetialWith:_articleid];
@@ -77,7 +78,8 @@
     _cycleScrollView.titlesGroup = titles;
     
     [page addSubview:_cycleScrollView];
-    UIView * BackVeiw_star=[[UIView alloc] initWithFrame:CGRectMake(0, _cycleScrollView.frame.origin.y+_cycleScrollView.frame.size.height+5, SCREEN_WIDTH, 200)];
+    UIView * BackVeiw_star=[[UIView alloc] initWithFrame:CGRectMake(0, _cycleScrollView.frame.origin.y+_cycleScrollView.frame.size.height+5, SCREEN_WIDTH, 170)];
+    BackVeiw_star.backgroundColor=[UIColor whiteColor];
     UILabel * lbl_weidao=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
     lbl_weidao.text=@"味道";
     starRatingView_weidao =[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_weidao.frame.origin.x+lbl_weidao.frame.size.width,10 , 25*[dict[@"data"][@"tastescore"] intValue], 20) numberOfStar:[dict[@"data"][@"tastescore"] intValue]];
@@ -108,11 +110,12 @@
     [BackVeiw_star addSubview:lbl_xingjiabi];
     [BackVeiw_star addSubview:starRatingView_xingjiabi];
     [page addSubview:BackVeiw_star];
-    UILabel * lbl_baguobangContent=[[UILabel alloc] initWithFrame:CGRectMake(10, BackVeiw_star.frame.origin.y+BackVeiw_star.frame.size.height+5, SCREEN_WIDTH, 200)];
-    [lbl_baguobangContent setLineBreakMode:NSLineBreakByWordWrapping];
-    lbl_baguobangContent.numberOfLines=0;
+    UITextView * lbl_baguobangContent=[[UITextView alloc] initWithFrame:CGRectMake(0, BackVeiw_star.frame.origin.y+BackVeiw_star.frame.size.height+5, SCREEN_WIDTH, 200)];
     lbl_baguobangContent.text=dict[@"data"][@"content"];
     [page addSubview:lbl_baguobangContent];
+    [ScrollView_page setContentSize:CGSizeMake(0, page.frame.size.height)];
+    [self.view addSubview:ScrollView_page];
+    
     UIButton * btn_mydianzan=[[UIButton alloc] initWithFrame:CGRectMake(10, SCREEN_HEIGHT-40, (SCREEN_WIDTH-20)/3, 30)];
     [btn_mydianzan setImage:[UIImage imageNamed:@"zanhui@2x"] forState:UIControlStateNormal];
     [btn_mydianzan setTitle:[NSString stringWithFormat:@"（%@）喜欢",dict[@"data"][@"starnum"]] forState:UIControlStateNormal];
