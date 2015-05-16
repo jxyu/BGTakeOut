@@ -13,7 +13,7 @@
 #import "BGBangTableViewCell.h"
 #import "AppDelegate.h"
 #import "CCLocationManager.h"
-
+#import "WantRecommendViewController.h"
 
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
@@ -217,27 +217,11 @@
         //        NSLog(@"点击了 %ld - %ld - %ld 项目",indexPath.column,indexPath.row,indexPath.item);
     }else {
         NSLog(@"点击了 %ld - %ld 项目",indexPath.column,indexPath.row);
-//        if (0!=indexPath.row) {
-//            for (UIView * item in _tableView.subviews) {
-//                [item removeFromSuperview];
-//            }
-//            switch (indexPath.column) {
-//                case 0:
-//                    _order= [NSString stringWithFormat:@"%ld",(long)indexPath.row];
-//                    [self GetrestaurantListPage:_page andNum:_num andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
-//                    break;
-//                case 1:
-//                    _category=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
-//                    [self GetrestaurantListPage:_page andNum:_num andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
-//                    break;
-//                case 2:
-//                    _activity=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
-//                    [self GetrestaurantListPage:_page andNum:_num andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
+        //!!!: 跳转我要推荐页面
+        if(indexPath.column==2&&indexPath.row==0){
+            WantRecommendViewController* wantRecommendVC=[[WantRecommendViewController alloc] init];
+            [self.navigationController pushViewController:wantRecommendVC animated:YES];
+        }
     }
 }
 
