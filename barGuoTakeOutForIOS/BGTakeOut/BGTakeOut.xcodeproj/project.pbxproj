@@ -302,7 +302,6 @@
 		8AECF4831B073EA300410A47 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AECF47E1B073EA300410A47 /* SVIndefiniteAnimatedView.m */; };
 		8AECF4841B073EA300410A47 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AECF4801B073EA300410A47 /* SVProgressHUD.bundle */; };
 		8AECF4851B073EA300410A47 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AECF4821B073EA300410A47 /* SVProgressHUD.m */; };
-		8AECF4891B073EFA00410A47 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AECF4881B073EFA00410A47 /* MBProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -742,8 +741,6 @@
 		8AECF4801B073EA300410A47 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		8AECF4811B073EA300410A47 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		8AECF4821B073EA300410A47 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
-		8AECF4871B073EFA00410A47 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		8AECF4881B073EFA00410A47 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1393,7 +1390,6 @@
 		80F04CC51AE7959C00A29052 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				8AECF4861B073EF000410A47 /* MBProgressHUD */,
 				8AECF47C1B073EA300410A47 /* SVProgressHUD */,
 				8AB4A0EF1B06F78F0007BC48 /* SlideImageView */,
 				8A5D7F251B04310200F96831 /* Umeng */,
@@ -1595,15 +1591,6 @@
 				8AECF4821B073EA300410A47 /* SVProgressHUD.m */,
 			);
 			path = SVProgressHUD;
-			sourceTree = "<group>";
-		};
-		8AECF4861B073EF000410A47 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				8AECF4871B073EFA00410A47 /* MBProgressHUD.h */,
-				8AECF4881B073EFA00410A47 /* MBProgressHUD.m */,
-			);
-			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1912,7 +1899,6 @@
 				806023311ADFB71400E1C498 /* AFNetworkReachabilityManager.m in Sources */,
 				80D3098C1B04B721009A2BF3 /* OrderInfoViewController.m in Sources */,
 				808995E91AE0DE290059038D /* SectionsViewController.m in Sources */,
-				8AECF4891B073EFA00410A47 /* MBProgressHUD.m in Sources */,
 				806383EE1AF0BE6500AF9866 /* SDWebImageDecoder.m in Sources */,
 				80D3096A1B04B706009A2BF3 /* WaiMAIViewController.m in Sources */,
 				806383F11AF0BE6500AF9866 /* SDWebImageManager.m in Sources */,
