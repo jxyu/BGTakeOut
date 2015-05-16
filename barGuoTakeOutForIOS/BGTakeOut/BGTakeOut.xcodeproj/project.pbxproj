@@ -299,6 +299,9 @@
 		8AB4A0F21B06F78F0007BC48 /* SlideImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB4A0F11B06F78F0007BC48 /* SlideImageView.m */; };
 		8AB4A0F61B06F7D10007BC48 /* ShopAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB4A0F41B06F7D10007BC48 /* ShopAlbumViewController.m */; };
 		8AB4A0F71B06F7D10007BC48 /* ShopAlbumViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AB4A0F51B06F7D10007BC48 /* ShopAlbumViewController.xib */; };
+		8AECF4831B073EA300410A47 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AECF47E1B073EA300410A47 /* SVIndefiniteAnimatedView.m */; };
+		8AECF4841B073EA300410A47 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AECF4801B073EA300410A47 /* SVProgressHUD.bundle */; };
+		8AECF4851B073EA300410A47 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AECF4821B073EA300410A47 /* SVProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -732,6 +735,12 @@
 		8AB4A0F51B06F7D10007BC48 /* ShopAlbumViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopAlbumViewController.xib; sourceTree = "<group>"; };
 		8AD6616A1B03764400D61EDA /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		8AD6616B1B037FFC00D61EDA /* CommenDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommenDef.h; sourceTree = "<group>"; };
+		8AECF47D1B073EA300410A47 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		8AECF47E1B073EA300410A47 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		8AECF47F1B073EA300410A47 /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
+		8AECF4801B073EA300410A47 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		8AECF4811B073EA300410A47 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		8AECF4821B073EA300410A47 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1010,7 +1019,6 @@
 		80843EFC1AE2376B006AC3B7 /* image */ = {
 			isa = PBXGroup;
 			children = (
-
 				804038841B06E48500061866 /* jiawei.png */,
 				804038601B06D62500061866 /* 15.png */,
 				804038611B06D62500061866 /* bi.png */,
@@ -1030,13 +1038,10 @@
 				8040386F1B06D62500061866 /* zheng.png */,
 				804038701B06D62500061866 /* zhi.png */,
 				804038711B06D62500061866 /* zong.png */,
-
 				8090B47B1B05F07400C174D8 /* pinglun@2x.png */,
 				8090B47C1B05F07400C174D8 /* pinglunhui@2x.png */,
-
 				8AB4A0EB1B06D55E0007BC48 /* xing_mi@2x.png */,
 				8AB4A0EC1B06D55E0007BC48 /* imgUpload.png */,
-
 				8AACCBD01B05E41900895916 /* 1136-1.png */,
 				8AACCBCA1B05E0E500895916 /* 3.jpg */,
 				8AACCBCB1B05E0E500895916 /* 1.jpg */,
@@ -1385,6 +1390,7 @@
 		80F04CC51AE7959C00A29052 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				8AECF47C1B073EA300410A47 /* SVProgressHUD */,
 				8AB4A0EF1B06F78F0007BC48 /* SlideImageView */,
 				8A5D7F251B04310200F96831 /* Umeng */,
 				8A71D09F1B01DD7600D6C01D /* Duiba */,
@@ -1572,6 +1578,19 @@
 				8AB4A0F11B06F78F0007BC48 /* SlideImageView.m */,
 			);
 			path = SlideImageView;
+			sourceTree = "<group>";
+		};
+		8AECF47C1B073EA300410A47 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				8AECF47D1B073EA300410A47 /* SVIndefiniteAnimatedView.h */,
+				8AECF47E1B073EA300410A47 /* SVIndefiniteAnimatedView.m */,
+				8AECF47F1B073EA300410A47 /* SVProgressHUD-Prefix.pch */,
+				8AECF4801B073EA300410A47 /* SVProgressHUD.bundle */,
+				8AECF4811B073EA300410A47 /* SVProgressHUD.h */,
+				8AECF4821B073EA300410A47 /* SVProgressHUD.m */,
+			);
+			path = SVProgressHUD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1775,6 +1794,7 @@
 				80D309971B04B736009A2BF3 /* FoundTableViewCell.xib in Resources */,
 				80D309BC1B04B73F009A2BF3 /* MineViewController.xib in Resources */,
 				8A5D7F5A1B04332200F96831 /* UMSCommentInputController.xib in Resources */,
+				8AECF4841B073EA300410A47 /* SVProgressHUD.bundle in Resources */,
 				80D309631B04B706009A2BF3 /* BGGiftTableViewCell.xib in Resources */,
 				802C33EB1AE62479003B83CC /* location.png in Resources */,
 				80F04CD71AE7963C00A29052 /* icon_chose_arrow_nor@2x.png in Resources */,
@@ -1853,6 +1873,7 @@
 				80D309751B04B718009A2BF3 /* BGBangViewController.m in Sources */,
 				8AB4A0F21B06F78F0007BC48 /* SlideImageView.m in Sources */,
 				80D3098D1B04B721009A2BF3 /* TableViewCell.m in Sources */,
+				8AECF4831B073EA300410A47 /* SVIndefiniteAnimatedView.m in Sources */,
 				806383F91AF0BE6500AF9866 /* UIView+WebCacheOperation.m in Sources */,
 				806383F31AF0BE6500AF9866 /* UIButton+WebCache.m in Sources */,
 				808995F51AE0DE520059038D /* NSDictionary-DeepMutableCopy.m in Sources */,
@@ -1869,6 +1890,7 @@
 				80A529401AE48EDE00FE6F90 /* TAPageControl.m in Sources */,
 				8060232E1ADFB71400E1C498 /* AFHTTPRequestOperation.m in Sources */,
 				80067CAE1ADCA0F100394FB7 /* ViewController.m in Sources */,
+				8AECF4851B073EA300410A47 /* SVProgressHUD.m in Sources */,
 				804E96C71B02325400803F5C /* Toolkit.m in Sources */,
 				806383F71AF0BE6500AF9866 /* UIImageView+HighlightedWebCache.m in Sources */,
 				808995E81AE0DE290059038D /* InvitationViewControllerEx.m in Sources */,
