@@ -40,6 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
@@ -137,7 +138,7 @@
     MineTableView.dataSource=self;
     [self.view addSubview:MineTableView];
     
-    
+    [SVProgressHUD dismiss];
     
 }
 
@@ -146,15 +147,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 3;
@@ -223,7 +216,6 @@
 -(void)Login
 {
     _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
-    UIView * item =_myLogin.view;
     [_myLogin setDelegateObject:self setBackFunctionName:@"CallBackFuc:"];
     [self.navigationController pushViewController:_myLogin animated:YES];
 }
@@ -244,12 +236,9 @@
                 _myOther.Othertitle=@"投诉处理";
             }else
             {
-                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"通知", nil)
-                                                              message:NSLocalizedString(@"请先登录", nil)
-                                                             delegate:self
-                                                    cancelButtonTitle:@"确定"
-                                                    otherButtonTitles:nil, nil];
-                [alert show];
+                _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
+                [_myLogin setDelegateObject:self setBackFunctionName:@"LoginBackCall:"];
+                [self.navigationController pushViewController:_myLogin animated:YES];
             }
             break;
         case 10:

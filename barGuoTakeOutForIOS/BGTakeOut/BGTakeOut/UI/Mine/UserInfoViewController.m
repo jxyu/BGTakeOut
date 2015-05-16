@@ -170,10 +170,12 @@
         
         NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"avatar.png"];
         NSLog(@"选择完成");
+        [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
 //        NSData* imageData = UIImagePNGRepresentation(editedImage);
         DataProvider * dataprovider=[[DataProvider alloc] init];
         [dataprovider setDelegateObject:self setBackFunctionName:@"UploadBackCall:"];
         [dataprovider UpLoadImage:fullPath];
+        
         
     }];
 }
@@ -379,6 +381,7 @@
 }
 -(void)ChangeAvatarBackCall:(id)dict
 {
+    [SVProgressHUD dismiss];
     NSLog(@"%@",dict);
 }
 

@@ -34,6 +34,7 @@
 - (void)viewDidLoad {
     
     // Do any additional setup after loading the view.
+    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     scrollView_AfterPay=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, KWidth, KHeight)];
     scrollView_AfterPay.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     scrollView_AfterPay.scrollEnabled=YES;
@@ -67,6 +68,7 @@
 }
 -(void)GetOrderInfoBackCall:(id)dict
 {
+    [SVProgressHUD dismiss];
     NSLog(@"获取订单信息%@",dict);
     if (1==[dict[@"status"] intValue]) {
         NSData * data=[dict[@"data"][@"goodsdetail"] dataUsingEncoding:NSUTF8StringEncoding];

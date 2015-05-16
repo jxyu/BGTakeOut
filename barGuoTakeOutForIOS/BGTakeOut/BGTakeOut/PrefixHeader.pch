@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 jxyu. All rights reserved.
 //
 #import "CommenDef.h"
-
+#import "SVProgressHUD.h"
 #ifndef BGTakeOut_PrefixHeader_pch
 #define BGTakeOut_PrefixHeader_pch
 

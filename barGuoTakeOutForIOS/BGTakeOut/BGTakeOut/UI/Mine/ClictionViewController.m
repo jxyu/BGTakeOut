@@ -31,6 +31,7 @@
     //添加导航栏
     [self addLeftButton:@"ic_actionbar_back.png"];
     [self setBarTitle:@"我的收藏"];
+    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetClictionBackCall:"];
     NSDictionary * dictionary=@{@"userid":_userid,@"page":@"1",@"num":@"8"};
@@ -38,6 +39,7 @@
 }
 -(void)GetClictionBackCall:(id)dict
 {
+    [SVProgressHUD dismiss];
     NSLog(@"获取我的收藏%@",dict);
     if ([dict[@"status"] intValue]==1&&![dict[@"data"] isEqual:@""]) {
         Canting=[[NSArray alloc] initWithArray:dict[@"data"]];
@@ -48,8 +50,7 @@
     }
     else
     {
-        UIAlertView * alert =[[UIAlertView alloc] initWithTitle:@"通知" message:@"您还未收藏任何信息" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-        [alert show];
+        [SVProgressHUD showErrorWithStatus:@"您还未收藏任何信息" maskType:SVProgressHUDMaskTypeBlack];
     }
     
     

@@ -30,7 +30,7 @@
     [super viewDidLoad];
     [self setBarTitle:@"每日一乐呵"];
     [self addLeftButton:@"ic_actionbar_back.png"];
-    
+    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     
 
     
@@ -62,7 +62,7 @@
     mytableView.delegate=self;
     mytableView.dataSource=self;
     [self.view addSubview:mytableView];
-    
+    [SVProgressHUD dismiss];
 }
 //-(UIView *)GetJokeView:(NSString *)joke andJokeName:(NSString *)jokeName
 //{

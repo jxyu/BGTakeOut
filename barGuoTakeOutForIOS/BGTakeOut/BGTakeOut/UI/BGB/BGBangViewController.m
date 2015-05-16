@@ -57,7 +57,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     // 数据
     self.classifys = @[@"美食",@"今日新单",@"电影",@"酒店"];
     self.cates = @[@"自助餐",@"快餐",@"火锅",@"日韩料理",@"西餐",@"烧烤小吃"];
@@ -351,6 +351,7 @@
 }
 -(void)GetSecondTypeBackCall:(id)dict
 {
+    [SVProgressHUD dismiss];
     NSLog(@"%@",dict);
     if ([dict[@"status"] intValue]==1) {
         NSArray * MenuArray=[[NSArray alloc] initWithArray:dict[@"data"]];
@@ -361,7 +362,6 @@
 //            [dataprovider setDelegateObject:self setBackFunctionName:@"GetthirdTypeBackCall:"];
 //            [dataprovider GetBGBangTypewithtype:@"1" andupid:MenuSencondTypeArrau[i][@"oneid"]];
 //        }
-        
     }
 }
 -(void)GetthirdTypeBackCall:(id)dict

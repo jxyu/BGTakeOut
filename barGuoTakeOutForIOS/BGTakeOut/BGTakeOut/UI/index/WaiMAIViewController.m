@@ -66,6 +66,7 @@
 //    }];
     //添加导航栏
     [self addLeftButton:@"ic_actionbar_back.png"];
+    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     
     //添加Segmented Control
     UIView * lastView=[self.view.subviews lastObject];
@@ -274,6 +275,7 @@
         _tableView.dataSource=self;
         [_Page addSubview:_tableView];
     }
+    [SVProgressHUD dismiss];
     
 }
 

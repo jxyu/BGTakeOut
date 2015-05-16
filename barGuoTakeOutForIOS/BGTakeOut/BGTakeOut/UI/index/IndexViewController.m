@@ -41,6 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     @try {
         if ([Toolkit isSystemIOS8]) {
             [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
@@ -165,7 +166,7 @@
     
     [page addSubview:_cycleScrollView];
     
-    
+    [SVProgressHUD dismiss];
 }
 
 
