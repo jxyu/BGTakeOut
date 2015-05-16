@@ -187,6 +187,7 @@
 
 -(void)clickRightButton:(UIButton *)sender
 {
+    [SVProgressHUD showWithStatus:@"保存中.." maskType:SVProgressHUDMaskTypeBlack];
     NSMutableDictionary * dict=[[NSMutableDictionary alloc] init];
     [dict setObject:_userid forKey:@"userid"];
     if (txt_name.text) {
@@ -266,15 +267,11 @@
 -(void)SaveAddressBackCall:(id)dict
 {
     NSLog(@"保存收货地址%@",dict);
-    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"通知", nil)
-                                                  message:NSLocalizedString(dict[@"msg"], nil)
-                                                 delegate:self
-                                        cancelButtonTitle:@"确定"
-                                        otherButtonTitles:nil, nil];
-    [alert show];
+    [SVProgressHUD showSuccessWithStatus:@"保存成功" maskType:SVProgressHUDMaskTypeBlack];
     if (1==[dict[@"status"] intValue]) {
         [self.view removeFromSuperview];
     }
+    [SVProgressHUD dismiss];
 }
 -(void)viewWillAppear:(BOOL)animated
 {

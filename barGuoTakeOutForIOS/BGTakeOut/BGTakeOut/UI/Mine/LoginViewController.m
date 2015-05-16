@@ -93,6 +93,7 @@
 
 -(void)LoginClick
 {
+    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     if (txt_phoneNum.text!=nil&&txt_pwd.text!=nil) {
         DataProvider * dataprovider =[[DataProvider alloc] init];
         [dataprovider setDelegateObject:self setBackFunctionName:@"LoginBack:"];
@@ -112,6 +113,7 @@
 
 -(void)LoginBack:(id)dict
 {
+    [SVProgressHUD dismiss];
     if (1==[dict[@"status"] integerValue]) {
 //        NSString * path=[[NSBundle mainBundle] pathForResource:@"UserInfo" ofType:@"plist"];
         NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
@@ -137,12 +139,8 @@
        
     }else
     {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"通知", nil)
-                                                      message:NSLocalizedString(@"登录失败，请重新登录", nil)
-                                                     delegate:self
-                                            cancelButtonTitle:@"确定"
-                                            otherButtonTitles:nil, nil];
-        [alert show];
+        
+        [SVProgressHUD showErrorWithStatus:@"登录失败" maskType:SVProgressHUDMaskTypeBlack];
     }
     [[self navigationController] popViewControllerAnimated:YES];
 }

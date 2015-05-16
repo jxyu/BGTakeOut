@@ -61,7 +61,7 @@
         isClick=NO;
         [self setBarTitle:_name];
         [self addLeftButton:@"ic_actionbar_back.png"];
-        
+        [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
         
         //添加Segmented Control
         UIView * lastView=[self.view.subviews lastObject];
@@ -152,6 +152,7 @@
 #pragma mark 创建左侧的分类栏
 -(void)BuildCategray:(id)dict
 {
+    [SVProgressHUD dismiss];
     NSLog(@"%@",dict);
     if (1==[dict[@"status"] integerValue]) {
         _areaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, KWidth/3, _CantingPage.frame.size.height)];

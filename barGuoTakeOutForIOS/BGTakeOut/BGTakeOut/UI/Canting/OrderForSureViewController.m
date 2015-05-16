@@ -48,6 +48,7 @@
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self setBarTitle:@"订单确认"];
     [self addLeftButton:@"ic_actionbar_back.png"];
+    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     
     myPage=[[UIView alloc]initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+21, KWidth, KHeight-NavigationBar_HEIGHT-20)];
     myPage.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
@@ -182,6 +183,7 @@
     submitOrder.backgroundColor=[UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
     [submitOrder addTarget:self action:@selector(SubmitOrderfunc) forControlEvents:UIControlEventTouchUpInside];
     [myPage addSubview:submitOrder];
+    [SVProgressHUD dismiss];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -378,6 +380,9 @@
         lbl_address.textColor=[UIColor whiteColor];
         [BackgroundView1 addSubview:lbl_address];
         [myPage addSubview:BackgroundView1];
+    }else
+    {
+        
     }
     
 }
