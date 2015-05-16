@@ -28,8 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-//    self.view.backgroundColor=[UIColor colorWithRed:245/255 green:245/255 blue:245/255 alpha:1.0];
+    [self setBarTitle:@"每日一乐呵"];
     [self addLeftButton:@"ic_actionbar_back.png"];
     
     

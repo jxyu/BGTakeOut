@@ -118,7 +118,7 @@
 {
     UIImage *imgBtn = [UIImage imageWithBundleName:strImage];
     _imgLeft.image = imgBtn;
-    [_imgLeft setFrame:CGRectMake(_btnLeft.frame.origin.x + 10, _btnLeft.frame.origin.y, imgBtn.size.width , imgBtn.size.height )];
+    [_imgLeft setFrame:CGRectMake(_btnLeft.frame.origin.x + 10, _btnLeft.frame.origin.y, imgBtn.size.width-10 , imgBtn.size.height-10 )];
     _imgLeft.center = CGPointMake(_imgLeft.center.x, _lblTitle.center.y);
 }
 

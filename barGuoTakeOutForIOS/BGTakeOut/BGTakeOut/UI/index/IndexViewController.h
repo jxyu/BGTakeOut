@@ -27,7 +27,6 @@
 
 
 
-//自定义tabbar点击响应
-- (void)onTabButtonPressed:(id)sender;
+
 
 @end

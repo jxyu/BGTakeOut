@@ -40,6 +40,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     //添加导航栏
+    [self setBarTitle:@"自动定位"];
     [self addLeftButton:@"ic_actionbar_back.png"];
     
 #pragma mark 添加手动切换按钮
@@ -114,10 +115,12 @@
 #pragma mark 自动定位
 -(void)AutoGetLocation
 {
-    [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
-        NSRange range=[addressString rangeOfString:@"中国"];
-        [_mynavigationItem setTitle:[addressString substringFromIndex:range.length+range.location]];
-    }];
+    if ([Toolkit isSystemIOS8]) {
+        [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
+            NSString *strUrl = [addressString stringByReplacingOccurrencesOfString:@"中国" withString:@""];
+            [self setBarTitle:[strUrl stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+        }];
+    }
 }
 
 #pragma mark 获取数据
@@ -155,48 +158,56 @@
 #pragma mark 选择省份事件
 -(void)AreaItemClick:(UIButton *)sender
 {
-    
-    NSArray * superarray= sender.superview.subviews;
-    for (UIView * item in superarray) {
-        if ([item isKindOfClass:[UIButton class]]) {
-            UIButton * items=(UIButton *)item;
-            if(item.tag!=sender.tag)
-            {
-                item.backgroundColor=sender.backgroundColor;
-                [items setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    @try {
+        NSArray * superarray= sender.superview.subviews;
+        for (UIView * item in superarray) {
+            if ([item isKindOfClass:[UIButton class]]) {
+                UIButton * items=(UIButton *)item;
+                if(item.tag!=sender.tag)
+                {
+                    item.backgroundColor=sender.backgroundColor;
+                    [items setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                }
             }
         }
-    }
-    sender.backgroundColor=[UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0];
-    [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    DataProvider * dataProvider =[[DataProvider alloc] init];
-    NSString * str=[NSString stringWithFormat:@"00%ld",(long)sender.tag];
-    switch (str.length) {
-        case 6:
-            province=[NSString stringWithFormat:@"%@——",sender.currentTitle];
-            [dataProvider setDelegateObject:self setBackFunctionName:@"SecondBulidAreaList:"];
-            [dataProvider GetArea:str andareatype:@"1"];
-            break;
-        case 9:
-            city=[NSString stringWithFormat:@"%@——",sender.currentTitle];
-            [dataProvider setDelegateObject:self setBackFunctionName:@"ThridBulidAreaList:"];
-            [dataProvider GetArea:str andareatype:@"2"];
-            break;
-        case 12:
-        {
-            district= sender.currentTitle;
-            NSLog(@"00%ld",(long)sender.tag);
-            UIButton * submitArea=[[UIButton alloc] initWithFrame:CGRectMake(0,300, kSWidth/4*3, 40)];
-            submitArea.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-            [submitArea setTitle:@"确定" forState:UIControlStateNormal];
-            [submitArea addTarget:self action:@selector(submitAreaClick:) forControlEvents:UIControlEventTouchUpInside];
-            [_SelectView addSubview:submitArea];
+        sender.backgroundColor=[UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0];
+        [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        DataProvider * dataProvider =[[DataProvider alloc] init];
+        NSString * str=[NSString stringWithFormat:@"00%ld",(long)sender.tag];
+        switch (str.length) {
+            case 6:
+                province=[NSString stringWithFormat:@"%@——",sender.currentTitle];
+                [dataProvider setDelegateObject:self setBackFunctionName:@"SecondBulidAreaList:"];
+                [dataProvider GetArea:str andareatype:@"1"];
+                break;
+            case 9:
+                city=[NSString stringWithFormat:@"%@——",sender.currentTitle];
+                [dataProvider setDelegateObject:self setBackFunctionName:@"ThridBulidAreaList:"];
+                [dataProvider GetArea:str andareatype:@"2"];
+                break;
+            case 12:
+            {
+                district= sender.currentTitle;
+                NSLog(@"00%ld",(long)sender.tag);
+                UIButton * submitArea=[[UIButton alloc] initWithFrame:CGRectMake(0,300, kSWidth/4*3, 40)];
+                submitArea.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
+                [submitArea setTitle:@"确定" forState:UIControlStateNormal];
+                [submitArea addTarget:self action:@selector(submitAreaClick:) forControlEvents:UIControlEventTouchUpInside];
+                [_SelectView addSubview:submitArea];
+            }
+                break;
+                
+            default:
+                break;
         }
-            break;
-            
-        default:
-            break;
     }
+    @catch (NSException *exception) {
+        NSLog(@"定位页面%@",exception);
+    }
+    @finally {
+        
+    }
+    
     
     
 }
@@ -204,48 +215,66 @@
 #pragma mark 创建市列表
 -(void)SecondBulidAreaList:(id)dict
 {
-    UIScrollView * CityareaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(kSWidth/4, 0, kSWidth/4, KScrollHeight)];
-    CityareaScroll.scrollEnabled=YES;
-    CityareaScroll.backgroundColor=[UIColor grayColor];
-    id result =dict;
-    if (result) {
-        NSArray * areaArray =[[NSArray alloc ] initWithArray:result[@"data"]];
-        for (int i=0; i<areaArray.count; i++) {
-            UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), kSWidth/4, KAreaListHeight)];
-            areaitem.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
-            [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"cityName"]] forState:UIControlStateNormal];
-            areaitem.tag=[areaArray[i][@"cityId"] intValue];
-            [areaitem addTarget:self action:@selector(AreaItemClick:) forControlEvents:UIControlEventTouchUpInside];
-            [CityareaScroll addSubview:areaitem];
+    @try {
+        UIScrollView * CityareaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(kSWidth/4, 0, kSWidth/4, KScrollHeight)];
+        CityareaScroll.scrollEnabled=YES;
+        CityareaScroll.backgroundColor=[UIColor grayColor];
+        id result =dict;
+        if (result) {
+            NSArray * areaArray =[[NSArray alloc ] initWithArray:result[@"data"]];
+            for (int i=0; i<areaArray.count; i++) {
+                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), kSWidth/4, KAreaListHeight)];
+                areaitem.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
+                [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"cityName"]] forState:UIControlStateNormal];
+                areaitem.tag=[areaArray[i][@"cityId"] intValue];
+                [areaitem addTarget:self action:@selector(AreaItemClick:) forControlEvents:UIControlEventTouchUpInside];
+                [CityareaScroll addSubview:areaitem];
+            }
+            CityareaScroll.contentSize=CGSizeMake(0, areaArray.count*(KAreaListHeight+1));
         }
-        CityareaScroll.contentSize=CGSizeMake(0, areaArray.count*(KAreaListHeight+1));
+        [_SelectView addSubview:CityareaScroll];
+
     }
-    [_SelectView addSubview:CityareaScroll];
+    @catch (NSException *exception) {
+        NSLog(@"定位页，创建城市列表%@",exception);
+    }
+    @finally {
+        
+    }
     
 }
 
 #pragma mark 创建县区列表
 -(void)ThridBulidAreaList:(id)dict
 {
-    UIScrollView * ThirdareaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(kSWidth/2, 0, kSWidth/4, KScrollHeight)];
-    ThirdareaScroll.scrollEnabled=YES;
-    ThirdareaScroll.backgroundColor=[UIColor grayColor];
-    id result =dict;
-    if (result) {
-        NSArray * areaArray =[[NSArray alloc ] initWithArray:result[@"data"]];
-        for (int i=0; i<areaArray.count; i++) {
-            UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), kSWidth/4, KAreaListHeight)];
-            areaitem.backgroundColor=[UIColor colorWithRed:232/255.0 green:232/255.0 blue:232/255.0 alpha:1.0];
-            [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"districtName"]] forState:UIControlStateNormal];
-            areaitem.tag=[areaArray[i][@"districtId"] intValue];
-            [areaitem addTarget:self action:@selector(AreaItemClick:) forControlEvents:UIControlEventTouchUpInside];
-            [ThirdareaScroll addSubview:areaitem];
+    @try {
+        UIScrollView * ThirdareaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(kSWidth/2, 0, kSWidth/4, KScrollHeight)];
+        ThirdareaScroll.scrollEnabled=YES;
+        ThirdareaScroll.backgroundColor=[UIColor grayColor];
+        id result =dict;
+        if (result) {
+            NSArray * areaArray =[[NSArray alloc ] initWithArray:result[@"data"]];
+            for (int i=0; i<areaArray.count; i++) {
+                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), kSWidth/4, KAreaListHeight)];
+                areaitem.backgroundColor=[UIColor colorWithRed:232/255.0 green:232/255.0 blue:232/255.0 alpha:1.0];
+                [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"districtName"]] forState:UIControlStateNormal];
+                areaitem.tag=[areaArray[i][@"districtId"] intValue];
+                [areaitem addTarget:self action:@selector(AreaItemClick:) forControlEvents:UIControlEventTouchUpInside];
+                [ThirdareaScroll addSubview:areaitem];
+            }
+            ThirdareaScroll.contentSize=CGSizeMake(0, areaArray.count*(KAreaListHeight+1));
         }
-        ThirdareaScroll.contentSize=CGSizeMake(0, areaArray.count*(KAreaListHeight+1));
+        [_SelectView addSubview:ThirdareaScroll];
     }
-    [_SelectView addSubview:ThirdareaScroll];
+    @catch (NSException *exception) {
+        NSLog(@"定位页面，创建县区列表%@",exception);
+    }
+    @finally {
+        
+    }
+    
 }
 
 #pragma mark 提交选定的地区
