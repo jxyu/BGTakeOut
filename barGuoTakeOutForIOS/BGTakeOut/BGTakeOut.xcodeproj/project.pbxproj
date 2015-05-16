@@ -302,6 +302,8 @@
 		8AECF4831B073EA300410A47 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AECF47E1B073EA300410A47 /* SVIndefiniteAnimatedView.m */; };
 		8AECF4841B073EA300410A47 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AECF4801B073EA300410A47 /* SVProgressHUD.bundle */; };
 		8AECF4851B073EA300410A47 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AECF4821B073EA300410A47 /* SVProgressHUD.m */; };
+		8AECF48D1B074B1500410A47 /* PingjiaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AECF48B1B074B1500410A47 /* PingjiaViewController.m */; };
+		8AECF48E1B074B1500410A47 /* PingjiaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AECF48C1B074B1500410A47 /* PingjiaViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -741,6 +743,9 @@
 		8AECF4801B073EA300410A47 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		8AECF4811B073EA300410A47 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		8AECF4821B073EA300410A47 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		8AECF48A1B074B1500410A47 /* PingjiaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingjiaViewController.h; sourceTree = "<group>"; };
+		8AECF48B1B074B1500410A47 /* PingjiaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingjiaViewController.m; sourceTree = "<group>"; };
+		8AECF48C1B074B1500410A47 /* PingjiaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PingjiaViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1338,6 +1343,9 @@
 				80D309831B04B721009A2BF3 /* TableViewCell.h */,
 				80D309841B04B721009A2BF3 /* TableViewCell.m */,
 				80D309851B04B721009A2BF3 /* TableViewCell.xib */,
+				8AECF48A1B074B1500410A47 /* PingjiaViewController.h */,
+				8AECF48B1B074B1500410A47 /* PingjiaViewController.m */,
+				8AECF48C1B074B1500410A47 /* PingjiaViewController.xib */,
 			);
 			path = Canting;
 			sourceTree = "<group>";
@@ -1830,6 +1838,7 @@
 				804038851B06E48500061866 /* jiawei.png in Resources */,
 				80895F071AFF34DC00908181 /* blueArrow.png in Resources */,
 				8AB4A0E51B062AC20007BC48 /* WantRecommendViewController.xib in Resources */,
+				8AECF48E1B074B1500410A47 /* PingjiaViewController.xib in Resources */,
 				809C101B1AF7408E0059A317 /* tscl.png in Resources */,
 				8AACCBCD1B05E0E500895916 /* 3.jpg in Resources */,
 				804038741B06D62500061866 /* dian.png in Resources */,
@@ -1885,6 +1894,7 @@
 				8AB4A0F61B06F7D10007BC48 /* ShopAlbumViewController.m in Sources */,
 				806383EF1AF0BE6500AF9866 /* SDWebImageDownloader.m in Sources */,
 				806383EB1AF0BE6500AF9866 /* NSData+ImageContentType.m in Sources */,
+				8AECF48D1B074B1500410A47 /* PingjiaViewController.m in Sources */,
 				80D309B71B04B73F009A2BF3 /* LoginViewController.m in Sources */,
 				80D309601B04B706009A2BF3 /* AutoLocationViewController.m in Sources */,
 				80A529401AE48EDE00FE6F90 /* TAPageControl.m in Sources */,

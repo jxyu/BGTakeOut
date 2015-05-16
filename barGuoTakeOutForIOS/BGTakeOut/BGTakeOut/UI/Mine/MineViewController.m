@@ -12,7 +12,8 @@
 #import "DataProvider.h"
 #import "CommenDef.h"
 #import "AppDelegate.h"
-
+#import "CreditNavigationController.h"
+#import "CreditWebViewController.h"
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 #define KURL @"http://121.42.139.60/baguo/"
@@ -113,6 +114,7 @@
     CGFloat y=lastview.frame.size.height+lastview.frame.origin.y;
     UIButton * BGB =[[UIButton alloc] initWithFrame:CGRectMake(0,y , KWidth/3, 80)];
     [BGB setImage:[UIImage imageNamed:@"BGB.png"] forState:UIControlStateNormal];
+    [BGB addTarget:self action:@selector(gotoCoinShop) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:BGB];
     
     lastview =[[self.view subviews] lastObject];
@@ -349,5 +351,38 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
+}
+#pragma mark - 兑吧链接
+-(void)gotoCoinShop{
+    
+
+
+
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+    NSDictionary* userInfo =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    if(userInfo){
+        //!!!:  已经登录完成，调用接口获取免登陆链接在页面中显示
+        DataProvider* dataProvider=[[DataProvider alloc] init];
+        [dataProvider setDelegateObject:self setBackFunctionName:@"getDuibaAutoLoginUrl:"];
+        [        dataProvider getduibaurlWithAppkey:duiba_app_key appsecret:duiba_app_secret userid:userInfo[@"userid"]];
+    }else{
+        //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
+        LoginViewController* loginVC=        [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:loginVC animated:YES];
+        
+    }
+    
+}
+-(void)getDuibaAutoLoginUrl:(id)dict{
+    NSLog(@"%@",dict);
+    NSDictionary* d=    (    NSDictionary*)dict;
+    NSString* url=    d[@"data"][@"url"];
+    CreditWebViewController *web=[[CreditWebViewController alloc]initWithUrlByPresent:url];
+    CreditNavigationController *nav=[[CreditNavigationController alloc]initWithRootViewController:web];
+    [nav setNavColorStyle:[UIColor redColor]];
+    [self presentViewController:nav animated:YES completion:nil];
+    
 }
 @end
