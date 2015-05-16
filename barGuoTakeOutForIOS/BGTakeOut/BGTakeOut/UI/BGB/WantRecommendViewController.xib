@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WantRecommendViewController">
+            <connections>
+                <outlet property="commitBtn" destination="S58-Xt-ufH" id="zwZ-j3-F6s"/>
+                <outlet property="imgHeaderView" destination="szy-X0-MD0" id="eQI-d1-xki"/>
+                <outlet property="imgUploadBtn1" destination="zRk-vk-3lX" id="uqR-hn-3KE"/>
+                <outlet property="imgUploadBtn2" destination="gc4-i3-GWV" id="Yrk-qJ-YfC"/>
+                <outlet property="imgUploadBtn3" destination="3ye-mJ-ZcS" id="dHS-Mb-hk7"/>
+                <outlet property="imgUploadBtn4" destination="wUA-rT-Fwh" id="HYV-vu-dsD"/>
+                <outlet property="tableView" destination="y9s-kt-Grx" id="92O-a5-sd1"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="y9s-kt-Grx">
+                    <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S58-Xt-ufH">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="确认推荐">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="commit:" destination="-1" eventType="touchUpInside" id="CjH-uv-XW8"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="y9s-kt-Grx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="4n3-cJ-dkF"/>
+                <constraint firstItem="S58-Xt-ufH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="43" id="DI6-Bd-yyb"/>
+                <constraint firstAttribute="trailing" secondItem="y9s-kt-Grx" secondAttribute="trailing" id="HOl-1d-PML"/>
+                <constraint firstAttribute="bottom" secondItem="y9s-kt-Grx" secondAttribute="bottom" constant="49" id="aaT-kl-b6n"/>
+                <constraint firstAttribute="bottom" secondItem="S58-Xt-ufH" secondAttribute="bottom" constant="8" id="gN7-iZ-Wgs"/>
+                <constraint firstAttribute="centerX" secondItem="S58-Xt-ufH" secondAttribute="centerX" constant="-5.5" id="gqq-O3-3Un"/>
+                <constraint firstItem="y9s-kt-Grx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="oAJ-qi-0ob"/>
+                <constraint firstItem="S58-Xt-ufH" firstAttribute="top" secondItem="y9s-kt-Grx" secondAttribute="bottom" constant="6" id="p66-b4-f1M"/>
+                <constraint firstAttribute="trailing" secondItem="S58-Xt-ufH" secondAttribute="trailing" constant="32" id="vbO-MV-MSv"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="S58-Xt-ufH"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="DI6-Bd-yyb"/>
+                    <exclude reference="gN7-iZ-Wgs"/>
+                    <exclude reference="gqq-O3-3Un"/>
+                    <exclude reference="p66-b4-f1M"/>
+                    <exclude reference="vbO-MV-MSv"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="S58-Xt-ufH"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="DI6-Bd-yyb"/>
+                    <include reference="gN7-iZ-Wgs"/>
+                    <include reference="gqq-O3-3Un"/>
+                    <include reference="p66-b4-f1M"/>
+                    <include reference="vbO-MV-MSv"/>
+                </mask>
+            </variation>
+        </view>
+        <view contentMode="scaleToFill" id="szy-X0-MD0">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zRk-vk-3lX">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="jgd-sc-Jma"/>
+                        <constraint firstAttribute="height" constant="60" id="oyq-Yd-ulI"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="imgUpload.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="jgd-sc-Jma"/>
+                            <exclude reference="oyq-Yd-ulI"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="jgd-sc-Jma"/>
+                            <include reference="oyq-Yd-ulI"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="imgUpload1:" destination="-1" eventType="touchUpInside" id="2uk-FU-AxE"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ye-mJ-ZcS">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="Cmz-kB-3bV"/>
+                        <constraint firstAttribute="width" constant="60" id="P5r-nI-3E3"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="imgUpload.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Cmz-kB-3bV"/>
+                            <exclude reference="P5r-nI-3E3"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="Cmz-kB-3bV"/>
+                            <include reference="P5r-nI-3E3"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="imgUpload3:" destination="-1" eventType="touchUpInside" id="BeP-nN-i85"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wUA-rT-Fwh">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="1Xy-KB-2I9"/>
+                        <constraint firstAttribute="height" constant="60" id="w1N-XC-ENA"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="imgUpload.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="1Xy-KB-2I9"/>
+                            <exclude reference="w1N-XC-ENA"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="1Xy-KB-2I9"/>
+                            <include reference="w1N-XC-ENA"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="imgUpload4:" destination="-1" eventType="touchUpInside" id="O4B-fL-CBx"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gc4-i3-GWV">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="dj1-8N-vfS"/>
+                        <constraint firstAttribute="width" constant="60" id="xDA-LL-2fV"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="imgUpload.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="dj1-8N-vfS"/>
+                            <exclude reference="xDA-LL-2fV"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="dj1-8N-vfS"/>
+                            <include reference="xDA-LL-2fV"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="imgUpload2:" destination="-1" eventType="touchUpInside" id="6zr-OT-E9s"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="gc4-i3-GWV" firstAttribute="leading" secondItem="zRk-vk-3lX" secondAttribute="trailing" constant="20" id="4rr-BK-8mf"/>
+                <constraint firstAttribute="centerY" secondItem="gc4-i3-GWV" secondAttribute="centerY" id="AGe-D5-4nE"/>
+                <constraint firstAttribute="trailing" secondItem="wUA-rT-Fwh" secondAttribute="trailing" constant="8" id="KIm-BD-gcN"/>
+                <constraint firstItem="wUA-rT-Fwh" firstAttribute="leading" secondItem="3ye-mJ-ZcS" secondAttribute="trailing" constant="23" id="QAy-re-KAB">
+                    <variation key="heightClass=regular-widthClass=compact" constant="20"/>
+                </constraint>
+                <constraint firstItem="zRk-vk-3lX" firstAttribute="leading" secondItem="szy-X0-MD0" secondAttribute="leading" constant="8" id="ahR-On-W9d"/>
+                <constraint firstAttribute="centerY" secondItem="3ye-mJ-ZcS" secondAttribute="centerY" id="bGI-Jv-JC2"/>
+                <constraint firstAttribute="centerY" secondItem="wUA-rT-Fwh" secondAttribute="centerY" id="i5M-2F-gCt"/>
+                <constraint firstAttribute="centerY" secondItem="zRk-vk-3lX" secondAttribute="centerY" id="n6a-R3-XHr"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="zRk-vk-3lX"/>
+                    <exclude reference="3ye-mJ-ZcS"/>
+                    <exclude reference="wUA-rT-Fwh"/>
+                    <exclude reference="gc4-i3-GWV"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="ahR-On-W9d"/>
+                    <exclude reference="n6a-R3-XHr"/>
+                    <exclude reference="4rr-BK-8mf"/>
+                    <exclude reference="AGe-D5-4nE"/>
+                    <exclude reference="bGI-Jv-JC2"/>
+                    <exclude reference="KIm-BD-gcN"/>
+                    <exclude reference="QAy-re-KAB"/>
+                    <exclude reference="i5M-2F-gCt"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="zRk-vk-3lX"/>
+                    <include reference="3ye-mJ-ZcS"/>
+                    <include reference="wUA-rT-Fwh"/>
+                    <include reference="gc4-i3-GWV"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="ahR-On-W9d"/>
+                    <include reference="n6a-R3-XHr"/>
+                    <include reference="4rr-BK-8mf"/>
+                    <include reference="AGe-D5-4nE"/>
+                    <include reference="bGI-Jv-JC2"/>
+                    <include reference="KIm-BD-gcN"/>
+                    <include reference="QAy-re-KAB"/>
+                    <include reference="i5M-2F-gCt"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="1122" y="59"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="imgUpload.png" width="130" height="130"/>
+    </resources>
+</document>
