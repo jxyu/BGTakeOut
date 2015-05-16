@@ -221,7 +221,7 @@ NSDictionary* d=    (    NSDictionary*)dict;
 NSString* url=    d[@"data"][@"url"];
     CreditWebViewController *web=[[CreditWebViewController alloc]initWithUrlByPresent:url];
     CreditNavigationController *nav=[[CreditNavigationController alloc]initWithRootViewController:web];
-    [nav setNavColorStyle:[UIColor orangeColor]];
+    [nav setNavColorStyle:[UIColor redColor]];
     [self presentViewController:nav animated:YES completion:nil];
 
 }
