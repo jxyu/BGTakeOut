@@ -132,7 +132,7 @@
     lastview =[[self.view subviews] lastObject];
     y=lastview.frame.origin.y+lastview.frame.size.height;
 
-    UITableView * MineTableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, KWidth, KHeight-49-y) style:UITableViewStyleGrouped];
+    UITableView * MineTableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-49-y) style:UITableViewStyleGrouped];
     MineTableView.delegate=self;
     MineTableView.dataSource=self;
     [self.view addSubview:MineTableView];

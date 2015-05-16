@@ -41,11 +41,11 @@
     [dataprovider GetWeather:@"linyi"];
    
     
-    Weather =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+25, KWidth, 60)];
-    Weather.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];;
-    [self.view addSubview:Weather];
+//    Weather =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+25, KWidth, 60)];
+//    Weather.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];;
+//    [self.view addSubview:Weather];
     
-    UITableView *foundTable=[[UITableView alloc] initWithFrame:CGRectMake(0, Weather.frame.origin.y+Weather.frame.size.height+2, KWidth, KHeight-Weather.frame.origin.y-Weather.frame.size.height-49)];
+    UITableView *foundTable=[[UITableView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
     foundTable.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     foundTable.delegate=self;
     foundTable.dataSource=self;

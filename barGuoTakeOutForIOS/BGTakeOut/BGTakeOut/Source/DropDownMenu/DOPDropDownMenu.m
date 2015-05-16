@@ -38,6 +38,8 @@
     return [[self alloc]initWithColumn:col row:row tem:item];
 }
 
+
+
 @end
 
 @implementation DOPBackgroundCellView
@@ -80,6 +82,10 @@ struct {
 @property (nonatomic, strong) UITableView *rightTableView;  // 二级列表
 @property (nonatomic, strong) UIImageView *buttomImageView; // 底部imageView
 @property (nonatomic, weak) UIView *bottomShadow;
+
+@property(nonatomic,strong)NSArray * imagearray1;
+@property(nonatomic,strong)NSArray * imagearray2;
+@property(nonatomic,strong)NSArray * imagearray3;
 
 //data source
 @property (nonatomic, copy) NSArray *array;
@@ -574,10 +580,29 @@ struct {
             NSAssert(0 == 1, @"dataSource method needs to be implemented");
         }
         
+        if ([DOPIndexPath indexPathWithCol:_currentSelectedMenudIndex row:indexPath.row].column==0) {
+            if (_imagearray1) {
+                cell.imageView.image=[UIImage imageNamed:_imagearray1[[DOPIndexPath indexPathWithCol:_currentSelectedMenudIndex row:indexPath.row].row]];
+            }
+            
+        }else if ([DOPIndexPath indexPathWithCol:_currentSelectedMenudIndex row:indexPath.row].column==1)
+        {
+            if (_imagearray2) {
+                cell.imageView.image=[UIImage imageNamed:_imagearray2[[DOPIndexPath indexPathWithCol:_currentSelectedMenudIndex row:indexPath.row].row]];
+            }
+            
+        }
+        else if ([DOPIndexPath indexPathWithCol:_currentSelectedMenudIndex row:indexPath.row].column==2)
+        {
+            if (_imagearray3) {
+                cell.imageView.image=[UIImage imageNamed:_imagearray3[[DOPIndexPath indexPathWithCol:_currentSelectedMenudIndex row:indexPath.row].row]];
+            }
+        }
+        
         if ([cell.textLabel.text isEqualToString:[(CATextLayer *)[_titles objectAtIndex:_currentSelectedMenudIndex] string]]) {
            [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
         }
-//        cell.imageView.image=[UIImage imageNamed:@"fenxianghong.png"];
+
         if (_dataSourceFlags.numberOfItemsInRow && [_dataSource menu:self numberOfItemsInRow:indexPath.row column:_currentSelectedMenudIndex]> 0){
             cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_chose_arrow_nor"] highlightedImage:[UIImage imageNamed:@"icon_chose_arrow_sel"]];
         } else {

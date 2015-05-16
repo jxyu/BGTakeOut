@@ -15,6 +15,7 @@
 #import "CreditWebViewController.h"
 #import "CreditNavigationController.h"
 #import "UIImageView+WebCache.h"
+#import "Toolkit.h"
 #define kSWidth self.view.bounds.size.width
 #define kSHeight self.view.bounds.size.height
 #define kJianXi 5
@@ -40,82 +41,94 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
-//    [NSThread detachNewThreadSelector:@selector(PostGetMsg) toTarget:dataprovider withObject:nil];
-//    NSThread * newthread=[[NSThread alloc] initWithTarget:dataprovider selector:@selector(PostGetMsg) object:nil];
-//    [newthread start];
-//    _BaGuoBang.
-    page=[[UIView alloc ] initWithFrame:CGRectMake(0, 0, kSWidth, kSHeight-49)];
-    [self.view addSubview:page];
-    UIButton * btn_location=[[UIButton alloc] initWithFrame:CGRectMake(50, 0, kSWidth-100, 64)];
-    [btn_location addTarget:self action:@selector(GetLocation) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn_location];
-
-    UIView * fillview=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, kSWidth, 120)];
-    fillview.tag=101;
-    [page addSubview:fillview];
-    
-    //添加我要点餐按钮
-    UIView *lastinarray=[page.subviews lastObject];
-    CGFloat y=[lastinarray frame].origin.y+lastinarray.frame.size.height+kJianXi;
-    UIButton * WaiMai= [[UIButton alloc] initWithFrame:CGRectMake(0, y, kSWidth, 100)];
-    [WaiMai setImage:[UIImage imageNamed:@"WaiMai.jpg"] forState:UIControlStateNormal];
-    [WaiMai addTarget:self action:@selector(DoMyWaiMai) forControlEvents:UIControlEventTouchUpInside];
-    [page addSubview:WaiMai];
-    
-    //添加每日笑话按钮
-    lastinarray=[page.subviews lastObject] ;
-    y=[lastinarray frame].origin.y+lastinarray.frame.size.height+kJianXi;
-    UIButton * Joke= [[UIButton alloc] initWithFrame:CGRectMake(0, y, kSWidth/2-1, 70)];
-    [Joke setImage:[UIImage imageNamed:@"joke.jpg"] forState:UIControlStateNormal];
-    [Joke addTarget:self action:@selector(JumpToJoke) forControlEvents:UIControlEventTouchUpInside];
-    [page addSubview:Joke];
-    
-    //添加幸运星按钮
-    lastinarray=[page.subviews lastObject] ;
-    CGFloat x=lastinarray.frame.size.width+2;
-    UIButton * luck= [[UIButton alloc] initWithFrame:CGRectMake(x, y, kSWidth/2-1, 70)];
-    [luck setImage:[UIImage imageNamed:@"luck.jpg"] forState:UIControlStateNormal];
+    @try {
+        if ([Toolkit isSystemIOS8]) {
+            [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
+                NSLog(@"%@",addressString);
+                NSString *strUrl = [addressString stringByReplacingOccurrencesOfString:@"中国" withString:@""];
+                [self setBarTitle:[strUrl stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+            }];
+        }
+        
+        UIScrollView *scrollView_BackView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, SCREEN_HEIGHT-NavigationBar_HEIGHT)];
+        scrollView_BackView.scrollEnabled=YES;
+        page=[[UIView alloc ] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kSHeight-49)];
+        UIButton * btn_location=[[UIButton alloc] initWithFrame:CGRectMake(50, 0, kSWidth-100, 64)];
+        [btn_location addTarget:self action:@selector(GetLocation) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:btn_location];
+        
+        UIView * fillview=[[UIView alloc] initWithFrame:CGRectMake(0,0, kSWidth, 120)];
+        fillview.tag=101;
+        [page addSubview:fillview];
+        
+        //添加我要点餐按钮
+        UIView *lastinarray=[page.subviews lastObject];
+        CGFloat y=[lastinarray frame].origin.y+lastinarray.frame.size.height+kJianXi;
+        UIButton * WaiMai= [[UIButton alloc] initWithFrame:CGRectMake(0, y, kSWidth, 100)];
+        [WaiMai setImage:[UIImage imageNamed:@"WaiMai.jpg"] forState:UIControlStateNormal];
+        [WaiMai addTarget:self action:@selector(DoMyWaiMai) forControlEvents:UIControlEventTouchUpInside];
+        [page addSubview:WaiMai];
+        
+        //添加每日笑话按钮
+        lastinarray=[page.subviews lastObject] ;
+        y=[lastinarray frame].origin.y+lastinarray.frame.size.height+kJianXi;
+        UIButton * Joke= [[UIButton alloc] initWithFrame:CGRectMake(0, y, kSWidth/2-1, 70)];
+        [Joke setImage:[UIImage imageNamed:@"joke.jpg"] forState:UIControlStateNormal];
+        [Joke addTarget:self action:@selector(JumpToJoke) forControlEvents:UIControlEventTouchUpInside];
+        [page addSubview:Joke];
+        
+        //添加幸运星按钮
+        lastinarray=[page.subviews lastObject] ;
+        CGFloat x=lastinarray.frame.size.width+2;
+        UIButton * luck= [[UIButton alloc] initWithFrame:CGRectMake(x, y, kSWidth/2-1, 70)];
+        [luck setImage:[UIImage imageNamed:@"luck.jpg"] forState:UIControlStateNormal];
         [luck addTarget:self action:@selector(jumpToLuck) forControlEvents:UIControlEventTouchUpInside];
-    [page addSubview:luck];
-    
-    //更多礼品按钮
-    lastinarray=[page.subviews lastObject] ;
-    y=[lastinarray frame].origin.y+lastinarray.frame.size.height+kJianXi;
-    UIButton * Gift= [[UIButton alloc] initWithFrame:CGRectMake(0, y, kSWidth, 28)];
-    [Gift setImage:[UIImage imageNamed:@"lipin_more.jpg"] forState:UIControlStateNormal];
-    [Gift addTarget:self action:@selector(MoreGift) forControlEvents:UIControlEventTouchUpInside];
-    [page addSubview:Gift];
-    
-    //添加下面展示的三样礼品
-    lastinarray=[page.subviews lastObject] ;
-    y=[lastinarray frame].origin.y+lastinarray.frame.size.height;
-    UIButton * Gift_1= [[UIButton alloc] initWithFrame:CGRectMake(0, y, kSWidth/2, 120)];
-    [Gift_1 setImage:[UIImage imageNamed:@"lipin_weidan.png"] forState:UIControlStateNormal];
-    Gift_1.backgroundColor=[UIColor brownColor];
-    [Gift_1 addTarget:self action:@selector(testclick) forControlEvents:UIControlEventTouchUpInside];
-    [page addSubview:Gift_1];
-    lastinarray=[page.subviews lastObject] ;
-    x=lastinarray.frame.size.width;
-    UIButton * Gift_2 =[[UIButton alloc] initWithFrame:CGRectMake(x, y, kSWidth/2, 60)];
-    [Gift_2 setImage:[UIImage imageNamed:@"lipin_xiaomi.png"] forState:UIControlStateNormal];
-    Gift_2.backgroundColor=[UIColor brownColor];
-    Gift_2.layer.borderWidth=1.0;
-    [page addSubview:Gift_2];
-    lastinarray=[page.subviews lastObject] ;
-    y=[lastinarray frame].origin.y+lastinarray.frame.size.height;
-    UIButton * Gift_3= [[UIButton alloc] initWithFrame:CGRectMake(x, y, kSWidth/2, 60)];
-    [Gift_3 setImage:[UIImage imageNamed:@"lipin_kindle.png"] forState:UIControlStateNormal] ;
-    Gift_3.backgroundColor=[UIColor brownColor];
-    Gift_3.layer.borderWidth=1.0;
-    [page addSubview:Gift_3];
-    
-    //获取轮播图片
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"ContinueAddUIView:"];
-    [dataprovider PostGetMsg];
-}
+        [page addSubview:luck];
+        
+        //更多礼品按钮
+        lastinarray=[page.subviews lastObject] ;
+        y=[lastinarray frame].origin.y+lastinarray.frame.size.height+kJianXi;
+        UIButton * Gift= [[UIButton alloc] initWithFrame:CGRectMake(0, y, kSWidth, 28)];
+        [Gift setImage:[UIImage imageNamed:@"lipin_more.jpg"] forState:UIControlStateNormal];
+        [Gift addTarget:self action:@selector(MoreGift) forControlEvents:UIControlEventTouchUpInside];
+        [page addSubview:Gift];
+        
+        //添加下面展示的三样礼品
+        lastinarray=[page.subviews lastObject] ;
+        y=[lastinarray frame].origin.y+lastinarray.frame.size.height;
+        UIButton * Gift_1= [[UIButton alloc] initWithFrame:CGRectMake(0, y, kSWidth/2, 120)];
+        [Gift_1 setImage:[UIImage imageNamed:@"lipin_weidan.png"] forState:UIControlStateNormal];
+        Gift_1.backgroundColor=[UIColor brownColor];
+        [Gift_1 addTarget:self action:@selector(testclick) forControlEvents:UIControlEventTouchUpInside];
+        [page addSubview:Gift_1];
+        lastinarray=[page.subviews lastObject] ;
+        x=lastinarray.frame.size.width;
+        UIButton * Gift_2 =[[UIButton alloc] initWithFrame:CGRectMake(x, y, kSWidth/2, 60)];
+        [Gift_2 setImage:[UIImage imageNamed:@"lipin_xiaomi.png"] forState:UIControlStateNormal];
+        Gift_2.backgroundColor=[UIColor brownColor];
+        [page addSubview:Gift_2];
+        lastinarray=[page.subviews lastObject] ;
+        y=[lastinarray frame].origin.y+lastinarray.frame.size.height;
+        UIButton * Gift_3= [[UIButton alloc] initWithFrame:CGRectMake(x, y, kSWidth/2, 60)];
+        [Gift_3 setImage:[UIImage imageNamed:@"lipin_kindle.png"] forState:UIControlStateNormal] ;
+        Gift_3.backgroundColor=[UIColor brownColor];
+        [page addSubview:Gift_3];
+        [scrollView_BackView setContentSize:CGSizeMake(page.frame.size.width, page.frame.size.height)];
+        [scrollView_BackView addSubview:page];
+        [self.view addSubview:scrollView_BackView];
+        //获取轮播图片
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"ContinueAddUIView:"];
+        [dataprovider PostGetMsg];
+
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@",exception);
+    }
+    @finally {
+        
+    }
+    }
 
 -(void)viewWillAppear:(BOOL)animated
 {

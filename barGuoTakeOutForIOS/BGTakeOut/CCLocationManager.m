@@ -7,6 +7,7 @@
 //
 
 #import "CCLocationManager.h"
+#import "Toolkit.h"
 @interface CCLocationManager (){
     CLLocationManager *_manager;
 
@@ -132,7 +133,10 @@
         _manager=[[CLLocationManager alloc]init];
         _manager.delegate=self;
         _manager.desiredAccuracy = kCLLocationAccuracyBest;
-        [_manager requestAlwaysAuthorization];
+        if ([Toolkit isSystemIOS8]) {
+            [_manager requestAlwaysAuthorization];
+        }
+        
         _manager.distanceFilter=100;
         [_manager startUpdatingLocation];
     }

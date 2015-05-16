@@ -30,7 +30,6 @@
 @property(nonatomic,strong)UIScrollView * areaScroll;
 @property(nonatomic,strong)UITableView * GoodsList;
 @property(nonatomic,strong)UIView * ShoppingListView;
-@property(nonatomic,strong)UIImageView *radiusimageView;
 @property(nonatomic,strong)UILabel * lableinShoppingList;
 @property(nonatomic,strong)JSBadgeView *badgeView;
 @property(nonatomic,strong)UIView * shoppingListPage;
@@ -46,6 +45,8 @@
     UIView * CantingsegmentView;//放segmentcontrol的view
     NSDictionary * dictionary;
     NSMutableArray * lbl_array;
+    UIButton * gouwuche_icon;
+    UIScrollView * areaScroll;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -55,98 +56,98 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    ShoppingCar=[[NSMutableArray alloc] init];
-    isClick=NO;
-    [self setBarTitle:_name];
-    [self addLeftButton:@"ic_actionbar_back.png"];
+    @try {
+        ShoppingCar=[[NSMutableArray alloc] init];
+        isClick=NO;
+        [self setBarTitle:_name];
+        [self addLeftButton:@"ic_actionbar_back.png"];
+        
+        
+        //添加Segmented Control
+        UIView * lastView=[self.view.subviews lastObject];
+        CantingsegmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 40)];
+        CantingsegmentView.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
+        self.CantingsegmentedControl = [[NYSegmentedControl alloc] initWithItems:@[@"餐厅菜单", @"店铺详情"]];
+        [self.CantingsegmentedControl addTarget:self action:@selector(CantingSegMentControlClick) forControlEvents:UIControlEventValueChanged];
+        self.CantingsegmentedControl.titleFont = [UIFont fontWithName:@"AvenirNext-Medium" size:14.0f];
+        self.CantingsegmentedControl.titleTextColor = [UIColor whiteColor];
+        self.CantingsegmentedControl.selectedTitleFont = [UIFont fontWithName:@"AvenirNext-DemiBold" size:14.0f];
+        self.CantingsegmentedControl.selectedTitleTextColor = [UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
+        self.CantingsegmentedControl.borderWidth = 1.0f;
+        self.CantingsegmentedControl.borderColor = [UIColor whiteColor];
+        self.CantingsegmentedControl.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
+        //self.segmentedControl.segmentIndicatorInset = 2.0f;
+        self.CantingsegmentedControl.cornerRadius=16.0f;
+        self.CantingsegmentedControl.segmentIndicatorGradientTopColor = [UIColor whiteColor];
+        self.CantingsegmentedControl.segmentIndicatorGradientBottomColor = [UIColor whiteColor];
+        self.CantingsegmentedControl.drawsSegmentIndicatorGradientBackground = YES;
+        self.CantingsegmentedControl.segmentIndicatorBorderWidth = 0.0f;
+        self.CantingsegmentedControl.selectedSegmentIndex = 0;
+        [self.CantingsegmentedControl sizeToFit];
+        self.CantingsegmentedControl.frame=CGRectMake(22, 2, KWidth-44, 36);
+        [CantingsegmentView addSubview:_CantingsegmentedControl];
+        [self.view addSubview:CantingsegmentView];
+        
+        lastView=[self.view.subviews lastObject];
+        CGFloat ViewHeight=lastView.frame.origin.y+lastView.frame.size.height;
+        _CantingPage=[[UIView alloc] initWithFrame:CGRectMake(0,ViewHeight , SCREEN_WIDTH, SCREEN_HEIGHT-ViewHeight-50)];
+        [self.view addSubview:_CantingPage];
+        
+        
+        _shoppingListPage=[[UIView alloc] initWithFrame:CGRectMake(0, KHeight-50, KWidth, 250)];
+        [self.view addSubview:_ShoppingListView];
+        
+        
+        _ShoppingListView =[[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-50, SCREEN_WIDTH, 50)];
+        _ShoppingListView.backgroundColor=[UIColor whiteColor];
+        choseDone=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-90, 0, 90, 50)];
+        choseDone.backgroundColor=[UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1.0];
+        [choseDone setTitle:@"选好了" forState:UIControlStateNormal];
+        [choseDone addTarget:self action:@selector(payForShoppingCar) forControlEvents:UIControlEventTouchUpInside];
+        [choseDone setEnabled:NO];
+        [_ShoppingListView addSubview:choseDone];
+        _lableinShoppingList=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-100, 30)];
+        [_lableinShoppingList setTextAlignment:NSTextAlignmentCenter];
+        _lableinShoppingList.text=@"购物车内没有物品";
+        _lableinShoppingList.textColor=[UIColor grayColor];
+        [_ShoppingListView addSubview:_lableinShoppingList];
+        [self.view addSubview:_ShoppingListView];
+        
+        _shoppingListPage=[[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 50)];
+        [self.view addSubview:_shoppingListPage];
+        
+        
+        gouwuche_icon=[[UIButton alloc] initWithFrame:CGRectMake(10,SCREEN_HEIGHT-55, 50, 50)];
+        gouwuche_icon.layer.masksToBounds=YES;
+        gouwuche_icon.layer.cornerRadius=25;
+        gouwuche_icon.imageView.bounds=CGRectMake(0, 0, 30, 30);
+        [gouwuche_icon setImage:[UIImage imageNamed:@"gouwuche_icon"] forState:UIControlStateNormal];
+        [gouwuche_icon setBackgroundColor:[UIColor colorWithRed:128/255.0 green:128/255.0 blue:128/255.0 alpha:1.0]];
+        [gouwuche_icon addTarget:self action:@selector(ShowGouWuChe) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:gouwuche_icon];
+        
+        _locationForbadge=[[UILabel alloc] initWithFrame:CGRectMake(gouwuche_icon.frame.origin.x+gouwuche_icon.frame.size.width-5, gouwuche_icon.frame.origin.y, 5, 5)];
+        [self.view addSubview:_locationForbadge];
+        
+        
+        
+        DataProvider * cantingdataprovider =[[DataProvider alloc] init];
+        [cantingdataprovider setDelegateObject:self setBackFunctionName:@"BuildCategray:"];
+        [cantingdataprovider GetCantingCategory:_resid];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@",exception);
+    }
+    @finally {
+        
+    }
     
-    
-    //添加Segmented Control
-    UIView * lastView=[self.view.subviews lastObject];
-    CantingsegmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 40)];
-    CantingsegmentView.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    self.CantingsegmentedControl = [[NYSegmentedControl alloc] initWithItems:@[@"餐厅菜单", @"店铺详情"]];
-    [self.CantingsegmentedControl addTarget:self action:@selector(CantingSegMentControlClick) forControlEvents:UIControlEventValueChanged];
-    self.CantingsegmentedControl.titleFont = [UIFont fontWithName:@"AvenirNext-Medium" size:14.0f];
-    self.CantingsegmentedControl.titleTextColor = [UIColor whiteColor];
-    self.CantingsegmentedControl.selectedTitleFont = [UIFont fontWithName:@"AvenirNext-DemiBold" size:14.0f];
-    self.CantingsegmentedControl.selectedTitleTextColor = [UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    self.CantingsegmentedControl.borderWidth = 1.0f;
-    self.CantingsegmentedControl.borderColor = [UIColor whiteColor];
-    self.CantingsegmentedControl.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    //self.segmentedControl.segmentIndicatorInset = 2.0f;
-    self.CantingsegmentedControl.cornerRadius=16.0f;
-    self.CantingsegmentedControl.segmentIndicatorGradientTopColor = [UIColor whiteColor];
-    self.CantingsegmentedControl.segmentIndicatorGradientBottomColor = [UIColor whiteColor];
-    self.CantingsegmentedControl.drawsSegmentIndicatorGradientBackground = YES;
-    self.CantingsegmentedControl.segmentIndicatorBorderWidth = 0.0f;
-    self.CantingsegmentedControl.selectedSegmentIndex = 0;
-    [self.CantingsegmentedControl sizeToFit];
-    self.CantingsegmentedControl.frame=CGRectMake(22, 2, KWidth-44, 36);
-    [CantingsegmentView addSubview:_CantingsegmentedControl];
-    [self.view addSubview:CantingsegmentView];
-    
-    lastView=[self.view.subviews lastObject];
-    CGFloat ViewHeight=lastView.frame.origin.y+lastView.frame.size.height;
-    _CantingPage=[[UIView alloc] initWithFrame:CGRectMake(0,ViewHeight , KWidth, KHeight-ViewHeight-50)];
-    [self.view addSubview:_CantingPage];
-    
-    _shoppingListPage=[[UIView alloc] initWithFrame:CGRectMake(0, KHeight-50, KWidth, 250)];
-    
-    _ShoppingListView =[[UIView alloc] initWithFrame:CGRectMake(0, KHeight-50, KWidth, 50)];
-    _ShoppingListView.backgroundColor=[UIColor whiteColor];
-    choseDone=[[UIButton alloc] initWithFrame:CGRectMake(KWidth-90, 0, 90, 50)];
-    choseDone.backgroundColor=[UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1.0];
-    [choseDone setTitle:@"选好了" forState:UIControlStateNormal];
-    [choseDone addTarget:self action:@selector(payForShoppingCar) forControlEvents:UIControlEventTouchUpInside];
-    [choseDone setEnabled:NO];
-    [_ShoppingListView addSubview:choseDone];
-    _lableinShoppingList=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, KWidth-100, 30)];
-    [_lableinShoppingList setTextAlignment:NSTextAlignmentCenter];
-    _lableinShoppingList.text=@"购物车内没有物品";
-    [_ShoppingListView addSubview:_lableinShoppingList];
-    [self.view addSubview:_ShoppingListView];
-    
-    
-    
-    [self.view addSubview:_shoppingListPage];
-    
-    
-    _radiusimageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"gouwuche_icon"]];
-    _radiusimageView.backgroundColor=[UIColor colorWithRed:128/255.0 green:128/255.0 blue:128/255.0 alpha:1.0];
-    _radiusimageView.frame = CGRectMake(10,KHeight-85, 50, 50);
-    _radiusimageView.layer.masksToBounds =YES;
-    _radiusimageView.layer.cornerRadius =25;
-    _radiusimageView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *singleTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ShowGouWuChe)];
-    [_radiusimageView addGestureRecognizer:singleTap1];
-    [self.view addSubview:_radiusimageView];
-    
-    _locationForbadge=[[UILabel alloc] initWithFrame:CGRectMake(_radiusimageView.frame.origin.x+_radiusimageView.frame.size.width-5, _radiusimageView.frame.origin.y, 5, 5)];
-    [self.view addSubview:_locationForbadge];
-    
-    
-    
-    DataProvider * cantingdataprovider =[[DataProvider alloc] init];
-    [cantingdataprovider setDelegateObject:self setBackFunctionName:@"BuildCategray:"];
-    [cantingdataprovider GetCantingCategory:_resid];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 
 #pragma mark 创建左侧的分类栏
 -(void)BuildCategray:(id)dict
@@ -183,34 +184,44 @@
 
 -(void)CantingSegMentControlClick
 {
-    if (1==self.CantingsegmentedControl.selectedSegmentIndex) {
-        _CantingPage.hidden=YES;
-        NSLog(@"other");
-        _ShoppingListView.hidden=YES;
-        _radiusimageView.hidden=YES;
-        if (_badgeView) {
-            _badgeView.hidden=YES;
+    @try {
+        if (1==self.CantingsegmentedControl.selectedSegmentIndex) {
+            _CantingPage.hidden=YES;
+            NSLog(@"other");
+            _ShoppingListView.hidden=YES;
+            gouwuche_icon.hidden=YES;
+            if (_badgeView) {
+                _badgeView.hidden=YES;
+            }
+            NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                      NSUserDomainMask, YES) objectAtIndex:0];
+            NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+            dictionary =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+            if (dictionary) {
+                
+                DataProvider *dataprovider=[[DataProvider alloc] init];
+                [dataprovider setDelegateObject:self setBackFunctionName:@"CanTingXiangqingBackCall:"];
+                [dataprovider GetCantingXiangqing:_resid anduserid:dictionary[@"userid"]];
+            }
         }
-        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                  NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
-        dictionary =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
-        if (dictionary) {
-            DataProvider *dataprovider=[[DataProvider alloc] init];
-            [dataprovider setDelegateObject:self setBackFunctionName:@"CanTingXiangqingBackCall:"];
-            [dataprovider GetCantingXiangqing:_resid anduserid:dictionary[@"userid"]];
+        else
+        {
+            _CantingPage.hidden=NO;
+            _ShoppingListView.hidden=NO;
+            gouwuche_icon.hidden=NO;
+            if (_badgeView) {
+                _badgeView.hidden=NO;
+            }
+            _CantingOtherPage.hidden=YES;
         }
     }
-    else
-    {
-        _CantingPage.hidden=NO;
-        _ShoppingListView.hidden=NO;
-        _radiusimageView.hidden=NO;
-        if (_badgeView) {
-            _badgeView.hidden=NO;
-        }
-        _CantingOtherPage.hidden=YES;
+    @catch (NSException *exception) {
+        NSLog(@"CantingInfoViewController%@",exception);
     }
+    @finally {
+        
+    }
+    
 }
 -(void)CantingItemClick:(UIButton *)sender
 {
@@ -254,6 +265,7 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     static NSString *CellIdentifier = @"GoodsTableViewCell";
     GoodsTableViewCell *cell = (GoodsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -354,7 +366,7 @@
     [choseDone setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
 
     int viewheight=ShoppingCar.count<4?(ShoppingCar.count*50):200;
-    UIScrollView * areaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 50, KWidth, viewheight)];
+    areaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, viewheight)];
     areaScroll.scrollEnabled=YES;
     areaScroll.backgroundColor=[UIColor grayColor];
     for (int i=0; i<ShoppingCar.count; i++) {
@@ -393,12 +405,14 @@
         SumPrice+=item.Num*[price floatValue];
     }
     areaScroll.contentSize=CGSizeMake(0, viewheight);
+    
     if (!isClick) {
         //购物车列表出现
         [_shoppingListPage addSubview:areaScroll];
-        _shoppingListPage.frame=CGRectMake(0, _shoppingListPage.frame.origin.y-viewheight-50, KWidth, viewheight+50);
-        _radiusimageView.frame=CGRectMake(_radiusimageView.frame.origin.x, _radiusimageView.frame.origin.y-viewheight, _radiusimageView.frame.size.width, _radiusimageView.frame.size.height);
-        _radiusimageView.backgroundColor=[UIColor colorWithRed:255/255 green:180/255 blue:0/255 alpha:1.0];
+        _shoppingListPage.frame=CGRectMake(0, SCREEN_HEIGHT-viewheight-50, SCREEN_WIDTH, viewheight);
+        gouwuche_icon.frame=CGRectMake(gouwuche_icon.frame.origin.x, gouwuche_icon.frame.origin.y-viewheight, gouwuche_icon.frame.size.width, gouwuche_icon.frame.size.height);
+        gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255 green:180/255 blue:0/255 alpha:1.0];
+        [self.view addSubview:gouwuche_icon];
         _ShoppingListView.backgroundColor=[UIColor whiteColor];
         _lableinShoppingList.text=[NSString stringWithFormat:@"%.2f",SumPrice];
         [_lableinShoppingList setTextColor:[UIColor redColor]];
@@ -406,16 +420,16 @@
         isClick=YES;
     }else
     {
-        [_shoppingListPage addSubview:areaScroll];
-        _shoppingListPage.frame=CGRectMake(0, _shoppingListPage.frame.origin.y+viewheight+50, KWidth, viewheight+50);
-        _radiusimageView.frame=CGRectMake(_radiusimageView.frame.origin.x, _radiusimageView.frame.origin.y+viewheight, _radiusimageView.frame.size.width, _radiusimageView.frame.size.height);
-        _radiusimageView.backgroundColor=[UIColor colorWithRed:255/255.0 green:180/255.0 blue:0/255.0 alpha:1.0];
+        _shoppingListPage.frame=CGRectMake(0, SCREEN_HEIGHT+viewheight+50, KWidth, viewheight);
+        gouwuche_icon.frame=CGRectMake(gouwuche_icon.frame.origin.x, gouwuche_icon.frame.origin.y+viewheight, gouwuche_icon.frame.size.width, gouwuche_icon.frame.size.height);
+        gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255.0 green:180/255.0 blue:0/255.0 alpha:1.0];
         _ShoppingListView.backgroundColor=[UIColor whiteColor];
         _lableinShoppingList.text=[NSString stringWithFormat:@"%.2f",SumPrice];
         _locationForbadge.frame=CGRectMake(_locationForbadge.frame.origin.x, _locationForbadge.frame.origin.y+viewheight, 5, 5);
         isClick=NO;
     }
 }
+
 - (UIColor *) stringTOColor:(NSString *)str
 {
     if (!str || [str isEqualToString:@""]) {

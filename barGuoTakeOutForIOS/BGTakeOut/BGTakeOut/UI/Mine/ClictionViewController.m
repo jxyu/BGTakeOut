@@ -39,11 +39,20 @@
 -(void)GetClictionBackCall:(id)dict
 {
     NSLog(@"获取我的收藏%@",dict);
-    Canting=[[NSArray alloc] initWithArray:dict[@"data"]];
-    UITableView * TableView_orderList=[[UITableView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20,SCREEN_WIDTH , SCREEN_HEIGHT-NavigationBar_HEIGHT-20)];
-    TableView_orderList.delegate=self;
-    TableView_orderList.dataSource=self;
-    [self.view addSubview:TableView_orderList];
+    if ([dict[@"status"] intValue]==1&&![dict[@"data"] isEqual:@""]) {
+        Canting=[[NSArray alloc] initWithArray:dict[@"data"]];
+        UITableView * TableView_orderList=[[UITableView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20,SCREEN_WIDTH , SCREEN_HEIGHT-NavigationBar_HEIGHT-20)];
+        TableView_orderList.delegate=self;
+        TableView_orderList.dataSource=self;
+        [self.view addSubview:TableView_orderList];
+    }
+    else
+    {
+        UIAlertView * alert =[[UIAlertView alloc] initWithTitle:@"通知" message:@"您还未收藏任何信息" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+        [alert show];
+    }
+    
+    
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -89,7 +98,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 180;
+    return 100;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

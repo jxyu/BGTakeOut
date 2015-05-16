@@ -62,7 +62,7 @@
     [dataprovider setDelegateObject:self setBackFunctionName:@"Btn_AddressDefaultBackCall:"];
     [dataprovider GetUserAddressListWithPage:@"1" andnum:@"8" anduserid:dictionary[@"userid"] andisgetdefault:@"1"];
     
-    UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, 5, KWidth, 60)];
+    UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, 5, KWidth, 40)];
     if (address) {
         
     }
@@ -123,13 +123,15 @@
     [Costommessage setKeyboardType:UIKeyboardTypeDefault];
     Costommessage.delegate=self;
     [myPage addSubview:Costommessage];
-        uilabel=[[UILabel alloc] initWithFrame:CGRectMake(17, lastView.frame.size.height+lastView.frame.origin.y+18, 100, 10)];
+        uilabel=[[UILabel alloc] initWithFrame:CGRectMake(17, lastView.frame.size.height+lastView.frame.origin.y+18, 100, 15)];
     uilabel.text = @"给餐厅留言..";
+    uilabel.font=[UIFont systemFontOfSize:13];
     uilabel.enabled = NO;//lable必须设置为不可用
     uilabel.backgroundColor = [UIColor clearColor];
     [myPage addSubview:uilabel];
-    lbl_zishu=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, lastView.frame.size.height+lastView.frame.origin.y+Costommessage.frame.size.height-10, 150, 10)];
+    lbl_zishu=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, lastView.frame.size.height+lastView.frame.origin.y+Costommessage.frame.size.height-10, 150, 15)];
     lbl_zishu.text=@"还能输入140个字";
+    lbl_zishu.font=[UIFont systemFontOfSize:13];
     lbl_zishu.enabled=NO;
     lbl_zishu.backgroundColor=[UIColor clearColor];
     [myPage addSubview:lbl_zishu];
@@ -149,22 +151,22 @@
     [myPage addSubview:peisongfeiView];
     
     lastView=[myPage.subviews lastObject];
-    UIView * PayWayBackView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+5, KWidth, 100)];
+    UIView * PayWayBackView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+5, KWidth, 80)];
     PayWayBackView.backgroundColor=[UIColor whiteColor];
-    UILabel * lbl_payname=[[UILabel alloc] initWithFrame:CGRectMake(10, 5, 150, 30)];
+    UILabel * lbl_payname=[[UILabel alloc] initWithFrame:CGRectMake(10, 5, 150, 20)];
     lbl_payname.text=@"支付方式";
     [PayWayBackView addSubview:lbl_payname];
     UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(10, 40, KWidth-20, 1)];
     fenge.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [PayWayBackView addSubview:fenge];
-    PayOnLine=[[UIButton alloc] initWithFrame:CGRectMake(KWidth/4-40, 60, 120, 25)];
+    PayOnLine=[[UIButton alloc] initWithFrame:CGRectMake(KWidth/4-40, 50, 120, 25)];
     [PayOnLine setTitle:@"在线支付" forState:UIControlStateNormal];
     PayOnLine.tag=1;
     [PayOnLine setImage:[UIImage imageNamed:@"RadioButtonSelected"] forState:UIControlStateNormal];
     [PayOnLine addTarget:self action:@selector(ChangePayWay:) forControlEvents:UIControlEventTouchUpInside];
     [PayOnLine setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [PayWayBackView addSubview:PayOnLine];
-    PayOutLine=[[UIButton alloc] initWithFrame:CGRectMake(KWidth/4*2, 60, 120, 25)];
+    PayOutLine=[[UIButton alloc] initWithFrame:CGRectMake(KWidth/4*2, 50, 120, 25)];
     [PayOutLine setTitle:@"货到付款" forState:UIControlStateNormal];
     [PayOutLine setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [PayOutLine setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
@@ -284,23 +286,27 @@
             if (Costommessage.text) {
                 [prm setObject:Costommessage.text forKey:@"remark"];
             }
-            //                    NSMutableArray * orderdataArray=[[NSMutableArray alloc] init];
-            NSMutableString * orderdataStr=[[NSMutableString alloc] init];
+            NSMutableArray * orderdataArray=[[NSMutableArray alloc] init];
             
             for (int i=0; i<_orderData.count; i++) {
+                NSMutableDictionary * dict=[[NSMutableDictionary alloc] init];
                 ShoppingCarModel *item=_orderData[i];
-                NSString * jsonStr;
-                if (i ==(_orderData.count-1)) {
-                    jsonStr=[NSString stringWithFormat:@"{\"goodsid\":%@,\"goodsname\":%@,\"count\":%d,\"activity\":%@}",item.Goods[@"goodsid"],item.Goods[@"name"],item.Num,item.Goods[@"activity"]];
-                }
-                else{
-                    jsonStr=[NSString stringWithFormat:@"{\"goodsid\":%@,\"goodsname\":%@,\"count\":%d,\"activity\":%@},",item.Goods[@"goodsid"],item.Goods[@"name"],item.Num,item.Goods[@"activity"]];
-                }
-                [orderdataStr appendString:jsonStr];
+                [dict setObject:item.Goods[@"goodsid"] forKey:@"goodsid"];
+                [dict setObject:item.Goods[@"name"] forKey:@"goodsname"];
+                [dict setObject:item.Goods[@"activity"] forKey:@"activity"];
+                [dict setObject:[NSString stringWithFormat:@"%d",item.Num] forKey:@"goodsNum"];
+                [dict setObject:item.Goods[@"price"] forKey:@"goodsprice"];
+                
+                [orderdataArray addObject:dict];
+                
                 [prm setObject:item.Goods[@"resid"] forKey:@"resid"];
             }
-            
-            [prm setObject:orderdataStr  forKey:@"goodsdetail"];
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:orderdataArray
+                                                               options:NSJSONWritingPrettyPrinted
+                                                                 error:nil];
+            NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                         encoding:NSUTF8StringEncoding];
+            [prm setObject:jsonString  forKey:@"goodsdetail"];
             DataProvider * dataprovider=[[DataProvider alloc] init];
             [dataprovider setDelegateObject:self setBackFunctionName:@"submitOrderBackCall:"];
             [dataprovider SubmitOrder:prm];
@@ -320,10 +326,7 @@
         [dataprovider setDelegateObject:self setBackFunctionName:@"GetChargeBackCall:"];
         NSDictionary * prm=@{@"channel":@"alipay",@"amount":@"22",@"ordernum":@"2015050900088",@"subject":@"外卖2",@"body":@"外卖"};
         [dataprovider GetchargeForPay:prm];
-//        OrderInfoViewController * orderinfoVC=[[OrderInfoViewController alloc] init];
-//        orderinfoVC.orderInfoDetial=dict[@"data"];
-//        orderinfoVC.orderData=_orderData;
-//        [self.navigationController pushViewController:orderinfoVC animated:YES];
+
     }
 }
 
@@ -338,8 +341,12 @@
         [Pingpp createPayment:str_data viewController:self appURLScheme:@"BGTackOut" withCompletion:^(NSString *result, PingppError *error) {
             if ([result isEqualToString:@"success"]) {
                 NSLog(@"支付成功");
+                OrderInfoViewController * orderinfoVC=[[OrderInfoViewController alloc] init];
+                orderinfoVC.orderInfoDetial=dict[@"data"];
+                orderinfoVC.orderData=_orderData;
+                [self.navigationController pushViewController:orderinfoVC animated:YES];
         } else {
-            NSLog(@"PingppError: code=%lu msg=%@", error.code, [error getMsg]);
+            NSLog(@"PingppError: code=%lu msg=%@", (unsigned long)error.code, [error getMsg]);
         }
         }];
         
@@ -353,7 +360,7 @@
 {
     if (1==[dict[@"status"] intValue]) {
         address=dict[@"data"];
-        UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, 5, KWidth, 100)];
+        UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, 5, KWidth, 80)];
         BackgroundView1.backgroundColor=[UIColor grayColor];
         UILabel * lbl_name=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 40, 20)];
         lbl_name.text=address[0][@"realname"];

@@ -18,7 +18,7 @@
 
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
-#define KCantingNum 6
+#define KCantingNum 16
 #define KURL @"http://121.42.139.60/baguo/"
 
 @interface WaiMAIViewController ()<DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -51,6 +51,10 @@
     NSArray * Canting;
     
     NSArray * activearray;
+    
+    NSArray * imagearray1;
+    NSArray * imagearray2;
+    NSArray * imagearray3;
 }
 
 - (void)viewDidLoad {
@@ -95,13 +99,16 @@
     [self.view addSubview:_Page];
     // 数据
     self.sorts=@[@"促销活动"];
-    self.areas = @[@"热门分类",@"汉餐",@"清真",@"早餐",@"午餐"];
+    self.areas = @[@"热门分类",@"全部",@"巴国推荐",@"超市",@"汉餐",@"清真",@"早餐",@"午餐"];
     self.classifys = @[@"排序方式",@"已通过认证",@"销量最大",@"评价最高",@"价位高到低",@"价位低到高"];
+    imagearray1=@[@"zong.png",@"jian.png",@"dian.png",@"han.png",@"qing.png",@"zao.png",@"wu.png"];
+    imagearray2=@[@"xu.png",@"zheng.png",@"xiaoliang.png",@"timer.png",@"jiawei.png"];
+//    imagearray3=@[@""]
     
     // 添加下拉菜单
     
     DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:44];
-    
+//    menu.im
     menu.delegate = self;
     menu.dataSource = self;
     [_Page addSubview:menu];
@@ -126,15 +133,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 #pragma mark 点击segmeng control触发事件
 -(void)SegMentControlClick
 {
@@ -271,7 +269,7 @@
         
         UIView * lastView=[_Page.subviews lastObject];
         CGFloat y=lastView.frame.origin.y+lastView.frame.size.height;
-        _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, KWidth, KHeight-y)];
+        _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-y)];
         _tableView.delegate=self;
         _tableView.dataSource=self;
         [_Page addSubview:_tableView];
@@ -301,18 +299,58 @@
         activearray=[[NSArray alloc] initWithArray:Canting[indexPath.row][@"activities"]];
         cell  = [[[NSBundle mainBundle] loadNibNamed:@"TableViewCell" owner:self options:nil] lastObject];
         [cell.Canting_icon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,Canting[indexPath.row][@"logo"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+        if ([Canting[indexPath.row][@"isauthentic"] boolValue]) {
+            cell.Renzheng.image=[UIImage imageNamed:@"renzheng.png"];
+        }
         cell.CantingName.text=Canting[indexPath.row][@"name"];
         cell.Adress.text=Canting[indexPath.row][@"addressname"];
-        cell.starRatingView =[[TQStarRatingView alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height) numberOfStar:[Canting[indexPath.row][@"totalcredit"] intValue]];
+        cell.starRatingView =[[TQStarRatingView alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width/5*[Canting[indexPath.row][@"totalcredit"] intValue], cell.PingjiaView.frame.size.height) numberOfStar:[Canting[indexPath.row][@"totalcredit"] intValue]];
         [cell.PingjiaView addSubview:cell.starRatingView];
         UIButton * zhezhao=[[UIButton alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height)];
         [cell.PingjiaView addSubview:zhezhao];
-        for (int i=0; i<activearray.count; i++) {
-            UILabel * lbl_active=[[UILabel alloc] initWithFrame:CGRectMake(30, i*20+5, 200, 18)];
-            lbl_active.text=activearray[i][@"name"];
-            cell.CantingActive.frame=CGRectMake(cell.CantingActive.frame.origin.x, cell.CantingActive.frame.origin.y, cell.CantingActive.frame.size.width, cell.CantingActive.frame.size.height+20*(i-1));
-            [cell.CantingActive addSubview:lbl_active];
-        }
+//        for (int i=0; i<activearray.count; i++) {
+//            UIImageView * img_icon;
+//            switch ([activearray[i][@"actid"] intValue]) {
+//                case 1:
+//                    
+//                    break;
+//                case 2:
+//                    img_icon=[[UIImageView alloc] initWithFrame:CGRectMake(10, i*20+5, 15, 15)];
+//                    img_icon.image=[UIImage imageNamed:@"fu.png"];
+//                    break;
+//                case 3:
+//                    img_icon=[[UIImageView alloc] initWithFrame:CGRectMake(10, i*20+5, 15, 15)];
+//                    img_icon.image=[UIImage imageNamed:@"15.png"];
+//                    break;
+////                case 4:
+////                    <#statements#>
+////                    break;
+////                case 5:
+////                    <#statements#>
+////                    break;
+////                case 6:
+////                    <#statements#>
+////                    break;
+//                case 7:
+//                    img_icon=[[UIImageView alloc] initWithFrame:CGRectMake(10, i*20+5, 15, 15)];
+//                    img_icon.image=[UIImage imageNamed:@"xun.png"];
+//                    break;
+////                case 8:
+////                    <#statements#>
+////                    break;
+//                    
+//                default:
+//                    break;
+//            }
+//            
+//            UILabel * lbl_active=[[UILabel alloc] initWithFrame:CGRectMake(40, i*20+5, 200, 18)];
+//            lbl_active.text=activearray[i][@"name"];
+//            lbl_active.font=[UIFont systemFontOfSize:13];
+//            lbl_active.textColor=[UIColor grayColor];
+//            cell.CantingActive.frame=CGRectMake(cell.CantingActive.frame.origin.x, cell.CantingActive.frame.origin.y, cell.CantingActive.frame.size.width, cell.CantingActive.frame.size.height+20*(i-1));
+//            [cell.CantingActive addSubview:img_icon];
+//            [cell.CantingActive addSubview:lbl_active];
+//        }
 
         [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
     }
@@ -328,7 +366,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat height=180.0;
+    CGFloat height=100.0;
 //    CGFloat height=180.0+(activearray.count-1)*30;
     return height;
 }
@@ -354,17 +392,6 @@
     
 }
 
-//-(NSString *)GetActiveicon:(int)actid
-//{
-////    switch (actid) {
-////        case <#constant#>:
-////            <#statements#>
-////            break;
-////            
-////        default:
-////            break;
-////    }
-//}
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];

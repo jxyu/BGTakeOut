@@ -39,7 +39,8 @@
     scrollView_AfterPay.scrollEnabled=YES;
     scrollView_AfterPay.delegate=self;
     
-    
+    OrderAfterPay =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 800)];
+    OrderAfterPay.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     
     RefreshHeaderAndFooterView *view= [[RefreshHeaderAndFooterView alloc] initWithFrame:CGRectMake(scrollView_AfterPay.frame.origin.x, scrollView_AfterPay.frame.origin.y-20, scrollView_AfterPay.frame.size.width, scrollView_AfterPay.contentSize.height)];
     view.delegate = self;
@@ -68,8 +69,13 @@
 {
     NSLog(@"获取订单信息%@",dict);
     if (1==[dict[@"status"] intValue]) {
+        NSData * data=[dict[@"data"][@"goodsdetail"] dataUsingEncoding:NSUTF8StringEncoding];
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:data
+                                                        options:NSJSONReadingAllowFragments
+                                                          error:nil];
+        _orderData=(NSArray *)jsonObject;
         [self PayForOrder:dict[@"data"]];
-        _orderData=dict[@"data"][@"goodsdetail"];
+        
     }
 }
 
@@ -127,7 +133,89 @@
         switch ([dict[@"status"] intValue]) {
         case 0:
         {
+            UIView * backview_StatusInfo=[[UIView alloc] initWithFrame:CGRectMake(40, img_Status_icon.frame.origin.y+img_Status_icon.frame.size.height+2, KWidth-80, 40)];
+            backview_StatusInfo.backgroundColor=[UIColor colorWithRed:244/255.0 green:243/255.0 blue:241/255.0 alpha:1.0];
+            UILabel * lbl_title=[[UILabel alloc] initWithFrame:CGRectMake(0, 10, (KWidth-80)/2, 20)];
+            [lbl_title setTextAlignment:NSTextAlignmentCenter];
+            lbl_title.text=@"请等待";
+            [backview_StatusInfo addSubview:lbl_title];
+            UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(lbl_title.frame.origin.x+lbl_title.frame.size.width, 10, 1, 20)];
+            fenge.backgroundColor=[UIColor colorWithRed:209/255.0 green:209/255.0 blue:209/255.0 alpha:1.0];
+            [backview_StatusInfo addSubview:fenge];
+            //    timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:nil userInfo:nil repeats:YES];
+            //    [timer setFireDate:[NSDate distantPast]];//开启
+            UILabel * lbl_TimeCount=[[UILabel alloc] initWithFrame:CGRectMake(fenge.frame.origin.x+fenge.frame.size.width, 10,(KWidth-80)/2 , 20)];
+            [lbl_TimeCount setTextAlignment:NSTextAlignmentCenter];
+            lbl_TimeCount.text=[NSString stringWithFormat:@"预计10分钟内接单"];
+            [backview_StatusInfo addSubview:lbl_TimeCount];
+            fenge.backgroundColor=[UIColor colorWithRed:221/255.0 green:220/255.0 blue:218/255.0 alpha:1.0];
+            [BackView_OrderTitle addSubview:backview_StatusInfo];
+            UIButton * cansalOrder=[[UIButton alloc] initWithFrame:CGRectMake(KWidth-10-60, BackView_OrderTitle.frame.origin.y+BackView_OrderTitle.frame.size.height, 60, 30)];
+            [cansalOrder setTitle:@"取消订单" forState:UIControlStateNormal];
+            cansalOrder.layer.borderWidth=1.0;
+            cansalOrder.layer.borderColor=(__bridge CGColorRef)([UIColor colorWithRed:255/255.0 green:116/255.0 blue:15/255.0 alpha:1.0]);
+            [cansalOrder addTarget:self action:@selector(CancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
+            [BackView_OrderTitle addSubview:cansalOrder];
             
+            
+            [OrderAfterPay addSubview:BackView_OrderTitle];
+            UIView * BackView_img_status=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_OrderTitle.frame.origin.y+BackView_OrderTitle.frame.size.height+5, KWidth, 60)];
+            BackView_img_status.backgroundColor=[UIColor whiteColor];
+            UIImageView * firstImg=[[UIImageView alloc] initWithFrame:CGRectMake(30, 10, 20, 20)];
+            firstImg.layer.masksToBounds=YES;
+            firstImg.layer.cornerRadius=10;
+            firstImg.image=[UIImage imageNamed:@"first.png"];
+            firstImg.backgroundColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+            [BackView_img_status addSubview:firstImg];
+            UILabel * lbl_Image_First=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 15)];
+            lbl_Image_First.text=@"订单提交";
+            lbl_Image_First.font=[UIFont fontWithName:@"Helvetica" size:15];
+            lbl_Image_First.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+            [BackView_img_status addSubview:lbl_Image_First];
+            UIView * gotoNext=[[UIView alloc] initWithFrame:CGRectMake(firstImg.frame.origin.x+firstImg.frame.size.width, firstImg.frame.origin.y+(firstImg.frame.size.height/2), (KWidth-160)/3, 1)];
+            gotoNext.backgroundColor=[UIColor grayColor];
+            [BackView_img_status addSubview:gotoNext];
+            UIImageView * secondImg=[[UIImageView alloc] initWithFrame:CGRectMake(gotoNext.frame.origin.x+gotoNext.frame.size.width, firstImg.frame.origin.y, 20, 20)];
+            secondImg.layer.masksToBounds=YES;
+            secondImg.layer.cornerRadius=10;
+            secondImg.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+            secondImg.image=[UIImage imageNamed:@"sencond.png"];
+            [BackView_img_status addSubview:secondImg];
+            UILabel * lbl_Image_Second=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5*2+lbl_Image_First.frame.size.width, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 15)];
+            lbl_Image_Second.text=@"餐厅接单";
+            lbl_Image_Second.font=[UIFont fontWithName:@"Helvetica" size:15];
+            //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+            [BackView_img_status addSubview:lbl_Image_Second];
+            UIView * gotoNext2=[[UIView alloc] initWithFrame:CGRectMake(secondImg.frame.origin.x+secondImg.frame.size.width, secondImg.frame.origin.y+(secondImg.frame.size.height/2), (KWidth-160)/3, 1)];
+            gotoNext2.backgroundColor=[UIColor grayColor];
+            [BackView_img_status addSubview:gotoNext2];
+            UIImageView * ThirdImg=[[UIImageView alloc] initWithFrame:CGRectMake(gotoNext2.frame.origin.x+gotoNext2.frame.size.width, firstImg.frame.origin.y, 20, 20)];
+            ThirdImg.layer.masksToBounds=YES;
+            ThirdImg.layer.cornerRadius=10;
+            ThirdImg.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+            ThirdImg.image=[UIImage imageNamed:@"thitd.png"];
+            [BackView_img_status addSubview:ThirdImg];
+            UILabel * lbl_Image_Third=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5*3+lbl_Image_First.frame.size.width*2, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 15)];
+            lbl_Image_Third.text=@"配送中";
+            lbl_Image_Third.font=[UIFont fontWithName:@"Helvetica" size:15];
+            //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+            [BackView_img_status addSubview:lbl_Image_Third];
+            UIView * gotoNext3=[[UIView alloc] initWithFrame:CGRectMake(ThirdImg.frame.origin.x+ThirdImg.frame.size.width, ThirdImg.frame.origin.y+(ThirdImg.frame.size.height/2), (KWidth-160)/3, 1)];
+            gotoNext3.backgroundColor=[UIColor grayColor];
+            [BackView_img_status addSubview:gotoNext3];
+            UIImageView * FourthImg=[[UIImageView alloc] initWithFrame:CGRectMake(gotoNext3.frame.origin.x+gotoNext3.frame.size.width, firstImg.frame.origin.y, 20, 20)];
+            FourthImg.layer.masksToBounds=YES;
+            FourthImg.layer.cornerRadius=10;
+            FourthImg.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+            FourthImg.image=[UIImage imageNamed:@"sure.png"];
+            UILabel * lbl_Image_Forth=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5*4+lbl_Image_First.frame.size.width*3, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 15)];
+            lbl_Image_Forth.text=@"已收货";
+            lbl_Image_Forth.font=[UIFont fontWithName:@"Helvetica" size:15];
+            //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+            [BackView_img_status addSubview:lbl_Image_Forth];
+            [BackView_img_status addSubview:FourthImg];
+            [OrderAfterPay addSubview:BackView_img_status];
+
         }
             break;
         case 1://已支付，等待接单
@@ -156,8 +244,7 @@
             [cansalOrder addTarget:self action:@selector(CancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
             [BackView_OrderTitle addSubview:cansalOrder];
             
-            OrderAfterPay =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 800)];
-            OrderAfterPay.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+            
             [OrderAfterPay addSubview:BackView_OrderTitle];
             UIView * BackView_img_status=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_OrderTitle.frame.origin.y+BackView_OrderTitle.frame.size.height+5, KWidth, 60)];
             BackView_img_status.backgroundColor=[UIColor whiteColor];
@@ -257,7 +344,6 @@
             CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
             CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 1,116/255.0, 15/255.0, 1 });
             [btn_ReciveGood.layer setBorderColor:colorref];
-            //    btn_ReciveGood.layer.borderColor=(__bridge CGColorRef)([UIColor colorWithRed:255/255.0 green:116/255.0 blue:15/255.0 alpha:1.0]);
             [btn_ReciveGood addTarget:self action:@selector(OrderReciver) forControlEvents:UIControlEventTouchUpInside];
             [BackView_OrderTitle addSubview:btn_ReciveGood];
             
@@ -670,7 +756,7 @@
     
 
     UIView * lastView=[OrderAfterPay.subviews lastObject];
-    UIView * BackView_OrderListTitle=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height, KWidth, 40)];
+    UIView * BackView_OrderListTitle=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+1, KWidth, 40)];
     BackView_OrderListTitle.backgroundColor=[UIColor whiteColor];
     UIImageView * Img_orderListTitle=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
     Img_orderListTitle.image=[UIImage imageNamed:@"Home"];
@@ -691,18 +777,17 @@
             UIView *orderBackground=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+1, KWidth,30)];
             lastView=[self.view.subviews lastObject];
             orderBackground.backgroundColor=[UIColor whiteColor];
-            ShoppingCarModel *item=_orderData[i];
             UILabel *itemName=[[UILabel alloc] initWithFrame:CGRectMake(15, 5, 150, 20)];
-            itemName.text=item.Goods[@"name"];
+            itemName.text=_orderData[i][@"goodsname"];
             [orderBackground addSubview:itemName];
             UILabel * itemnum=[[UILabel alloc] initWithFrame:CGRectMake(itemName.frame.origin.x+itemName.frame.size.width, 5, 40, 20)];
-            itemnum.text=[NSString stringWithFormat:@"X%d",item.Num];
+            itemnum.text=[NSString stringWithFormat:@"X%@",_orderData[i][@"goodsNum"]];
             [orderBackground addSubview:itemnum];
             UILabel * itemprice=[[UILabel alloc] initWithFrame:CGRectMake(itemnum.frame.origin.x+itemnum.frame.size.width, 5, 90, 20)];
-            itemprice.text=[NSString stringWithFormat:@"%.2f",item.Num*[item.Goods[@"price"] floatValue]];
+            itemprice.text=[NSString stringWithFormat:@"%.2f",[_orderData[i][@"goodsNum"] intValue]*[_orderData[i][@"goodsprice"] floatValue]];
             [orderBackground addSubview:itemprice];
             [OrderAfterPay addSubview:orderBackground];
-            sumprice+=item.Num*[item.Goods[@"price"] floatValue];
+            sumprice+=[_orderData[i][@"goodsNum"] intValue]*[_orderData[i][@"goodsprice"] floatValue];
         }
     }
     
@@ -731,7 +816,7 @@
     [BackView_AgainOrder addSubview:btn_OtherOrder];
     [OrderAfterPay addSubview:BackView_AgainOrder];
     
-    UIView * BackVeiw_OrderInfo=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_AgainOrder.frame.origin.y+BackView_AgainOrder.frame.size.height+5, KWidth, 160)];
+    UIView * BackVeiw_OrderInfo=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_AgainOrder.frame.origin.y+BackView_AgainOrder.frame.size.height+5, KWidth, 180)];
     BackVeiw_OrderInfo.backgroundColor=[UIColor whiteColor];
     UIImageView * Img_OrderInfo=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
     Img_OrderInfo.image=[UIImage imageNamed:@"Home"];
@@ -742,28 +827,28 @@
     UIView * fenge1=[[UIView alloc] initWithFrame:CGRectMake(10, lbl_OrderInfoTitle.frame.origin.y+lbl_OrderInfoTitle.frame.size.height+2, KWidth-20, 1)];
     fenge1.backgroundColor=[UIColor colorWithRed:209/255.0 green:209/255.0 blue:209/255.0 alpha:1.0];
     [BackVeiw_OrderInfo addSubview:fenge1];
-    UILabel * lbl_dingdanNum=[[UILabel alloc] initWithFrame:CGRectMake(10, fenge1.frame.origin.y+fenge1.frame.size.height+8, KWidth, 10)];
+    UILabel * lbl_dingdanNum=[[UILabel alloc] initWithFrame:CGRectMake(10, fenge1.frame.origin.y+fenge1.frame.size.height+8, KWidth, 20)];
     lbl_dingdanNum.font=[UIFont fontWithName:@"Helvetica" size:15];
     lbl_dingdanNum.text=[NSString stringWithFormat:@"订单号码：%@",dict[@"ordernum"]];
     lbl_dingdanNum.textColor=[UIColor grayColor];
     [BackVeiw_OrderInfo addSubview:lbl_dingdanNum];
-    UILabel * lbl_dingdanTime=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_dingdanNum.frame.origin.y+lbl_dingdanNum.frame.size.height+8, KWidth, 10)];
+    UILabel * lbl_dingdanTime=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_dingdanNum.frame.origin.y+lbl_dingdanNum.frame.size.height+8, KWidth, 20)];
     lbl_dingdanTime.font=[UIFont fontWithName:@"Helvetica" size:15];
     lbl_dingdanTime.text=[NSString stringWithFormat:@"订单时间：%@",dict[@"updatetime"]];
     lbl_dingdanTime.textColor=[UIColor grayColor];
     [BackVeiw_OrderInfo addSubview:lbl_dingdanTime];
-    UILabel * lbl_dingdanPayWay=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_dingdanTime.frame.origin.y+lbl_dingdanTime.frame.size.height+8, KWidth, 10)];
+    UILabel * lbl_dingdanPayWay=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_dingdanTime.frame.origin.y+lbl_dingdanTime.frame.size.height+8, KWidth, 20)];
     lbl_dingdanPayWay.font=[UIFont fontWithName:@"Helvetica" size:15];
     BOOL val=[dict[@"payway"] boolValue];
     lbl_dingdanPayWay.text=[NSString stringWithFormat:@"支付方式：%@",val?@"货到付款":@"在线支付"];
     lbl_dingdanPayWay.textColor=[UIColor grayColor];
     [BackVeiw_OrderInfo addSubview:lbl_dingdanPayWay];
-    UILabel * lbl_dingdanPhoneNum=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_dingdanPayWay.frame.origin.y+lbl_dingdanPayWay.frame.size.height+8, KWidth, 10)];
+    UILabel * lbl_dingdanPhoneNum=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_dingdanPayWay.frame.origin.y+lbl_dingdanPayWay.frame.size.height+8, KWidth, 20)];
     lbl_dingdanPhoneNum.font=[UIFont fontWithName:@"Helvetica" size:15];
     lbl_dingdanPhoneNum.text=[NSString stringWithFormat:@"手机号码：%@",dict[@"phonenum"]];
     lbl_dingdanPhoneNum.textColor=[UIColor grayColor];
     [BackVeiw_OrderInfo addSubview:lbl_dingdanPhoneNum];
-    UILabel * lbl_dingdanAddress=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_dingdanPhoneNum.frame.origin.y+lbl_dingdanPhoneNum.frame.size.height+8, KWidth, 10)];
+    UILabel * lbl_dingdanAddress=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_dingdanPhoneNum.frame.origin.y+lbl_dingdanPhoneNum.frame.size.height+8, KWidth, 20)];
     lbl_dingdanAddress.font=[UIFont fontWithName:@"Helvetica" size:15];
     lbl_dingdanAddress.text=[NSString stringWithFormat:@"收餐地址：%@",dict[@"address"]];
     lbl_dingdanAddress.textColor=[UIColor grayColor];

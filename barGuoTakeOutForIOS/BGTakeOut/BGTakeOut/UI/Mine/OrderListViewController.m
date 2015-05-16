@@ -32,7 +32,7 @@
     [self setBarTitle:@"我的订单"];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetOrderListBackCall:"];
-    NSDictionary * prm=@{@"page":@"1",@"num":@"8",@"userid":_userid};
+    NSDictionary * prm=@{@"page":@"1",@"num":@"18",@"userid":_userid};
     [dataprovider GetOrdersList:prm];
 }
 -(void)GetOrderListBackCall:(id)dict
@@ -120,7 +120,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.orderInfoVC=[[OrderInfoViewController alloc] init];
-    _orderInfoVC.orderInfoDetial=orderListdata[indexPath.row];
+    _orderInfoVC.orderInfoDetial=orderListdata[indexPath.section];
     [self.navigationController pushViewController:_orderInfoVC animated:YES];
 }
 
