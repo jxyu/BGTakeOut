@@ -54,8 +54,15 @@
 -(void)zhaoshangSubmit:(id)prm;
 -(void)GetBGBangDetialWith:(NSString * )articleid;
 -(void)GetBGBangTypewithtype:(NSString *)type andupid :(NSString *)upid;
-
-
+/**
+ *  获得兑吧详情页
+ *
+ *  @param appkey    兑吧appkey
+ *  @param appsecret 兑吧appsecret
+ *  @param userid    用户id
+ *  @param url       需跳转页面
+ */
+-(void)getduibaurlForDetailWithAppkey:(NSString*)appkey appsecret:(NSString*)appsecret userid:(NSString*) userid url:(NSString*)url;
 /**
  *  获得兑吧自动登录url
  *

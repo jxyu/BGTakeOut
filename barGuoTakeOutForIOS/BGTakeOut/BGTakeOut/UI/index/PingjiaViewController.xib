@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PingjiaViewController">
+            <connections>
+                <outlet property="tableView" destination="Owb-eK-fY7" id="XMN-eM-5Iq"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Owb-eK-fY7">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Owb-eK-fY7" secondAttribute="trailing" constant="-8" id="BXI-G3-D07">
+                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                </constraint>
+                <constraint firstItem="Owb-eK-fY7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="149" id="G1U-55-uYt">
+                    <variation key="heightClass=regular-widthClass=compact" constant="104"/>
+                </constraint>
+                <constraint firstItem="Owb-eK-fY7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="hEO-ho-Cbj">
+                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                </constraint>
+                <constraint firstAttribute="bottom" secondItem="Owb-eK-fY7" secondAttribute="bottom" id="yaB-QZ-RuT"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="Owb-eK-fY7"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="BXI-G3-D07"/>
+                    <exclude reference="G1U-55-uYt"/>
+                    <exclude reference="hEO-ho-Cbj"/>
+                    <exclude reference="yaB-QZ-RuT"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="Owb-eK-fY7"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="BXI-G3-D07"/>
+                    <include reference="G1U-55-uYt"/>
+                    <include reference="hEO-ho-Cbj"/>
+                    <include reference="yaB-QZ-RuT"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>
