@@ -107,6 +107,7 @@
         UIButton * Gift_2 =[[UIButton alloc] initWithFrame:CGRectMake(x, y, kSWidth/2, 60)];
         [Gift_2 setImage:[UIImage imageNamed:@"lipin_xiaomi.png"] forState:UIControlStateNormal];
         Gift_2.backgroundColor=[UIColor brownColor];
+        [Gift_2 addTarget:self action:@selector(gotoRightUp) forControlEvents:UIControlEventTouchUpInside];
         [page addSubview:Gift_2];
         lastinarray=[page.subviews lastObject] ;
         y=[lastinarray frame].origin.y+lastinarray.frame.size.height;
@@ -189,7 +190,34 @@
     [self.navigationController pushViewController:_myWaiMai animated:YES];
     
 }
+-(void)gotoRightUp{
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+    NSDictionary* userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    if(userinfoWithFile){
+        //!!!:  已经登录完成，调用接口获取免登陆链接在页面中显示
+        DataProvider* dataProvider1=[[DataProvider alloc] init];
+        [dataProvider1 setDelegateObject:self setBackFunctionName:@"getDuibaAutoLoginUrlDetail:"];
 
+        [dataProvider1 getduibaurlForDetailWithAppkey:duiba_app_key appsecret:duiba_app_secret userid:userinfoWithFile[@"userid"] url:@"http://www.duiba.com.cn/turntable/index/2511"];
+        
+    }else{
+        //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
+        LoginViewController* loginVC=        [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:loginVC animated:YES];
+        
+    }
+}
+-(void)getDuibaAutoLoginUrlDetail:(id)dict{
+    NSLog(@"detail:%@",dict);
+    NSDictionary* d=    (    NSDictionary*)dict;
+    NSString* url=    d[@"data"][@"url"];
+    CreditWebViewController *web=[[CreditWebViewController alloc]initWithUrlByPresent:url];
+    CreditNavigationController *nav=[[CreditNavigationController alloc]initWithRootViewController:web];
+    [nav setNavColorStyle:navi_bg_color];
+    [self presentViewController:nav animated:YES completion:nil];
+}
 -(void)JumpToJoke
 {
     self.myJoke=[[JokeViewController alloc] initWithNibName:@"JokeViewController" bundle:[NSBundle mainBundle]];
@@ -221,7 +249,7 @@ NSDictionary* d=    (    NSDictionary*)dict;
 NSString* url=    d[@"data"][@"url"];
     CreditWebViewController *web=[[CreditWebViewController alloc]initWithUrlByPresent:url];
     CreditNavigationController *nav=[[CreditNavigationController alloc]initWithRootViewController:web];
-    [nav setNavColorStyle:[UIColor redColor]];
+    [nav setNavColorStyle:navi_bg_color];
     [self presentViewController:nav animated:YES completion:nil];
 
 }

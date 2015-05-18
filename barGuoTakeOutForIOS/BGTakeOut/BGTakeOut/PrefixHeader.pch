@@ -23,5 +23,6 @@
  */
 #define umeng_app_key @"5551c648e0f55a492500099c"
 
+#define navi_bg_color [UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1]
 
 #endif
