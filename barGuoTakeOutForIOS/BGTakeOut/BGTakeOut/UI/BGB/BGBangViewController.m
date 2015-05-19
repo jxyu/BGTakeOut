@@ -259,6 +259,7 @@
 {
     NSLog(@"%@",dict);
     if (dict) {
+        [SVProgressHUD dismiss];
         _TextArray =dict[@"data"];
         UIView * lastView =[_Page.subviews lastObject];
         UITableView * mytableView =[[UITableView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height, _Page.frame.size.width, _Page.frame.size.height-lastView.frame.size.height)];
@@ -315,6 +316,7 @@
 {
     self.BGBangDetialVC=[[BGBangDetialViewController alloc] init];
     _BGBangDetialVC.articleid=_TextArray[indexPath.row][@"articleid"];
+    _BGBangDetialVC.userid=dictionary[@"userid"];
     [self.navigationController pushViewController:_BGBangDetialVC animated:YES];
 }
 

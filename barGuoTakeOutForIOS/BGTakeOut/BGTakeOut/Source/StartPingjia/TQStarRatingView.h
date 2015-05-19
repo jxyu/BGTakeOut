@@ -18,8 +18,8 @@
 
 @interface TQStarRatingView : UIView
 
-- (id)initWithFrame:(CGRect)frame numberOfStar:(int)number;
+- (id)initWithFrame:(CGRect)frame numberOfStar:(int)number andlightstarnum:(int)lightnumber;
 @property (nonatomic, readonly) int numberOfStar;
 @property (nonatomic, weak) id <StarRatingViewDelegate> delegate;
-
+@property (nonatomic) int lightStarNumber;
 @end

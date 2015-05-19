@@ -393,5 +393,15 @@
     [dataprovider GetBGBangTypewithtype:type andupid:upid];
 }
 
+-(void)SubmitUserOrderPingjia:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider SubmitUserOrderPingjia:prm];
+}
+-(void)SubmitBGBangPingjia:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider SubmitBGBangPingjia:prm];
+}
 
 @end

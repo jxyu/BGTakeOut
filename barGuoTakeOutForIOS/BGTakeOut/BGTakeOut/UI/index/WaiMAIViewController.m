@@ -306,7 +306,7 @@
         }
         cell.CantingName.text=Canting[indexPath.row][@"name"];
         cell.Adress.text=Canting[indexPath.row][@"addressname"];
-        cell.starRatingView =[[TQStarRatingView alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width/5*[Canting[indexPath.row][@"totalcredit"] intValue], cell.PingjiaView.frame.size.height) numberOfStar:[Canting[indexPath.row][@"totalcredit"] intValue]];
+        cell.starRatingView =[[TQStarRatingView alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height) numberOfStar:5 andlightstarnum:[Canting[indexPath.row][@"totalcredit"] intValue]];
         [cell.PingjiaView addSubview:cell.starRatingView];
         UIButton * zhezhao=[[UIButton alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height)];
         [cell.PingjiaView addSubview:zhezhao];

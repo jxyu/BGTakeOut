@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "BaseNavigationController.h"
 #import "RefreshHeaderAndFooterView.h"
+#import "PingjiaForOrderViewController.h"
+
 
 @interface OrderInfoViewController : BaseNavigationController <UIScrollViewDelegate,RefreshHeaderAndFooterViewDelegate,UIAlertViewDelegate>
 @property(nonatomic,strong)NSDictionary * orderInfoDetial;
 @property(nonatomic,strong)NSArray * orderData;
+@property(nonatomic,strong)PingjiaForOrderViewController *mypingjia;
 @end

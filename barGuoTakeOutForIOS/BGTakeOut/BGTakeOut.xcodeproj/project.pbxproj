@@ -107,6 +107,8 @@
 		806383F71AF0BE6500AF9866 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 806383E51AF0BE6500AF9866 /* UIImageView+HighlightedWebCache.m */; };
 		806383F81AF0BE6500AF9866 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 806383E71AF0BE6500AF9866 /* UIImageView+WebCache.m */; };
 		806383F91AF0BE6500AF9866 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 806383E91AF0BE6500AF9866 /* UIView+WebCacheOperation.m */; };
+		806F9D8F1B09914C0076B81F /* PingjiaForOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806F9D8E1B09914C0076B81F /* PingjiaForOrderViewController.m */; };
+		806F9D921B09CDC90076B81F /* PinglunForBGBangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806F9D911B09CDC90076B81F /* PinglunForBGBangViewController.m */; };
 		8072B9071AEB34D800597ABB /* lipin_kindle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8072B9041AEB34D800597ABB /* lipin_kindle.png */; };
 		8072B9081AEB34D800597ABB /* lipin_weidan.png in Resources */ = {isa = PBXBuildFile; fileRef = 8072B9051AEB34D800597ABB /* lipin_weidan.png */; };
 		8072B9091AEB34D800597ABB /* lipin_xiaomi.png in Resources */ = {isa = PBXBuildFile; fileRef = 8072B9061AEB34D800597ABB /* lipin_xiaomi.png */; };
@@ -459,6 +461,10 @@
 		806383E71AF0BE6500AF9866 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		806383E81AF0BE6500AF9866 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		806383E91AF0BE6500AF9866 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		806F9D8D1B09914C0076B81F /* PingjiaForOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingjiaForOrderViewController.h; sourceTree = "<group>"; };
+		806F9D8E1B09914C0076B81F /* PingjiaForOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingjiaForOrderViewController.m; sourceTree = "<group>"; };
+		806F9D901B09CDC90076B81F /* PinglunForBGBangViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinglunForBGBangViewController.h; sourceTree = "<group>"; };
+		806F9D911B09CDC90076B81F /* PinglunForBGBangViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinglunForBGBangViewController.m; sourceTree = "<group>"; };
 		8072B9041AEB34D800597ABB /* lipin_kindle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lipin_kindle.png; sourceTree = "<group>"; };
 		8072B9051AEB34D800597ABB /* lipin_weidan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lipin_weidan.png; sourceTree = "<group>"; };
 		8072B9061AEB34D800597ABB /* lipin_xiaomi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lipin_xiaomi.png; sourceTree = "<group>"; };
@@ -1322,6 +1328,8 @@
 				8AB4A0E61B06D4830007BC48 /* BGBTableViewCell.h */,
 				8AB4A0E71B06D4830007BC48 /* BGBTableViewCell.m */,
 				8AB4A0E81B06D4830007BC48 /* BGBTableViewCell.xib */,
+				806F9D901B09CDC90076B81F /* PinglunForBGBangViewController.h */,
+				806F9D911B09CDC90076B81F /* PinglunForBGBangViewController.m */,
 			);
 			path = BGB;
 			sourceTree = "<group>";
@@ -1346,6 +1354,8 @@
 				8AECF48A1B074B1500410A47 /* PingjiaViewController.h */,
 				8AECF48B1B074B1500410A47 /* PingjiaViewController.m */,
 				8AECF48C1B074B1500410A47 /* PingjiaViewController.xib */,
+				806F9D8D1B09914C0076B81F /* PingjiaForOrderViewController.h */,
+				806F9D8E1B09914C0076B81F /* PingjiaForOrderViewController.m */,
 			);
 			path = Canting;
 			sourceTree = "<group>";
@@ -1948,10 +1958,12 @@
 				80A5293D1AE48EDE00FE6F90 /* TAAbstractDotView.m in Sources */,
 				806023341ADFB71400E1C498 /* AFURLRequestSerialization.m in Sources */,
 				80F04CD61AE7963C00A29052 /* DOPDropDownMenu.m in Sources */,
+				806F9D8F1B09914C0076B81F /* PingjiaForOrderViewController.m in Sources */,
 				806023361ADFB71400E1C498 /* AFURLSessionManager.m in Sources */,
 				80D309661B04B706009A2BF3 /* JokeTableViewCell.m in Sources */,
 				806383F51AF0BE6500AF9866 /* UIImage+MultiFormat.m in Sources */,
 				808995EC1AE0DE290059038D /* VerifyViewController.m in Sources */,
+				806F9D921B09CDC90076B81F /* PinglunForBGBangViewController.m in Sources */,
 				80F04CCE1AE795FB00A29052 /* NYSegmentedControl.m in Sources */,
 				80A529411AE48EDE00FE6F90 /* UIView+SDExtension.m in Sources */,
 				808996001AE0DEFB0059038D /* RegisterByVoiceCallViewController.m in Sources */,

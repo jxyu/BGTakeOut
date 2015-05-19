@@ -367,6 +367,22 @@
         [self PostRequest:url andpram:prm];
     }
 }
+
+-(void)SubmitUserOrderPingjia:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Order/api_commitComment",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)SubmitBGBangPingjia:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Rank/api_commitBaguoRanComment",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
 {
     AFHTTPRequestOperationManager * manage=[[AFHTTPRequestOperationManager alloc] init];

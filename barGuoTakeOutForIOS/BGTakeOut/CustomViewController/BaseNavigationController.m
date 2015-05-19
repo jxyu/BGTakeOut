@@ -87,11 +87,11 @@
     _imgRight.center = CGPointMake(_imgRight.center.x, _imgLeft.center.y);
     [self.view addSubview:_imgRight];
     
-    _lblRight = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60-10 ,_orginY+15 ,60,10)];
+    _lblRight = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60-10 ,_orginY+15 ,60,15)];
     
     _lblRight.numberOfLines = 0;
     _lblRight.textAlignment=NSTextAlignmentCenter;
-    _lblRight.font = [UIFont systemFontOfSize:17];
+    _lblRight.font = [UIFont systemFontOfSize:14];
     _lblRight.textColor = [UIColor whiteColor];
     _lblRight.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_lblRight];

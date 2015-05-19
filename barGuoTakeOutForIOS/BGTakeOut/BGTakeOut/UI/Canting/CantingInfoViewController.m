@@ -406,6 +406,7 @@
         SumPrice+=item.Num*[price floatValue];
     }
     areaScroll.contentSize=CGSizeMake(0, viewheight);
+//    UITableView * tableView_gouwuche
     
     if (!isClick) {
         //购物车列表出现
@@ -540,7 +541,7 @@
         UILabel * lbl_cantingName=[[UILabel alloc] initWithFrame:CGRectMake(cantingLogo.frame.origin.x+cantingLogo.frame.size.width+20, 10, 150, 20)];
         lbl_cantingName.text=dict[@"data"][@"name"];
         [CantingHeadView addSubview:lbl_cantingName];
-        TQStarRatingView * pingjia=[[TQStarRatingView alloc]initWithFrame:CGRectMake(lbl_cantingName.frame.origin.x, lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height+2, 80, 20) numberOfStar:[dict[@"data"][@"totalcredit"] intValue]];
+        TQStarRatingView * pingjia=[[TQStarRatingView alloc]initWithFrame:CGRectMake(lbl_cantingName.frame.origin.x, lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height+2, 80, 20) numberOfStar:5 andlightstarnum:[dict[@"data"][@"totalcredit"] intValue]];
         [CantingHeadView addSubview:pingjia];
         
         
