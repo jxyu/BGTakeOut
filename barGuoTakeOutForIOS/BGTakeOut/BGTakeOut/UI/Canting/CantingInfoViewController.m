@@ -17,6 +17,7 @@
 #import "CommenDef.h"
 #import "AppDelegate.h"
 #import "ShopAlbumViewController.h"
+#import "PingjiaViewController.h"
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 #define KAreaListHeight 50 //scollview中的button的高度
@@ -711,6 +712,9 @@
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"getPinglunBackCall:"];
     [dataprovider GetPinglun:_resid andpage:@"1" andnumInPage:@"6" andiscontaintext:@"1"];
+    
+    PingjiaViewController * pingjia =[[PingjiaViewController alloc] init];
+    [self.navigationController pushViewController:pingjia animated:YES];
     
 }
 -(void)gotoShopAlbum{

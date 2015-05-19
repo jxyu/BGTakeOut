@@ -244,6 +244,13 @@
 		80F04CD71AE7963C00A29052 /* icon_chose_arrow_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F04CD31AE7963C00A29052 /* icon_chose_arrow_nor@2x.png */; };
 		80F04CD81AE7963C00A29052 /* icon_chose_arrow_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F04CD41AE7963C00A29052 /* icon_chose_arrow_sel@2x.png */; };
 		80F04CD91AE7963C00A29052 /* icon_chose_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F04CD51AE7963C00A29052 /* icon_chose_bottom@2x.png */; };
+		8A16D2831B09855500974168 /* PingjiaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D2811B09855500974168 /* PingjiaViewController.m */; };
+		8A16D2841B09855500974168 /* PingjiaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A16D2821B09855500974168 /* PingjiaViewController.xib */; };
+		8A16D2881B098B3200974168 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D2871B098B3200974168 /* HMSegmentedControl.m */; };
+		8A16D28C1B098C8A00974168 /* OrderPingjiaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D28A1B098C8A00974168 /* OrderPingjiaViewController.m */; };
+		8A16D28D1B098C8A00974168 /* OrderPingjiaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A16D28B1B098C8A00974168 /* OrderPingjiaViewController.xib */; };
+		8A16D2971B09E82C00974168 /* PingjiaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D2951B09E82C00974168 /* PingjiaTableViewCell.m */; };
+		8A16D2981B09E82C00974168 /* PingjiaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A16D2961B09E82C00974168 /* PingjiaTableViewCell.xib */; };
 		8A4B997E1B02F9FE0051B915 /* index_10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4B99761B02F9FE0051B915 /* index_10@2x.png */; };
 		8A4B997F1B02F9FE0051B915 /* index_11@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4B99771B02F9FE0051B915 /* index_11@2x.png */; };
 		8A4B99801B02F9FE0051B915 /* index_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4B99781B02F9FE0051B915 /* index_12@2x.png */; };
@@ -304,8 +311,6 @@
 		8AECF4831B073EA300410A47 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AECF47E1B073EA300410A47 /* SVIndefiniteAnimatedView.m */; };
 		8AECF4841B073EA300410A47 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AECF4801B073EA300410A47 /* SVProgressHUD.bundle */; };
 		8AECF4851B073EA300410A47 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AECF4821B073EA300410A47 /* SVProgressHUD.m */; };
-		8AECF48D1B074B1500410A47 /* PingjiaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AECF48B1B074B1500410A47 /* PingjiaViewController.m */; };
-		8AECF48E1B074B1500410A47 /* PingjiaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AECF48C1B074B1500410A47 /* PingjiaViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -655,6 +660,17 @@
 		80F04CD31AE7963C00A29052 /* icon_chose_arrow_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_arrow_nor@2x.png"; sourceTree = "<group>"; };
 		80F04CD41AE7963C00A29052 /* icon_chose_arrow_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_arrow_sel@2x.png"; sourceTree = "<group>"; };
 		80F04CD51AE7963C00A29052 /* icon_chose_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_bottom@2x.png"; sourceTree = "<group>"; };
+		8A16D2801B09855500974168 /* PingjiaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingjiaViewController.h; sourceTree = "<group>"; };
+		8A16D2811B09855500974168 /* PingjiaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingjiaViewController.m; sourceTree = "<group>"; };
+		8A16D2821B09855500974168 /* PingjiaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PingjiaViewController.xib; sourceTree = "<group>"; };
+		8A16D2861B098B3200974168 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
+		8A16D2871B098B3200974168 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
+		8A16D2891B098C8A00974168 /* OrderPingjiaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPingjiaViewController.h; sourceTree = "<group>"; };
+		8A16D28A1B098C8A00974168 /* OrderPingjiaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPingjiaViewController.m; sourceTree = "<group>"; };
+		8A16D28B1B098C8A00974168 /* OrderPingjiaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderPingjiaViewController.xib; sourceTree = "<group>"; };
+		8A16D2941B09E82C00974168 /* PingjiaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingjiaTableViewCell.h; sourceTree = "<group>"; };
+		8A16D2951B09E82C00974168 /* PingjiaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingjiaTableViewCell.m; sourceTree = "<group>"; };
+		8A16D2961B09E82C00974168 /* PingjiaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PingjiaTableViewCell.xib; sourceTree = "<group>"; };
 		8A4B99761B02F9FE0051B915 /* index_10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_10@2x.png"; sourceTree = "<group>"; };
 		8A4B99771B02F9FE0051B915 /* index_11@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_11@2x.png"; sourceTree = "<group>"; };
 		8A4B99781B02F9FE0051B915 /* index_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_12@2x.png"; sourceTree = "<group>"; };
@@ -749,9 +765,6 @@
 		8AECF4801B073EA300410A47 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		8AECF4811B073EA300410A47 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		8AECF4821B073EA300410A47 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
-		8AECF48A1B074B1500410A47 /* PingjiaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingjiaViewController.h; sourceTree = "<group>"; };
-		8AECF48B1B074B1500410A47 /* PingjiaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingjiaViewController.m; sourceTree = "<group>"; };
-		8AECF48C1B074B1500410A47 /* PingjiaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PingjiaViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1307,6 +1320,7 @@
 				8AB4A0F31B06F7D10007BC48 /* ShopAlbumViewController.h */,
 				8AB4A0F41B06F7D10007BC48 /* ShopAlbumViewController.m */,
 				8AB4A0F51B06F7D10007BC48 /* ShopAlbumViewController.xib */,
+				8A16D2931B0999B800974168 /* Pingjia */,
 			);
 			path = index;
 			sourceTree = "<group>";
@@ -1356,6 +1370,10 @@
 				8AECF48C1B074B1500410A47 /* PingjiaViewController.xib */,
 				806F9D8D1B09914C0076B81F /* PingjiaForOrderViewController.h */,
 				806F9D8E1B09914C0076B81F /* PingjiaForOrderViewController.m */,
+				8A16D2891B098C8A00974168 /* OrderPingjiaViewController.h */,
+				8A16D28A1B098C8A00974168 /* OrderPingjiaViewController.m */,
+				8A16D28B1B098C8A00974168 /* OrderPingjiaViewController.xib */,
+
 			);
 			path = Canting;
 			sourceTree = "<group>";
@@ -1408,6 +1426,7 @@
 		80F04CC51AE7959C00A29052 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				8A16D2851B098B3200974168 /* HMSegmentedControl */,
 				8AECF47C1B073EA300410A47 /* SVProgressHUD */,
 				8AB4A0EF1B06F78F0007BC48 /* SlideImageView */,
 				8A5D7F251B04310200F96831 /* Umeng */,
@@ -1446,6 +1465,28 @@
 				80F04CD51AE7963C00A29052 /* icon_chose_bottom@2x.png */,
 			);
 			path = DropDownMenu;
+			sourceTree = "<group>";
+		};
+		8A16D2851B098B3200974168 /* HMSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				8A16D2861B098B3200974168 /* HMSegmentedControl.h */,
+				8A16D2871B098B3200974168 /* HMSegmentedControl.m */,
+			);
+			path = HMSegmentedControl;
+			sourceTree = "<group>";
+		};
+		8A16D2931B0999B800974168 /* Pingjia */ = {
+			isa = PBXGroup;
+			children = (
+				8A16D2801B09855500974168 /* PingjiaViewController.h */,
+				8A16D2811B09855500974168 /* PingjiaViewController.m */,
+				8A16D2821B09855500974168 /* PingjiaViewController.xib */,
+				8A16D2941B09E82C00974168 /* PingjiaTableViewCell.h */,
+				8A16D2951B09E82C00974168 /* PingjiaTableViewCell.m */,
+				8A16D2961B09E82C00974168 /* PingjiaTableViewCell.xib */,
+			);
+			name = Pingjia;
 			sourceTree = "<group>";
 		};
 		8A5D7F251B04310200F96831 /* Umeng */ = {
@@ -1711,8 +1752,10 @@
 				80D309CB1B04C2B9009A2BF3 /* zanhui.png in Resources */,
 				80D309B51B04B73F009A2BF3 /* AddAddressViewController.xib in Resources */,
 				80D5EEE31AFDEEB600C95421 /* radio_btn_selected.png in Resources */,
+				8A16D2981B09E82C00974168 /* PingjiaTableViewCell.xib in Resources */,
 				8A5D7F5D1B04332200F96831 /* UMShareEditViewControlleriPad.xib in Resources */,
 				80793F9F1AEF84450066C62C /* gouwuche.png in Resources */,
+				8A16D2841B09855500974168 /* PingjiaViewController.xib in Resources */,
 				80F04CD91AE7963C00A29052 /* icon_chose_bottom@2x.png in Resources */,
 				8A5D7F5C1B04332200F96831 /* UMShareEditViewController.xib in Resources */,
 				80F04CD81AE7963C00A29052 /* icon_chose_arrow_sel@2x.png in Resources */,
@@ -1747,6 +1790,7 @@
 				8A4B99811B02F9FE0051B915 /* index_13@2x.png in Resources */,
 				8072B9091AEB34D800597ABB /* lipin_xiaomi.png in Resources */,
 				809C10181AF7408E0059A317 /* jia_quan.png in Resources */,
+				8A16D28D1B098C8A00974168 /* OrderPingjiaViewController.xib in Resources */,
 				8088515E1AE8D90F002614AC /* Star_light.png in Resources */,
 				80D3098E1B04B721009A2BF3 /* TableViewCell.xib in Resources */,
 				80067CB61ADCA0F100394FB7 /* LaunchScreen.xib in Resources */,
@@ -1848,7 +1892,6 @@
 				804038851B06E48500061866 /* jiawei.png in Resources */,
 				80895F071AFF34DC00908181 /* blueArrow.png in Resources */,
 				8AB4A0E51B062AC20007BC48 /* WantRecommendViewController.xib in Resources */,
-				8AECF48E1B074B1500410A47 /* PingjiaViewController.xib in Resources */,
 				809C101B1AF7408E0059A317 /* tscl.png in Resources */,
 				8AACCBCD1B05E0E500895916 /* 3.jpg in Resources */,
 				804038741B06D62500061866 /* dian.png in Resources */,
@@ -1887,6 +1930,7 @@
 				80D309B91B04B73F009A2BF3 /* MineTableViewCell.m in Sources */,
 				806383F01AF0BE6500AF9866 /* SDWebImageDownloaderOperation.m in Sources */,
 				80D309B61B04B73F009A2BF3 /* ClictionViewController.m in Sources */,
+				8A16D2831B09855500974168 /* PingjiaViewController.m in Sources */,
 				80895F091AFF34DC00908181 /* RefreshHeaderAndFooterView.m in Sources */,
 				80D309731B04B718009A2BF3 /* BGBangTableViewCell.m in Sources */,
 				80D309751B04B718009A2BF3 /* BGBangViewController.m in Sources */,
@@ -1904,7 +1948,6 @@
 				8AB4A0F61B06F7D10007BC48 /* ShopAlbumViewController.m in Sources */,
 				806383EF1AF0BE6500AF9866 /* SDWebImageDownloader.m in Sources */,
 				806383EB1AF0BE6500AF9866 /* NSData+ImageContentType.m in Sources */,
-				8AECF48D1B074B1500410A47 /* PingjiaViewController.m in Sources */,
 				80D309B71B04B73F009A2BF3 /* LoginViewController.m in Sources */,
 				80D309601B04B706009A2BF3 /* AutoLocationViewController.m in Sources */,
 				80A529401AE48EDE00FE6F90 /* TAPageControl.m in Sources */,
@@ -1912,6 +1955,7 @@
 				80067CAE1ADCA0F100394FB7 /* ViewController.m in Sources */,
 				8AECF4851B073EA300410A47 /* SVProgressHUD.m in Sources */,
 				804E96C71B02325400803F5C /* Toolkit.m in Sources */,
+				8A16D28C1B098C8A00974168 /* OrderPingjiaViewController.m in Sources */,
 				806383F71AF0BE6500AF9866 /* UIImageView+HighlightedWebCache.m in Sources */,
 				808995E81AE0DE290059038D /* InvitationViewControllerEx.m in Sources */,
 				8060232F1ADFB71400E1C498 /* AFHTTPRequestOperationManager.m in Sources */,
@@ -1941,6 +1985,7 @@
 				80D309D21B04DABA009A2BF3 /* IndexViewController.m in Sources */,
 				8088515A1AE8D83E002614AC /* TQStarRatingView.m in Sources */,
 				806383BF1AF0624E00AF9866 /* JSBadgeView.m in Sources */,
+				8A16D2971B09E82C00974168 /* PingjiaTableViewCell.m in Sources */,
 				808995FB1AE0DED90059038D /* YJViewController.m in Sources */,
 				804E96CB1B0234AC00803F5C /* UIImage+NSBundle.m in Sources */,
 				804E96C21B02311D00803F5C /* BaseNavigationController.m in Sources */,
@@ -1975,6 +2020,7 @@
 				80A5293E1AE48EDE00FE6F90 /* TAAnimatedDotView.m in Sources */,
 				8AB4A0E41B062AC20007BC48 /* WantRecommendViewController.m in Sources */,
 				806383EC1AF0BE6500AF9866 /* SDImageCache.m in Sources */,
+				8A16D2881B098B3200974168 /* HMSegmentedControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -271,7 +271,12 @@
 
 
 
+-(void)getduibaurlForDetailWithAppkey:(NSString*)appkey appsecret:(NSString*)appsecret userid:(NSString*) userid url:(NSString*)url{
+    NSString * redirect_url=[NSString stringWithFormat:@"%@server/Home/User/api_getduibaurlfordetail",KURL];
+    NSDictionary * prm=@{@"appkey":appkey,@"appsecret":appsecret,@"userid":userid,@"url":url};
+    [self PostRequest:redirect_url andpram:prm];
 
+}
 /**
  *  获得兑吧自动登录url
  *

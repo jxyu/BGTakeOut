@@ -925,8 +925,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "282"
             endingLineNumber = "282"
-            landmarkName = "-getduibaurlWithAppkey:appsecret:userid:"
-            landmarkType = "5">
+            landmarkName = "@implementation DataProvider"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -989,7 +989,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "386"
             endingLineNumber = "386"
-            landmarkName = "-PostRequest:andpram:"
+            landmarkName = "-SubmitBGBangPingjia:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2569,7 +2569,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "382"
             endingLineNumber = "382"
-            landmarkName = "-SubmitBGBangPingjia:"
+            landmarkName = "-SubmitUserOrderPingjia:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
