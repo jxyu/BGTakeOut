@@ -11,15 +11,17 @@
 #import "ShopPingjia.h"
 #import "PingjiaTableViewCell.h"
 #import "DataProvider.h"
-#define per_page 10
+#import "MJRefresh.h"
+#define per_page 1
 
 @interface PingjiaViewController ()
 {NSMutableArray *tableData;  //tableView数据存放数组
-    NSArray* alltableData;
-    DataProvider* dataProvider;
-    DataProvider* allDataProvider;
+    NSMutableArray* alltableData;
+    //    DataProvider* dataProvider;
+    //    DataProvider* allDataProvider;
     NSInteger table_page;
     NSInteger all_table_page;
+    
 }
 
 @end
@@ -28,10 +30,14 @@
 #pragma mark - vc-lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    table_page=1;
+    all_table_page=1;
+    tableData=[[NSMutableArray alloc] init];
+    alltableData=[[NSMutableArray alloc] init ];
     [self initView];
-    [self creatData];
-    
+    [self loadAllNewData];
+    [self loadNewData];
+    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,7 +45,7 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)initView{
-    _allTableview=[[UITableView alloc] initWithFrame:CGRectMake(0, 104, SCREEN_WIDTH, SCREEN_HEIGHT-104-49) style:UITableViewStylePlain];
+    _allTableview=[[UITableView alloc] initWithFrame:CGRectMake(0, 104, SCREEN_WIDTH, SCREEN_HEIGHT-104) style:UITableViewStyleGrouped];
     _allTableview.hidden=YES;
     _tableView.hidden=NO;
     _allTableview.tag=1111;
@@ -49,6 +55,17 @@
     _allTableview.delegate=self;
     _allTableview.dataSource=self;
     [self.view addSubview:_allTableview];
+    
+    __weak typeof(self) weakself=self;
+    [_tableView addLegendFooterWithRefreshingBlock:^{
+        [weakself loadNewData];
+    }];
+    [_allTableview addLegendFooterWithRefreshingBlock:^{
+        [weakself loadAllNewData];
+    }];
+    [_tableView.legendHeader beginRefreshing];
+    [_allTableview.legendHeader beginRefreshing];
+    
     
     _lblTitle.text=@"用户评价";
     [self addLeftButton:@"ic_actionbar_back.png"];
@@ -75,15 +92,20 @@
     
     
 }
--(void)creatData{
-    dataProvider=[[DataProvider alloc]init];
+-(void)loadNewData{
+    DataProvider* dataProvider=[[DataProvider alloc]init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"getCommentsSuccess:"];
-    [dataProvider getCommentsWihtPage:1 num:10 resid:[_resid integerValue] iscontaintext
+    [dataProvider getCommentsWihtPage:table_page num:per_page resid:[_resid integerValue] iscontaintext
                                      :1];
-    allDataProvider=[[DataProvider alloc] init];
+    
+    table_page++;
+    
+}
+-(void)loadAllNewData{
+    DataProvider* allDataProvider=[[DataProvider alloc] init];
     [allDataProvider setDelegateObject:self setBackFunctionName:@"getAllCommentsSuccess:"];
-    [allDataProvider getCommentsWihtPage:1 num:10 resid:[_resid integerValue] iscontaintext:0];
-    [SVProgressHUD showWithStatus:@"加载中..." maskType:SVProgressHUDMaskTypeBlack];
+    [allDataProvider getCommentsWihtPage:all_table_page num:per_page resid:[_resid integerValue] iscontaintext:0];
+    all_table_page++;
     
 }
 #pragma mark - dataprovider-delegate
@@ -118,27 +140,33 @@
     
     if(![[dict objectForKey:@"data"]  isKindOfClass:[NSString class]]){
         NSArray* comments=    (NSArray*)[[dict objectForKey:@"data"] objectForKey:@"data"];
-        alltableData=[comments mutableCopy];
-        [_allTableview reloadData];
         
+        for (int i=0; i<comments.count; i++) {
+            [alltableData addObject:comments[i]];
+        }
+        [_allTableview reloadData];
+        [_allTableview.footer endRefreshing];
     }else{
-        _allTableview.hidden=YES;
-                [SVProgressHUD showErrorWithStatus:@"此商铺无评论" maskType:SVProgressHUDMaskTypeBlack];
+                    [_allTableview.footer endRefreshing];
     }
-
+    
 }
 -(void)getCommentsSuccess:(NSDictionary*)dict{
-
+    [SVProgressHUD dismiss];
     if(![[dict objectForKey:@"data"]  isKindOfClass:[NSString class]]){
         NSArray* comments=    (NSArray*)[[dict objectForKey:@"data"] objectForKey:@"data"];
-        tableData=[comments mutableCopy];
+        for (int i=0; i<comments.count; i++) {
+            [tableData addObject:comments[i]];
+        }
         [_tableView reloadData];
-
+        [_tableView.footer endRefreshing];
+        
     }else{
-        _tableView.hidden=YES;
+                [_tableView.footer endRefreshing];
+        
+    }
+}
 
-    }
-    }
 #pragma mark - segment-method
 -(void)segmentedControlChangedValue:(id)sender{
     HMSegmentedControl*h=(HMSegmentedControl*)sender;
@@ -171,7 +199,8 @@
         }
         
         cell.starRatingView.rating=[[[tableData objectAtIndex:indexPath.section] objectForKey:@"starnum"] integerValue];
-        cell.usernameLbl.text=[[tableData objectAtIndex:indexPath.section] objectForKey:@"username"];
+NSString* phone=        [self phoneNumToSecret:[[tableData objectAtIndex:indexPath.section] objectForKey:@"username"]];
+        cell.usernameLbl.text=phone;
         
         
         [cell setPingjiaText:[[tableData objectAtIndex:indexPath.section] objectForKey:@"content"]];
@@ -186,7 +215,8 @@
         }
         
         cell.starRatingView.rating=[[[alltableData objectAtIndex:indexPath.section] objectForKey:@"starnum"] integerValue];
-        cell.usernameLbl.text=[[alltableData objectAtIndex:indexPath.section] objectForKey:@"username"];
+        NSString* phone=        [self phoneNumToSecret:(NSString*)[[alltableData objectAtIndex:indexPath.section] objectForKey:@"username"]];
+        cell.usernameLbl.text=phone;
         NSString* content=(NSString*)[[alltableData objectAtIndex:indexPath.section] objectForKey:@"content"];
         if ([content isEqualToString:@""]) {
             [cell setPingjiaText:
@@ -232,6 +262,8 @@
     
     UIView* view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
     UILabel* dateLbl=[[UILabel alloc] init];
+    dateLbl.font=[UIFont systemFontOfSize:15.0];
+    dateLbl.textColor=[UIColor lightGrayColor];
     dateLbl.frame=CGRectMake(8, 8, 200, 22);
     if (tableView.tag==1000) {
         dateLbl.text=[[tableData objectAtIndex:section] objectForKey:@"updatetime"];;
@@ -243,7 +275,7 @@
     
     UIView* divider=[[UIView alloc] init];
     divider.frame=CGRectMake(SCREEN_WIDTH*2/3, 0, 1, 40);
-    divider.backgroundColor=[UIColor groupTableViewBackgroundColor];
+    divider.backgroundColor=tableView.separatorColor;
     [view addSubview:divider];
     
     UIView* topDivider=[[UIView alloc] init];
@@ -253,7 +285,7 @@
     
     UIView* downDivider=[[UIView alloc] init];
     downDivider.frame=CGRectMake(0, 39, SCREEN_WIDTH, 1);
-    downDivider.backgroundColor=[UIColor groupTableViewBackgroundColor];
+    downDivider.backgroundColor=tableView.separatorColor;
     [view addSubview:downDivider];
     
     UIButton* detailBtn=[[UIButton alloc] init];
@@ -262,6 +294,13 @@
     [detailBtn setImage:[UIImage imageNamed:@"pingjia_orderdetail"] forState:UIControlStateNormal];
     [detailBtn addTarget:self action:@selector(getOrderDetail:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:detailBtn];
+    
+    view.backgroundColor=[UIColor whiteColor];
     return view;
     
-}@end
+}
+-(NSString*)phoneNumToSecret:(NSString*)phoneNum{
+NSString*       phone=[phoneNum stringByReplacingCharactersInRange:NSMakeRange(3, 6) withString:@"****"];
+    return phone;
+}
+@end

@@ -45,11 +45,14 @@
     self.hidesBottomBarWhenPushed = YES;
      NSArray *arrayImages_H = [[NSArray alloc] initWithObjects:@"index_11@2x.png",@"index_13@2x.png" ,@"index_15@2x.png",@"index_17@2x.png", nil];
  	NSArray *arrayImages = [[NSArray alloc] initWithObjects:@"index_10@2x.png",@"index_12@2x.png",@"index_14@2x.png",@"index_16@2x.png",  nil];
-    NSArray * arrayTitles=[[NSArray alloc] initWithObjects:@"首页",@"巴国榜",@"发现",@"我的", nil];
+//    NSArray * arrayTitles=[[NSArray alloc] initWithObjects:@"首页",@"巴国榜",@"发现",@"我的", nil];
  
     _tabBarBG = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - TabBar_HEIGHT, SCREEN_WIDTH, TabBar_HEIGHT)];
       _tabBarBG.backgroundColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.99 alpha:1];
-    
+    UIView* divider=[[UIView alloc] init];
+    divider.frame=CGRectMake(0, 0, SCREEN_WIDTH, 0.5);
+    divider.backgroundColor=[UIColor lightGrayColor];
+    [_tabBarBG addSubview:divider];
     //_tabBarBG.backgroundColor=[UIColor clearColor];
     //_tabBarBG.alpha=0.9;
     [self.view addSubview:_tabBarBG];
