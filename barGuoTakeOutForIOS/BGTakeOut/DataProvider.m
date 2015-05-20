@@ -372,12 +372,29 @@
         [self PostRequest:url andpram:prm];
     }
 }
+
+-(void)SubmitUserOrderPingjia:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Order/api_commitComment",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)SubmitBGBangPingjia:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Rank/api_commitBaguoRanComment",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
 {
     AFHTTPRequestOperationManager * manage=[[AFHTTPRequestOperationManager alloc] init];
     manage.responseSerializer=[AFHTTPResponseSerializer serializer];
     manage.requestSerializer=[AFHTTPRequestSerializer serializer];
     manage.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/html"];//可接收到的数据类型
+    manage.requestSerializer.timeoutInterval=10;//设置请求时限
     NSDictionary * prm =[[NSDictionary alloc] init];
     if (pram!=nil) {
         prm=pram;

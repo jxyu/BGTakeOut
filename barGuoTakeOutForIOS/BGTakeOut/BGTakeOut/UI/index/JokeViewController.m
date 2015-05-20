@@ -57,23 +57,13 @@
 {
     NSLog(@"%@",dict);
     JokeArray=dict[@"data"];
-    UIView * lastView=[self.view.subviews lastObject];
-    UITableView * mytableView=[[UITableView alloc] initWithFrame:CGRectMake(10, NavigationBar_HEIGHT+20, KWidth-20, KHeight-lastView.frame.size.height)];
+    UITableView * mytableView=[[UITableView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, SCREEN_HEIGHT-NavigationBar_HEIGHT-20)];
     mytableView.delegate=self;
     mytableView.dataSource=self;
     [self.view addSubview:mytableView];
     [SVProgressHUD dismiss];
 }
-//-(UIView *)GetJokeView:(NSString *)joke andJokeName:(NSString *)jokeName
-//{
-//    UIView * result =[[UIView alloc] init];
-//    UIView * top =[[UIView alloc] initWithFrame:CGRectMake(0, 10, KWidth-20, 45)];
-//    [result addSubview:top];
-//    UILabel * name=[[UILabel alloc] initWithFrame:CGRectMake(10, 12, 90, 45-24)];
-//    name.text=jokeName;
-//    [top addSubview:name];
-//    return result;
-//}
+
 -(void)clickLeftButton
 {
     [self.view removeFromSuperview];
@@ -115,6 +105,10 @@
 {
     CGFloat height=220.0;
     return height;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 @end

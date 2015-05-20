@@ -54,6 +54,10 @@
 -(void)zhaoshangSubmit:(id)prm;
 -(void)GetBGBangDetialWith:(NSString * )articleid;
 -(void)GetBGBangTypewithtype:(NSString *)type andupid :(NSString *)upid;
+
+-(void)SubmitUserOrderPingjia:(id)prm;
+-(void)SubmitBGBangPingjia:(id)prm;
+
 /**
  *  获得兑吧详情页
  *
