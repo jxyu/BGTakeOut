@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseNavigationController.h"
+#import "PinglunForBGBangViewController.h"
 
 @interface BGBangDetialViewController : BaseNavigationController
 @property(nonatomic,strong)NSString *articleid;
+@property(nonatomic,strong)NSString* userid;
+@property(nonatomic,strong)PinglunForBGBangViewController * myPinglun;
 
 @end

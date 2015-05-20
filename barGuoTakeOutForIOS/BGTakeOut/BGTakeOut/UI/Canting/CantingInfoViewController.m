@@ -9,6 +9,7 @@
 #import "CantingInfoViewController.h"
 #import "DataProvider.h"
 #import "GoodsTableViewCell.h"
+#import "ShoppingCarTableViewCell.h"
 #import "ShoppingCarModel.h"
 #import "JSBadgeView.h"
 #import <QuartzCore/QuartzCore.h>
@@ -47,7 +48,7 @@
     NSDictionary * dictionary;
     NSMutableArray * lbl_array;
     UIButton * gouwuche_icon;
-    UIScrollView * areaScroll;
+    UITableView * tableView_gouwuche;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -156,6 +157,7 @@
     [SVProgressHUD dismiss];
     NSLog(@"%@",dict);
     if (1==[dict[@"status"] integerValue]) {
+        tableView_gouwuche=[[UITableView alloc] init];
         _areaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, KWidth/3, _CantingPage.frame.size.height)];
         _areaScroll.scrollEnabled=YES;
         _areaScroll.backgroundColor=[UIColor colorWithRed:236/255.0 green:237/255.0 blue:241/255.0 alpha:1.0];
@@ -252,6 +254,7 @@
         _GoodsList=[[UITableView alloc] initWithFrame:CGRectMake(KWidth/3, 0, KWidth-KWidth/3, _CantingPage.frame.size.height)];
         _GoodsList.delegate=self;
         _GoodsList.dataSource=self;
+        _GoodsList.tag=1;
         [_CantingPage addSubview:_GoodsList];
     }
 }
@@ -263,60 +266,113 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return GoodsListArray.count;
-}
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    static NSString *CellIdentifier = @"GoodsTableViewCell";
-    GoodsTableViewCell *cell = (GoodsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell  = [[[NSBundle mainBundle] loadNibNamed:@"GoodsTableViewCell" owner:self options:nil] lastObject];
-        [cell.goodimg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,GoodsListArray[indexPath.row][@"pic"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
-        cell.goodName.text=GoodsListArray[indexPath.row][@"name"];
-        cell.goodPrice.text=[NSString stringWithFormat:@"¥%@",GoodsListArray[indexPath.row][@"price"]];
-        cell.goodSell.text=[NSString stringWithFormat:@"已售%@份",GoodsListArray[indexPath.row][@"soldnum"]];
-        cell.personPush.text=[NSString stringWithFormat:@"推荐%@",GoodsListArray[indexPath.row][@"recommendnum"]];
-        UIButton * image_add=[[UIButton alloc] initWithFrame:CGRectMake(187, 57, 20, 20)];
-        image_add.layer.masksToBounds=YES;
-        image_add.layer.cornerRadius=12.5;
-        [image_add setImage:[UIImage imageNamed:@"jia_quan.png"] forState:UIControlStateNormal];
-        [image_add addTarget:self action:@selector(GoodsAddClick:) forControlEvents:UIControlEventTouchUpInside];
-        [image_add setTag:indexPath.row];
-        [cell addSubview:image_add];
-        
-        UIButton * image_jian=[[UIButton alloc] initWithFrame:CGRectMake(131, 57, 20, 20)];
-        image_jian.layer.masksToBounds=YES;
-        image_jian.layer.cornerRadius=12.5;
-        [image_jian setImage:[UIImage imageNamed:@"jian_quan.png"] forState:UIControlStateNormal];
-        [image_jian setTag:indexPath.row];
-        [cell addSubview:image_jian];
-        UILabel * lbl_cellNum=[[UILabel alloc] initWithFrame:CGRectMake(150, 57, 37, 20)];
-        [lbl_cellNum setTextAlignment:NSTextAlignmentCenter];
-        lbl_cellNum.tag=indexPath.row;
-        lbl_cellNum.font=[UIFont systemFontOfSize:13];
-        [cell addSubview:lbl_cellNum];
-        [lbl_array addObject:lbl_cellNum];
+    if (tableView.tag==1) {
+        return GoodsListArray.count;
     }
     else
     {
-        for (UIView *subView in cell.contentView.subviews)
-        {
-            [subView removeFromSuperview];
-        }
+        return ShoppingCar.count;
     }
-    return cell;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView.tag==1) {
+        static NSString *CellIdentifier = @"GoodsTableViewCell";
+        GoodsTableViewCell *cell = (GoodsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell  = [[[NSBundle mainBundle] loadNibNamed:@"GoodsTableViewCell" owner:self options:nil] lastObject];
+            [cell.goodimg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,GoodsListArray[indexPath.row][@"pic"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+            cell.goodName.text=GoodsListArray[indexPath.row][@"name"];
+            cell.goodPrice.text=[NSString stringWithFormat:@"¥%@",GoodsListArray[indexPath.row][@"price"]];
+            cell.goodSell.text=[NSString stringWithFormat:@"已售%@份",GoodsListArray[indexPath.row][@"soldnum"]];
+            cell.personPush.text=[NSString stringWithFormat:@"推荐%@",GoodsListArray[indexPath.row][@"recommendnum"]];
+//            UIButton * image_add=[[UIButton alloc] initWithFrame:CGRectMake(187, 57, 20, 20)];
+//            image_add.layer.masksToBounds=YES;
+//            image_add.layer.cornerRadius=12.5;
+//            [image_add setImage:[UIImage imageNamed:@"jia_quan.png"] forState:UIControlStateNormal];
+//            [image_add addTarget:self action:@selector(GoodsAddClick:) forControlEvents:UIControlEventTouchUpInside];
+//            [image_add setTag:indexPath.row];
+//            [cell addSubview:image_add];
+//            
+//            UIButton * image_jian=[[UIButton alloc] initWithFrame:CGRectMake(131, 57, 20, 20)];
+//            image_jian.layer.masksToBounds=YES;
+//            image_jian.layer.cornerRadius=12.5;
+//            [image_jian setImage:[UIImage imageNamed:@"jian_quan.png"] forState:UIControlStateNormal];
+//            [image_jian setTag:indexPath.row];
+//            [cell addSubview:image_jian];
+//            UILabel * lbl_cellNum=[[UILabel alloc] initWithFrame:CGRectMake(150, 57, 37, 20)];
+//            [lbl_cellNum setTextAlignment:NSTextAlignmentCenter];
+//            lbl_cellNum.tag=indexPath.row;
+//            lbl_cellNum.font=[UIFont systemFontOfSize:13];
+//            [cell addSubview:lbl_cellNum];
+//            [lbl_array addObject:lbl_cellNum];
+            BOOL isExit=false;
+            ShoppingCarModel * mydata;
+            for (ShoppingCarModel * item in ShoppingCar) {
+                //            NSLog(@"分类：要添加的：%@,要比较的%@",GoodsListArray[sender.tag][@"category"],item.Goods[@"category"]);
+                //            NSLog(@"id：要添加的：%@,要比较的%@",GoodsListArray[sender.tag][@"goodsid"],item.Goods[@"goodsid"]);
+                if ([GoodsListArray[indexPath.row][@"category"] isEqual:item.Goods[@"category"]]&&[GoodsListArray[indexPath.row][@"goodsid"]isEqual:item.Goods[@"goodsid"]]) {
+                    isExit=YES;
+                    mydata= ShoppingCar[[ShoppingCar indexOfObject:item]];
+                    break;
+                }
+            }
+            [cell.goodAdd addTarget:self action:@selector(GoodsAddClick:) forControlEvents:UIControlEventTouchUpInside];
+            cell.goodAdd.tag=indexPath.row;
+            [cell.goodjian addTarget:self action:@selector(goodsJianClick:) forControlEvents:UIControlEventTouchUpInside];
+            cell.goodjian.tag=indexPath.row;
+            cell.goodnum.text=[NSString stringWithFormat:@"%d",isExit?mydata.Num:0];
+            
+        }
+        else
+        {
+            for (UIView *subView in cell.contentView.subviews)
+            {
+                [subView removeFromSuperview];
+            }
+        }
+        return cell;
+    }
+    else
+    {
+        static NSString *CellIdentifier = @"shopcarTableViewCell";
+        ShoppingCarTableViewCell *cell = (ShoppingCarTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell  = [[[NSBundle mainBundle] loadNibNamed:@"ShoppingCarTableViewCell" owner:self options:nil] lastObject];
+            ShoppingCarModel * item=ShoppingCar[indexPath.row];
+            cell.lbl_title.text=item.Goods[@"name"];
+            cell.lbl_num.text=[NSString stringWithFormat:@"%d",item.Num];
+            [cell.btn_jian addTarget:self action:@selector(jian_btnClick:) forControlEvents:UIControlEventTouchUpInside];
+            cell.btn_jian.tag=indexPath.row;
+            [cell.btn_jia addTarget:self action:@selector(jia_btnClick:) forControlEvents:UIControlEventTouchUpInside];
+            cell.btn_jia.tag=indexPath.row;
+        }
+        return cell;
+    }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    if (tableView.tag==1) {
+        return 100;
+    }
+    else
+    {
+        return 50;
+    }
+    
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark 点餐，点击后添加到购物车
 -(void)GoodsAddClick:(UIButton *)sender
 {
     NSLog(@"添加一份");
+    isClick=NO;
     [choseDone setEnabled:YES];
+    int goodsCount=0;
     [choseDone setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
     for (UILabel *item in lbl_array) {
         if (item.tag==sender.tag) {
@@ -329,8 +385,10 @@
         BOOL isExit=false;
         ShoppingCarModel * mydata;
         for (ShoppingCarModel * item in ShoppingCar) {
+//            NSLog(@"分类：要添加的：%@,要比较的%@",GoodsListArray[sender.tag][@"category"],item.Goods[@"category"]);
+//            NSLog(@"id：要添加的：%@,要比较的%@",GoodsListArray[sender.tag][@"goodsid"],item.Goods[@"goodsid"]);
             i++;
-            if (GoodsListArray[sender.tag][@"category"]==item.Goods[@"category"]&&GoodsListArray[sender.tag][@"goodsid"]==item.Goods[@"goodsid"]) {
+            if ([GoodsListArray[sender.tag][@"category"] isEqual:item.Goods[@"category"]]&&[GoodsListArray[sender.tag][@"goodsid"]isEqual:item.Goods[@"goodsid"]]) {
                 isExit=YES;
                 mydata= ShoppingCar[[ShoppingCar indexOfObject:item]];
                 break;
@@ -350,17 +408,70 @@
         shopModel.Goods=GoodsListArray[sender.tag];
         [ShoppingCar addObject:shopModel];
     }
+    for (ShoppingCarModel * item in ShoppingCar) {
+        goodsCount+=item.Num;
+    }
     if (_badgeView) {
-         _badgeView.badgeText = [NSString stringWithFormat:@"%lu",(unsigned long)ShoppingCar.count];
+         _badgeView.badgeText = [NSString stringWithFormat:@"%d",goodsCount];
     }
     else
     {
         _badgeView = [[JSBadgeView alloc] initWithParentView:_locationForbadge alignment:JSBadgeViewAlignmentTopRight];
-        _badgeView.badgeText = [NSString stringWithFormat:@"%lu",(unsigned long)ShoppingCar.count];
+        _badgeView.badgeText = [NSString stringWithFormat:@"%d",goodsCount];
         _badgeView.backgroundColor=[UIColor redColor];
     }
+    
+    [tableView_gouwuche reloadData];
+    [_GoodsList reloadData];
 }
 
+-(void)goodsJianClick:(UIButton *)sender
+{
+    NSLog(@"减少一份");
+    isClick=NO;
+    int goodsCount=0;
+    [choseDone setEnabled:YES];
+    [choseDone setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
+    if (ShoppingCar.count>0) {
+        int i=0;
+        BOOL isExit=false;
+        ShoppingCarModel * mydata;
+        for (ShoppingCarModel * item in ShoppingCar) {
+//            NSLog(@"分类：要添加的：%@,要比较的%@",GoodsListArray[sender.tag][@"category"],item.Goods[@"category"]);
+//            NSLog(@"id：要添加的：%@,要比较的%@",GoodsListArray[sender.tag][@"goodsid"],item.Goods[@"goodsid"]);
+            i++;
+            if ([GoodsListArray[sender.tag][@"category"] isEqual:item.Goods[@"category"]]&&[GoodsListArray[sender.tag][@"goodsid"]isEqual:item.Goods[@"goodsid"]]) {
+                isExit=YES;
+                mydata= ShoppingCar[[ShoppingCar indexOfObject:item]];
+                break;
+            }
+        }
+        if (isExit&&mydata.Num>0) {
+            mydata.Num-=1;
+        }
+        for (ShoppingCarModel * item in ShoppingCar) {
+            goodsCount+=item.Num;
+        }
+        
+    }
+    
+    
+    if (_badgeView) {
+        _badgeView.badgeText = [NSString stringWithFormat:@"%d",goodsCount];
+    }
+    else
+    {
+        _badgeView = [[JSBadgeView alloc] initWithParentView:_locationForbadge alignment:JSBadgeViewAlignmentTopRight];
+        _badgeView.badgeText = [NSString stringWithFormat:@"%d",goodsCount];
+        _badgeView.backgroundColor=[UIColor redColor];
+    }
+    [tableView_gouwuche reloadData];
+    [_GoodsList reloadData];
+}
+
+/**
+ *  点击购物车按钮弹出购物车
+ */
 -(void)ShowGouWuChe
 {
     float SumPrice=0;
@@ -368,67 +479,42 @@
     [choseDone setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
 
     int viewheight=ShoppingCar.count<4?(ShoppingCar.count*50):200;
-    areaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, viewheight)];
-    areaScroll.scrollEnabled=YES;
-    areaScroll.backgroundColor=[UIColor grayColor];
     for (int i=0; i<ShoppingCar.count; i++) {
-        UIView * ShoppingGoods =[[UIView alloc] initWithFrame:CGRectMake(0, i*50+1, KWidth, 50)];
-        ShoppingGoods.backgroundColor=[UIColor whiteColor];
-        UILabel * nameofgoods=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, KWidth-150, 30)];
-        [nameofgoods setTextAlignment:NSTextAlignmentCenter];
         ShoppingCarModel * item=ShoppingCar[i];
-        nameofgoods.text=item.Goods[@"name"];
-        [ShoppingGoods addSubview:nameofgoods];
-        
-        CGFloat x=nameofgoods.frame.origin.x+nameofgoods.frame.size.width;
-        UIButton * jianBtn=[[UIButton alloc] initWithFrame:CGRectMake(x, 10, 25, 25)];
-        [jianBtn setImage:[UIImage imageNamed:@"jian_quan.png"] forState:UIControlStateNormal];
-        [jianBtn addTarget:self action:@selector(jian_btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        jianBtn.tag=i;
-        [ShoppingGoods addSubview:jianBtn];
-        
-        
-        x=jianBtn.frame.origin.x+jianBtn.frame.size.width;
-        UILabel * goodsnum=[[UILabel alloc] initWithFrame:CGRectMake(x, 10, 50, 30)];
-        goodsnum.text=[NSString stringWithFormat:@"%d",item.Num];
-        goodsnum.tag=110;
-        [goodsnum setTextAlignment:NSTextAlignmentCenter];
-        [ShoppingGoods addSubview:goodsnum];
-        
-        x=goodsnum.frame.origin.x+goodsnum.frame.size.width;
-        UIButton * jiaBtn=[[UIButton alloc] initWithFrame:CGRectMake(x, 10, 25, 25)];
-        [jiaBtn setImage:[UIImage imageNamed:@"jia_quan.png"] forState:UIControlStateNormal];
-        [jiaBtn addTarget:self action:@selector(jia_btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        jiaBtn.tag=i;
-        [ShoppingGoods addSubview:jiaBtn];
-        
-        [areaScroll addSubview:ShoppingGoods];
         NSString * price=item.Goods[@"price"];
         SumPrice+=item.Num*[price floatValue];
     }
-    areaScroll.contentSize=CGSizeMake(0, viewheight);
+    tableView_gouwuche.frame=CGRectMake(0, 0, SCREEN_WIDTH, viewheight);
+    tableView_gouwuche.delegate=self;
+    tableView_gouwuche.dataSource=self;
     
-    if (!isClick) {
+    if (!gouwuche_icon.selected) {
         //购物车列表出现
-        [_shoppingListPage addSubview:areaScroll];
+        [_shoppingListPage addSubview:tableView_gouwuche];
         _shoppingListPage.frame=CGRectMake(0, SCREEN_HEIGHT-viewheight-50, SCREEN_WIDTH, viewheight);
+        [self.view addSubview:_ShoppingListView];
         gouwuche_icon.frame=CGRectMake(gouwuche_icon.frame.origin.x, gouwuche_icon.frame.origin.y-viewheight, gouwuche_icon.frame.size.width, gouwuche_icon.frame.size.height);
         gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255 green:180/255 blue:0/255 alpha:1.0];
+        [self.view addSubview:gouwuche_icon];
         [self.view addSubview:gouwuche_icon];
         _ShoppingListView.backgroundColor=[UIColor whiteColor];
         _lableinShoppingList.text=[NSString stringWithFormat:@"%.2f",SumPrice];
         [_lableinShoppingList setTextColor:[UIColor redColor]];
         _locationForbadge.frame=CGRectMake(_locationForbadge.frame.origin.x, _locationForbadge.frame.origin.y-viewheight, 5, 5);
-        isClick=YES;
+        [self.view addSubview:_locationForbadge];
+        gouwuche_icon.selected=YES;
     }else
     {
         _shoppingListPage.frame=CGRectMake(0, SCREEN_HEIGHT+viewheight+50, KWidth, viewheight);
+        [self.view addSubview:_ShoppingListView];
         gouwuche_icon.frame=CGRectMake(gouwuche_icon.frame.origin.x, gouwuche_icon.frame.origin.y+viewheight, gouwuche_icon.frame.size.width, gouwuche_icon.frame.size.height);
         gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255.0 green:180/255.0 blue:0/255.0 alpha:1.0];
+        [self.view addSubview:gouwuche_icon];
         _ShoppingListView.backgroundColor=[UIColor whiteColor];
         _lableinShoppingList.text=[NSString stringWithFormat:@"%.2f",SumPrice];
         _locationForbadge.frame=CGRectMake(_locationForbadge.frame.origin.x, _locationForbadge.frame.origin.y+viewheight, 5, 5);
-        isClick=NO;
+        [self.view addSubview:_locationForbadge];
+        gouwuche_icon.selected=NO;
     }
 }
 
@@ -452,6 +538,7 @@
 
 -(void)jian_btnClick:(UIButton *)sender
 {
+    [sender.superview removeFromSuperview];
     UILabel * mylable;
     NSArray * superarray=[[sender superview] subviews];
     for (int i=0; i<superarray.count; i++) {
@@ -464,12 +551,15 @@
             break;
         }
     }
-    int shengxia=[mylable.text intValue]-1;
-    if (0==shengxia) {
-        [sender.superview removeFromSuperview];
+    ShoppingCarModel * item=ShoppingCar[sender.tag];
+    if (0==item.Num-1) {
+        
         [ShoppingCar removeObjectAtIndex:sender.tag];
         _badgeView.badgeText = [NSString stringWithFormat:@"%lu",(unsigned long)ShoppingCar.count];
-        [self ShowGouWuChe];
+        tableView_gouwuche.frame=CGRectMake(tableView_gouwuche.frame.origin.x, tableView_gouwuche.frame.origin.y+50, tableView_gouwuche.frame.size.width, tableView_gouwuche.frame.size.height);
+        gouwuche_icon.frame=CGRectMake(gouwuche_icon.frame.origin.x, gouwuche_icon.frame.origin.y+50, gouwuche_icon.frame.size.width, gouwuche_icon.frame.size.height);
+        _locationForbadge.frame=CGRectMake(_locationForbadge.frame.origin.x, _locationForbadge.frame.origin.y+50, 5, 5);
+        
     }
     else
     {
@@ -478,7 +568,10 @@
         modelofshoppingcar.Num-=1;
         _lableinShoppingList.text=[NSString stringWithFormat:@"%.2f",[_lableinShoppingList.text floatValue]-[modelofshoppingcar.Goods[@"price"] floatValue]] ;
     }
+    [tableView_gouwuche reloadData];
+    [_GoodsList reloadData];
 }
+
 -(void)jia_btnClick:(UIButton *)sender
 {
     UILabel * mylable;
@@ -506,7 +599,8 @@
         modelofshoppingcar.Num+=1;
         _lableinShoppingList.text=[NSString stringWithFormat:@"%.2f",[_lableinShoppingList.text floatValue]+[modelofshoppingcar.Goods[@"price"] floatValue]] ;
     }
-    
+    [tableView_gouwuche reloadData];
+    [_GoodsList reloadData];
     
 }
 
@@ -541,13 +635,12 @@
         UILabel * lbl_cantingName=[[UILabel alloc] initWithFrame:CGRectMake(cantingLogo.frame.origin.x+cantingLogo.frame.size.width+20, 10, 150, 20)];
         lbl_cantingName.text=dict[@"data"][@"name"];
         [CantingHeadView addSubview:lbl_cantingName];
-        TQStarRatingView * pingjia=[[TQStarRatingView alloc]initWithFrame:CGRectMake(lbl_cantingName.frame.origin.x, lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height+2, 80, 20) numberOfStar:[dict[@"data"][@"totalcredit"] intValue]];
+        TQStarRatingView * pingjia=[[TQStarRatingView alloc]initWithFrame:CGRectMake(lbl_cantingName.frame.origin.x, lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height+2, 80, 20) numberOfStar:5 andlightstarnum:[dict[@"data"][@"totalcredit"] intValue]];
         [CantingHeadView addSubview:pingjia];
         
         
         
         UIView * lastView=CantingHeadView;
-        
         UIView * BackView_time=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+1, (KWidth-2)/3, 60)];
         BackView_time.backgroundColor=[UIColor whiteColor];
         UILabel * lbl_qisongjia=[[UILabel alloc] initWithFrame:CGRectMake(30, 10, 40, 30)];

@@ -107,6 +107,8 @@
 		806383F71AF0BE6500AF9866 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 806383E51AF0BE6500AF9866 /* UIImageView+HighlightedWebCache.m */; };
 		806383F81AF0BE6500AF9866 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 806383E71AF0BE6500AF9866 /* UIImageView+WebCache.m */; };
 		806383F91AF0BE6500AF9866 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 806383E91AF0BE6500AF9866 /* UIView+WebCacheOperation.m */; };
+		806F9D8F1B09914C0076B81F /* PingjiaForOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806F9D8E1B09914C0076B81F /* PingjiaForOrderViewController.m */; };
+		806F9D921B09CDC90076B81F /* PinglunForBGBangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806F9D911B09CDC90076B81F /* PinglunForBGBangViewController.m */; };
 		8072B9071AEB34D800597ABB /* lipin_kindle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8072B9041AEB34D800597ABB /* lipin_kindle.png */; };
 		8072B9081AEB34D800597ABB /* lipin_weidan.png in Resources */ = {isa = PBXBuildFile; fileRef = 8072B9051AEB34D800597ABB /* lipin_weidan.png */; };
 		8072B9091AEB34D800597ABB /* lipin_xiaomi.png in Resources */ = {isa = PBXBuildFile; fileRef = 8072B9061AEB34D800597ABB /* lipin_xiaomi.png */; };
@@ -144,6 +146,8 @@
 		808995FB1AE0DED90059038D /* YJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808995FA1AE0DED90059038D /* YJViewController.m */; };
 		808996001AE0DEFB0059038D /* RegisterByVoiceCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808995FD1AE0DEFA0059038D /* RegisterByVoiceCallViewController.m */; };
 		808996011AE0DEFB0059038D /* SubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808995FF1AE0DEFA0059038D /* SubmitViewController.m */; };
+		808E50AB1B0B1405002F87AC /* ShoppingCarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 808E50A91B0B1405002F87AC /* ShoppingCarTableViewCell.m */; };
+		808E50AC1B0B1405002F87AC /* ShoppingCarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 808E50AA1B0B1405002F87AC /* ShoppingCarTableViewCell.xib */; };
 		8090B47D1B05F07400C174D8 /* pinglun@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8090B47B1B05F07400C174D8 /* pinglun@2x.png */; };
 		8090B47E1B05F07400C174D8 /* pinglunhui@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8090B47C1B05F07400C174D8 /* pinglunhui@2x.png */; };
 		809ABD541AFC4DB000E7C662 /* UserInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 809ABD531AFC4DB000E7C662 /* UserInfo.plist */; };
@@ -464,6 +468,10 @@
 		806383E71AF0BE6500AF9866 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		806383E81AF0BE6500AF9866 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		806383E91AF0BE6500AF9866 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		806F9D8D1B09914C0076B81F /* PingjiaForOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingjiaForOrderViewController.h; sourceTree = "<group>"; };
+		806F9D8E1B09914C0076B81F /* PingjiaForOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingjiaForOrderViewController.m; sourceTree = "<group>"; };
+		806F9D901B09CDC90076B81F /* PinglunForBGBangViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinglunForBGBangViewController.h; sourceTree = "<group>"; };
+		806F9D911B09CDC90076B81F /* PinglunForBGBangViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinglunForBGBangViewController.m; sourceTree = "<group>"; };
 		8072B9041AEB34D800597ABB /* lipin_kindle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lipin_kindle.png; sourceTree = "<group>"; };
 		8072B9051AEB34D800597ABB /* lipin_weidan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lipin_weidan.png; sourceTree = "<group>"; };
 		8072B9061AEB34D800597ABB /* lipin_xiaomi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lipin_xiaomi.png; sourceTree = "<group>"; };
@@ -518,6 +526,9 @@
 		808995FD1AE0DEFA0059038D /* RegisterByVoiceCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterByVoiceCallViewController.m; sourceTree = "<group>"; };
 		808995FE1AE0DEFA0059038D /* SubmitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitViewController.h; sourceTree = "<group>"; };
 		808995FF1AE0DEFA0059038D /* SubmitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitViewController.m; sourceTree = "<group>"; };
+		808E50A81B0B1405002F87AC /* ShoppingCarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCarTableViewCell.h; sourceTree = "<group>"; };
+		808E50A91B0B1405002F87AC /* ShoppingCarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCarTableViewCell.m; sourceTree = "<group>"; };
+		808E50AA1B0B1405002F87AC /* ShoppingCarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppingCarTableViewCell.xib; sourceTree = "<group>"; };
 		8090B47B1B05F07400C174D8 /* pinglun@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinglun@2x.png"; sourceTree = "<group>"; };
 		8090B47C1B05F07400C174D8 /* pinglunhui@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinglunhui@2x.png"; sourceTree = "<group>"; };
 		809ABD531AFC4DB000E7C662 /* UserInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInfo.plist; sourceTree = "<group>"; };
@@ -1336,6 +1347,8 @@
 				8AB4A0E61B06D4830007BC48 /* BGBTableViewCell.h */,
 				8AB4A0E71B06D4830007BC48 /* BGBTableViewCell.m */,
 				8AB4A0E81B06D4830007BC48 /* BGBTableViewCell.xib */,
+				806F9D901B09CDC90076B81F /* PinglunForBGBangViewController.h */,
+				806F9D911B09CDC90076B81F /* PinglunForBGBangViewController.m */,
 			);
 			path = BGB;
 			sourceTree = "<group>";
@@ -1357,9 +1370,14 @@
 				80D309831B04B721009A2BF3 /* TableViewCell.h */,
 				80D309841B04B721009A2BF3 /* TableViewCell.m */,
 				80D309851B04B721009A2BF3 /* TableViewCell.xib */,
+				806F9D8D1B09914C0076B81F /* PingjiaForOrderViewController.h */,
+				806F9D8E1B09914C0076B81F /* PingjiaForOrderViewController.m */,
 				8A16D2891B098C8A00974168 /* OrderPingjiaViewController.h */,
 				8A16D28A1B098C8A00974168 /* OrderPingjiaViewController.m */,
 				8A16D28B1B098C8A00974168 /* OrderPingjiaViewController.xib */,
+				808E50A81B0B1405002F87AC /* ShoppingCarTableViewCell.h */,
+				808E50A91B0B1405002F87AC /* ShoppingCarTableViewCell.m */,
+				808E50AA1B0B1405002F87AC /* ShoppingCarTableViewCell.xib */,
 			);
 			path = Canting;
 			sourceTree = "<group>";
@@ -1839,6 +1857,7 @@
 				80895F081AFF34DC00908181 /* blueArrow@2x.png in Resources */,
 				80843F1C1AE25ACC006AC3B7 /* WaiMai.jpg in Resources */,
 				80D3098B1B04B721009A2BF3 /* OrderForSureViewController.xib in Resources */,
+				808E50AC1B0B1405002F87AC /* ShoppingCarTableViewCell.xib in Resources */,
 				80D309971B04B736009A2BF3 /* FoundTableViewCell.xib in Resources */,
 				80D309BC1B04B73F009A2BF3 /* MineViewController.xib in Resources */,
 				8A5D7F5A1B04332200F96831 /* UMSCommentInputController.xib in Resources */,
@@ -1980,6 +1999,7 @@
 				806023321ADFB71400E1C498 /* AFSecurityPolicy.m in Sources */,
 				8A71D0A91B01DE1600D6C01D /* CreditWebView.m in Sources */,
 				80D309BB1B04B73F009A2BF3 /* MineViewController.m in Sources */,
+				808E50AB1B0B1405002F87AC /* ShoppingCarTableViewCell.m in Sources */,
 				806023301ADFB71400E1C498 /* AFHTTPSessionManager.m in Sources */,
 				808995F61AE0DE520059038D /* SMS_HYZBadgeView.m in Sources */,
 				80D309621B04B706009A2BF3 /* BGGiftTableViewCell.m in Sources */,
@@ -1989,10 +2009,12 @@
 				80A5293D1AE48EDE00FE6F90 /* TAAbstractDotView.m in Sources */,
 				806023341ADFB71400E1C498 /* AFURLRequestSerialization.m in Sources */,
 				80F04CD61AE7963C00A29052 /* DOPDropDownMenu.m in Sources */,
+				806F9D8F1B09914C0076B81F /* PingjiaForOrderViewController.m in Sources */,
 				806023361ADFB71400E1C498 /* AFURLSessionManager.m in Sources */,
 				80D309661B04B706009A2BF3 /* JokeTableViewCell.m in Sources */,
 				806383F51AF0BE6500AF9866 /* UIImage+MultiFormat.m in Sources */,
 				808995EC1AE0DE290059038D /* VerifyViewController.m in Sources */,
+				806F9D921B09CDC90076B81F /* PinglunForBGBangViewController.m in Sources */,
 				80F04CCE1AE795FB00A29052 /* NYSegmentedControl.m in Sources */,
 				80A529411AE48EDE00FE6F90 /* UIView+SDExtension.m in Sources */,
 				808996001AE0DEFB0059038D /* RegisterByVoiceCallViewController.m in Sources */,

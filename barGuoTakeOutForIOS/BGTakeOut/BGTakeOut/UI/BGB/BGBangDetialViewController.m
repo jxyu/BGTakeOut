@@ -82,31 +82,31 @@
     BackVeiw_star.backgroundColor=[UIColor whiteColor];
     UILabel * lbl_weidao=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
     lbl_weidao.text=@"味道";
-    starRatingView_weidao =[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_weidao.frame.origin.x+lbl_weidao.frame.size.width,10 , 25*[dict[@"data"][@"tastescore"] intValue], 20) numberOfStar:[dict[@"data"][@"tastescore"] intValue]];
+    starRatingView_weidao =[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_weidao.frame.origin.x+lbl_weidao.frame.size.width,10 , SCREEN_WIDTH-80, 20) numberOfStar:10 andlightstarnum:[dict[@"data"][@"tastescore"] intValue]];
     [BackVeiw_star addSubview:lbl_weidao];
     [BackVeiw_star addSubview:starRatingView_weidao];
     
     UILabel * lbl_weisheng=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_weidao.frame.origin.y+lbl_weidao.frame.size.height+10, 60, 20)];
     lbl_weisheng.text=@"卫生";
-    starRatingView_weisheng =[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_weisheng.frame.origin.x+lbl_weisheng.frame.size.width,starRatingView_weidao.frame.origin.y+starRatingView_weidao.frame.size.height+10 , 25*[dict[@"data"][@"hygienismscore"] intValue], 20) numberOfStar:[dict[@"data"][@"hygienismscore"] intValue]];
+    starRatingView_weisheng =[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_weisheng.frame.origin.x+lbl_weisheng.frame.size.width,starRatingView_weidao.frame.origin.y+starRatingView_weidao.frame.size.height+10 , SCREEN_WIDTH-80, 20) numberOfStar:10 andlightstarnum:[dict[@"data"][@"tastescore"] intValue]];
     [BackVeiw_star addSubview:lbl_weisheng];
     [BackVeiw_star addSubview:starRatingView_weisheng];
     
     UILabel * lbl_huanjing=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_weisheng.frame.origin.y+lbl_weisheng.frame.size.height+10, 60, 20)];
     lbl_huanjing.text=@"环境";
-    starRatingView_huanjing=[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_huanjing.frame.origin.x+lbl_huanjing.frame.size.width,starRatingView_weisheng.frame.origin.y+starRatingView_weisheng.frame.size.height+10  , 25*[dict[@"data"][@"environmentscore"] intValue], 20) numberOfStar:[dict[@"data"][@"environmentscore"] intValue]];
+    starRatingView_huanjing=[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_huanjing.frame.origin.x+lbl_huanjing.frame.size.width,starRatingView_weisheng.frame.origin.y+starRatingView_weisheng.frame.size.height+10  , SCREEN_WIDTH-80, 20) numberOfStar:10 andlightstarnum:[dict[@"data"][@"tastescore"] intValue]];
     [BackVeiw_star addSubview:lbl_huanjing];
     [BackVeiw_star addSubview:starRatingView_huanjing];
     
     UILabel * lbl_fuwu=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_huanjing.frame.origin.y+lbl_huanjing.frame.size.height+10, 60, 20)];
     lbl_fuwu.text=@"服务";
-    starRatingView_fuwu =[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_fuwu.frame.origin.x+lbl_fuwu.frame.size.width,starRatingView_huanjing.frame.origin.y+starRatingView_huanjing.frame.size.height+10  , 25*[dict[@"data"][@"servicescore"] intValue], 20) numberOfStar:[dict[@"data"][@"servicescore"] intValue]];
+    starRatingView_fuwu =[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_fuwu.frame.origin.x+lbl_fuwu.frame.size.width,starRatingView_huanjing.frame.origin.y+starRatingView_huanjing.frame.size.height+10  , SCREEN_WIDTH-80, 20) numberOfStar:10 andlightstarnum:[dict[@"data"][@"tastescore"] intValue]];
     [BackVeiw_star addSubview:lbl_fuwu];
     [BackVeiw_star addSubview:starRatingView_fuwu];
     
     UILabel * lbl_xingjiabi=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_fuwu.frame.origin.y+lbl_fuwu.frame.size.height+10, 60, 20)];
     lbl_xingjiabi.text=@"性价比";
-    starRatingView_xingjiabi =[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_xingjiabi.frame.origin.x+lbl_xingjiabi.frame.size.width,starRatingView_fuwu.frame.origin.y+starRatingView_fuwu.frame.size.height+10, 25*[dict[@"data"][@"costperformancescore"] intValue], 20) numberOfStar:[dict[@"data"][@"costperformancescore"] intValue]];
+    starRatingView_xingjiabi =[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_xingjiabi.frame.origin.x+lbl_xingjiabi.frame.size.width,starRatingView_fuwu.frame.origin.y+starRatingView_fuwu.frame.size.height+10, SCREEN_WIDTH-80, 20) numberOfStar:10 andlightstarnum:[dict[@"data"][@"tastescore"] intValue]];
     [BackVeiw_star addSubview:lbl_xingjiabi];
     [BackVeiw_star addSubview:starRatingView_xingjiabi];
     [page addSubview:BackVeiw_star];
@@ -127,11 +127,13 @@
     btn_mydianzan.layer.borderColor=colorref;
     [self.view addSubview:btn_mydianzan];
     UIButton * btn_pinglun=[[UIButton alloc] initWithFrame:CGRectMake(btn_mydianzan.frame.origin.x+btn_mydianzan.frame.size.width, SCREEN_HEIGHT-40, (SCREEN_WIDTH-20)/3, 30 )];
+    btn_pinglun.imageView.bounds=CGRectMake(0, 0, 20, 20);
     [btn_pinglun setImage:[UIImage imageNamed:@"pinglunhui@2x.png"] forState:UIControlStateNormal];
     [btn_pinglun setTitle:[NSString stringWithFormat:@"（%@）评论",dict[@"data"][@"authenscore"]] forState:UIControlStateNormal];
     [btn_pinglun setTitleColor:[UIColor colorWithRed:121/255.0 green:121/255.0 blue:121/255.0 alpha:1.0] forState:UIControlStateNormal];
     btn_pinglun.titleLabel.font=[UIFont systemFontOfSize:13];
     btn_pinglun.layer.borderWidth=1;
+    [btn_pinglun addTarget:self action:@selector(showPinglunView) forControlEvents:UIControlEventTouchUpInside];
     btn_pinglun.layer.borderColor=colorref;
     [self.view addSubview:btn_pinglun];
     UIButton * btn_share=[[UIButton alloc] initWithFrame:CGRectMake(btn_pinglun.frame.origin.x+btn_pinglun.frame.size.width, SCREEN_HEIGHT-40, (SCREEN_WIDTH-20)/3, 30 )];
@@ -153,6 +155,13 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+-(void)showPinglunView
+{
+    _myPinglun=[[PinglunForBGBangViewController alloc] init];
+    _myPinglun.userid=_userid;
+    _myPinglun.articleid=_articleid;
+    [self.navigationController pushViewController:_myPinglun animated:YES];
 }
 
 @end

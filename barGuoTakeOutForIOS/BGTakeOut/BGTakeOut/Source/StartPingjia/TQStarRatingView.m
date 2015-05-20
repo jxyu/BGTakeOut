@@ -19,14 +19,15 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    return [self initWithFrame:frame numberOfStar:5];
+    return [self initWithFrame:frame numberOfStar:5 andlightstarnum:0];
 }
 
-- (id)initWithFrame:(CGRect)frame numberOfStar:(int)number
+- (id)initWithFrame:(CGRect)frame numberOfStar:(int)number andlightstarnum:(int)lightnumber
 {
     self = [super initWithFrame:frame];
     if (self) {
         _numberOfStar = number;
+        _lightStarNumber=lightnumber;
         self.starBackgroundView = [self buidlStarViewWithImageName:@"Start_gray"];
         self.starForegroundView = [self buidlStarViewWithImageName:@"Start_light"];
         [self addSubview:self.starBackgroundView];
@@ -70,11 +71,23 @@
     CGRect frame = self.bounds;
     UIView *view = [[UIView alloc] initWithFrame:frame];
     view.clipsToBounds = YES;
-    for (int i = 0; i < self.numberOfStar; i ++)
+    if ([imageName isEqualToString:@"Start_light"]) {
+        for (int i = 0; i < _lightStarNumber; i ++)
+        {
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+            imageView.frame = CGRectMake(i * frame.size.width / self.numberOfStar, 0, frame.size.width / self.numberOfStar, frame.size.height);
+            [view addSubview:imageView];
+        }
+        view.frame=self.starBackgroundView.frame;
+    }
+    else
     {
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
-        imageView.frame = CGRectMake(i * frame.size.width / self.numberOfStar, 0, frame.size.width / self.numberOfStar, frame.size.height);
-        [view addSubview:imageView];
+        for (int i = 0; i < self.numberOfStar; i ++)
+        {
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+            imageView.frame = CGRectMake(i * frame.size.width / self.numberOfStar, 0, frame.size.width / self.numberOfStar, frame.size.height);
+            [view addSubview:imageView];
+        }
     }
     return view;
 }

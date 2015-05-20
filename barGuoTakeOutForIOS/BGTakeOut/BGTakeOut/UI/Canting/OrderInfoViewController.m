@@ -76,6 +76,7 @@
                                                         options:NSJSONReadingAllowFragments
                                                           error:nil];
         _orderData=(NSArray *)jsonObject;
+        OrderInfo=dict[@"data"];
         [self PayForOrder:dict[@"data"]];
         
     }
@@ -132,91 +133,179 @@
     [BackView_OrderTitle addSubview:img_Status_icon];
     [BackView_OrderTitle addSubview:lbl_Status];
     
+    
+    
+    
+    UIView * backview_StatusInfo=[[UIView alloc] initWithFrame:CGRectMake(40, img_Status_icon.frame.origin.y+img_Status_icon.frame.size.height+2, KWidth-80, 40)];
+    backview_StatusInfo.backgroundColor=[UIColor colorWithRed:253/255.0 green:229/255.0 blue:225/255.0 alpha:1.0];
+    UILabel * lbl_title=[[UILabel alloc] initWithFrame:CGRectMake(0, 10, backview_StatusInfo.frame.size.width, 20)];
+    [lbl_title setTextAlignment:NSTextAlignmentCenter];
+    lbl_title.font=[UIFont systemFontOfSize:12];
+    lbl_title.text=@"感谢您使用掌上街，欢迎再次订餐";
+    [lbl_title setLineBreakMode:NSLineBreakByWordWrapping];
+    lbl_title.numberOfLines=0;
+    lbl_title.textColor=[UIColor grayColor];
+    [backview_StatusInfo addSubview:lbl_title];
+    [BackView_OrderTitle addSubview:backview_StatusInfo];
+    
+    UIButton * cansalOrder=[[UIButton alloc] initWithFrame:CGRectMake(KWidth-10-60, backview_StatusInfo.frame.origin.y+backview_StatusInfo.frame.size.height+5, 60, 30)];
+    [cansalOrder setTitle:@"订单评价" forState:UIControlStateNormal];
+    [cansalOrder setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    cansalOrder.layer.borderWidth=1.0;
+    cansalOrder.layer.cornerRadius=5;
+    cansalOrder.titleLabel.font=[UIFont systemFontOfSize:13];
+    [cansalOrder addTarget:self action:@selector(dingdanTousu) forControlEvents:UIControlEventTouchUpInside];
+    [BackView_OrderTitle addSubview:cansalOrder];
+    
+    
+    OrderAfterPay =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 800)];
+    OrderAfterPay.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+    [OrderAfterPay addSubview:BackView_OrderTitle];
+    UIView * BackView_img_status=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_OrderTitle.frame.origin.y+BackView_OrderTitle.frame.size.height+5, KWidth, 60)];
+    BackView_img_status.backgroundColor=[UIColor whiteColor];
+    UIImageView * firstImg=[[UIImageView alloc] initWithFrame:CGRectMake(30, 10, 20, 20)];
+    firstImg.layer.masksToBounds=YES;
+    firstImg.layer.cornerRadius=10;
+    firstImg.image=[UIImage imageNamed:@"first.png"];
+    firstImg.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+    [BackView_img_status addSubview:firstImg];
+    UILabel * lbl_Image_First=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 10)];
+    lbl_Image_First.text=@"订单提交";
+    lbl_Image_First.font=[UIFont fontWithName:@"Helvetica" size:15];
+    [BackView_img_status addSubview:lbl_Image_First];
+    UIView * gotoNext=[[UIView alloc] initWithFrame:CGRectMake(firstImg.frame.origin.x+firstImg.frame.size.width, firstImg.frame.origin.y+(firstImg.frame.size.height/2), (KWidth-160)/3, 1)];
+    gotoNext.backgroundColor=[UIColor grayColor];
+    [BackView_img_status addSubview:gotoNext];
+    UIImageView * secondImg=[[UIImageView alloc] initWithFrame:CGRectMake(gotoNext.frame.origin.x+gotoNext.frame.size.width, firstImg.frame.origin.y, 20, 20)];
+    secondImg.layer.masksToBounds=YES;
+    secondImg.layer.cornerRadius=10;
+    secondImg.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+    secondImg.image=[UIImage imageNamed:@"sencond.png"];
+    [BackView_img_status addSubview:secondImg];
+    UILabel * lbl_Image_Second=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5*2+lbl_Image_First.frame.size.width, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 10)];
+    lbl_Image_Second.text=@"餐厅接单";
+    lbl_Image_Second.font=[UIFont fontWithName:@"Helvetica" size:15];
+    //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+    [BackView_img_status addSubview:lbl_Image_Second];
+    UIView * gotoNext2=[[UIView alloc] initWithFrame:CGRectMake(secondImg.frame.origin.x+secondImg.frame.size.width, secondImg.frame.origin.y+(secondImg.frame.size.height/2), (KWidth-160)/3, 1)];
+    gotoNext2.backgroundColor=[UIColor grayColor];
+    [BackView_img_status addSubview:gotoNext2];
+    UIImageView * ThirdImg=[[UIImageView alloc] initWithFrame:CGRectMake(gotoNext2.frame.origin.x+gotoNext2.frame.size.width, firstImg.frame.origin.y, 20, 20)];
+    ThirdImg.layer.masksToBounds=YES;
+    ThirdImg.layer.cornerRadius=10;
+    ThirdImg.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+    ThirdImg.image=[UIImage imageNamed:@"thitd.png"];
+    [BackView_img_status addSubview:ThirdImg];
+    UILabel * lbl_Image_Third=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5*3+lbl_Image_First.frame.size.width*2, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 10)];
+    lbl_Image_Third.text=@"配送中";
+    lbl_Image_Third.font=[UIFont fontWithName:@"Helvetica" size:15];
+    //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+    [BackView_img_status addSubview:lbl_Image_Third];
+    UIView * gotoNext3=[[UIView alloc] initWithFrame:CGRectMake(ThirdImg.frame.origin.x+ThirdImg.frame.size.width, ThirdImg.frame.origin.y+(ThirdImg.frame.size.height/2), (KWidth-160)/3, 1)];
+    gotoNext3.backgroundColor=[UIColor grayColor];
+    [BackView_img_status addSubview:gotoNext3];
+    UIImageView * FourthImg=[[UIImageView alloc] initWithFrame:CGRectMake(gotoNext3.frame.origin.x+gotoNext3.frame.size.width, firstImg.frame.origin.y, 20, 20)];
+    FourthImg.layer.masksToBounds=YES;
+    FourthImg.layer.cornerRadius=10;
+    FourthImg.backgroundColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+    FourthImg.image=[UIImage imageNamed:@"sure.png"];
+    UILabel * lbl_Image_Forth=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5*4+lbl_Image_First.frame.size.width*3, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 10)];
+    lbl_Image_Forth.text=@"已收货";
+    lbl_Image_Forth.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+    lbl_Image_Forth.font=[UIFont fontWithName:@"Helvetica" size:15];
+    //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+    [BackView_img_status addSubview:lbl_Image_Forth];
+    [BackView_img_status addSubview:FourthImg];
+    [OrderAfterPay addSubview:BackView_img_status];
+    
+    
+    
+    
         switch ([dict[@"status"] intValue]) {
         case 0:
         {
-            UIView * backview_StatusInfo=[[UIView alloc] initWithFrame:CGRectMake(40, img_Status_icon.frame.origin.y+img_Status_icon.frame.size.height+2, KWidth-80, 40)];
-            backview_StatusInfo.backgroundColor=[UIColor colorWithRed:244/255.0 green:243/255.0 blue:241/255.0 alpha:1.0];
-            UILabel * lbl_title=[[UILabel alloc] initWithFrame:CGRectMake(0, 10, (KWidth-80)/2, 20)];
-            [lbl_title setTextAlignment:NSTextAlignmentCenter];
-            lbl_title.text=@"请等待";
-            [backview_StatusInfo addSubview:lbl_title];
-            UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(lbl_title.frame.origin.x+lbl_title.frame.size.width, 10, 1, 20)];
-            fenge.backgroundColor=[UIColor colorWithRed:209/255.0 green:209/255.0 blue:209/255.0 alpha:1.0];
-            [backview_StatusInfo addSubview:fenge];
-            //    timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:nil userInfo:nil repeats:YES];
-            //    [timer setFireDate:[NSDate distantPast]];//开启
-            UILabel * lbl_TimeCount=[[UILabel alloc] initWithFrame:CGRectMake(fenge.frame.origin.x+fenge.frame.size.width, 10,(KWidth-80)/2 , 20)];
-            [lbl_TimeCount setTextAlignment:NSTextAlignmentCenter];
-            lbl_TimeCount.text=[NSString stringWithFormat:@"预计10分钟内接单"];
-            [backview_StatusInfo addSubview:lbl_TimeCount];
-            fenge.backgroundColor=[UIColor colorWithRed:221/255.0 green:220/255.0 blue:218/255.0 alpha:1.0];
-            [BackView_OrderTitle addSubview:backview_StatusInfo];
-            UIButton * cansalOrder=[[UIButton alloc] initWithFrame:CGRectMake(KWidth-10-60, BackView_OrderTitle.frame.origin.y+BackView_OrderTitle.frame.size.height, 60, 30)];
-            [cansalOrder setTitle:@"取消订单" forState:UIControlStateNormal];
-            cansalOrder.layer.borderWidth=1.0;
-            cansalOrder.layer.borderColor=(__bridge CGColorRef)([UIColor colorWithRed:255/255.0 green:116/255.0 blue:15/255.0 alpha:1.0]);
-            [cansalOrder addTarget:self action:@selector(CancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
-            [BackView_OrderTitle addSubview:cansalOrder];
-            
-            
-            [OrderAfterPay addSubview:BackView_OrderTitle];
-            UIView * BackView_img_status=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_OrderTitle.frame.origin.y+BackView_OrderTitle.frame.size.height+5, KWidth, 60)];
-            BackView_img_status.backgroundColor=[UIColor whiteColor];
-            UIImageView * firstImg=[[UIImageView alloc] initWithFrame:CGRectMake(30, 10, 20, 20)];
-            firstImg.layer.masksToBounds=YES;
-            firstImg.layer.cornerRadius=10;
-            firstImg.image=[UIImage imageNamed:@"first.png"];
-            firstImg.backgroundColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
-            [BackView_img_status addSubview:firstImg];
-            UILabel * lbl_Image_First=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 15)];
-            lbl_Image_First.text=@"订单提交";
-            lbl_Image_First.font=[UIFont fontWithName:@"Helvetica" size:15];
-            lbl_Image_First.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
-            [BackView_img_status addSubview:lbl_Image_First];
-            UIView * gotoNext=[[UIView alloc] initWithFrame:CGRectMake(firstImg.frame.origin.x+firstImg.frame.size.width, firstImg.frame.origin.y+(firstImg.frame.size.height/2), (KWidth-160)/3, 1)];
-            gotoNext.backgroundColor=[UIColor grayColor];
-            [BackView_img_status addSubview:gotoNext];
-            UIImageView * secondImg=[[UIImageView alloc] initWithFrame:CGRectMake(gotoNext.frame.origin.x+gotoNext.frame.size.width, firstImg.frame.origin.y, 20, 20)];
-            secondImg.layer.masksToBounds=YES;
-            secondImg.layer.cornerRadius=10;
-            secondImg.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-            secondImg.image=[UIImage imageNamed:@"sencond.png"];
-            [BackView_img_status addSubview:secondImg];
-            UILabel * lbl_Image_Second=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5*2+lbl_Image_First.frame.size.width, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 15)];
-            lbl_Image_Second.text=@"餐厅接单";
-            lbl_Image_Second.font=[UIFont fontWithName:@"Helvetica" size:15];
-            //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
-            [BackView_img_status addSubview:lbl_Image_Second];
-            UIView * gotoNext2=[[UIView alloc] initWithFrame:CGRectMake(secondImg.frame.origin.x+secondImg.frame.size.width, secondImg.frame.origin.y+(secondImg.frame.size.height/2), (KWidth-160)/3, 1)];
-            gotoNext2.backgroundColor=[UIColor grayColor];
-            [BackView_img_status addSubview:gotoNext2];
-            UIImageView * ThirdImg=[[UIImageView alloc] initWithFrame:CGRectMake(gotoNext2.frame.origin.x+gotoNext2.frame.size.width, firstImg.frame.origin.y, 20, 20)];
-            ThirdImg.layer.masksToBounds=YES;
-            ThirdImg.layer.cornerRadius=10;
-            ThirdImg.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-            ThirdImg.image=[UIImage imageNamed:@"thitd.png"];
-            [BackView_img_status addSubview:ThirdImg];
-            UILabel * lbl_Image_Third=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5*3+lbl_Image_First.frame.size.width*2, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 15)];
-            lbl_Image_Third.text=@"配送中";
-            lbl_Image_Third.font=[UIFont fontWithName:@"Helvetica" size:15];
-            //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
-            [BackView_img_status addSubview:lbl_Image_Third];
-            UIView * gotoNext3=[[UIView alloc] initWithFrame:CGRectMake(ThirdImg.frame.origin.x+ThirdImg.frame.size.width, ThirdImg.frame.origin.y+(ThirdImg.frame.size.height/2), (KWidth-160)/3, 1)];
-            gotoNext3.backgroundColor=[UIColor grayColor];
-            [BackView_img_status addSubview:gotoNext3];
-            UIImageView * FourthImg=[[UIImageView alloc] initWithFrame:CGRectMake(gotoNext3.frame.origin.x+gotoNext3.frame.size.width, firstImg.frame.origin.y, 20, 20)];
-            FourthImg.layer.masksToBounds=YES;
-            FourthImg.layer.cornerRadius=10;
-            FourthImg.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-            FourthImg.image=[UIImage imageNamed:@"sure.png"];
-            UILabel * lbl_Image_Forth=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5*4+lbl_Image_First.frame.size.width*3, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 15)];
-            lbl_Image_Forth.text=@"已收货";
-            lbl_Image_Forth.font=[UIFont fontWithName:@"Helvetica" size:15];
-            //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
-            [BackView_img_status addSubview:lbl_Image_Forth];
-            [BackView_img_status addSubview:FourthImg];
-            [OrderAfterPay addSubview:BackView_img_status];
+//            UIView * backview_StatusInfo=[[UIView alloc] initWithFrame:CGRectMake(40, img_Status_icon.frame.origin.y+img_Status_icon.frame.size.height+2, KWidth-80, 40)];
+//            backview_StatusInfo.backgroundColor=[UIColor colorWithRed:244/255.0 green:243/255.0 blue:241/255.0 alpha:1.0];
+//            UILabel * lbl_title=[[UILabel alloc] initWithFrame:CGRectMake(0, 10, (KWidth-80)/2, 20)];
+//            [lbl_title setTextAlignment:NSTextAlignmentCenter];
+//            lbl_title.text=@"请等待";
+//            [backview_StatusInfo addSubview:lbl_title];
+//            UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(lbl_title.frame.origin.x+lbl_title.frame.size.width, 10, 1, 20)];
+//            fenge.backgroundColor=[UIColor colorWithRed:209/255.0 green:209/255.0 blue:209/255.0 alpha:1.0];
+//            [backview_StatusInfo addSubview:fenge];
+//            //    timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:nil userInfo:nil repeats:YES];
+//            //    [timer setFireDate:[NSDate distantPast]];//开启
+//            UILabel * lbl_TimeCount=[[UILabel alloc] initWithFrame:CGRectMake(fenge.frame.origin.x+fenge.frame.size.width, 10,(KWidth-80)/2 , 20)];
+//            [lbl_TimeCount setTextAlignment:NSTextAlignmentCenter];
+//            lbl_TimeCount.text=[NSString stringWithFormat:@"预计10分钟内接单"];
+//            [backview_StatusInfo addSubview:lbl_TimeCount];
+//            fenge.backgroundColor=[UIColor colorWithRed:221/255.0 green:220/255.0 blue:218/255.0 alpha:1.0];
+//            [BackView_OrderTitle addSubview:backview_StatusInfo];
+//            UIButton * cansalOrder=[[UIButton alloc] initWithFrame:CGRectMake(KWidth-10-60, BackView_OrderTitle.frame.origin.y+BackView_OrderTitle.frame.size.height, 60, 30)];
+//            [cansalOrder setTitle:@"取消订单" forState:UIControlStateNormal];
+//            cansalOrder.layer.borderWidth=1.0;
+//            cansalOrder.layer.borderColor=(__bridge CGColorRef)([UIColor colorWithRed:255/255.0 green:116/255.0 blue:15/255.0 alpha:1.0]);
+//            [cansalOrder addTarget:self action:@selector(CancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//            [BackView_OrderTitle addSubview:cansalOrder];
+//            
+//            
+//            [OrderAfterPay addSubview:BackView_OrderTitle];
+//            UIView * BackView_img_status=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_OrderTitle.frame.origin.y+BackView_OrderTitle.frame.size.height+5, KWidth, 60)];
+//            BackView_img_status.backgroundColor=[UIColor whiteColor];
+//            UIImageView * firstImg=[[UIImageView alloc] initWithFrame:CGRectMake(30, 10, 20, 20)];
+//            firstImg.layer.masksToBounds=YES;
+//            firstImg.layer.cornerRadius=10;
+//            firstImg.image=[UIImage imageNamed:@"first.png"];
+//            firstImg.backgroundColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+//            [BackView_img_status addSubview:firstImg];
+//            UILabel * lbl_Image_First=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 15)];
+//            lbl_Image_First.text=@"订单提交";
+//            lbl_Image_First.font=[UIFont fontWithName:@"Helvetica" size:15];
+//            lbl_Image_First.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+//            [BackView_img_status addSubview:lbl_Image_First];
+//            UIView * gotoNext=[[UIView alloc] initWithFrame:CGRectMake(firstImg.frame.origin.x+firstImg.frame.size.width, firstImg.frame.origin.y+(firstImg.frame.size.height/2), (KWidth-160)/3, 1)];
+//            gotoNext.backgroundColor=[UIColor grayColor];
+//            [BackView_img_status addSubview:gotoNext];
+//            UIImageView * secondImg=[[UIImageView alloc] initWithFrame:CGRectMake(gotoNext.frame.origin.x+gotoNext.frame.size.width, firstImg.frame.origin.y, 20, 20)];
+//            secondImg.layer.masksToBounds=YES;
+//            secondImg.layer.cornerRadius=10;
+//            secondImg.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+//            secondImg.image=[UIImage imageNamed:@"sencond.png"];
+//            [BackView_img_status addSubview:secondImg];
+//            UILabel * lbl_Image_Second=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5*2+lbl_Image_First.frame.size.width, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 15)];
+//            lbl_Image_Second.text=@"餐厅接单";
+//            lbl_Image_Second.font=[UIFont fontWithName:@"Helvetica" size:15];
+//            //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+//            [BackView_img_status addSubview:lbl_Image_Second];
+//            UIView * gotoNext2=[[UIView alloc] initWithFrame:CGRectMake(secondImg.frame.origin.x+secondImg.frame.size.width, secondImg.frame.origin.y+(secondImg.frame.size.height/2), (KWidth-160)/3, 1)];
+//            gotoNext2.backgroundColor=[UIColor grayColor];
+//            [BackView_img_status addSubview:gotoNext2];
+//            UIImageView * ThirdImg=[[UIImageView alloc] initWithFrame:CGRectMake(gotoNext2.frame.origin.x+gotoNext2.frame.size.width, firstImg.frame.origin.y, 20, 20)];
+//            ThirdImg.layer.masksToBounds=YES;
+//            ThirdImg.layer.cornerRadius=10;
+//            ThirdImg.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+//            ThirdImg.image=[UIImage imageNamed:@"thitd.png"];
+//            [BackView_img_status addSubview:ThirdImg];
+//            UILabel * lbl_Image_Third=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5*3+lbl_Image_First.frame.size.width*2, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 15)];
+//            lbl_Image_Third.text=@"配送中";
+//            lbl_Image_Third.font=[UIFont fontWithName:@"Helvetica" size:15];
+//            //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+//            [BackView_img_status addSubview:lbl_Image_Third];
+//            UIView * gotoNext3=[[UIView alloc] initWithFrame:CGRectMake(ThirdImg.frame.origin.x+ThirdImg.frame.size.width, ThirdImg.frame.origin.y+(ThirdImg.frame.size.height/2), (KWidth-160)/3, 1)];
+//            gotoNext3.backgroundColor=[UIColor grayColor];
+//            [BackView_img_status addSubview:gotoNext3];
+//            UIImageView * FourthImg=[[UIImageView alloc] initWithFrame:CGRectMake(gotoNext3.frame.origin.x+gotoNext3.frame.size.width, firstImg.frame.origin.y, 20, 20)];
+//            FourthImg.layer.masksToBounds=YES;
+//            FourthImg.layer.cornerRadius=10;
+//            FourthImg.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+//            FourthImg.image=[UIImage imageNamed:@"sure.png"];
+//            UILabel * lbl_Image_Forth=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5*4+lbl_Image_First.frame.size.width*3, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 15)];
+//            lbl_Image_Forth.text=@"已收货";
+//            lbl_Image_Forth.font=[UIFont fontWithName:@"Helvetica" size:15];
+//            //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+//            [BackView_img_status addSubview:lbl_Image_Forth];
+//            [BackView_img_status addSubview:FourthImg];
+//            [OrderAfterPay addSubview:BackView_img_status];
 
         }
             break;
@@ -426,7 +515,7 @@
             [BackView_OrderTitle addSubview:backview_StatusInfo];
             
             UIButton * cansalOrder=[[UIButton alloc] initWithFrame:CGRectMake(KWidth-10-60, backview_StatusInfo.frame.origin.y+backview_StatusInfo.frame.size.height+5, 60, 30)];
-            [cansalOrder setTitle:@"订单投诉" forState:UIControlStateNormal];
+            [cansalOrder setTitle:@"订单评价" forState:UIControlStateNormal];
             [cansalOrder setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             cansalOrder.layer.borderWidth=1.0;
             cansalOrder.layer.cornerRadius=5;
@@ -643,7 +732,7 @@
             ThirdImg.image=[UIImage imageNamed:@"no_icon.png"];
             [BackView_img_status addSubview:ThirdImg];
             UILabel * lbl_Image_Third=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5*3+lbl_Image_First.frame.size.width*2, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 10)];
-            lbl_Image_Third.text=@"配送中";
+            lbl_Image_Third.text=@"订单取消";
             lbl_Image_Third.font=[UIFont fontWithName:@"Helvetica" size:15];
             //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
             [BackView_img_status addSubview:lbl_Image_Third];
@@ -692,7 +781,7 @@
             ThirdImg.image=[UIImage imageNamed:@"no_icon.png"];
             [BackView_img_status addSubview:ThirdImg];
             UILabel * lbl_Image_Third=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5*3+lbl_Image_First.frame.size.width*2, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 10)];
-            lbl_Image_Third.text=@"配送中";
+            lbl_Image_Third.text=@"订单取消";
             lbl_Image_Third.font=[UIFont fontWithName:@"Helvetica" size:15];
             //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
             [BackView_img_status addSubview:lbl_Image_Third];
@@ -741,7 +830,7 @@
             ThirdImg.image=[UIImage imageNamed:@"no_icon.png"];
             [BackView_img_status addSubview:ThirdImg];
             UILabel * lbl_Image_Third=[[UILabel alloc] initWithFrame:CGRectMake((KWidth-280)/5*3+lbl_Image_First.frame.size.width*2, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 10)];
-            lbl_Image_Third.text=@"配送中";
+            lbl_Image_Third.text=@"订单取消";
             lbl_Image_Third.font=[UIFont fontWithName:@"Helvetica" size:15];
             //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
             [BackView_img_status addSubview:lbl_Image_Third];
@@ -954,7 +1043,11 @@
 }
 -(void)dingdanTousu
 {
-    NSLog(@"订单投诉");
+    NSLog(@"订单评价");
+    _mypingjia=[[PingjiaForOrderViewController alloc] init];
+    _mypingjia.goodsList=_orderData;
+    _mypingjia.OrderInfo=OrderInfo;
+    [self.navigationController pushViewController:_mypingjia animated:YES];
 }
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
