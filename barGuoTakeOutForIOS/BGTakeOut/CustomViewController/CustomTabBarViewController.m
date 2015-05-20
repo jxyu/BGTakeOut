@@ -13,8 +13,7 @@
 #import "BGBangViewController.h"
 #import "FoundViewController.h"
 #import "MineViewController.h"
-
-
+#import "PingjiaViewController.h"
 #import "UIImage+NSBundle.h"
 
 

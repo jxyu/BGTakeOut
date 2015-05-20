@@ -82,6 +82,35 @@
  *  @param token  用户的token
  */
 -(void)commitdevicetokenWithUserid:(NSString*)userid token:(NSString*)token;
+
+/**
+ *  获得餐厅评论
+ *
+ *  @param page   页数
+ *  @param num    每页的条数
+ *  @param resid  餐厅id
+ *  @param isText 是否包含内容的评论，0代表全部，1代表有内容
+ */
+-(void)getCommentsWihtPage:(NSInteger)page num:(NSInteger)num resid:(NSInteger)resid iscontaintext:(NSInteger)isText;
+/**
+ *  获得订单详情
+ *
+ *  @param ordernum 订单号
+ 
+ 返回值说明：status:代表订单状态
+ 
+ 0->提交订单，等待付款
+ 1->付款完成，等待餐厅接单
+ 2->餐厅接单完成
+ 3->买家确认收货,交易成功
+ 4->正在配送
+ 
+ 7->未付款,订单取消，交易关闭
+ 8->已付款，订单取消，等待退款
+ 9->退款成功，交易关闭
+ 10->已付款，订单取消，等待卖家审核
+ */
+-(void)getOrderDetailWithOrdernum:(NSString*)ordernum ;
 //执行回调函数
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName;
 

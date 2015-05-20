@@ -10,5 +10,6 @@
 
 @interface PingjiaViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property   (nonatomic,strong) UITableView* allTableview;
+@property   (nonatomic,strong)  NSString*   resid;
 @end

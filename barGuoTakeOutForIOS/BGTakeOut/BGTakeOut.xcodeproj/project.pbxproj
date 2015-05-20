@@ -251,8 +251,10 @@
 		8A16D2881B098B3200974168 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D2871B098B3200974168 /* HMSegmentedControl.m */; };
 		8A16D28C1B098C8A00974168 /* OrderPingjiaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D28A1B098C8A00974168 /* OrderPingjiaViewController.m */; };
 		8A16D28D1B098C8A00974168 /* OrderPingjiaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A16D28B1B098C8A00974168 /* OrderPingjiaViewController.xib */; };
-		8A16D2971B09E82C00974168 /* PingjiaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D2951B09E82C00974168 /* PingjiaTableViewCell.m */; };
-		8A16D2981B09E82C00974168 /* PingjiaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A16D2961B09E82C00974168 /* PingjiaTableViewCell.xib */; };
+		8A16D29B1B0A129900974168 /* ShopPingjia.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D29A1B0A129900974168 /* ShopPingjia.m */; };
+		8A16D29E1B0ABDBF00974168 /* PingjiaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D29D1B0ABDBF00974168 /* PingjiaTableViewCell.m */; };
+		8A16D2A21B0AD0BA00974168 /* AMRatingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D2A11B0AD0BA00974168 /* AMRatingControl.m */; };
+		8A16D2A41B0B0CD700974168 /* pingjia_orderdetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A16D2A31B0B0CD700974168 /* pingjia_orderdetail@2x.png */; };
 		8A4B997E1B02F9FE0051B915 /* index_10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4B99761B02F9FE0051B915 /* index_10@2x.png */; };
 		8A4B997F1B02F9FE0051B915 /* index_11@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4B99771B02F9FE0051B915 /* index_11@2x.png */; };
 		8A4B99801B02F9FE0051B915 /* index_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4B99781B02F9FE0051B915 /* index_12@2x.png */; };
@@ -673,9 +675,13 @@
 		8A16D2891B098C8A00974168 /* OrderPingjiaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPingjiaViewController.h; sourceTree = "<group>"; };
 		8A16D28A1B098C8A00974168 /* OrderPingjiaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPingjiaViewController.m; sourceTree = "<group>"; };
 		8A16D28B1B098C8A00974168 /* OrderPingjiaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderPingjiaViewController.xib; sourceTree = "<group>"; };
-		8A16D2941B09E82C00974168 /* PingjiaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingjiaTableViewCell.h; sourceTree = "<group>"; };
-		8A16D2951B09E82C00974168 /* PingjiaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingjiaTableViewCell.m; sourceTree = "<group>"; };
-		8A16D2961B09E82C00974168 /* PingjiaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PingjiaTableViewCell.xib; sourceTree = "<group>"; };
+		8A16D2991B0A129900974168 /* ShopPingjia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopPingjia.h; sourceTree = "<group>"; };
+		8A16D29A1B0A129900974168 /* ShopPingjia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopPingjia.m; sourceTree = "<group>"; };
+		8A16D29C1B0ABDBF00974168 /* PingjiaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingjiaTableViewCell.h; sourceTree = "<group>"; };
+		8A16D29D1B0ABDBF00974168 /* PingjiaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingjiaTableViewCell.m; sourceTree = "<group>"; };
+		8A16D2A01B0AD0BA00974168 /* AMRatingControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMRatingControl.h; sourceTree = "<group>"; };
+		8A16D2A11B0AD0BA00974168 /* AMRatingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMRatingControl.m; sourceTree = "<group>"; };
+		8A16D2A31B0B0CD700974168 /* pingjia_orderdetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pingjia_orderdetail@2x.png"; sourceTree = "<group>"; };
 		8A4B99761B02F9FE0051B915 /* index_10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_10@2x.png"; sourceTree = "<group>"; };
 		8A4B99771B02F9FE0051B915 /* index_11@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_11@2x.png"; sourceTree = "<group>"; };
 		8A4B99781B02F9FE0051B915 /* index_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_12@2x.png"; sourceTree = "<group>"; };
@@ -1048,6 +1054,7 @@
 		80843EFC1AE2376B006AC3B7 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				8A16D2A31B0B0CD700974168 /* pingjia_orderdetail@2x.png */,
 				804038841B06E48500061866 /* jiawei.png */,
 				804038601B06D62500061866 /* 15.png */,
 				804038611B06D62500061866 /* bi.png */,
@@ -1430,6 +1437,7 @@
 		80F04CC51AE7959C00A29052 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				8A16D29F1B0AD0BA00974168 /* AMRatingControll */,
 				8A16D2851B098B3200974168 /* HMSegmentedControl */,
 				8AECF47C1B073EA300410A47 /* SVProgressHUD */,
 				8AB4A0EF1B06F78F0007BC48 /* SlideImageView */,
@@ -1486,11 +1494,22 @@
 				8A16D2801B09855500974168 /* PingjiaViewController.h */,
 				8A16D2811B09855500974168 /* PingjiaViewController.m */,
 				8A16D2821B09855500974168 /* PingjiaViewController.xib */,
-				8A16D2941B09E82C00974168 /* PingjiaTableViewCell.h */,
-				8A16D2951B09E82C00974168 /* PingjiaTableViewCell.m */,
-				8A16D2961B09E82C00974168 /* PingjiaTableViewCell.xib */,
+				8A16D2991B0A129900974168 /* ShopPingjia.h */,
+				8A16D29A1B0A129900974168 /* ShopPingjia.m */,
+				8A16D29C1B0ABDBF00974168 /* PingjiaTableViewCell.h */,
+				8A16D29D1B0ABDBF00974168 /* PingjiaTableViewCell.m */,
 			);
 			name = Pingjia;
+			sourceTree = "<group>";
+		};
+		8A16D29F1B0AD0BA00974168 /* AMRatingControll */ = {
+			isa = PBXGroup;
+			children = (
+				8A16D2A01B0AD0BA00974168 /* AMRatingControl.h */,
+				8A16D2A11B0AD0BA00974168 /* AMRatingControl.m */,
+			);
+			name = AMRatingControll;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		8A5D7F251B04310200F96831 /* Umeng */ = {
@@ -1756,7 +1775,6 @@
 				80D309CB1B04C2B9009A2BF3 /* zanhui.png in Resources */,
 				80D309B51B04B73F009A2BF3 /* AddAddressViewController.xib in Resources */,
 				80D5EEE31AFDEEB600C95421 /* radio_btn_selected.png in Resources */,
-				8A16D2981B09E82C00974168 /* PingjiaTableViewCell.xib in Resources */,
 				8A5D7F5D1B04332200F96831 /* UMShareEditViewControlleriPad.xib in Resources */,
 				80793F9F1AEF84450066C62C /* gouwuche.png in Resources */,
 				8A16D2841B09855500974168 /* PingjiaViewController.xib in Resources */,
@@ -1871,6 +1889,7 @@
 				804038811B06D62500061866 /* zheng.png in Resources */,
 				802DB4841AEA44FF00140AA9 /* like_icon.png in Resources */,
 				809C10011AF714E90059A317 /* BGB.png in Resources */,
+				8A16D2A41B0B0CD700974168 /* pingjia_orderdetail@2x.png in Resources */,
 				804038721B06D62500061866 /* 15.png in Resources */,
 				803D49091AFDB7E30099138A /* AlipaySDK.bundle in Resources */,
 				8A4B99831B02F9FE0051B915 /* index_15@2x.png in Resources */,
@@ -1971,6 +1990,7 @@
 				806383EE1AF0BE6500AF9866 /* SDWebImageDecoder.m in Sources */,
 				80D3096A1B04B706009A2BF3 /* WaiMAIViewController.m in Sources */,
 				806383F11AF0BE6500AF9866 /* SDWebImageManager.m in Sources */,
+				8A16D29E1B0ABDBF00974168 /* PingjiaTableViewCell.m in Sources */,
 				80D309881B04B721009A2BF3 /* GoodsTableViewCell.m in Sources */,
 				80D309961B04B736009A2BF3 /* FoundTableViewCell.m in Sources */,
 				80B9F23E1AF87757003C264D /* VPImageCropperViewController.m in Sources */,
@@ -1990,7 +2010,6 @@
 				80D309D21B04DABA009A2BF3 /* IndexViewController.m in Sources */,
 				8088515A1AE8D83E002614AC /* TQStarRatingView.m in Sources */,
 				806383BF1AF0624E00AF9866 /* JSBadgeView.m in Sources */,
-				8A16D2971B09E82C00974168 /* PingjiaTableViewCell.m in Sources */,
 				808995FB1AE0DED90059038D /* YJViewController.m in Sources */,
 				804E96CB1B0234AC00803F5C /* UIImage+NSBundle.m in Sources */,
 				804E96C21B02311D00803F5C /* BaseNavigationController.m in Sources */,
@@ -2017,6 +2036,7 @@
 				806F9D921B09CDC90076B81F /* PinglunForBGBangViewController.m in Sources */,
 				80F04CCE1AE795FB00A29052 /* NYSegmentedControl.m in Sources */,
 				80A529411AE48EDE00FE6F90 /* UIView+SDExtension.m in Sources */,
+				8A16D2A21B0AD0BA00974168 /* AMRatingControl.m in Sources */,
 				808996001AE0DEFB0059038D /* RegisterByVoiceCallViewController.m in Sources */,
 				8A71D0A81B01DE1600D6C01D /* CreditNavigationController.m in Sources */,
 				806383F21AF0BE6500AF9866 /* SDWebImagePrefetcher.m in Sources */,
@@ -2025,6 +2045,7 @@
 				80067CA81ADCA0F100394FB7 /* main.m in Sources */,
 				80A5293E1AE48EDE00FE6F90 /* TAAnimatedDotView.m in Sources */,
 				8AB4A0E41B062AC20007BC48 /* WantRecommendViewController.m in Sources */,
+				8A16D29B1B0A129900974168 /* ShopPingjia.m in Sources */,
 				806383EC1AF0BE6500AF9866 /* SDImageCache.m in Sources */,
 				8A16D2881B098B3200974168 /* HMSegmentedControl.m in Sources */,
 			);
