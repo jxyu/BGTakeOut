@@ -327,15 +327,33 @@
 }
 -(void)ShowOrderListView
 {
-    self.myOrderList=[[OrderListViewController alloc] init];
-    _myOrderList.userid=userinfoWithFile[@"userid"];
-    [self.navigationController pushViewController:_myOrderList animated:YES];
+    if (userinfoWithFile[@"userid"]) {
+        self.myOrderList=[[OrderListViewController alloc] init];
+        _myOrderList.userid=userinfoWithFile[@"userid"];
+        [self.navigationController pushViewController:_myOrderList animated:YES];
+    }
+    else
+    {
+        _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
+        [_myLogin setDelegateObject:self setBackFunctionName:@"CallBackFuc:"];
+        [self.navigationController pushViewController:_myLogin animated:YES];
+    }
+    
 }
 -(void)ShowCollectionVC
 {
-    self.myCollection=[[ClictionViewController alloc] init];
-    _myCollection.userid=userinfoWithFile[@"userid"];
-    [self.navigationController pushViewController:_myCollection animated:YES];
+    
+    if (userinfoWithFile[@"userid"]) {
+        self.myCollection=[[ClictionViewController alloc] init];
+        _myCollection.userid=userinfoWithFile[@"userid"];
+        [self.navigationController pushViewController:_myCollection animated:YES];
+    }
+    else
+    {
+        _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
+        [_myLogin setDelegateObject:self setBackFunctionName:@"CallBackFuc:"];
+        [self.navigationController pushViewController:_myLogin animated:YES];
+    }
 }
 -(void)viewWillAppear:(BOOL)animated
 {

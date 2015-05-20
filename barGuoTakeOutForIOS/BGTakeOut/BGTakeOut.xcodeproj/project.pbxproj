@@ -114,6 +114,9 @@
 		8072B9091AEB34D800597ABB /* lipin_xiaomi.png in Resources */ = {isa = PBXBuildFile; fileRef = 8072B9061AEB34D800597ABB /* lipin_xiaomi.png */; };
 		80793F9D1AEF60A20066C62C /* ShoppingCarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 80793F9C1AEF60A20066C62C /* ShoppingCarModel.m */; };
 		80793F9F1AEF84450066C62C /* gouwuche.png in Resources */ = {isa = PBXBuildFile; fileRef = 80793F9E1AEF84450066C62C /* gouwuche.png */; };
+		8083AA2C1B0C2C1500307238 /* index_waimai1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8083AA2A1B0C2C1500307238 /* index_waimai1.png */; };
+		8083AA2D1B0C2C1500307238 /* index_waimai2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8083AA2B1B0C2C1500307238 /* index_waimai2.png */; };
+		8083AA2F1B0C7CDC00307238 /* renzheng_BackView.png in Resources */ = {isa = PBXBuildFile; fileRef = 8083AA2E1B0C7CDC00307238 /* renzheng_BackView.png */; };
 		80843F181AE25ACC006AC3B7 /* joke.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 80843F131AE25ACC006AC3B7 /* joke.jpg */; };
 		80843F191AE25ACC006AC3B7 /* lipin_more.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 80843F141AE25ACC006AC3B7 /* lipin_more.jpg */; };
 		80843F1A1AE25ACC006AC3B7 /* luck.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 80843F151AE25ACC006AC3B7 /* luck.jpg */; };
@@ -478,6 +481,9 @@
 		80793F9B1AEF60A20066C62C /* ShoppingCarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCarModel.h; sourceTree = "<group>"; };
 		80793F9C1AEF60A20066C62C /* ShoppingCarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCarModel.m; sourceTree = "<group>"; };
 		80793F9E1AEF84450066C62C /* gouwuche.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gouwuche.png; sourceTree = "<group>"; };
+		8083AA2A1B0C2C1500307238 /* index_waimai1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = index_waimai1.png; sourceTree = "<group>"; };
+		8083AA2B1B0C2C1500307238 /* index_waimai2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = index_waimai2.png; sourceTree = "<group>"; };
+		8083AA2E1B0C7CDC00307238 /* renzheng_BackView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = renzheng_BackView.png; sourceTree = "<group>"; };
 		80843F131AE25ACC006AC3B7 /* joke.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = joke.jpg; sourceTree = "<group>"; };
 		80843F141AE25ACC006AC3B7 /* lipin_more.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lipin_more.jpg; sourceTree = "<group>"; };
 		80843F151AE25ACC006AC3B7 /* luck.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = luck.jpg; sourceTree = "<group>"; };
@@ -1048,6 +1054,9 @@
 		80843EFC1AE2376B006AC3B7 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				8083AA2E1B0C7CDC00307238 /* renzheng_BackView.png */,
+				8083AA2A1B0C2C1500307238 /* index_waimai1.png */,
+				8083AA2B1B0C2C1500307238 /* index_waimai2.png */,
 				804038841B06E48500061866 /* jiawei.png */,
 				804038601B06D62500061866 /* 15.png */,
 				804038611B06D62500061866 /* bi.png */,
@@ -1774,6 +1783,7 @@
 				809ABD561AFCAC6B00E7C662 /* placeholder@2x.png in Resources */,
 				80D309C81B04C2B9009A2BF3 /* fenxianghong.png in Resources */,
 				804038821B06D62500061866 /* zhi.png in Resources */,
+				8083AA2C1B0C2C1500307238 /* index_waimai1.png in Resources */,
 				80D309611B04B706009A2BF3 /* AutoLocationViewController.xib in Resources */,
 				8A5D7F5E1B04332200F96831 /* UMSLoginViewController.xib in Resources */,
 				8047850D1AF99A15001B451E /* tengxun.png in Resources */,
@@ -1821,6 +1831,7 @@
 				8A5D7F561B04332200F96831 /* UMSocialLocalizable.strings in Resources */,
 				809C10141AF7408E0059A317 /* cp.png in Resources */,
 				804038761B06D62500061866 /* han.png in Resources */,
+				8083AA2D1B0C2C1500307238 /* index_waimai2.png in Resources */,
 				80D309741B04B718009A2BF3 /* BGBangTableViewCell.xib in Resources */,
 				804784FF1AF99A15001B451E /* baidu.png in Resources */,
 				80D5EEE81AFDEEB600C95421 /* timer.png in Resources */,
@@ -1828,6 +1839,7 @@
 				8AB4A0EA1B06D4830007BC48 /* BGBTableViewCell.xib in Resources */,
 				80DCBB481B04427600D2D3A1 /* shoucang@2x.png in Resources */,
 				8AB4A0F71B06F7D10007BC48 /* ShopAlbumViewController.xib in Resources */,
+				8083AA2F1B0C7CDC00307238 /* renzheng_BackView.png in Resources */,
 				80D309C31B04B73F009A2BF3 /* UserInfoViewController.xib in Resources */,
 				8AB4A0ED1B06D55E0007BC48 /* xing_mi@2x.png in Resources */,
 				804785101AF99A15001B451E /* xinlang.png in Resources */,

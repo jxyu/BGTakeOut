@@ -101,15 +101,6 @@ static NSMutableArray* _userData2;
                 [self inputPwd];
                 NSLog(@"%@",self.telLabel.text);
                 NSLog(@"验证成功");
-//                NSString* str=[NSString stringWithFormat:NSLocalizedString(@"验证成功", nil)];
-//                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"通知", nil)
-//                                                              message:str
-//                                                             delegate:self
-//                                                    cancelButtonTitle:NSLocalizedString(@"确定", nil)
-//                                                    otherButtonTitles:nil, nil];
-//                [alert show];
-//                _alert3=alert;
-                
             }
             else if(0==state)
             {
@@ -387,21 +378,24 @@ static NSMutableArray* _userData2;
 {
     UIView * backForPwd =[[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height)];
     backForPwd.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-    UILabel * Pwd =[[UILabel alloc ] initWithFrame:CGRectMake(10, 40, 80, 30)];
+    UIView * Backview=[[UIView alloc] initWithFrame:CGRectMake(0, 50, SCREEN_WIDTH, 40)];
+    Backview.backgroundColor=[UIColor whiteColor];
+    UILabel * Pwd =[[UILabel alloc ] initWithFrame:CGRectMake(10, 5, 80, 30)];
     Pwd.text=@"密码：";
-    [backForPwd addSubview:Pwd];
-    UIView * lastView=[[backForPwd subviews] lastObject];
+    [Backview addSubview:Pwd];
+    UIView * lastView=Pwd;
     CGFloat x=lastView.frame.origin.x+lastView.frame.size.width;
-    txt_pwd=[[UITextField alloc] initWithFrame:CGRectMake(x, 40, 200, 30)];
+    txt_pwd=[[UITextField alloc] initWithFrame:CGRectMake(x, 0, 200, 40)];
     [txt_pwd setPlaceholder:@"输入密码"];
     [txt_pwd setKeyboardType:UIKeyboardTypeAlphabet];
-    txt_pwd.layer.borderWidth=1;
-    [backForPwd addSubview:txt_pwd];
-    
-    UIButton * tijiao=[[UIButton alloc] initWithFrame:CGRectMake(30, 90, 260, 30)];
+    [Backview addSubview:txt_pwd];
+    [backForPwd addSubview:Backview];
+    UIButton * tijiao=[[UIButton alloc] initWithFrame:CGRectMake(30, 110, 260, 40)];
     [tijiao setTitle:@"确定" forState:UIControlStateNormal];
     [tijiao setTintColor:[UIColor whiteColor]];
     [tijiao setBackgroundColor:[UIColor redColor]];
+    tijiao.layer.masksToBounds=YES;
+    tijiao.layer.cornerRadius=6;
     [tijiao addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchUpInside];
     [backForPwd addSubview:tijiao];
     [self.view addSubview:backForPwd];
@@ -428,7 +422,17 @@ static NSMutableArray* _userData2;
                                             cancelButtonTitle:@"确定"
                                             otherButtonTitles:nil, nil];
         [alert show];
-        [self.view removeFromSuperview];
+        
+    }
+    else
+    {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"通知", nil)
+                                                      message:NSLocalizedString(dict[@"msg"], nil)
+                                                     delegate:self
+                                            cancelButtonTitle:@"确定"
+                                            otherButtonTitles:nil, nil];
+        [alert show];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 

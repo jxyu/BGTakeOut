@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
@@ -23,8 +23,8 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1dF-uZ-Pzp">
-                        <rect key="frame" x="250" y="13" width="57" height="28"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="renzheng_BackView.png" translatesAutoresizingMaskIntoConstraints="NO" id="1dF-uZ-Pzp">
+                        <rect key="frame" x="227" y="8" width="80" height="21"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="地址：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Tx-Ko-VIt">
                         <rect key="frame" x="89" y="42" width="34" height="21"/>
@@ -38,18 +38,24 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GmA-Xb-peU">
-                        <rect key="frame" x="89" y="63" width="86" height="27"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <state key="normal" title="(10)喜欢" image="zanhui@2x">
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PJG-p3-vAw">
+                        <rect key="frame" x="227" y="64" width="61" height="25"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="分享" image="fenxianghui@2x">
                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PJG-p3-vAw">
-                        <rect key="frame" x="218" y="64" width="61" height="25"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <state key="normal" title="分享" image="fenxianghui@2x">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9dn-ub-ISt">
+                        <rect key="frame" x="240" y="8" width="54" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GmA-Xb-peU">
+                        <rect key="frame" x="107" y="62" width="106" height="27"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <state key="normal" title="(10)喜欢" image="zanhui@2x">
                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -61,6 +67,7 @@
                 <outlet property="Name" destination="ISg-kw-PKq" id="FSj-9n-7P2"/>
                 <outlet property="adress" destination="OMV-xc-1ur" id="ab5-Uy-hSP"/>
                 <outlet property="dianzan" destination="GmA-Xb-peU" id="URl-a6-GK6"/>
+                <outlet property="lbl_renzheng" destination="9dn-ub-ISt" id="a3d-s3-ZDk"/>
                 <outlet property="logoImage" destination="9js-x8-fa3" id="a40-8A-we0"/>
                 <outlet property="renzheng" destination="1dF-uZ-Pzp" id="SJ1-jR-6oo"/>
             </connections>
@@ -69,6 +76,7 @@
     </objects>
     <resources>
         <image name="fenxianghui@2x" width="22" height="22"/>
+        <image name="renzheng_BackView.png" width="111" height="32"/>
         <image name="zanhui@2x" width="22" height="22"/>
     </resources>
 </document>

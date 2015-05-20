@@ -11,6 +11,5 @@
 
 @interface AutoLocationViewController : BaseNavigationController
 
--(void)clickLeftButton;
 
 @end
