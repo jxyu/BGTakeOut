@@ -36,7 +36,7 @@
     
     AFHTTPRequestOperation * httprequest=[[AFHTTPRequestOperation alloc] initWithRequest:request];
     [httprequest setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSString * datastr= httprequest.responseString;
+        //        NSString * datastr= httprequest.responseString;
         _data=httprequest.responseData;
         id dict =[NSJSONSerialization JSONObjectWithData:_data options:0 error:nil];
         //执行回调操作
@@ -59,9 +59,9 @@
     NSString * xiaohua=[NSString stringWithFormat:@"%@dailyjokes.php",KURL];
     NSDictionary * prm=@{@"page":@"1",@"num":@"2"};
     [self PostRequest:xiaohua andpram:prm];
-//    NSLog(@"%@",str);
-
-
+    //    NSLog(@"%@",str);
+    
+    
 }
 
 #pragma mark 获取礼品列表
@@ -69,7 +69,7 @@
     NSString * lipin=[NSString stringWithFormat:@"%@gifts.php",KURL];
     NSDictionary * prm=@{@"page":@"1",@"num":@"2"};
     [self PostRequest:lipin andpram:prm];
-//    NSLog(@"%@",str);
+    //    NSLog(@"%@",str);
     
     
 }
@@ -275,7 +275,7 @@
     NSString * redirect_url=[NSString stringWithFormat:@"%@server/Home/User/api_getduibaurlfordetail",KURL];
     NSDictionary * prm=@{@"appkey":appkey,@"appsecret":appsecret,@"userid":userid,@"url":url};
     [self PostRequest:redirect_url andpram:prm];
-
+    
 }
 /**
  *  获得兑吧自动登录url
@@ -291,7 +291,7 @@
         [self PostRequest:url andpram:prm];
     }
     
-
+    
 }
 -(void)commitdevicetokenWithUserid:(NSString*)userid token:(NSString*)token{
     if(userid&&token){
@@ -419,7 +419,7 @@
         //        NSDictionary * dict =responseObject;
         NSString *str=[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSData * data =[str dataUsingEncoding:NSUTF8StringEncoding];
-    id dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        id dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         
         SEL func_selector = NSSelectorFromString(callBackFunctionName);
         if ([CallBackObject respondsToSelector:func_selector]) {
@@ -438,14 +438,14 @@
 - (void)uploadImageWithImage:(NSString *)imagePath andurl:(NSString *)url
 {
     NSData *data=[NSData dataWithContentsOfFile:imagePath];
-     NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-         [formData appendPartWithFileData:data name:@"image" fileName:@"avatar.png" mimeType:@"image/png"];
-     }];
+    NSURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:data name:@"image" fileName:@"avatar.png" mimeType:@"image/png"];
+    }];
     
     
     AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-         NSString *str=[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSString *str=[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSData * data =[str dataUsingEncoding:NSUTF8StringEncoding];
         id dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         
@@ -464,10 +464,20 @@
     //执行
     NSOperationQueue * queue =[[NSOperationQueue alloc] init];
     [queue addOperation:op];
-
+    
 }
 
-
-
+#pragma mark 获得餐厅评价
+-(void)getCommentsWihtPage:(NSInteger)page num:(NSInteger)num resid:(NSInteger)resid iscontaintext:(NSInteger)isText{
+    NSDictionary* param=@{@"page":    [NSString stringWithFormat:@"%ld",page],@"num":    [NSString stringWithFormat:@"%ld",num],@"resid":    [NSString stringWithFormat:@"%ld",resid],@"iscontaintext":    [NSString stringWithFormat:@"%ld",isText]};
+    NSString * url=[NSString stringWithFormat:@"%@getcomments.php",KURL];
+    [self PostRequest:url andpram:param];
+}
+#pragma mark 获得订单详情
+-(void)getOrderDetailWithOrdernum:(NSString*)ordernum {
+    NSDictionary* param=@{@"ordernum":ordernum };
+    NSString * url=[NSString stringWithFormat:@"%@getorderdetail.php",KURL];
+    [self PostRequest:url andpram:param];
+}
 @end
 

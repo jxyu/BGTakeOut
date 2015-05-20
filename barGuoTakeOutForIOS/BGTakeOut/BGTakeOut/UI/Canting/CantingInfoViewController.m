@@ -806,6 +806,7 @@
     [dataprovider GetPinglun:_resid andpage:@"1" andnumInPage:@"6" andiscontaintext:@"1"];
     
     PingjiaViewController * pingjia =[[PingjiaViewController alloc] init];
+    pingjia.resid=_resid;
     [self.navigationController pushViewController:pingjia animated:YES];
     
 }
