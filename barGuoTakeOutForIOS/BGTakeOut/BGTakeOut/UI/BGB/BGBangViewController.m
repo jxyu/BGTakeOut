@@ -318,6 +318,7 @@
     _BGBangDetialVC.articleid=_TextArray[indexPath.row][@"articleid"];
     _BGBangDetialVC.userid=dictionary[@"userid"];
     [self.navigationController pushViewController:_BGBangDetialVC animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO]; 
 }
 
 -(void)SegMentControlClick

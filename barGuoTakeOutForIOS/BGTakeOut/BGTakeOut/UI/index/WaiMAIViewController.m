@@ -310,7 +310,7 @@
         [cell.PingjiaView addSubview:cell.starRatingView];
         UIButton * zhezhao=[[UIButton alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height)];
         [cell.PingjiaView addSubview:zhezhao];
-//        for (int i=0; i<activearray.count; i++) {
+//        for (int i=0; i<activearray.count; i++) {//此处，鲁森说cell的下边不要active了，所以注释掉
 //            UIImageView * img_icon;
 //            switch ([activearray[i][@"actid"] intValue]) {
 //                case 1:
@@ -390,6 +390,7 @@
         
         [alert show];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO]; 
     
     
 }
