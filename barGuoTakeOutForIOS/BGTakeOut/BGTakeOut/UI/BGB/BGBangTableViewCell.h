@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *adress;
 @property (weak, nonatomic) IBOutlet UIButton *dianzan;
 @property (weak, nonatomic) IBOutlet UIButton *Btn_share;
+@property (weak, nonatomic) IBOutlet UILabel *lbl_renzheng;
 
 
 @end

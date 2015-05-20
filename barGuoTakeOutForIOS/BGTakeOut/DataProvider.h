@@ -57,6 +57,9 @@
 
 -(void)SubmitUserOrderPingjia:(id)prm;
 -(void)SubmitBGBangPingjia:(id)prm;
+-(void)BGBangDianzanFuncWithuserid:(NSString *)userid andartid:(NSString *)articleid;
+-(void)BGBangXintuijian:(id)prm;
+
 
 /**
  *  获得兑吧详情页

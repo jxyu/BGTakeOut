@@ -388,6 +388,22 @@
     }
 }
 
+-(void)BGBangDianzanFuncWithuserid:(NSString *)userid andartid:(NSString *)articleid
+{
+    if (userid&&articleid) {
+        NSString * url=[NSString stringWithFormat:@"%@getbaguorankcate.php",KURL];
+        NSDictionary * prm=@{@"userid":userid,@"articleid":articleid};
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)BGBangXintuijian:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Rank/ai_getNewRank",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
 {
     AFHTTPRequestOperationManager * manage=[[AFHTTPRequestOperationManager alloc] init];

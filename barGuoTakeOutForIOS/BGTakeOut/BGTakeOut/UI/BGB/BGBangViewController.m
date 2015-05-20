@@ -38,6 +38,7 @@
 
 @implementation BGBangViewController
 {
+    UITableView * mytableView;
     NSString * _page;
     NSString * _num;
     NSString * _sort;
@@ -51,13 +52,14 @@
     
     NSMutableArray *MenuFirstTypeArray;
     NSMutableArray * MenuSencondTypeArrau;
+    BOOL isAgain;//标记是否为第二次请求列表数据
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
+    
     // 数据
     self.classifys = @[@"美食",@"今日新单",@"电影",@"酒店"];
     self.cates = @[@"自助餐",@"快餐",@"火锅",@"日韩料理",@"西餐",@"烧烤小吃"];
@@ -65,7 +67,7 @@
     self.hostels = @[@"经济酒店",@"商务酒店",@"连锁酒店",@"度假酒店",@"公寓酒店"];
     self.areas = @[@"全城",@"芙蓉区",@"雨花区",@"天心区",@"开福区",@"岳麓区"];
     self.sorts = @[@"默认排序",@"离我最近",@"好评优先",@"人气优先",@"最新发布"];
-    
+    isAgain=NO;
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
@@ -73,7 +75,8 @@
     
    
     
-    if (dictionary) {
+    if (dictionary[@"userid"]) {
+        [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
         //添加Segmented Control
         UIView * lastView=[self.view.subviews lastObject];
         UIView * segmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 40)];
@@ -121,7 +124,7 @@
         [_Page addSubview:menu];
         
         [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-            [self MakePramAndGetData:@"1" andNum:@"2" andSort:@"1" andOneid:@"1" andTwoid:@"2" andThreeid:@"9" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude]];
+            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"1" andOneid:@"1" andTwoid:@"2" andThreeid:@"9" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude]];
         }];
         
     }
@@ -258,15 +261,22 @@
 -(void)BuildTextItem:(id)dict
 {
     NSLog(@"%@",dict);
-    if (dict) {
+    if ([dict[@"status"] intValue]==1) {
         [SVProgressHUD dismiss];
         _TextArray =dict[@"data"];
-        UIView * lastView =[_Page.subviews lastObject];
-        UITableView * mytableView =[[UITableView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height, _Page.frame.size.width, _Page.frame.size.height-lastView.frame.size.height)];
+        if (!isAgain) {
+            UIView * lastView =[_Page.subviews lastObject];
+            mytableView =[[UITableView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height, _Page.frame.size.width, _Page.frame.size.height-lastView.frame.size.height)];
+            
+            mytableView.delegate=self;
+            mytableView.dataSource=self;
+            [_Page addSubview:mytableView];
+        }
+        else
+        {
+            [mytableView reloadData];
+        }
         
-        mytableView.delegate=self;
-        mytableView.dataSource=self;
-        [_Page addSubview:mytableView];
     }
     
     
@@ -294,6 +304,19 @@
         cell.Name.text=_TextArray[indexPath.row][@"resname"];
         cell.adress.text=_TextArray[indexPath.row][@"resaddress"];
         cell.logoImage.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,_TextArray[indexPath.row][@"reslogo"]]]]];
+        if ([_TextArray[indexPath.row][@"istarted"] intValue]==1) {
+            [cell.dianzan setImage:[UIImage imageNamed:@"zan@2x"] forState:UIControlStateNormal];
+            [cell.dianzan setTitle:[NSString stringWithFormat:@"(%d)喜欢",[_TextArray[indexPath.row][@"starnum"] intValue]] forState:UIControlStateNormal];
+            [cell.dianzan setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        }
+        else
+        {
+            [cell.dianzan setTitle:[NSString stringWithFormat:@"(%d)喜欢",[_TextArray[indexPath.row][@"starnum"] intValue]] forState:UIControlStateNormal];
+            cell.dianzan.tag=indexPath.row;
+            [cell.dianzan addTarget:self action:@selector(dianzanFunction:) forControlEvents:UIControlEventTouchUpInside];
+            
+        }
+        cell.lbl_renzheng.text=[NSString stringWithFormat:@"认证%@分",_TextArray[indexPath.row][@"authenscore"]];
         [cell.Btn_share addTarget:self action:@selector(BGBangShare:) forControlEvents:UIControlEventTouchUpInside];
         [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
     }
@@ -318,19 +341,25 @@
     _BGBangDetialVC.articleid=_TextArray[indexPath.row][@"articleid"];
     _BGBangDetialVC.userid=dictionary[@"userid"];
     [self.navigationController pushViewController:_BGBangDetialVC animated:YES];
-    [tableView deselectRowAtIndexPath:indexPath animated:NO]; 
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 -(void)SegMentControlClick
 {
     NSLog(@"dsfsadfa%ld",(long)self.segmentedControl.selectedSegmentIndex);
     if (1==self.segmentedControl.selectedSegmentIndex) {
-        _Page.hidden=YES;
+//        _Page.hidden=YES;
         NSLog(@"other");
+        NSDictionary * prm=@{@"userid":dictionary[@"userid"],@"page":@"1",@"num":@"8"};
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"OtherClickBackCall:"];
+        [dataprovider BGBangXintuijian:prm];
     }
     else
     {
-        _Page.hidden=NO;
+//        _Page.hidden=NO;
+        [self MakePramAndGetData:_page andNum:_num andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm];
+        isAgain=YES;
     }
 }
 
@@ -373,8 +402,30 @@
     if ([dict[@"status"] intValue]==1) {
         NSArray * MenuArray=[[NSArray alloc] initWithArray:dict[@"data"]];
         [MenuSencondTypeArrau addObject:MenuArray];
-        
+        [SVProgressHUD dismiss];
     }
+}
+
+-(void)dianzanFunction:(UIButton *)sender
+{
+    [SVProgressHUD showWithStatus:@"点赞" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"dianzanBackCall:"];
+    [dataprovider BGBangDianzanFuncWithuserid:dictionary[@"userid"] andartid:_TextArray[sender.tag][@"articleid"]];
+}
+-(void)dianzanBackCall:(id)dict
+{
+    [SVProgressHUD dismiss];
+    if ([dict[@"status"] intValue]==1) {
+        [SVProgressHUD showSuccessWithStatus:@"点赞成功" maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
+
+-(void)OtherClickBackCall:(id)dict
+{
+    NSLog(@"%@",dict);
+    _TextArray=dict[@"data"];
+    [mytableView reloadData];
 }
 
 @end

@@ -142,16 +142,20 @@
         
         [SVProgressHUD showErrorWithStatus:@"登录失败" maskType:SVProgressHUDMaskTypeBlack];
     }
-    [[self navigationController] popViewControllerAnimated:YES];
+    
 }
 -(void)commitSuccess:(id)dict{
-    DLog(@"commitDeviceTokenSuccess:%@",dict);
+    DLog(@"commitDeviceTokenSuccess:%@",dict[@"msg"]);
+    if (dict[@"status"]) {
+        [[self navigationController] popViewControllerAnimated:YES];
+    }
+    
 }
 -(void)clickRightButton:(UIButton *)sender
 {
     RegViewController* reg=[[RegViewController alloc] init];
     [self presentViewController:reg animated:YES completion:^{
-        
+        NSLog(@"zhucewancheng回到前一页");
     }];
 }
 @end

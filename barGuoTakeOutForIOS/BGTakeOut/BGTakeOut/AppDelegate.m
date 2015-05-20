@@ -403,5 +403,15 @@
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider SubmitBGBangPingjia:prm];
 }
+-(void)BGBangDianzanFuncWithuserid:(NSString *)userid andartid:(NSString *)articleid
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider BGBangDianzanFuncWithuserid:userid andartid:articleid];
+}
+-(void)BGBangXintuijian:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider BGBangXintuijian:prm];
+}
 
 @end

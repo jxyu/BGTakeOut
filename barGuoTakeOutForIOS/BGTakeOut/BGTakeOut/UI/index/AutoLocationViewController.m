@@ -55,15 +55,15 @@
     [_selectArea addTarget:self action:@selector(GetAreaList) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_selectArea];
     
-    #pragma mark 添加手动输入送餐地址按钮
-    lastObject=[self.view.subviews lastObject];
-    y=lastObject.frame.size.height+lastObject.frame.origin.y+1;
-    UIButton * selectAreaPsn=[[UIButton alloc] initWithFrame:CGRectMake(0, y, kSWidth, h)];
-    selectAreaPsn.backgroundColor=[UIColor whiteColor];
-    selectAreaPsn.contentHorizontalAlignment=UIControlContentHorizontalAlignmentLeft ;
-    [selectAreaPsn setTitle:@"    详细送餐地址" forState:UIControlStateNormal];
-    [selectAreaPsn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.view addSubview:selectAreaPsn];
+//    #pragma mark 添加手动输入送餐地址按钮//2015-5－20鲁森说这个不要了
+//    lastObject=[self.view.subviews lastObject];
+//    y=lastObject.frame.size.height+lastObject.frame.origin.y+1;
+//    UIButton * selectAreaPsn=[[UIButton alloc] initWithFrame:CGRectMake(0, y, kSWidth, h)];
+//    selectAreaPsn.backgroundColor=[UIColor whiteColor];
+//    selectAreaPsn.contentHorizontalAlignment=UIControlContentHorizontalAlignmentLeft ;
+//    [selectAreaPsn setTitle:@"    详细送餐地址" forState:UIControlStateNormal];
+//    [selectAreaPsn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [self.view addSubview:selectAreaPsn];
     
     #pragma mark添加切换地址
     lastObject=[self.view.subviews lastObject];
@@ -117,6 +117,7 @@
 {
     if ([Toolkit isSystemIOS8]) {
         [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
+            
             NSString *strUrl = [addressString stringByReplacingOccurrencesOfString:@"中国" withString:@""];
             [self setBarTitle:[strUrl stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
         }];
