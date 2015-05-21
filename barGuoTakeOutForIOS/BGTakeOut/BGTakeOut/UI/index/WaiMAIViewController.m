@@ -55,6 +55,7 @@
     NSArray * imagearray1;
     NSArray * imagearray2;
     NSArray * imagearray3;
+    BOOL isAgain;
 }
 
 - (void)viewDidLoad {
@@ -64,6 +65,7 @@
 //        _lat=[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude] ;
 //        _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
 //    }];
+    isAgain=NO;
     //添加导航栏
     [self addLeftButton:@"ic_actionbar_back.png"];
     [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
@@ -139,12 +141,16 @@
 {
     NSLog(@"dsfsadfa%ld",(long)self.segmentedControl.selectedSegmentIndex);
     if (1==self.segmentedControl.selectedSegmentIndex) {
-        _Page.hidden=YES;
+//        _Page.hidden=YES;
          NSLog(@"other");
+        [self GetrestaurantListPage:_page andNum:_num andOrder:_order andActivity:_activity andCategory:@"8" andlat:_lat andlong:_long];
+        [_tableView reloadData];
     }
     else
     {
-        _Page.hidden=NO;
+//        _Page.hidden=NO;
+        [self GetrestaurantListPage:_page andNum:_num andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
+        [_tableView reloadData];
     }
 }
 
@@ -193,7 +199,7 @@
     if (indexPath.item >= 0) {
 //        NSLog(@"点击了 %ld - %ld - %ld 项目",indexPath.column,indexPath.row,indexPath.item);
     }else {
-        NSLog(@"点击了 %ld - %ld 项目",indexPath.column,indexPath.row);
+        NSLog(@"点击了 %ld - %ld 项目",(long)indexPath.column,(long)indexPath.row);
         if (0!=indexPath.row) {
             for (UIView * item in _tableView.subviews) {
                 [item removeFromSuperview];
@@ -250,7 +256,7 @@
 {
     NSArray * activityArray ;
     NSMutableArray * activityData=[[NSMutableArray alloc] init];
-    if (dict) {
+    if ([dict[@"status"] intValue]==1) {
         activityArray=dict[@"data"];
         [activityData addObject:[NSString stringWithFormat:@"促销活动"]];
         for (int i=0; i<activityArray.count; i++) {
@@ -267,13 +273,14 @@
         NSLog(@"餐厅数据%@",dict);
         Canting=[NSArray arrayWithArray:dict[@"data"]];
         
-        
-        UIView * lastView=[_Page.subviews lastObject];
-        CGFloat y=lastView.frame.origin.y+lastView.frame.size.height;
-        _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-y)];
-        _tableView.delegate=self;
-        _tableView.dataSource=self;
-        [_Page addSubview:_tableView];
+        if (!isAgain) {
+            UIView * lastView=[_Page.subviews lastObject];
+            CGFloat y=lastView.frame.origin.y+lastView.frame.size.height;
+            _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-y)];
+            _tableView.delegate=self;
+            _tableView.dataSource=self;
+            [_Page addSubview:_tableView];
+        }
     }
     [SVProgressHUD dismiss];
     
