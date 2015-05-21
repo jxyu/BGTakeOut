@@ -49,7 +49,7 @@
             }];
         }
         
-        UIScrollView *scrollView_BackView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, SCREEN_HEIGHT-NavigationBar_HEIGHT)];
+        UIScrollView *scrollView_BackView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, SCREEN_HEIGHT-NavigationBar_HEIGHT-20)];
         scrollView_BackView.scrollEnabled=YES;
         page=[[UIView alloc ] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
         UIButton * btn_location=[[UIButton alloc] initWithFrame:CGRectMake(50, 0, SCREEN_WIDTH-100, 64)];
@@ -134,7 +134,8 @@
         [Gift_3 setImage:[UIImage imageNamed:@"lipin_kindle.png"] forState:UIControlStateNormal] ;
         Gift_3.backgroundColor=[UIColor brownColor];
         [page addSubview:Gift_3];
-        [scrollView_BackView setContentSize:CGSizeMake(page.frame.size.width, page.frame.size.height)];
+        
+        [scrollView_BackView setContentSize:CGSizeMake(page.frame.size.width, page.frame.size.height+69)];
         [scrollView_BackView addSubview:page];
         [self.view addSubview:scrollView_BackView];
         //获取轮播图片

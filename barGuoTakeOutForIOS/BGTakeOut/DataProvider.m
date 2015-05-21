@@ -55,13 +55,11 @@
 }
 
 #pragma mark 获取笑话信息
--(void)GetJoke{
+-(void)GetJoke:(NSString *)page andnum:(NSString *)num
+{
     NSString * xiaohua=[NSString stringWithFormat:@"%@dailyjokes.php",KURL];
-    NSDictionary * prm=@{@"page":@"1",@"num":@"2"};
+    NSDictionary * prm=@{@"page":page,@"num":num};
     [self PostRequest:xiaohua andpram:prm];
-    //    NSLog(@"%@",str);
-    
-    
 }
 
 #pragma mark 获取礼品列表

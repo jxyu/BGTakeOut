@@ -15,10 +15,10 @@
 #import "UIImageView+WebCache.h"
 #import "CommenDef.h"
 #import "AppDelegate.h"
+#import "MJRefresh.h"
 
-#define KWidth self.view.frame.size.width
-#define KHeight self.view.frame.size.height
-#define KCantingNum 16
+
+#define KCantingNum 5
 #define KURL @"http://121.42.139.60/baguo/"
 
 @interface WaiMAIViewController ()<DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -56,6 +56,9 @@
     NSArray * imagearray2;
     NSArray * imagearray3;
     BOOL isAgain;
+    
+    NSInteger table_page;
+    NSMutableArray * tabledata;
 }
 
 - (void)viewDidLoad {
@@ -66,13 +69,19 @@
 //        _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
 //    }];
     isAgain=NO;
+    table_page=1;
+    _order=@"1";
+    _category=@"1";
+    _activity=@"1";
+    
     //添加导航栏
     [self addLeftButton:@"ic_actionbar_back.png"];
-    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
+    tabledata=[[NSMutableArray alloc] init];
+//    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     
     //添加Segmented Control
     UIView * lastView=[self.view.subviews lastObject];
-    UIView * segmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 40)];
+    UIView * segmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 40)];
     segmentView.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
     self.segmentedControl = [[NYSegmentedControl alloc] initWithItems:@[@"附近餐厅", @"其他订购"]];
     [_segmentedControl addTarget:self action:@selector(SegMentControlClick) forControlEvents:UIControlEventValueChanged];
@@ -91,14 +100,14 @@
     self.segmentedControl.segmentIndicatorBorderWidth = 0.0f;
     self.segmentedControl.selectedSegmentIndex = 0;
     [self.segmentedControl sizeToFit];
-    self.segmentedControl.frame=CGRectMake(22, 2, KWidth-44, 36);
+    self.segmentedControl.frame=CGRectMake(22, 2, SCREEN_WIDTH-44, 36);
     [segmentView addSubview:_segmentedControl];
     [self.view addSubview:segmentView];
     [self GetActivityes];
     
     lastView=[self.view.subviews lastObject];
     CGFloat ViewHeight=lastView.frame.origin.y+lastView.frame.size.height;
-    _Page=[[UIView alloc] initWithFrame:CGRectMake(0,ViewHeight , KWidth, KHeight-ViewHeight)];
+    _Page=[[UIView alloc] initWithFrame:CGRectMake(0,ViewHeight , SCREEN_WIDTH, SCREEN_HEIGHT-ViewHeight)];
     [self.view addSubview:_Page];
     // 数据
     self.sorts=@[@"促销活动"];
@@ -116,16 +125,30 @@
     menu.dataSource = self;
     [_Page addSubview:menu];
     
-    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-        _lat=[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude] ;
-        _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
-        _page=[NSString stringWithFormat:@"%d",1];
-        _num =[NSString stringWithFormat:@"%d",KCantingNum];
-        _order=[NSString stringWithFormat:@"%d",1];
-        _activity=[NSString stringWithFormat:@"%d",1];
-        _category=[NSString stringWithFormat:@"%d",1];
-        [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:@"1" andCategory:@"1" andlat:_lat andlong:_long];
+//    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+//        _lat=[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude] ;
+//        _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
+//        _page=[NSString stringWithFormat:@"%d",1];
+//        _num =[NSString stringWithFormat:@"%d",KCantingNum];
+//        _order=[NSString stringWithFormat:@"%d",1];
+//        _activity=[NSString stringWithFormat:@"%d",1];
+//        _category=[NSString stringWithFormat:@"%d",1];
+//        [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:@"1" andCategory:@"1" andlat:_lat andlong:_long];
+//    }];
+    
+    
+    lastView=[_Page.subviews lastObject];
+    CGFloat y=lastView.frame.origin.y+lastView.frame.size.height;
+    _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-y)];
+    _tableView.delegate=self;
+    _tableView.dataSource=self;
+    [_Page addSubview:_tableView];
+    __weak typeof(self) weakself=self;
+    [_tableView addLegendFooterWithRefreshingBlock:^{
+        [weakself loadNewData];
     }];
+    
+    [self loadNewData];
 }
 
 
@@ -143,24 +166,15 @@
     if (1==self.segmentedControl.selectedSegmentIndex) {
 //        _Page.hidden=YES;
          NSLog(@"other");
-        [self GetrestaurantListPage:_page andNum:_num andOrder:_order andActivity:_activity andCategory:@"8" andlat:_lat andlong:_long];
+        [self GetrestaurantListPage:@"1" andNum:_num andOrder:_order andActivity:_activity andCategory:@"8" andlat:_lat andlong:_long];
         [_tableView reloadData];
     }
     else
     {
 //        _Page.hidden=NO;
-        [self GetrestaurantListPage:_page andNum:_num andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
+        [self GetrestaurantListPage:@"1" andNum:_num andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
         [_tableView reloadData];
     }
-}
-
-
-
-
-#pragma mark 返回按钮
--(void)clickLeftButton
-{
-    [self.view removeFromSuperview];
 }
 
 
@@ -248,6 +262,7 @@
     }
     [dataprovider setDelegateObject:self setBackFunctionName:@"bulidrestaurantList:"];
     [dataprovider GetrestaurantList:prm];
+    table_page++;
 }
 
 
@@ -263,25 +278,38 @@
             [activityData addObject:[NSString stringWithFormat:@"%@",activityArray[i][@"name"]]];
         }
         self.sorts=activityData;
-        
-        
     }
 }
 -(void)bulidrestaurantList:(id)dict
 {
-    if (dict) {
+    if ([dict[@"status"]intValue]==1) {
         NSLog(@"餐厅数据%@",dict);
         Canting=[NSArray arrayWithArray:dict[@"data"]];
-        
-        if (!isAgain) {
-            UIView * lastView=[_Page.subviews lastObject];
-            CGFloat y=lastView.frame.origin.y+lastView.frame.size.height;
-            _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-y)];
-            _tableView.delegate=self;
-            _tableView.dataSource=self;
-            [_Page addSubview:_tableView];
+        for (int i=0; i<Canting.count; i++) {
+            [tabledata addObject:Canting[i]];
         }
+        [_tableView reloadData];
+        [_tableView.footer endRefreshing];
+    }else{
+        [_tableView.footer endRefreshing];
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:@"请检查网络" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
     }
+
+        if (!isAgain) {
+//            UIView * lastView=[_Page.subviews lastObject];
+//            CGFloat y=lastView.frame.origin.y+lastView.frame.size.height;
+//            _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-y)];
+//            _tableView.delegate=self;
+//            _tableView.dataSource=self;
+//            
+//            [_Page addSubview:_tableView];
+//            __weak typeof(self) weakself=self;
+//            [_tableView addLegendFooterWithRefreshingBlock:^{
+//                [weakself loadNewData];
+//            }];
+        }
+    
     [SVProgressHUD dismiss];
     
 }
@@ -296,7 +324,7 @@
 // tableView每个列的行数，可以为各个列设置不同的行数，根据section的值判断即可
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return Canting.count;
+    return tabledata.count;
 }
 
 // 实现每一行Cell的内容，tableView重用机制
@@ -305,15 +333,15 @@
     static NSString *CellIdentifier = @"CustomCellIdentifier";
     TableViewCell *cell = (TableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        activearray=[[NSArray alloc] initWithArray:Canting[indexPath.row][@"activities"]];
+        activearray=[[NSArray alloc] initWithArray:tabledata[indexPath.row][@"activities"]];
         cell  = [[[NSBundle mainBundle] loadNibNamed:@"TableViewCell" owner:self options:nil] lastObject];
-        [cell.Canting_icon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,Canting[indexPath.row][@"logo"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
-        if ([Canting[indexPath.row][@"isauthentic"] boolValue]) {
+        [cell.Canting_icon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,tabledata[indexPath.row][@"logo"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+        if ([tabledata[indexPath.row][@"isauthentic"] boolValue]) {
             cell.Renzheng.image=[UIImage imageNamed:@"renzheng.png"];
         }
-        cell.CantingName.text=Canting[indexPath.row][@"name"];
-        cell.Adress.text=Canting[indexPath.row][@"addressname"];
-        cell.starRatingView =[[TQStarRatingView alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height) numberOfStar:5 andlightstarnum:[Canting[indexPath.row][@"totalcredit"] intValue]];
+        cell.CantingName.text=tabledata[indexPath.row][@"name"];
+        cell.Adress.text=tabledata[indexPath.row][@"addressname"];
+        cell.starRatingView =[[TQStarRatingView alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height) numberOfStar:5 andlightstarnum:[tabledata[indexPath.row][@"totalcredit"] intValue]];
         [cell.PingjiaView addSubview:cell.starRatingView];
         UIButton * zhezhao=[[UIButton alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height)];
         [cell.PingjiaView addSubview:zhezhao];
@@ -407,6 +435,20 @@
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
 
+-(void)loadNewData{
+    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+        _lat=[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude] ;
+        _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
+        _page=[NSString stringWithFormat:@"%d",1];
+        _num =[NSString stringWithFormat:@"%d",KCantingNum];
+        _order=[NSString stringWithFormat:@"%d",1];
+        _activity=[NSString stringWithFormat:@"%d",1];
+        _category=[NSString stringWithFormat:@"%d",1];
+        [self GetrestaurantListPage:[NSString stringWithFormat:@"%ld",(long)table_page] andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
+    }];
+    
+    
+}
 
 @end
 

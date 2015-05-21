@@ -13,6 +13,4 @@
 @interface WaiMAIViewController : BaseNavigationController
 @property(nonatomic,strong)CantingInfoViewController * myCantingView;
 
--(void)clickLeftButton;
-
 @end

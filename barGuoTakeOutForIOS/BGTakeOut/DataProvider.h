@@ -18,7 +18,7 @@
 }
 @property(nonatomic,strong)NSData * data;
 -(void)PostGetMsg;
--(void)GetJoke;
+-(void)GetJoke:(NSString *)page andnum:(NSString *)num;
 -(void)GetLipin;
 -(void)GetArea:(NSString *) areaid andareatype:(NSString *)areatype;
 -(void)GetrestaurantList:(NSDictionary *)pram;

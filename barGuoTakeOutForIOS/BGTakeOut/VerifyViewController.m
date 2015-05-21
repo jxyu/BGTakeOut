@@ -18,6 +18,7 @@
 #import <SMS_SDK/SMS_AddressBook.h>
 
 #import "DataProvider.h"
+#import "AfterVirifyViewController.h"
 
 @interface VerifyViewController ()
 {
@@ -68,7 +69,7 @@ static NSMutableArray* _userData2;
                                         cancelButtonTitle:NSLocalizedString(@"back", nil)
                                         otherButtonTitles:NSLocalizedString(@"wait", nil), nil];
     _alert2=alert;
-    [alert show];    
+    [alert show];
 }
 
 -(void)setPhone:(NSString*)phone AndAreaCode:(NSString*)areaCode
@@ -98,9 +99,17 @@ static NSMutableArray* _userData2;
         [SMS_SDK commitVerifyCode:self.verifyCodeField.text result:^(enum SMS_ResponseState state) {
             if (1==state)
             {
-                [self inputPwd];
-                NSLog(@"%@",self.telLabel.text);
+//                [self inputPwd];
+//                NSLog(@"%@",self.telLabel.text);
                 NSLog(@"验证成功");
+                AfterVirifyViewController * afterverify=[[AfterVirifyViewController alloc] init];
+                afterverify.telLabel=_telLabel.text;
+                __weak typeof(self) weakself = self;
+                [self presentViewController:afterverify animated:YES completion:^{
+                    NSLog(@"验证成功后跳页");
+//                    [weakself dismiss];
+                }];
+                
             }
             else if(0==state)
             {
@@ -120,8 +129,8 @@ static NSMutableArray* _userData2;
 
 -(void)CannotGetSMS
 {
-    NSString* str=[NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"cannotgetsmsmsg", nil) ,_phone];
-    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"surephonenumber", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"sure", nil), nil];
+    NSString* str=[NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"没有收到信息", nil) ,_phone];
+    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"确认手机号", nil) message:str delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"确定", nil), nil];
     _alert1=alert;
     [alert show];
 }
@@ -228,7 +237,7 @@ static NSMutableArray* _userData2;
     //创建一个导航栏
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0+statusBarHeight, self.view.frame.size.width, 44)];
     UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"back", nil)
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"返回", nil)
                                                                    style:UIBarButtonItemStyleBordered
                                                                   target:self
                                                                   action:@selector(clickLeftButton)];
@@ -374,66 +383,6 @@ static NSMutableArray* _userData2;
     return;
 }
 
--(void)inputPwd
-{
-    UIView * backForPwd =[[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height)];
-    backForPwd.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-    UIView * Backview=[[UIView alloc] initWithFrame:CGRectMake(0, 50, SCREEN_WIDTH, 40)];
-    Backview.backgroundColor=[UIColor whiteColor];
-    UILabel * Pwd =[[UILabel alloc ] initWithFrame:CGRectMake(10, 5, 80, 30)];
-    Pwd.text=@"密码：";
-    [Backview addSubview:Pwd];
-    UIView * lastView=Pwd;
-    CGFloat x=lastView.frame.origin.x+lastView.frame.size.width;
-    txt_pwd=[[UITextField alloc] initWithFrame:CGRectMake(x, 0, 200, 40)];
-    [txt_pwd setPlaceholder:@"输入密码"];
-    [txt_pwd setKeyboardType:UIKeyboardTypeAlphabet];
-    [Backview addSubview:txt_pwd];
-    [backForPwd addSubview:Backview];
-    UIButton * tijiao=[[UIButton alloc] initWithFrame:CGRectMake(30, 110, 260, 40)];
-    [tijiao setTitle:@"确定" forState:UIControlStateNormal];
-    [tijiao setTintColor:[UIColor whiteColor]];
-    [tijiao setBackgroundColor:[UIColor redColor]];
-    tijiao.layer.masksToBounds=YES;
-    tijiao.layer.cornerRadius=6;
-    [tijiao addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchUpInside];
-    [backForPwd addSubview:tijiao];
-    [self.view addSubview:backForPwd];
 
-}
-
--(void)submitClick
-{
-    NSLog(@"phone:%@,pwd:%@",self.telLabel.text,txt_pwd.text);
-    NSString * phonenum=[self.telLabel.text substringFromIndex:4];
-    DataProvider * dataprovider =[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"isSubmitFinish:"];
-    [dataprovider registerPerson:phonenum andPwd:txt_pwd.text];
-//    [self.view removeFromSuperview];
-}
-
--(void)isSubmitFinish:(id)dict
-{
-    NSLog(@"%@",dict);
-    if (1==[dict[@"status"] integerValue]) {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"注册成功", nil)
-                                                      message:NSLocalizedString(@"通知", nil)
-                                                     delegate:self
-                                            cancelButtonTitle:@"确定"
-                                            otherButtonTitles:nil, nil];
-        [alert show];
-        
-    }
-    else
-    {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"通知", nil)
-                                                      message:NSLocalizedString(dict[@"msg"], nil)
-                                                     delegate:self
-                                            cancelButtonTitle:@"确定"
-                                            otherButtonTitles:nil, nil];
-        [alert show];
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-}
 
 @end

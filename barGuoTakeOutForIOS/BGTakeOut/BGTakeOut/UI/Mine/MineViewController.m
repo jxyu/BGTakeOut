@@ -327,9 +327,9 @@
 }
 -(void)ShowOrderListView
 {
-    if (userinfoWithFile[@"userid"]) {
+    if (userinfoWithFile[@"userid"]||UserInfoData[@"userid"]) {
         self.myOrderList=[[OrderListViewController alloc] init];
-        _myOrderList.userid=userinfoWithFile[@"userid"];
+        _myOrderList.userid=userinfoWithFile[@"userid"]?userinfoWithFile[@"userid"]:UserInfoData[@"userid"] ;
         [self.navigationController pushViewController:_myOrderList animated:YES];
     }
     else
@@ -343,9 +343,9 @@
 -(void)ShowCollectionVC
 {
     
-    if (userinfoWithFile[@"userid"]) {
+    if (userinfoWithFile[@"userid"]||UserInfoData[@"userid"]) {
         self.myCollection=[[ClictionViewController alloc] init];
-        _myCollection.userid=userinfoWithFile[@"userid"];
+        _myCollection.userid=userinfoWithFile[@"userid"]?userinfoWithFile[@"userid"]:UserInfoData[@"userid"];
         [self.navigationController pushViewController:_myCollection animated:YES];
     }
     else

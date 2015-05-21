@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "TableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "MJRefresh.h"
 
 #define KURL @"http://121.42.139.60/baguo/"
 
@@ -21,8 +22,11 @@
 
 @implementation ClictionViewController
 {
-    NSArray *Canting;
+    UITableView * TableView_orderList;
+    NSMutableArray *Canting;
     NSArray *activearray;
+    int page;
+    int num;
 }
 
 - (void)viewDidLoad {
@@ -31,26 +35,41 @@
     //添加导航栏
     [self addLeftButton:@"ic_actionbar_back.png"];
     [self setBarTitle:@"我的收藏"];
-    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"GetClictionBackCall:"];
-    NSDictionary * dictionary=@{@"userid":_userid,@"page":@"1",@"num":@"8"};
-    [dataprovider GetAllCollection:dictionary];
+    page=1;
+    num=8;
+    Canting=[[NSMutableArray alloc] init];
+    UIView*view =[ [UIView alloc]init];
+    view.backgroundColor= [UIColor clearColor];
+    [TableView_orderList setTableFooterView:view];
+    TableView_orderList=[[UITableView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20,SCREEN_WIDTH , SCREEN_HEIGHT-NavigationBar_HEIGHT-20)];
+    TableView_orderList.delegate=self;
+    TableView_orderList.dataSource=self;
+    [self.view addSubview:TableView_orderList];
+    __weak typeof(self) weakself=self;
+    [TableView_orderList addLegendFooterWithRefreshingBlock:^{
+        [weakself loadNewData];
+    }];
+    [self loadNewData];
+    
+    
 }
 -(void)GetClictionBackCall:(id)dict
 {
     [SVProgressHUD dismiss];
     NSLog(@"获取我的收藏%@",dict);
     if ([dict[@"status"] intValue]==1&&![dict[@"data"] isEqual:@""]) {
-        Canting=[[NSArray alloc] initWithArray:dict[@"data"]];
-        UITableView * TableView_orderList=[[UITableView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20,SCREEN_WIDTH , SCREEN_HEIGHT-NavigationBar_HEIGHT-20)];
-        TableView_orderList.delegate=self;
-        TableView_orderList.dataSource=self;
-        [self.view addSubview:TableView_orderList];
+        NSArray * itemarray=dict[@"data"];
+        for (int i=0; i<itemarray.count; i++) {
+            [Canting addObject:itemarray[i]];
+        }
+        [TableView_orderList reloadData];
+        [TableView_orderList.footer endRefreshing];
     }
     else
     {
+        [TableView_orderList.footer endRefreshing];
         [SVProgressHUD showErrorWithStatus:@"您还未收藏任何信息" maskType:SVProgressHUDMaskTypeBlack];
+        
     }
     
     
@@ -99,7 +118,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return 130;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -111,6 +130,7 @@
         _myCantingView.peisongData=Canting[indexPath.row][@"deliveryprice"];
         _myCantingView.name=Canting[indexPath.row][@"name"];
         [self.navigationController pushViewController:_myCantingView animated:YES];
+     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow]animated:YES];
     
 }
 
@@ -121,6 +141,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
+
+-(void)loadNewData
+{
+    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetClictionBackCall:"];
+    NSDictionary * dictionary=@{@"userid":_userid,@"page":@"1",@"num":@"8"};
+    [dataprovider GetAllCollection:dictionary];
+    page++;
 }
 
 @end
