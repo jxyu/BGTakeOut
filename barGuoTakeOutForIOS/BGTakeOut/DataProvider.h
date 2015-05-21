@@ -114,6 +114,30 @@
  10->已付款，订单取消，等待卖家审核
  */
 -(void)getOrderDetailWithOrdernum:(NSString*)ordernum ;
+/**
+ *  获得巴国榜推荐的分类列表
+ *
+ *  @param type type:0为一级目录，1位二级目录，2位三级目录，必填
+ *  @param upid 上一级目录的id,int,必填；
+ */
+-(void)getBaguoRankCateWithType:(NSString*)type upid:(NSString*)upid;
+/**
+ *  巴国榜-我要推荐
+ *
+ *  @param username  用户名
+ *  @param resname   餐厅名
+ *  @param adr       餐厅地址
+ *  @param contact   联系方式
+ *  @param resdetail 详情
+ *  @param img1      推荐图片1
+ *  @param img2      推荐图片2
+ *  @param img3      推荐图片3
+ *  @param img4      推荐图片4
+ *  @param oneid     所属一级分类id
+ *  @param twoid     所属二级分类id
+ *  @param threeid   所属三级分类id
+ */
+-(void)commitRecommendWithusername:(NSString*)username resname:(NSString*)resname resaddress:(NSString*)adr contacts:(NSString*)contact resdetail:(NSString*)resdetail img1:(NSString*)img1 img2:(NSString*)img2 img3:(NSString*)img3 img4:(NSString*)img4 oneid:(NSString*)oneid twoid:(NSString*)twoid threeid:(NSString*)threeid;
 //执行回调函数
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName;
 

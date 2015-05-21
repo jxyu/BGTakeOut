@@ -479,5 +479,17 @@
     NSString * url=[NSString stringWithFormat:@"%@getorderdetail.php",KURL];
     [self PostRequest:url andpram:param];
 }
-@end
+#pragma mark 获得巴国榜分类
+-(void)getBaguoRankCateWithType:(NSString*)type upid:(NSString*)upid{
+    NSDictionary* param=@{@"type":type,@"upid":upid};
+    NSString* url=[NSString stringWithFormat:@"%@getbaguorankcate.php",KURL];
+    [self PostRequest:url andpram:param];
+}
 
+#pragma mark 巴国榜-我要推荐
+-(void)commitRecommendWithusername:(NSString*)username resname:(NSString*)resname resaddress:(NSString*)adr contacts:(NSString*)contact resdetail:(NSString*)resdetail img1:(NSString*)img1 img2:(NSString*)img2 img3:(NSString*)img3 img4:(NSString*)img4 oneid:(NSString*)oneid twoid:(NSString*)twoid threeid:(NSString*)threeid{
+    NSDictionary* param=@{@"username":username,@"resname":resname,@"resaddress":adr,@"contacts":contact,@"resdetail":resdetail,@"img1":img1,@"img2":img2,@"img3":img3,@"img4":img4,@"oneid":oneid,@"twoid":twoid,@"threeid":threeid};
+    NSString* url=[NSString stringWithFormat:@"%@server/Home/Rank/api_commitBaguoRecommend",KURL];
+    [self PostRequest:url andpram:param];
+}
+@end

@@ -224,8 +224,22 @@
         NSLog(@"点击了 %ld - %ld 项目",(long)indexPath.column,(long)indexPath.row);
         //!!!: 跳转我要推荐页面
         if(indexPath.column==2&&indexPath.row==0){
-            WantRecommendViewController* wantRecommendVC=[[WantRecommendViewController alloc] init];
-            [self.navigationController pushViewController:wantRecommendVC animated:YES];
+            NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                      NSUserDomainMask, YES) objectAtIndex:0];
+            NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+            NSDictionary* userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+            if(userinfoWithFile){
+                WantRecommendViewController* wantRecommendVC=[[WantRecommendViewController alloc] init];
+                [self.navigationController pushViewController:wantRecommendVC animated:YES];
+                
+            }else{
+                //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
+                LoginViewController* loginVC=        [[LoginViewController alloc] init];
+                [self.navigationController pushViewController:loginVC animated:YES];
+                
+            }
+
+           
         }
     }
 }
