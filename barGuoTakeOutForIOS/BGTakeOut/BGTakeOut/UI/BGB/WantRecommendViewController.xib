@@ -203,14 +203,14 @@
                     <exclude reference="gc4-i3-GWV"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="ahR-On-W9d"/>
-                    <exclude reference="n6a-R3-XHr"/>
+                    <exclude reference="bGI-Jv-JC2"/>
                     <exclude reference="4rr-BK-8mf"/>
                     <exclude reference="AGe-D5-4nE"/>
-                    <exclude reference="bGI-Jv-JC2"/>
                     <exclude reference="KIm-BD-gcN"/>
                     <exclude reference="QAy-re-KAB"/>
                     <exclude reference="i5M-2F-gCt"/>
+                    <exclude reference="ahR-On-W9d"/>
+                    <exclude reference="n6a-R3-XHr"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
@@ -221,14 +221,14 @@
                     <include reference="gc4-i3-GWV"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="ahR-On-W9d"/>
-                    <include reference="n6a-R3-XHr"/>
+                    <include reference="bGI-Jv-JC2"/>
                     <include reference="4rr-BK-8mf"/>
                     <include reference="AGe-D5-4nE"/>
-                    <include reference="bGI-Jv-JC2"/>
                     <include reference="KIm-BD-gcN"/>
                     <include reference="QAy-re-KAB"/>
                     <include reference="i5M-2F-gCt"/>
+                    <include reference="ahR-On-W9d"/>
+                    <include reference="n6a-R3-XHr"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="1122" y="59"/>

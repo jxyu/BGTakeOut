@@ -7,8 +7,8 @@
 //
 
 #import "BaseNavigationController.h"
-
-@interface WantRecommendViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+#import "VPImageCropperViewController.h"
+@interface WantRecommendViewController : BaseNavigationController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,VPImageCropperDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *commitBtn;
 @property (weak, nonatomic) IBOutlet UIButton *imgUploadBtn1;
@@ -18,6 +18,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *imgUploadBtn4;
 
 @property (strong, nonatomic) IBOutlet UIView *imgHeaderView;
+
+
+@property(nonatomic,strong)NSString* oneid;
+@property(nonatomic,strong)NSString*    onetitle;
+@property(nonatomic,strong)NSString* twoid;
+@property(nonatomic,strong)NSString*    twotitle;
+@property(nonatomic,strong)NSString* threeid;
+@property(nonatomic,strong)NSString*    threetitle;
 
 - (IBAction)imgUpload1:(id)sender;
 - (IBAction)imgUpload2:(id)sender;

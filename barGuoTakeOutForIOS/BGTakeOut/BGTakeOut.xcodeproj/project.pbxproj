@@ -339,6 +339,8 @@
 		8AECF4831B073EA300410A47 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AECF47E1B073EA300410A47 /* SVIndefiniteAnimatedView.m */; };
 		8AECF4841B073EA300410A47 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AECF4801B073EA300410A47 /* SVProgressHUD.bundle */; };
 		8AECF4851B073EA300410A47 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AECF4821B073EA300410A47 /* SVProgressHUD.m */; };
+		8AEF4F731B0D6F0500424CEA /* RankCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF4F711B0D6F0500424CEA /* RankCategoryViewController.m */; };
+		8AEF4F741B0D6F0500424CEA /* RankCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AEF4F721B0D6F0500424CEA /* RankCategoryViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -846,6 +848,9 @@
 		8AECF4801B073EA300410A47 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		8AECF4811B073EA300410A47 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		8AECF4821B073EA300410A47 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		8AEF4F701B0D6F0500424CEA /* RankCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankCategoryViewController.h; sourceTree = "<group>"; };
+		8AEF4F711B0D6F0500424CEA /* RankCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankCategoryViewController.m; sourceTree = "<group>"; };
+		8AEF4F721B0D6F0500424CEA /* RankCategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankCategoryViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1421,9 +1426,7 @@
 				80D309721B04B718009A2BF3 /* BGBangViewController.xib */,
 				80D309CC1B04CB4D009A2BF3 /* BGBangDetialViewController.h */,
 				80D309CD1B04CB4D009A2BF3 /* BGBangDetialViewController.m */,
-				8AB4A0E11B062AC20007BC48 /* WantRecommendViewController.h */,
-				8AB4A0E21B062AC20007BC48 /* WantRecommendViewController.m */,
-				8AB4A0E31B062AC20007BC48 /* WantRecommendViewController.xib */,
+				8AEF4F6F1B0D6E6500424CEA /* WantRecommended */,
 				8AB4A0E61B06D4830007BC48 /* BGBTableViewCell.h */,
 				8AB4A0E71B06D4830007BC48 /* BGBTableViewCell.m */,
 				8AB4A0E81B06D4830007BC48 /* BGBTableViewCell.xib */,
@@ -1807,6 +1810,19 @@
 			path = SVProgressHUD;
 			sourceTree = "<group>";
 		};
+		8AEF4F6F1B0D6E6500424CEA /* WantRecommended */ = {
+			isa = PBXGroup;
+			children = (
+				8AB4A0E11B062AC20007BC48 /* WantRecommendViewController.h */,
+				8AB4A0E21B062AC20007BC48 /* WantRecommendViewController.m */,
+				8AB4A0E31B062AC20007BC48 /* WantRecommendViewController.xib */,
+				8AEF4F701B0D6F0500424CEA /* RankCategoryViewController.h */,
+				8AEF4F711B0D6F0500424CEA /* RankCategoryViewController.m */,
+				8AEF4F721B0D6F0500424CEA /* RankCategoryViewController.xib */,
+			);
+			name = WantRecommended;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2029,6 +2045,7 @@
 				804038721B06D62500061866 /* 15.png in Resources */,
 				803D49091AFDB7E30099138A /* AlipaySDK.bundle in Resources */,
 				8A4B99831B02F9FE0051B915 /* index_15@2x.png in Resources */,
+				8AEF4F741B0D6F0500424CEA /* RankCategoryViewController.xib in Resources */,
 				8A5D7F641B04332200F96831 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				80843F191AE25ACC006AC3B7 /* lipin_more.jpg in Resources */,
 				809C10161AF7408E0059A317 /* gsjj.png in Resources */,
@@ -2133,6 +2150,7 @@
 				808995E91AE0DE290059038D /* SectionsViewController.m in Sources */,
 				806383EE1AF0BE6500AF9866 /* SDWebImageDecoder.m in Sources */,
 				80D3096A1B04B706009A2BF3 /* WaiMAIViewController.m in Sources */,
+				8AEF4F731B0D6F0500424CEA /* RankCategoryViewController.m in Sources */,
 				806383F11AF0BE6500AF9866 /* SDWebImageManager.m in Sources */,
 				8A16D29E1B0ABDBF00974168 /* PingjiaTableViewCell.m in Sources */,
 				80D309881B04B721009A2BF3 /* GoodsTableViewCell.m in Sources */,
