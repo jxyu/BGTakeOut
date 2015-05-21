@@ -196,11 +196,11 @@
     [dataProvider PostGetMsg];
 }
 
--(void)GetJoke
+-(void)GetJoke:(NSString *)page andnum:(NSString *)num
 {
     DataProvider *dataProvider=[[DataProvider alloc] init];
     
-    [dataProvider GetJoke];
+    [dataProvider GetJoke:page andnum:num];
 }
 
 -(void)GetLipin

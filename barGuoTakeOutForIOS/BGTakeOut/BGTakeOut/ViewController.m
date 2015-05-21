@@ -54,9 +54,9 @@
 }
 
 - (IBAction)GetJoke:(UIButton *)sender {
-    DataProvider * dataProvider =[[DataProvider alloc] init];
+//    DataProvider * dataProvider =[[DataProvider alloc] init];
     
-    [dataProvider GetJoke];
+//    [dataProvider GetJoke];
 }
 
 - (IBAction)GetLiPin:(UIButton *)sender {

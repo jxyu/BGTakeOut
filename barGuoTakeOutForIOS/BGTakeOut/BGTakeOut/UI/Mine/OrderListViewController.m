@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "OrderListTableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "MJRefresh.h"
 
 #define KURL @"http://121.42.139.60/baguo/"
 
@@ -22,6 +23,9 @@
 @implementation OrderListViewController
 {
     NSMutableArray * orderListdata;
+    UITableView * TableView_orderList;
+    int page;
+    int num;
 }
 
 - (void)viewDidLoad {
@@ -30,20 +34,34 @@
     //添加导航栏
     [self addLeftButton:@"ic_actionbar_back.png"];
     [self setBarTitle:@"我的订单"];
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"GetOrderListBackCall:"];
-    NSDictionary * prm=@{@"page":@"1",@"num":@"18",@"userid":_userid};
-    [dataprovider GetOrdersList:prm];
+    orderListdata=[[NSMutableArray alloc] init];
+    page=1;
+    num=8;
+    
+    TableView_orderList=[[UITableView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20,SCREEN_WIDTH , SCREEN_HEIGHT-NavigationBar_HEIGHT-20)];
+    TableView_orderList.delegate=self;
+    TableView_orderList.dataSource=self;
+    [self.view addSubview:TableView_orderList];
+    __weak typeof(self) weakself=self;
+    [TableView_orderList addLegendFooterWithRefreshingBlock:^{
+        [weakself loadNewData];
+    }];
+    [self loadNewData];
 }
 -(void)GetOrderListBackCall:(id)dict
 {
+    [SVProgressHUD dismiss];
     if (1==[dict[@"status"] intValue]) {
         NSLog(@"order列表%@",dict);
-        orderListdata=dict[@"data"];
-        UITableView * TableView_orderList=[[UITableView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20,SCREEN_WIDTH , SCREEN_HEIGHT-NavigationBar_HEIGHT-20)];
-        TableView_orderList.delegate=self;
-        TableView_orderList.dataSource=self;
-        [self.view addSubview:TableView_orderList];
+        NSArray * array=dict[@"data"];
+        for (int i=0; i<array.count; i++) {
+            [orderListdata addObject:array[i]];
+        }
+        [TableView_orderList reloadData];
+        [TableView_orderList.footer endRefreshing];
+    }else
+    {
+        [TableView_orderList.footer endRefreshing];
     }
 }
 
@@ -132,6 +150,14 @@
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
 }
-
+-(void)loadNewData
+{
+    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetOrderListBackCall:"];
+    NSDictionary * prm=@{@"page":[NSString stringWithFormat:@"%d",page],@"num":[NSString stringWithFormat:@"%d",num],@"userid":_userid};
+    [dataprovider GetOrdersList:prm];
+    page++;
+}
 
 @end
