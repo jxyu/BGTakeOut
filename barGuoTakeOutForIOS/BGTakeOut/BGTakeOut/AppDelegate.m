@@ -8,10 +8,18 @@
 
 #import "AppDelegate.h"
 #import "DataProvider.h"
-#import "UMSocial.h"
+
 #import "UMessage.h"
-#define appKey @"6d6636b9d200"
-#define appSecret @"04507a9ebfb819fedcb19e598d8be0f1"
+
+#import "UMSocial.h"
+
+#import "UMSocialWechatHandler.h"
+
+#import "UMSocialQQHandler.h"
+
+
+#define app_Key @"6d6636b9d200"
+#define app_Secret @"04507a9ebfb819fedcb19e598d8be0f1"
 
 #define UMSYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define _IPHONE80_ 80000
@@ -24,9 +32,27 @@
 #pragma mark - app's lifecycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [SMS_SDK registerApp:appKey withSecret:appSecret];//设置短信appkey
+    [SMS_SDK registerApp:app_Key withSecret:app_Secret];//设置短信appkey
     
     [UMSocialData setAppKey:umeng_app_key];//设置友盟appkey
+    //设置微信AppId，设置分享url，默认使用友盟的网址
+
+    //    //设置支持没有客户端情况下使用SSO授权
+    [UMSocialQQHandler setSupportWebView:YES];
+    //打开调试log的开关
+    [UMSocialData openLog:YES];
+    
+    //如果你要支持不同的屏幕方向，需要这样设置，否则在iPhone只支持一个竖屏方向
+    [UMSocialConfig setSupportedInterfaceOrientations:UIInterfaceOrientationMaskAll];
+    
+    //设置微信AppId，设置分享url，默认使用友盟的网址
+    [UMSocialWechatHandler setWXAppId:@"wxd930ea5d5a258f4f" appSecret:@"db426a9829e4b49a0dcac7b4162da6b6" url:@"http://www.umeng.com/social"];
+
+    //    //设置分享到QQ空间的应用Id，和分享url 链接
+    [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:@"http://www.umeng.com/social"];
+    //    //设置支持没有客户端情况下使用SSO授权
+    [UMSocialQQHandler setSupportWebView:YES];
+    
     //set AppKey and LaunchOptions
     [UMessage startWithAppkey:umeng_app_key launchOptions:launchOptions];
     

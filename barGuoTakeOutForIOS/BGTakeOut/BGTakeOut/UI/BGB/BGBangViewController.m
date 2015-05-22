@@ -14,14 +14,15 @@
 #import "AppDelegate.h"
 #import "CCLocationManager.h"
 #import "WantRecommendViewController.h"
-
+#import "UMSocial.h"
+#import "UMSocialSnsService.h"
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 #define KtextNum 6
 #define KURL @"http://121.42.139.60/baguo/"
 
 
-@interface BGBangViewController ()
+@interface BGBangViewController ()<UMSocialUIDelegate>
 @property(nonatomic,strong)UINavigationItem *mynavigationItem;
 @property(nonatomic,strong)NYSegmentedControl *segmentedControl;
 @property(nonatomic,strong)UIView * Page;
@@ -380,6 +381,16 @@
 -(void)BGBangShare:(UIButton *)sender
 {
     //分享巴国榜
+    NSString *shareText = @"快来加入掌尚街，享受生活的乐趣吧！";             //分享内嵌文字
+    UIImage *shareImage = [UIImage imageNamed:@"1136-1"];          //分享内嵌图片
+NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSession,UMShareToEmail,UMShareToSms,nil];
+    //调用快速分享接口
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:umeng_app_key
+                                      shareText:shareText
+                                     shareImage:shareImage
+                                shareToSnsNames:snsList
+                                       delegate:nil];
 }
 
 -(void)GetFirstTypeBackCall:(id)dict
