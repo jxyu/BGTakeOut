@@ -14,8 +14,6 @@
 #import "AppDelegate.h"
 #import "CreditNavigationController.h"
 #import "CreditWebViewController.h"
-#define KWidth self.view.frame.size.width
-#define KHeight self.view.frame.size.height
 #define KURL @"http://121.42.139.60/baguo/"
 
 @interface MineViewController ()
@@ -55,12 +53,13 @@
     nameArray2=[[NSArray alloc]initWithObjects:@"诚聘", @"招商加盟",nil];
     nameArray3=[[NSArray alloc]initWithObjects:@"设置",nil];
     
+    self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     if (!userinfoWithFile[@"userid"]) {
-        BackGroundOfLogin=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 80)];
-        UIImageView * backImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KWidth, 80)];
+        BackGroundOfLogin=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 80)];
+        UIImageView * backImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 80)];
         backImageView.image=[UIImage imageNamed:@"MineBackImage.png"];
         [BackGroundOfLogin addSubview:backImageView];
-        UIButton * login_btn=[[UIButton alloc] initWithFrame:CGRectMake((KWidth-100)/2, (70-30)/2, 100, 30)];
+        UIButton * login_btn=[[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-100)/2, (70-30)/2, 100, 30)];
         [login_btn setBackgroundColor:[UIColor whiteColor]];
         [login_btn setTitle:@"登录／注册" forState:UIControlStateNormal];
         [login_btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
@@ -73,9 +72,8 @@
     else
     {
         UserInfoData=userinfoWithFile;
-        UIView * lastview=[[self.view subviews] lastObject];
-        UIView * UserBackGroundView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 80)];
-        UIImageView * backImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KWidth, 80)];
+        UIView * UserBackGroundView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 80)];
+        UIImageView * backImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 80)];
         backImageView.image=[UIImage imageNamed:@"MineBackImage.png"];
         [UserBackGroundView addSubview:backImageView];
         touxiang =[[UIImageView alloc] initWithFrame:CGRectMake(10, (UserBackGroundView.frame.size.height-50)/2, 50, 50)];
@@ -99,12 +97,12 @@
         [tishi setTextColor:[UIColor whiteColor]];
         [UserBackGroundView addSubview:tishi];
         
-        UIImageView * goImage=[[UIImageView alloc] initWithFrame:CGRectMake(KWidth-10-20, (UserBackGroundView.frame.size.height-25)/2, 20, 25)];
+        UIImageView * goImage=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-10-20, (UserBackGroundView.frame.size.height-25)/2, 20, 25)];
         goImage.image=[UIImage imageNamed:@"go.png"];
         [UserBackGroundView addSubview:goImage];
         
         
-        UIButton * mybtn=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, KWidth, 80)];
+        UIButton * mybtn=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 80)];
         [mybtn addTarget:self action:@selector(myBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [UserBackGroundView addSubview:mybtn];
         [self.view addSubview:UserBackGroundView];
@@ -113,24 +111,63 @@
 }
     UIView * lastview =[[self.view subviews] lastObject];
     CGFloat y=lastview.frame.size.height+lastview.frame.origin.y;
-    UIButton * BGB =[[UIButton alloc] initWithFrame:CGRectMake(0,y , KWidth/3, 80)];
-    [BGB setImage:[UIImage imageNamed:@"BGB.png"] forState:UIControlStateNormal];
+    UIView * BackView_BGB=[[UIButton alloc] initWithFrame:CGRectMake(0,y , SCREEN_WIDTH/3, 80)];
+    BackView_BGB.backgroundColor=[UIColor whiteColor];
+    UIImageView * image_BGB=[[UIImageView alloc] initWithFrame:CGRectMake((BackView_BGB.frame.size.width-30)/2, 13, 30, 30)];
+    image_BGB.image=[UIImage imageNamed:@"baguobi_icon"];
+    [BackView_BGB addSubview:image_BGB];
+    UILabel * lbl_BGB=[[UILabel alloc] initWithFrame:CGRectMake((BackView_BGB.frame.size.width-60)/2, 50, 60, 20)];
+    lbl_BGB.font=[UIFont systemFontOfSize:14];
+    lbl_BGB.textColor=[UIColor redColor];
+    lbl_BGB.text=@"巴国币";
+    [lbl_BGB setTextAlignment:NSTextAlignmentCenter];
+    [BackView_BGB addSubview:lbl_BGB];
+    UIButton * BGB =[[UIButton alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH/3, 80)];
     [BGB addTarget:self action:@selector(gotoCoinShop) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:BGB];
+    [BackView_BGB addSubview:BGB];
+    [self.view addSubview:BackView_BGB];
     
     lastview =[[self.view subviews] lastObject];
     CGFloat x=lastview.frame.size.width;
-    UIButton *  DD_btn=[[UIButton alloc] initWithFrame:CGRectMake(x,y , KWidth/3, 80)];
-    [DD_btn setImage:[UIImage imageNamed:@"DingDan.png"] forState:UIControlStateNormal];
+    
+    UIView * BackView_DD=[[UIButton alloc] initWithFrame:CGRectMake(x+1,y , SCREEN_WIDTH/3-1, 80)];
+    BackView_DD.backgroundColor=[UIColor whiteColor];
+    UIImageView * image_DD=[[UIImageView alloc] initWithFrame:CGRectMake((BackView_DD.frame.size.width-30)/2, 13, 30, 30)];
+    image_DD.image=[UIImage imageNamed:@"order_icon"];
+    [BackView_DD addSubview:image_DD];
+    UILabel * lbl_DD=[[UILabel alloc] initWithFrame:CGRectMake((BackView_DD.frame.size.width-60)/2, 50, 60, 20)];
+    lbl_DD.font=[UIFont systemFontOfSize:14];
+    lbl_DD.textColor=[UIColor redColor];
+    lbl_DD.text=@"订单";
+    [lbl_DD setTextAlignment:NSTextAlignmentCenter];
+    [BackView_DD addSubview:lbl_DD];
+    UIButton *  DD_btn=[[UIButton alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH/3, 80)];
     [DD_btn addTarget:self action:@selector(ShowOrderListView) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:DD_btn];
+    [BackView_DD addSubview:DD_btn];
+    [self.view addSubview:BackView_DD];
+    
     
     lastview =[[self.view subviews] lastObject];
     x=lastview.frame.size.width+lastview.frame.origin.x;
-    UIButton *  SC_btn=[[UIButton alloc] initWithFrame:CGRectMake(x,y , KWidth/3, 80)];
-    [SC_btn setImage:[UIImage imageNamed:@"SC.png"] forState:UIControlStateNormal];
+    UIView * BackView_SC=[[UIButton alloc] initWithFrame:CGRectMake(x+1,y , SCREEN_WIDTH/3-1, 80)];
+    BackView_SC.backgroundColor=[UIColor whiteColor];
+    UIImageView * image_SC=[[UIImageView alloc] initWithFrame:CGRectMake((BackView_SC.frame.size.width-30)/2, 13, 30, 30)];
+    image_SC.image=[UIImage imageNamed:@"shoucang_icon"];
+    [BackView_SC addSubview:image_SC];
+    UILabel * lbl_SC=[[UILabel alloc] initWithFrame:CGRectMake((BackView_SC.frame.size.width-60)/2, 50, 60, 20)];
+    lbl_SC.font=[UIFont systemFontOfSize:14];
+    lbl_SC.textColor=[UIColor redColor];
+    lbl_SC.text=@"收藏";
+    [lbl_SC setTextAlignment:NSTextAlignmentCenter];
+    [BackView_SC addSubview:lbl_SC];
+    UIButton *  SC_btn=[[UIButton alloc] initWithFrame:CGRectMake(0,0 , SCREEN_WIDTH/3, 80)];
     [SC_btn addTarget:self action:@selector(ShowCollectionVC) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:SC_btn];
+    [BackView_SC addSubview:SC_btn];
+    [self.view addSubview:BackView_SC];
+    
+    
+    
+    
     
     lastview =[[self.view subviews] lastObject];
     y=lastview.frame.origin.y+lastview.frame.size.height;
@@ -267,7 +304,7 @@
     UserInfoData=dict[@"data"];
     UIView * UserBackGroundView=[[UIView alloc] init];
     UserBackGroundView.frame=BackGroundOfLogin.frame;
-    UIImageView * backImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KWidth, 80)];
+    UIImageView * backImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 80)];
     backImageView.image=[UIImage imageNamed:@"MineBackImage.png"];
     [UserBackGroundView addSubview:backImageView];
     touxiang =[[UIImageView alloc] initWithFrame:CGRectMake(10, (UserBackGroundView.frame.size.height-50)/2, 50, 50)];
@@ -291,12 +328,12 @@
     [tishi setTextColor:[UIColor whiteColor]];
     [UserBackGroundView addSubview:tishi];
     
-    UIImageView * goImage=[[UIImageView alloc] initWithFrame:CGRectMake(KWidth-10-20, (UserBackGroundView.frame.size.height-25)/2, 20, 25)];
+    UIImageView * goImage=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-10-20, (UserBackGroundView.frame.size.height-25)/2, 20, 25)];
     goImage.image=[UIImage imageNamed:@"go.png"];
     [UserBackGroundView addSubview:goImage];
     
     
-    UIButton * mybtn=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, KWidth, 80)];
+    UIButton * mybtn=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 80)];
     [mybtn addTarget:self action:@selector(myBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [UserBackGroundView addSubview:mybtn];
     [self.view addSubview:UserBackGroundView];

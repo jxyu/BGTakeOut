@@ -72,6 +72,8 @@
     backgroundview.backgroundColor=[UIColor whiteColor];
     UIButton * changeAdress=[[UIButton alloc] initWithFrame:CGRectMake(15, 10, kSWidth-30, 40)];
     changeAdress.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
+    changeAdress.layer.masksToBounds=YES;
+    changeAdress.layer.cornerRadius=6;
     [changeAdress setTitle:@"切换地址" forState:UIControlStateNormal];
     [changeAdress setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backgroundview addSubview:changeAdress];
