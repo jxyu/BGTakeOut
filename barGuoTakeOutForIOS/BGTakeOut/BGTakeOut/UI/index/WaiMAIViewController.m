@@ -59,6 +59,11 @@
     
     NSInteger table_page;
     NSMutableArray * tabledata;
+    BOOL iscategaryShow;
+    BOOL isSortShow;
+    BOOL isActiveShow;
+    UIView * BackView_paixu;
+    
 }
 
 - (void)viewDidLoad {
@@ -73,6 +78,9 @@
     _order=@"1";
     _category=@"1";
     _activity=@"1";
+    isActiveShow=NO;
+    iscategaryShow=NO;
+    isSortShow=NO;
     
     //添加导航栏
     [self addLeftButton:@"ic_actionbar_back.png"];
@@ -81,7 +89,7 @@
     
     //添加Segmented Control
     UIView * lastView=[self.view.subviews lastObject];
-    UIView * segmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 40)];
+    UIView * segmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 50)];
     segmentView.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
     self.segmentedControl = [[NYSegmentedControl alloc] initWithItems:@[@"附近餐厅", @"其他订购"]];
     [_segmentedControl addTarget:self action:@selector(SegMentControlClick) forControlEvents:UIControlEventValueChanged];
@@ -111,31 +119,59 @@
     [self.view addSubview:_Page];
     // 数据
     self.sorts=@[@"促销活动"];
-    self.areas = @[@"热门分类",@"全部",@"巴国推荐",@"超市",@"汉餐",@"清真",@"早餐",@"午餐"];
-    self.classifys = @[@"排序方式",@"已通过认证",@"销量最大",@"评价最高",@"价位高到低",@"价位低到高"];
+    self.areas = @[@"全部",@"巴国推荐",@"超市",@"汉餐",@"清真",@"早餐",@"午餐"];
+    self.classifys = @[@"默认排序",@"已通过认证",@"销量最大",@"评价最高",@"价位高到低",@"价位低到高"];
     imagearray1=@[@"zong.png",@"jian.png",@"dian.png",@"han.png",@"qing.png",@"zao.png",@"wu.png"];
-    imagearray2=@[@"xu.png",@"zheng.png",@"xiaoliang.png",@"timer.png",@"jiawei.png"];
+    imagearray2=@[@"xu.png",@"zheng.png",@"xiaoliang.png",@"timer.png",@"jiawei.png",@"jiawei.png"];
 //    imagearray3=@[@""]
     
     // 添加下拉菜单
     
-    DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:44];
-//    menu.im
-    menu.delegate = self;
-    menu.dataSource = self;
-    [_Page addSubview:menu];
+//    DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:44];
+////    menu.im
+//    menu.delegate = self;
+//    menu.dataSource = self;
+//    [_Page addSubview:menu];
     
-//    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-//        _lat=[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude] ;
-//        _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
-//        _page=[NSString stringWithFormat:@"%d",1];
-//        _num =[NSString stringWithFormat:@"%d",KCantingNum];
-//        _order=[NSString stringWithFormat:@"%d",1];
-//        _activity=[NSString stringWithFormat:@"%d",1];
-//        _category=[NSString stringWithFormat:@"%d",1];
-//        [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:@"1" andCategory:@"1" andlat:_lat andlong:_long];
-//    }];
     
+    UIView * BackView_menu=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
+    BackView_menu.backgroundColor=[UIColor whiteColor];
+    UIButton * btn_categray=[[UIButton alloc] initWithFrame:CGRectMake(10, 5, SCREEN_WIDTH/3-30, 30)];
+    [btn_categray setTitle:@"默认分类" forState:UIControlStateNormal];
+    [btn_categray setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn_categray addTarget:self action:@selector(btn_categrayClick) forControlEvents:UIControlEventTouchUpInside];
+    btn_categray.titleLabel.font=[UIFont systemFontOfSize:14];
+    [BackView_menu addSubview:btn_categray];
+    UIImageView * image1=[[UIImageView alloc] initWithFrame:CGRectMake(btn_categray.frame.origin.x+btn_categray.frame.size.width, 15, 13, 8)];
+    image1.image=[UIImage imageNamed:@"down"];
+    [BackView_menu addSubview:image1];
+    UIView * fenge1=[[UIView alloc] initWithFrame:CGRectMake(image1.frame.origin.x+image1.frame.size.width+7, 5, 1, 30)];
+    fenge1.backgroundColor=[UIColor colorWithRed:216/255.0 green:216/255.0 blue:216/255.0 alpha:1.0];
+    [BackView_menu addSubview:fenge1];
+    UIButton * btn_paixu=[[UIButton alloc] initWithFrame:CGRectMake(fenge1.frame.origin.x+fenge1.frame.size.width+10, 5, SCREEN_WIDTH/3-30, 30)];
+    [btn_paixu setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn_paixu setTitle:@"默认排序" forState:UIControlStateNormal];
+    btn_paixu.titleLabel.font=[UIFont systemFontOfSize:14];
+    [btn_paixu addTarget:self action:@selector(btn_paixuClick) forControlEvents:UIControlEventTouchUpInside];
+    [BackView_menu addSubview:btn_paixu];
+    UIImageView * image2=[[UIImageView alloc] initWithFrame:CGRectMake(btn_paixu.frame.origin.x+btn_paixu.frame.size.width, 15, 13, 8)];
+    image2.image=[UIImage imageNamed:@"down"];
+    [BackView_menu addSubview:image2];
+    UIView * fenge2=[[UIView alloc] initWithFrame:CGRectMake(image2.frame.origin.x+image2.frame.size.width+7, 5, 1, 30)];
+    fenge2.backgroundColor=[UIColor colorWithRed:216/255.0 green:216/255.0 blue:216/255.0 alpha:1.0];
+    [BackView_menu addSubview:fenge2];
+    UIButton * btn_myTuijian=[[UIButton alloc] initWithFrame:CGRectMake(fenge2.frame.origin.x+fenge2.frame.size.width+10, 5, SCREEN_WIDTH/3-30, 30)];
+    [btn_myTuijian addTarget:self action:@selector(btn_activeClick) forControlEvents:UIControlEventTouchUpInside];
+    btn_myTuijian.layer.masksToBounds=YES;
+    btn_myTuijian.layer.cornerRadius=6;
+    [btn_myTuijian setTitle:@"促销活动" forState:UIControlStateNormal];
+    [btn_myTuijian setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    btn_myTuijian.titleLabel.font=[UIFont systemFontOfSize:14];
+    [BackView_menu addSubview:btn_myTuijian];
+    UIImageView * image3=[[UIImageView alloc] initWithFrame:CGRectMake(btn_myTuijian.frame.origin.x+btn_myTuijian.frame.size.width, 15, 13, 8)];
+    image3.image=[UIImage imageNamed:@"down"];
+    [BackView_menu addSubview:image3];
+    [_Page addSubview:BackView_menu];
     
     lastView=[_Page.subviews lastObject];
     CGFloat y=lastView.frame.origin.y+lastView.frame.size.height;
@@ -147,8 +183,8 @@
     [_tableView addLegendFooterWithRefreshingBlock:^{
         [weakself loadNewData];
     }];
-    
     [self loadNewData];
+    
 }
 
 
@@ -166,16 +202,22 @@
     if (1==self.segmentedControl.selectedSegmentIndex) {
 //        _Page.hidden=YES;
          NSLog(@"other");
+        isAgain=YES;
         [self GetrestaurantListPage:@"1" andNum:_num andOrder:_order andActivity:_activity andCategory:@"8" andlat:_lat andlong:_long];
         [_tableView reloadData];
     }
     else
     {
 //        _Page.hidden=NO;
+        isAgain=YES;
         [self GetrestaurantListPage:@"1" andNum:_num andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
         [_tableView reloadData];
     }
 }
+
+
+
+
 
 
 #pragma mark 返回菜单数量
@@ -269,46 +311,35 @@
 
 -(void)GetActivityData:(id)dict
 {
-    NSArray * activityArray ;
-    NSMutableArray * activityData=[[NSMutableArray alloc] init];
     if ([dict[@"status"] intValue]==1) {
-        activityArray=dict[@"data"];
-        [activityData addObject:[NSString stringWithFormat:@"促销活动"]];
-        for (int i=0; i<activityArray.count; i++) {
-            [activityData addObject:[NSString stringWithFormat:@"%@",activityArray[i][@"name"]]];
-        }
-        self.sorts=activityData;
+        self.sorts=dict[@"data"];
     }
 }
 -(void)bulidrestaurantList:(id)dict
 {
     if ([dict[@"status"]intValue]==1) {
         NSLog(@"餐厅数据%@",dict);
-        Canting=[NSArray arrayWithArray:dict[@"data"]];
-        for (int i=0; i<Canting.count; i++) {
-            [tabledata addObject:Canting[i]];
+        if (!isAgain) {
+            Canting=[NSArray arrayWithArray:dict[@"data"]];
+            for (int i=0; i<Canting.count; i++) {
+                [tabledata addObject:Canting[i]];
+            }
+            
+        }else
+        {
+            for (id item in tabledata) {
+                [tabledata removeObject:item];
+            }
+            tabledata=dict[@"data"];
         }
         [_tableView reloadData];
         [_tableView.footer endRefreshing];
+        
     }else{
         [_tableView.footer endRefreshing];
-        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:@"请检查网络" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:dict[@"msg"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
         [alert show];
     }
-
-        if (!isAgain) {
-//            UIView * lastView=[_Page.subviews lastObject];
-//            CGFloat y=lastView.frame.origin.y+lastView.frame.size.height;
-//            _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-y)];
-//            _tableView.delegate=self;
-//            _tableView.dataSource=self;
-//            
-//            [_Page addSubview:_tableView];
-//            __weak typeof(self) weakself=self;
-//            [_tableView addLegendFooterWithRefreshingBlock:^{
-//                [weakself loadNewData];
-//            }];
-        }
     
     [SVProgressHUD dismiss];
     
@@ -448,6 +479,157 @@
     }];
     
     
+}
+
+-(void)btn_categrayClick
+{
+    NSLog(@"热门分类");
+    if (!iscategaryShow) {
+        [BackView_paixu removeFromSuperview];
+        BackView_paixu=[[UIView alloc] initWithFrame:CGRectMake(0, 40, _Page.frame.size.width, 30*self.areas.count+self.areas.count)];
+        BackView_paixu.backgroundColor=[UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
+        for (int i=0; i<self.areas.count; i++) {
+            
+            UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, 30*i+1, BackView_paixu.frame.size.width, 30)];
+            itemView.backgroundColor=[UIColor whiteColor];
+            UIImageView * icon1=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 15)];
+            icon1.image=[UIImage imageNamed:imagearray1[i]];
+            [itemView addSubview:icon1];
+            UILabel * lbl_title1=[[UILabel alloc] initWithFrame:CGRectMake(icon1.frame.origin.x+icon1.frame.size.width+10, 10, 250, 15)];
+            lbl_title1.font=[UIFont systemFontOfSize:14];
+            lbl_title1.text=_areas[i];
+            [itemView addSubview:lbl_title1];
+            UIButton * btn_defaultPaixu=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, itemView.frame.size.width, 30)];
+            btn_defaultPaixu.tag=0;
+            [btn_defaultPaixu addTarget:self action:@selector(GetcateGrayList:) forControlEvents:UIControlEventTouchUpInside];
+            [itemView addSubview:btn_defaultPaixu];
+            [BackView_paixu addSubview:itemView];
+            
+        }
+        [_Page addSubview:BackView_paixu];
+        iscategaryShow=YES;
+    }else
+    {
+        iscategaryShow=NO;
+        [BackView_paixu removeFromSuperview];
+    }
+    
+    
+}
+
+-(void)btn_paixuClick
+{
+    NSLog(@"排序");
+    if (!isSortShow) {
+        [BackView_paixu removeFromSuperview];
+        BackView_paixu=[[UIView alloc] initWithFrame:CGRectMake(0, 40, _Page.frame.size.width, 30*self.classifys.count+self.classifys.count)];
+        BackView_paixu.backgroundColor=[UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
+        for (int i=0; i<self.classifys.count; i++) {
+            
+            UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, 30*i+1, BackView_paixu.frame.size.width, 30)];
+            itemView.backgroundColor=[UIColor whiteColor];
+            UIImageView * icon1=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 15)];
+            icon1.image=[UIImage imageNamed:imagearray2[i]];
+            [itemView addSubview:icon1];
+            UILabel * lbl_title1=[[UILabel alloc] initWithFrame:CGRectMake(icon1.frame.origin.x+icon1.frame.size.width+10, 10, 250, 15)];
+            lbl_title1.font=[UIFont systemFontOfSize:14];
+            lbl_title1.text=_classifys[i];
+            [itemView addSubview:lbl_title1];
+            UIButton * btn_defaultPaixu=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, itemView.frame.size.width, 30)];
+            btn_defaultPaixu.tag=0;
+            [btn_defaultPaixu addTarget:self action:@selector(getOrderListData:) forControlEvents:UIControlEventTouchUpInside];
+            [itemView addSubview:btn_defaultPaixu];
+            [BackView_paixu addSubview:itemView];
+            
+        }
+        [_Page addSubview:BackView_paixu];
+        isSortShow=YES;
+    }else
+    {
+        isSortShow=NO;
+        [BackView_paixu removeFromSuperview];
+    }
+}
+
+-(void)btn_activeClick
+{
+    NSLog(@"促销活动");
+    
+    if (!isSortShow) {
+        [BackView_paixu removeFromSuperview];
+        BackView_paixu=[[UIView alloc] initWithFrame:CGRectMake(0, 40, _Page.frame.size.width, 30*self.sorts.count+self.sorts.count)];
+        BackView_paixu.backgroundColor=[UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
+        for (int i=0; i<self.sorts.count; i++) {
+            
+            UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, 30*i+1, BackView_paixu.frame.size.width, 30)];
+            itemView.backgroundColor=[UIColor whiteColor];
+            UIImageView * icon1=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 15)];
+            switch ([_sorts[i][@"actid"] intValue]) {
+                case 2:
+                    icon1.image=[UIImage imageNamed:@"fu"];
+                    break;
+                case 3:
+                    icon1.image=[UIImage imageNamed:@"15"];
+                    break;
+                case 4:
+                    icon1.image=[UIImage imageNamed:@"bi"];
+                    break;
+                case 5:
+                    icon1.image=[UIImage imageNamed:@"jiang"];
+                    break;
+                case 6:
+                    icon1.image=[UIImage imageNamed:@"zhi"];
+                    break;
+                case 7:
+                    icon1.image=[UIImage imageNamed:@"xun"];
+                    break;
+                case 8:
+                    icon1.image=[UIImage imageNamed:@"zheng"];
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+            [itemView addSubview:icon1];
+            UILabel * lbl_title1=[[UILabel alloc] initWithFrame:CGRectMake(icon1.frame.origin.x+icon1.frame.size.width+10, 10, 250, 15)];
+            lbl_title1.font=[UIFont systemFontOfSize:14];
+            lbl_title1.text=_sorts[i][@"name"];
+            [itemView addSubview:lbl_title1];
+            UIButton * btn_defaultPaixu=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, itemView.frame.size.width, 30)];
+            btn_defaultPaixu.tag=[_sorts[i][@"actid"]intValue];
+            [btn_defaultPaixu addTarget:self action:@selector(GetActiveResList:) forControlEvents:UIControlEventTouchUpInside];
+            [itemView addSubview:btn_defaultPaixu];
+            [BackView_paixu addSubview:itemView];
+            
+        }
+        [_Page addSubview:BackView_paixu];
+        isSortShow=YES;
+    }else
+    {
+        isSortShow=NO;
+        [BackView_paixu removeFromSuperview];
+    }
+}
+
+-(void)GetcateGrayList:(UIButton *)sender
+{
+    [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:_order andActivity:_activity andCategory:[NSString stringWithFormat:@"%ld",(long)sender.tag] andlat:_lat andlong:_long];
+    [BackView_paixu removeFromSuperview];
+    iscategaryShow=NO;
+}
+-(void)getOrderListData:(UIButton *)sender
+{
+    [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:[NSString stringWithFormat:@"%ld",(long)sender.tag] andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
+    [BackView_paixu removeFromSuperview];
+    isSortShow=NO;
+}
+
+-(void)GetActiveResList:(UIButton * )sender
+{
+    [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:_order andActivity:[NSString stringWithFormat:@"%ld",(long)sender.tag] andCategory:_category andlat:_lat andlong:_long];
+    [BackView_paixu removeFromSuperview];
+    isActiveShow=NO;
 }
 
 @end
