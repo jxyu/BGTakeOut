@@ -17,7 +17,13 @@
  */
 #define duiba_app_key @"3Zxiw1dny8Msn4P8TmyoeECqtKdu"
 #define duiba_app_secret @"3zW6J9ZaqMJq6jxK3NqEWmYQrKTx"
-
+/**
+ *  兑吧首页展示的三个链接
+ */
+#define duiba_left_url @"http://www.duiba.com.cn/mobile/detail?itemId=747"
+#define duiba_right_up_url @"http://www.duiba.com.cn/mobile/detail?itemId=947"
+#define duiba_right_down_url @"http://www.duiba.com.cn/mobile/detail?itemId=297"
+#define duiba_luck_game @"http://www.duiba.com.cn/turntable/index/3152"
 /**
  *  友盟appkey
  */
