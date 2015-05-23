@@ -812,6 +812,7 @@
 }
 -(void)gotoShopAlbum{
     ShopAlbumViewController* album=[[ShopAlbumViewController alloc] init];
+    album.resid=_resid;
 //    [self.navigationController pushViewController:album animated:YES];
     [self presentViewController:album animated:YES completion:nil];
 }

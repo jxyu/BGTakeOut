@@ -36,7 +36,7 @@
 -(void)initData{
     DataProvider* tDataProvider=[[DataProvider alloc] init];
     [tDataProvider setDelegateObject:self setBackFunctionName:@"getShopAlbum:"];
-    [tDataProvider getResAlbumWithResid:@"2"];
+    [tDataProvider getResAlbumWithResid:_resid];
 }
 #pragma mark vc_action
 -(void)clickLeftButton:(UIButton *)sender{
