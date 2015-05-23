@@ -389,7 +389,7 @@
 -(void)BGBangDianzanFuncWithuserid:(NSString *)userid andartid:(NSString *)articleid
 {
     if (userid&&articleid) {
-        NSString * url=[NSString stringWithFormat:@"%@getbaguorankcate.php",KURL];
+        NSString * url=[NSString stringWithFormat:@"%@commitbaguostar.php",KURL];
         NSDictionary * prm=@{@"userid":userid,@"articleid":articleid};
         [self PostRequest:url andpram:prm];
     }

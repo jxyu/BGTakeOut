@@ -469,6 +469,10 @@
     if (1==self.segmentedControl.selectedSegmentIndex) {
 //        _Page.hidden=YES;
         NSLog(@"other");
+        [menutableView removeFromSuperview];
+        [firstScrollView removeFromSuperview];
+        [thirdScrollView removeFromSuperview];
+        [BackView_paixu removeFromSuperview];
         isAgain=YES;
         NSDictionary * prm=@{@"userid":dictionary[@"userid"],@"page":@"1",@"num":@"8"};
         DataProvider * dataprovider=[[DataProvider alloc] init];
@@ -479,6 +483,10 @@
     {
         isAgain=YES;
 //        _Page.hidden=NO;
+        [menutableView removeFromSuperview];
+        [firstScrollView removeFromSuperview];
+        [thirdScrollView removeFromSuperview];
+        [BackView_paixu removeFromSuperview];
         [self MakePramAndGetData:_page andNum:_num andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm];
         
     }
@@ -565,6 +573,7 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
     [SVProgressHUD dismiss];
     if ([dict[@"status"] intValue]==1) {
         [SVProgressHUD showSuccessWithStatus:@"点赞成功" maskType:SVProgressHUDMaskTypeBlack];
+        [mytableView reloadData];
     }
 }
 

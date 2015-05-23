@@ -37,10 +37,10 @@
     
     UIView * BackView_Star=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 50)];
     BackView_Star.backgroundColor=[UIColor whiteColor];
-    lbl_starTitle=[[UILabel alloc] initWithFrame:CGRectMake(10, 15, 60, 20)];
+    lbl_starTitle=[[UILabel alloc] initWithFrame:CGRectMake(10, 15, 80, 20)];
     lbl_starTitle.text=@"总体评价";
     [BackView_Star addSubview:lbl_starTitle];
-    start_View=[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_starTitle.frame.origin.x+lbl_starTitle.frame.size.width, 15, 150, 20)];
+    start_View=[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_starTitle.frame.origin.x+lbl_starTitle.frame.size.width, 15, 150, 23)];
     start_View.delegate=self;
     [BackView_Star addSubview:start_View];
     [self.view addSubview:BackView_Star];
@@ -52,14 +52,16 @@
     txtV_PingjiaContent.delegate=self;
     [BackView_content addSubview:txtV_PingjiaContent];
     
-    uilabelcontent=[[UILabel alloc] initWithFrame:CGRectMake(17, 10, 300, 10)];
+    uilabelcontent=[[UILabel alloc] initWithFrame:CGRectMake(17, 10, 300, 15)];
     uilabelcontent.text = @"写点评价吧，对其他小伙伴帮助很大哦";
     uilabelcontent.enabled = NO;//lable必须设置为不可用
+    uilabelcontent.font=[UIFont systemFontOfSize:13];
     uilabelcontent.backgroundColor = [UIColor clearColor];
     [BackView_content addSubview:uilabelcontent];
-    lbl_zishucontent=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-160,BackView_content.frame.size.height-30, 150, 10)];
+    lbl_zishucontent=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-160,BackView_content.frame.size.height-30, 150, 15)];
     lbl_zishucontent.text=@"还能输入140个字";
     lbl_zishucontent.enabled=NO;
+    lbl_zishucontent.font=[UIFont systemFontOfSize:13];
     lbl_zishucontent.backgroundColor=[UIColor clearColor];
     [BackView_content addSubview:lbl_zishucontent];
     [self.view addSubview:BackView_content];
