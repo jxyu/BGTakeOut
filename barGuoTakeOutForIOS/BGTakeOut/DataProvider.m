@@ -490,4 +490,10 @@
     NSString* url=[NSString stringWithFormat:@"%@server/Home/Rank/api_commitBaguoRecommend",KURL];
     [self PostRequest:url andpram:param];
 }
+#pragma mark 获取餐厅相册
+-(void)getResAlbumWithResid:(NSString *)resid{
+    NSString * url=[NSString stringWithFormat:@"%@server/Home/Node/api_getResAlbum",KURL];
+    NSDictionary * param =@{@"resid":resid};
+    [self PostRequest:url andpram:param];
+}
 @end

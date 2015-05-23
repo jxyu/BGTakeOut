@@ -11,8 +11,10 @@
 @interface ShopAlbumViewController : BaseNavigationController<SlideImageViewDelegate>
 {
     SlideImageView* slideImageView;
+    
 
 }
+@property(nonatomic,copy) NSString*  resid;
 
 
 @end
