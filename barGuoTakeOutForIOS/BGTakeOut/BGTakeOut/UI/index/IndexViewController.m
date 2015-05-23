@@ -93,16 +93,18 @@
         lastinarray=[page.subviews lastObject] ;
         y=[lastinarray frame].origin.y+lastinarray.frame.size.height+kJianXi;
         UIButton * Joke= [[UIButton alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH/2-1, 70)];
-        [Joke setImage:[UIImage imageNamed:@"joke.jpg"] forState:UIControlStateNormal];
+        [Joke setImage:[UIImage imageNamed:@"joke@2x.jpg"] forState:UIControlStateNormal];
         [Joke addTarget:self action:@selector(JumpToJoke) forControlEvents:UIControlEventTouchUpInside];
+        [Joke setShowsTouchWhenHighlighted:YES];
         [page addSubview:Joke];
         
         //添加幸运星按钮
         lastinarray=[page.subviews lastObject] ;
         CGFloat x=lastinarray.frame.size.width+2;
         UIButton * luck= [[UIButton alloc] initWithFrame:CGRectMake(x, y, SCREEN_WIDTH/2-1, 70)];
-        [luck setImage:[UIImage imageNamed:@"luck.jpg"] forState:UIControlStateNormal];
+        [luck setImage:[UIImage imageNamed:@"luck@2x.jpg"] forState:UIControlStateNormal];
         [luck addTarget:self action:@selector(jumpToLuck) forControlEvents:UIControlEventTouchUpInside];
+        [luck setShowsTouchWhenHighlighted:YES];
         [page addSubview:luck];
         
         //更多礼品按钮
@@ -111,6 +113,7 @@
         UIButton * Gift= [[UIButton alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 28)];
         [Gift setImage:[UIImage imageNamed:@"lipin_more.jpg"] forState:UIControlStateNormal];
         [Gift addTarget:self action:@selector(MoreGift) forControlEvents:UIControlEventTouchUpInside];
+        [Gift setShowsTouchWhenHighlighted:YES];
         [page addSubview:Gift];
         
         //添加下面展示的三样礼品

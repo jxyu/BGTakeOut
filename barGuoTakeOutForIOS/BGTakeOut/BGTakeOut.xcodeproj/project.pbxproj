@@ -117,9 +117,9 @@
 		8083AA2C1B0C2C1500307238 /* index_waimai1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8083AA2A1B0C2C1500307238 /* index_waimai1@2x.png */; };
 		8083AA2D1B0C2C1500307238 /* index_waimai2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8083AA2B1B0C2C1500307238 /* index_waimai2@2x.png */; };
 		8083AA2F1B0C7CDC00307238 /* renzheng_BackView.png in Resources */ = {isa = PBXBuildFile; fileRef = 8083AA2E1B0C7CDC00307238 /* renzheng_BackView.png */; };
-		80843F181AE25ACC006AC3B7 /* joke.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 80843F131AE25ACC006AC3B7 /* joke.jpg */; };
+		80843F181AE25ACC006AC3B7 /* joke@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 80843F131AE25ACC006AC3B7 /* joke@2x.jpg */; };
 		80843F191AE25ACC006AC3B7 /* lipin_more.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 80843F141AE25ACC006AC3B7 /* lipin_more.jpg */; };
-		80843F1A1AE25ACC006AC3B7 /* luck.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 80843F151AE25ACC006AC3B7 /* luck.jpg */; };
+		80843F1A1AE25ACC006AC3B7 /* luck@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 80843F151AE25ACC006AC3B7 /* luck@2x.jpg */; };
 		80843F1B1AE25ACC006AC3B7 /* top.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 80843F161AE25ACC006AC3B7 /* top.jpg */; };
 		80843F1C1AE25ACC006AC3B7 /* WaiMai.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 80843F171AE25ACC006AC3B7 /* WaiMai.jpg */; };
 		8088515A1AE8D83E002614AC /* TQStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 808851591AE8D83E002614AC /* TQStarRatingView.m */; };
@@ -512,9 +512,9 @@
 		8083AA2A1B0C2C1500307238 /* index_waimai1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_waimai1@2x.png"; sourceTree = "<group>"; };
 		8083AA2B1B0C2C1500307238 /* index_waimai2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_waimai2@2x.png"; sourceTree = "<group>"; };
 		8083AA2E1B0C7CDC00307238 /* renzheng_BackView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = renzheng_BackView.png; sourceTree = "<group>"; };
-		80843F131AE25ACC006AC3B7 /* joke.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = joke.jpg; sourceTree = "<group>"; };
+		80843F131AE25ACC006AC3B7 /* joke@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "joke@2x.jpg"; sourceTree = "<group>"; };
 		80843F141AE25ACC006AC3B7 /* lipin_more.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lipin_more.jpg; sourceTree = "<group>"; };
-		80843F151AE25ACC006AC3B7 /* luck.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = luck.jpg; sourceTree = "<group>"; };
+		80843F151AE25ACC006AC3B7 /* luck@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "luck@2x.jpg"; sourceTree = "<group>"; };
 		80843F161AE25ACC006AC3B7 /* top.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = top.jpg; sourceTree = "<group>"; };
 		80843F171AE25ACC006AC3B7 /* WaiMai.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WaiMai.jpg; sourceTree = "<group>"; };
 		808851581AE8D83E002614AC /* TQStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TQStarRatingView.h; sourceTree = "<group>"; };
@@ -1245,9 +1245,9 @@
 				802C33E51AE61D5D003B83CC /* btn_delete.png */,
 				802C33E21AE5FB00003B83CC /* changeAdress_icon.png */,
 				80A5294E1AE4DF0400FE6F90 /* ic_actionbar_back.png */,
-				80843F131AE25ACC006AC3B7 /* joke.jpg */,
+				80843F131AE25ACC006AC3B7 /* joke@2x.jpg */,
 				80843F141AE25ACC006AC3B7 /* lipin_more.jpg */,
-				80843F151AE25ACC006AC3B7 /* luck.jpg */,
+				80843F151AE25ACC006AC3B7 /* luck@2x.jpg */,
 				80843F161AE25ACC006AC3B7 /* top.jpg */,
 				80843F171AE25ACC006AC3B7 /* WaiMai.jpg */,
 			);
@@ -1925,9 +1925,9 @@
 				8A70AC1B1B058F5300F37311 /* LuckyGameViewController.xib in Resources */,
 				804785031AF99A15001B451E /* game.png in Resources */,
 				8AD9E1931B0F635900D2CB37 /* UMSnsAccountViewController.xib in Resources */,
-				80843F181AE25ACC006AC3B7 /* joke.jpg in Resources */,
+				80843F181AE25ACC006AC3B7 /* joke@2x.jpg in Resources */,
 				802DB4861AEA44FF00140AA9 /* share_icon.png in Resources */,
-				80843F1A1AE25ACC006AC3B7 /* luck.jpg in Resources */,
+				80843F1A1AE25ACC006AC3B7 /* luck@2x.jpg in Resources */,
 				8AACCBCF1B05E0E500895916 /* 2.jpg in Resources */,
 				80D309CB1B04C2B9009A2BF3 /* zanhui.png in Resources */,
 				80D309B51B04B73F009A2BF3 /* AddAddressViewController.xib in Resources */,

@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
-
+#define corner_radius 14
 @interface FoundViewController ()
 @property(nonatomic,strong)UINavigationItem *mynavigationItem;
 @end
@@ -39,11 +39,11 @@
     DataProvider * dataprovider =[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetWeatherCallBack:"];
     [dataprovider GetWeather:@"linyi"];
-   
     
-//    Weather =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+25, KWidth, 60)];
-//    Weather.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];;
-//    [self.view addSubview:Weather];
+    
+    //    Weather =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+25, KWidth, 60)];
+    //    Weather.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];;
+    //    [self.view addSubview:Weather];
     
     UITableView *foundTable=[[UITableView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
     foundTable.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
@@ -78,10 +78,18 @@
             case 0:
                 cell.GroupTitle.text=@"资讯";
                 cell.img_1.image=[UIImage imageNamed:@"baidu_icon"];
+                cell.img_1.layer.masksToBounds =YES;
+                
+                cell.img_1.layer.cornerRadius =corner_radius;
+                
+                
                 cell.lbl_1.text=@"百度";
                 cell.btn_1.tag=[[NSString stringWithFormat:@"1%ld",(long)indexPath.section] integerValue];
                 [cell.btn_1 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
                 cell.img_2.image=[UIImage imageNamed:@"Image-5"];
+                cell.img_2.layer.masksToBounds =YES;
+                cell.img_2.layer.cornerRadius =corner_radius;
+
                 cell.lbl_2.text=@"新浪";
                 cell.btn_2.tag=[[NSString stringWithFormat:@"2%ld",(long)indexPath.section] integerValue];
                 [cell.btn_2 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -97,12 +105,25 @@
                 cell.lbl_5.text=@"凤凰";
                 cell.btn_5.tag=[[NSString stringWithFormat:@"5%ld",(long)indexPath.section] integerValue];
                 [cell.btn_5 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
+                cell.img_3.layer.masksToBounds =YES;
+                cell.img_3.layer.cornerRadius =corner_radius;
+
+                cell.img_4.layer.masksToBounds =YES;
+                cell.img_4.layer.cornerRadius =corner_radius;
+                cell.img_5.layer.masksToBounds =YES;
+                cell.img_5.layer.cornerRadius =corner_radius;
+
                 break;
             case 1:
                 cell.GroupTitle.text=@"购物";
                 cell.img_1.image=[UIImage imageNamed:@"taobao.png"];
+                cell.img_1.layer.masksToBounds =YES;
+                cell.img_1.layer.cornerRadius =corner_radius;
                 cell.lbl_1.text=@"淘宝";
                 cell.img_2.image=[UIImage imageNamed:@"jingdong.png"];
+                cell.img_2.layer.masksToBounds =YES;
+                cell.img_2.layer.cornerRadius =corner_radius;
+
                 cell.lbl_2.text=@"京东";
                 cell.img_3.image=[UIImage imageNamed:@"tianmao.png"];
                 cell.lbl_3.text=@"天猫";
@@ -121,12 +142,24 @@
                 [cell.btn_4 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
                 cell.btn_5.tag=[[NSString stringWithFormat:@"5%ld",(long)indexPath.section] integerValue];
                 [cell.btn_5 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
+                cell.img_3.layer.masksToBounds =YES;
+                cell.img_3.layer.cornerRadius =corner_radius;
+                
+                cell.img_4.layer.masksToBounds =YES;
+                cell.img_4.layer.cornerRadius =corner_radius;
+                cell.img_5.layer.masksToBounds =YES;
+                cell.img_5.layer.cornerRadius =corner_radius;
                 break;
             case 2:
                 cell.GroupTitle.text=@"生活";
                 cell.img_1.image=[UIImage imageNamed:@"ganji.png"];
+                cell.img_1.layer.masksToBounds =YES;
+                cell.img_1.layer.cornerRadius =corner_radius;
+
                 cell.lbl_1.text=@"赶集";
                 cell.img_2.image=[UIImage imageNamed:@"youyuan.png"];
+                cell.img_2.layer.masksToBounds =YES;
+                cell.img_2.layer.cornerRadius =corner_radius;
                 cell.lbl_2.text=@"有缘";
                 cell.img_3.image=[UIImage imageNamed:@"souhushipin.png"];
                 cell.lbl_3.text=@"搜狐";
@@ -145,12 +178,24 @@
                 [cell.btn_4 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
                 cell.btn_5.tag=[[NSString stringWithFormat:@"5%ld",(long)indexPath.section] integerValue];
                 [cell.btn_5 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
+                cell.img_3.layer.masksToBounds =YES;
+                cell.img_3.layer.cornerRadius =corner_radius;
+                
+                cell.img_4.layer.masksToBounds =YES;
+                cell.img_4.layer.cornerRadius =corner_radius;
+                cell.img_5.layer.masksToBounds =YES;
+                cell.img_5.layer.cornerRadius =corner_radius;
                 break;
             case 3:
                 cell.GroupTitle.text=@"查询";
                 cell.img_1.image=[UIImage imageNamed:@"baidu_icon"];
+                cell.img_1.layer.masksToBounds =YES;
+                cell.img_1.layer.cornerRadius =corner_radius;
+
                 cell.lbl_1.text=@"去哪";
                 cell.img_2.image=[UIImage imageNamed:@"huochepiao.png"];
+                cell.img_2.layer.masksToBounds =YES;
+                cell.img_2.layer.cornerRadius =corner_radius;
                 cell.lbl_2.text=@"火车票";
                 cell.img_3.image=[UIImage imageNamed:@"qicheweizhang.png"];
                 cell.lbl_3.text=@"汽车违章";
@@ -169,11 +214,18 @@
                 [cell.btn_4 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
                 cell.btn_5.tag=[[NSString stringWithFormat:@"5%ld",(long)indexPath.section] integerValue];
                 [cell.btn_5 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
+                cell.img_3.layer.masksToBounds =YES;
+                cell.img_3.layer.cornerRadius =corner_radius;
+                
+                cell.img_4.layer.masksToBounds =YES;
+                cell.img_4.layer.cornerRadius =corner_radius;
+                cell.img_5.layer.masksToBounds =YES;
+                cell.img_5.layer.cornerRadius =corner_radius;
                 break;
             default:
                 break;
         }
-//        [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
+        //        [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
         
     }
     else
@@ -212,6 +264,10 @@
     }
     
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow]animated:YES];
+}
+
 -(void)GetWeatherCallBack:(id)dict
 {
     NSLog(@"%@",dict);
