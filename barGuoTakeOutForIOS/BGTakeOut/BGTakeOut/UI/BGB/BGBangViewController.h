@@ -12,7 +12,7 @@
 #import "BGBangDetialViewController.h"
 #import "LoginViewController.h"
 
-@interface BGBangViewController : BaseNavigationController <UITabBarDelegate,DOPDropDownMenuDelegate,DOPDropDownMenuDataSource,UITableViewDelegate,UITableViewDataSource>
+@interface BGBangViewController : BaseNavigationController <UITabBarDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)BGBangDetialViewController *BGBangDetialVC;
 @property(nonatomic,strong)LoginViewController * myLogin;
 @end
