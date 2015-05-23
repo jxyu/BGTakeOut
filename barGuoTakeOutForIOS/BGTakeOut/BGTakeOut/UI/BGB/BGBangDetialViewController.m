@@ -13,7 +13,7 @@
 #import "SDCycleScrollView.h"
 #import "TQStarRatingView.h"
 #import "UIImageView+WebCache.h"
-
+#import "UMSocial.h"
 #define KURL @"http://121.42.139.60/baguo/"
 @interface BGBangDetialViewController ()
 @property(nonatomic,strong)SDCycleScrollView *cycleScrollView;
@@ -140,6 +140,7 @@
     [btn_share setImage:[UIImage imageNamed:@"fenxianghui@2x"] forState:UIControlStateNormal];
     [btn_share setTitle:[NSString stringWithFormat:@"分享"] forState:UIControlStateNormal];
     [btn_share setTitleColor:[UIColor colorWithRed:121/255.0 green:121/255.0 blue:121/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [btn_share addTarget:self action:@selector(shareClicked:) forControlEvents:UIControlEventTouchUpInside];
     btn_share.titleLabel.font=[UIFont systemFontOfSize:13];
     btn_share.layer.borderWidth=1;
     btn_share.layer.borderColor=colorref;
@@ -163,5 +164,17 @@
     _myPinglun.articleid=_articleid;
     [self.navigationController pushViewController:_myPinglun animated:YES];
 }
-
+-(void)shareClicked:(id)sender{
+    //分享巴国榜
+    NSString *shareText = @"快来加入掌尚街，享受生活的乐趣吧！";             //分享内嵌文字
+    UIImage *shareImage = [UIImage imageNamed:@"1136-1"];          //分享内嵌图片
+    NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSession,UMShareToEmail,UMShareToSms,nil];
+    //调用快速分享接口
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:umeng_app_key
+                                      shareText:shareText
+                                     shareImage:shareImage
+                                shareToSnsNames:snsList
+                                       delegate:nil];
+}
 @end

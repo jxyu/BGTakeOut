@@ -138,6 +138,13 @@
  *  @param threeid   所属三级分类id
  */
 -(void)commitRecommendWithusername:(NSString*)username resname:(NSString*)resname resaddress:(NSString*)adr contacts:(NSString*)contact resdetail:(NSString*)resdetail img1:(NSString*)img1 img2:(NSString*)img2 img3:(NSString*)img3 img4:(NSString*)img4 oneid:(NSString*)oneid twoid:(NSString*)twoid threeid:(NSString*)threeid;
+/**
+ *  获得餐厅相册
+ *
+ *  @param resid 餐厅id
+ */
+-(void)getResAlbumWithResid:(NSString*)resid;
+
 //执行回调函数
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName;
 
