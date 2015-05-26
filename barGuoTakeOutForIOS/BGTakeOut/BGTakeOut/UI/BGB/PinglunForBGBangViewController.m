@@ -92,13 +92,15 @@
     txtV_PingjiaContent.delegate=self;
     [BackView_content addSubview:txtV_PingjiaContent];
     
-    uilabelcontent=[[UILabel alloc] initWithFrame:CGRectMake(17, 10, 300, 10)];
+    uilabelcontent=[[UILabel alloc] initWithFrame:CGRectMake(17, 10, 300, 15)];
+    uilabelcontent.font=[UIFont systemFontOfSize:14];
     uilabelcontent.text = @"写点评价吧，对其他小伙伴帮助很大哦";
     uilabelcontent.enabled = NO;//lable必须设置为不可用
     uilabelcontent.backgroundColor = [UIColor clearColor];
     [BackView_content addSubview:uilabelcontent];
-    lbl_zishucontent=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-160,BackView_content.frame.size.height-30, 150, 10)];
+    lbl_zishucontent=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-160,BackView_content.frame.size.height-30, 150, 15)];
     lbl_zishucontent.text=@"还能输入140个字";
+    lbl_zishucontent.font=[UIFont systemFontOfSize:14];
     lbl_zishucontent.enabled=NO;
     lbl_zishucontent.backgroundColor=[UIColor clearColor];
     [BackView_content addSubview:lbl_zishucontent];

@@ -39,6 +39,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self BuildView];
+    
+}
+
+
+-(void)BuildView
+{
     [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                               NSUserDomainMask, YES) objectAtIndex:0];
@@ -52,6 +59,9 @@
     nameArray1=[[NSArray alloc]initWithObjects:@"官网",@"公司简介",@"投诉处理",nil];
     nameArray2=[[NSArray alloc]initWithObjects:@"诚聘", @"招商加盟",nil];
     nameArray3=[[NSArray alloc]initWithObjects:@"设置",nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"exit_userinfo" object:nil];
     
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     if (!userinfoWithFile[@"userid"]) {
@@ -108,7 +118,7 @@
         [self.view addSubview:UserBackGroundView];
         [BackGroundOfLogin removeFromSuperview];
         [_myLogin.view removeFromSuperview];
-}
+    }
     UIView * lastview =[[self.view subviews] lastObject];
     CGFloat y=lastview.frame.size.height+lastview.frame.origin.y;
     UIView * BackView_BGB=[[UIButton alloc] initWithFrame:CGRectMake(0,y , SCREEN_WIDTH/3, 80)];
@@ -171,16 +181,14 @@
     
     lastview =[[self.view subviews] lastObject];
     y=lastview.frame.origin.y+lastview.frame.size.height;
-
+    
     UITableView * MineTableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-49-y) style:UITableViewStyleGrouped];
     MineTableView.delegate=self;
     MineTableView.dataSource=self;
     [self.view addSubview:MineTableView];
     
     [SVProgressHUD dismiss];
-    
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -338,6 +346,7 @@
     [UserBackGroundView addSubview:mybtn];
     [self.view addSubview:UserBackGroundView];
     [BackGroundOfLogin removeFromSuperview];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"user_login_info" object:nil];
 }
 -(void)myBtnClick
 {
@@ -428,5 +437,11 @@
     [nav setNavColorStyle:[UIColor redColor]];
     [self presentViewController:nav animated:YES completion:nil];
     
+}
+
+-(void)existUserInfo
+{
+    NSLog(@"mineVC收到notice");
+    [self BuildView];
 }
 @end

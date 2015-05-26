@@ -157,6 +157,7 @@
     [self presentViewController:reg animated:YES completion:^{
         NSLog(@"zhucewancheng回到前一页");
     }];
+//    [self.navigationController pushViewController:reg animated:YES];
     
 }
 @end

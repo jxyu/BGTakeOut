@@ -71,7 +71,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self BuildBiewelement];
     
+    
+}
+
+-(void)BuildBiewelement
+{
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
@@ -82,6 +88,9 @@
     categary3=[[NSMutableArray alloc] init];
     isClick=NO;
     isShow=NO;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"exit_userinfo" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"user_login_info" object:nil];
     if (dictionary[@"userid"]) {
         [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
         [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
@@ -182,7 +191,7 @@
         MenuFirstTypeArray=[[NSMutableArray alloc] initWithObjects:dict, nil];
         
         [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"1" andOneid:@"1" andTwoid:@"2" andThreeid:@"9" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude]];
+            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"2" andThreeid:@"9" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude]];
         }];
         menutableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH/3, _Page.frame.size.height-40)];
         menutableView.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
@@ -204,7 +213,6 @@
         [_myLogin setDelegateObject:self setBackFunctionName:@"LoginBackCall:"];
         [self.view addSubview:item];
     }
-    
     
 }
 
@@ -346,10 +354,11 @@
             cell.Name.text=_TextArray[indexPath.row][@"resname"];
             cell.adress.text=_TextArray[indexPath.row][@"resaddress"];
             cell.logoImage.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,_TextArray[indexPath.row][@"reslogo"]]]]];
-            if ([_TextArray[indexPath.row][@"istarted"] intValue]==1) {
+            if ([_TextArray[indexPath.row][@"isstarted"] intValue]==1) {
                 [cell.dianzan setImage:[UIImage imageNamed:@"zan@2x"] forState:UIControlStateNormal];
                 [cell.dianzan setTitle:[NSString stringWithFormat:@"(%d)喜欢",[_TextArray[indexPath.row][@"starnum"] intValue]] forState:UIControlStateNormal];
                 [cell.dianzan setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                [cell.dianzan addTarget:self action:@selector(dianzanFunction:) forControlEvents:UIControlEventTouchUpInside];
             }
             else
             {
@@ -577,8 +586,9 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
 {
     [SVProgressHUD dismiss];
     if ([dict[@"status"] intValue]==1) {
-        [SVProgressHUD showSuccessWithStatus:@"点赞成功" maskType:SVProgressHUDMaskTypeBlack];
-        [mytableView reloadData];
+        [SVProgressHUD showSuccessWithStatus:dict[@"msg"] maskType:SVProgressHUDMaskTypeBlack];
+        [self MakePramAndGetData:_page andNum:_num andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm];
+        isAgain=YES;
     }
 }
 
@@ -757,6 +767,12 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
     isShow=NO;
     [BackView_paixu removeFromSuperview];
     [self MakePramAndGetData:@"1" andNum:_num andSort:[NSString stringWithFormat:@"%ld",(long)sender.tag] andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm];
+}
+
+-(void)existUserInfo
+{
+    NSLog(@"BGBangVC收到通知");
+    [self BuildBiewelement];
 }
 
 @end

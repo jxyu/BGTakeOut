@@ -10,7 +10,7 @@
 #import "DataProvider.h"
 
 @interface AfterVirifyViewController ()
-
+@property(nonatomic,strong) UIWindow* window;
 @end
 
 @implementation AfterVirifyViewController
@@ -18,6 +18,15 @@
     UITextField * txt_pwd;
 }
 
+-(void)clickLeftButton:(UIButton *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        _window.hidden=YES;
+        //关掉注册controller
+//        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CLOSE_B object:nil userInfo:nil];
+
+    }];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton:@"ic_actionbar_back.png"];
@@ -85,12 +94,12 @@
 }
 
 
--(void)clickLeftButton:(UIButton *)sender
-{
-    [self presentViewController:self.presentingViewController.presentingViewController.presentingViewController animated:YES completion:^{
-//        code
-    } ];
-    
-}
+//-(void)clickLeftButton:(UIButton *)sender
+//{
+//    [self presentViewController:self.presentingViewController.presentingViewController.presentingViewController animated:YES completion:^{
+////        code
+//    } ];
+//    
+//}
 
 @end

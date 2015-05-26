@@ -221,6 +221,7 @@
     if (result) {
         UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:@"退出成功" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
         [alert show];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"exit_userinfo" object:nil];
     }
 }
 

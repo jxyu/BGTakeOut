@@ -324,7 +324,7 @@
 -(void)GetAllCollection:(id)prm
 {
     if (prm) {
-        NSString * url=[NSString stringWithFormat:@"%@getcollections.php",KURL];
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Node/api_getCollection",KURL];
         [self PostRequest:url andpram:prm];
     }
 }
@@ -389,7 +389,7 @@
 -(void)BGBangDianzanFuncWithuserid:(NSString *)userid andartid:(NSString *)articleid
 {
     if (userid&&articleid) {
-        NSString * url=[NSString stringWithFormat:@"%@commitbaguostar.php",KURL];
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Rank/api_commitBaguoStar",KURL];
         NSDictionary * prm=@{@"userid":userid,@"articleid":articleid};
         [self PostRequest:url andpram:prm];
     }

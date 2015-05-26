@@ -232,69 +232,6 @@
 
 
 
-
-
-
-#pragma mark 返回菜单数量
-- (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu
-{
-    return 3;
-}
-
-#pragma mark 返回每个菜单下油多少行
-- (NSInteger)menu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column
-{
-    if (column == 0) {
-        return self.classifys.count;
-    }else if (column == 1){
-        return self.areas.count;
-    }else {
-        return self.sorts.count;
-    }
-}
-#pragma mark 给每行设置数据
-- (NSString *)menu:(DOPDropDownMenu *)menu titleForRowAtIndexPath:(DOPIndexPath *)indexPath
-{
-    if (indexPath.column == 0) {
-        return self.classifys[indexPath.row];
-    } else if (indexPath.column == 1){
-        return self.areas[indexPath.row];
-    } else {
-        return self.sorts[indexPath.row];
-    }
-}
-
-
-- (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath
-{
-    if (indexPath.item >= 0) {
-//        NSLog(@"点击了 %ld - %ld - %ld 项目",indexPath.column,indexPath.row,indexPath.item);
-    }else {
-        NSLog(@"点击了 %ld - %ld 项目",(long)indexPath.column,(long)indexPath.row);
-        if (0!=indexPath.row) {
-            for (UIView * item in _tableView.subviews) {
-                [item removeFromSuperview];
-            }
-            switch (indexPath.column) {
-                case 0:
-                    _order= [NSString stringWithFormat:@"%ld",(long)indexPath.row];
-                    [self GetrestaurantListPage:_page andNum:_num andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
-                    break;
-                case 1:
-                    _category=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
-                    [self GetrestaurantListPage:_page andNum:_num andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
-                    break;
-                case 2:
-                    _activity=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
-                    [self GetrestaurantListPage:_page andNum:_num andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-}
-
 -(void)GetActivityes
 {
     DataProvider * dataprovider=[[DataProvider alloc] init];
@@ -628,12 +565,14 @@
     [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:_order andActivity:_activity andCategory:[NSString stringWithFormat:@"%ld",(long)sender.tag] andlat:_lat andlong:_long];
     [BackView_paixu removeFromSuperview];
     iscategaryShow=NO;
+    isAgain=YES;
 }
 -(void)getOrderListData:(UIButton *)sender
 {
     [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:[NSString stringWithFormat:@"%ld",(long)sender.tag] andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
     [BackView_paixu removeFromSuperview];
     isSortShow=NO;
+    isAgain=YES;
 }
 
 -(void)GetActiveResList:(UIButton * )sender
@@ -641,6 +580,7 @@
     [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:_order andActivity:[NSString stringWithFormat:@"%ld",(long)sender.tag] andCategory:_category andlat:_lat andlong:_long];
     [BackView_paixu removeFromSuperview];
     isActiveShow=NO;
+    isAgain=YES;
 }
 
 @end
