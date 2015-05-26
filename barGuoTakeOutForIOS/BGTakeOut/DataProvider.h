@@ -59,6 +59,9 @@
 -(void)SubmitBGBangPingjia:(id)prm;
 -(void)BGBangDianzanFuncWithuserid:(NSString *)userid andartid:(NSString *)articleid;
 -(void)BGBangXintuijian:(id)prm;
+-(void)AddBGbi:(id)prm;
+-(void)GetOrderPrice:(id)prm;
+-(void)OrderReciver:(NSString *)ordernum;
 
 
 /**

@@ -35,6 +35,7 @@
     UIButton * PayWXWay;
     UIButton * PayOutLine;
     BOOL PayOnLineForChange;//yes代表在线支付
+    BOOL PayWX;
     
     NSDictionary *dictionary;
     NSArray * address;
@@ -45,6 +46,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     PayOnLineForChange=YES;
+    PayWX=NO;
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self setBarTitle:@"订单确认"];
     [self addLeftButton:@"ic_actionbar_back.png"];
@@ -160,18 +162,25 @@
     UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(10, 40, KWidth-20, 1)];
     fenge.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [PayWayBackView addSubview:fenge];
-    PayOnLine=[[UIButton alloc] initWithFrame:CGRectMake(KWidth/4-40, 50, 120, 25)];
-    [PayOnLine setTitle:@"在线支付" forState:UIControlStateNormal];
+    PayOnLine=[[UIButton alloc] initWithFrame:CGRectMake((KWidth/3-100)/2, 50, 100, 25)];
+    [PayOnLine setTitle:@"支付宝" forState:UIControlStateNormal];
     PayOnLine.tag=1;
     [PayOnLine setImage:[UIImage imageNamed:@"RadioButtonSelected"] forState:UIControlStateNormal];
     [PayOnLine addTarget:self action:@selector(ChangePayWay:) forControlEvents:UIControlEventTouchUpInside];
     [PayOnLine setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [PayWayBackView addSubview:PayOnLine];
-    PayOutLine=[[UIButton alloc] initWithFrame:CGRectMake(KWidth/4*2, 50, 120, 25)];
+    PayWXWay=[[UIButton alloc] initWithFrame:CGRectMake(PayOnLine.frame.origin.x+PayOnLine.frame.size.width+(KWidth/3-100)/2, 50, 100, 25)];
+    [PayWXWay setTitle:@"微信支付" forState:UIControlStateNormal];
+    PayWXWay.tag=2;
+    [PayWXWay setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
+    [PayWXWay addTarget:self action:@selector(ChangePayWay:) forControlEvents:UIControlEventTouchUpInside];
+    [PayWXWay setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [PayWayBackView addSubview:PayWXWay];
+    PayOutLine=[[UIButton alloc] initWithFrame:CGRectMake(PayWXWay.frame.origin.x+PayWXWay.frame.size.width+(KWidth/3-100)/2, 50, 100, 25)];
     [PayOutLine setTitle:@"货到付款" forState:UIControlStateNormal];
     [PayOutLine setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [PayOutLine setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
-    PayOutLine.tag=2;
+    PayOutLine.tag=3;
     [PayOutLine addTarget:self action:@selector(ChangePayWay:) forControlEvents:UIControlEventTouchUpInside];
     [PayWayBackView addSubview:PayOutLine];
     [myPage addSubview:PayWayBackView];
@@ -224,14 +233,26 @@
 {
     if (1==sender.tag) {
         PayOnLineForChange=YES;
+        PayWX=NO;
         [PayOnLine setImage:[UIImage imageNamed:@"RadioButtonSelected"] forState:UIControlStateNormal];
         [PayOutLine setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
+        [PayWXWay setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
+    }
+    else if(2==sender.tag)
+    {
+        PayOnLineForChange=NO;
+        PayWX=YES;
+        [PayWXWay setImage:[UIImage imageNamed:@"RadioButtonSelected"] forState:UIControlStateNormal];
+        [PayOutLine setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
+        [PayOnLine setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
     }
     else
     {
         PayOnLineForChange=NO;
-        [PayOutLine setImage:[UIImage imageNamed:@"RadioButtonSelected"] forState:UIControlStateNormal];
-        [PayOnLine setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
+        PayWX=NO;
+        [PayWXWay setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
+        [PayOutLine setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
+        [PayOnLine setImage:[UIImage imageNamed:@"RadioButtonSelected"] forState:UIControlStateNormal];
     }
 }
 
@@ -296,8 +317,8 @@
                 [dict setObject:item.Goods[@"goodsid"] forKey:@"goodsid"];
                 [dict setObject:item.Goods[@"name"] forKey:@"goodsname"];
                 [dict setObject:item.Goods[@"activity"] forKey:@"activity"];
-                [dict setObject:[NSString stringWithFormat:@"%d",item.Num] forKey:@"goodsNum"];
-                [dict setObject:item.Goods[@"price"] forKey:@"goodsprice"];
+                [dict setObject:[NSString stringWithFormat:@"%d",item.Num] forKey:@"count"];
+                [dict setObject:item.Goods[@"price"] forKey:@"price"];
                 
                 [orderdataArray addObject:dict];
                 
@@ -326,8 +347,28 @@
         OrderInfo=dict[@"data"];
         DataProvider * dataprovider=[[DataProvider alloc] init];
         [dataprovider setDelegateObject:self setBackFunctionName:@"GetChargeBackCall:"];
-        NSDictionary * prm=@{@"channel":@"alipay",@"amount":@"22",@"ordernum":@"2015050900088",@"subject":@"外卖2",@"body":@"外卖"};
-        [dataprovider GetchargeForPay:prm];
+        if (PayOnLineForChange) {
+            if (PayWX) {
+                NSDictionary * prm=@{@"channel":@"wx",@"amount":[NSString stringWithFormat:@"%d",([_orderSumPrice intValue]+[_peiSongFeiData intValue]*100)],@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
+                [dataprovider GetchargeForPay:prm];
+            }
+            else
+            {
+                NSDictionary * prm=@{@"channel":@"alipay",@"amount":[NSString stringWithFormat:@"%d",([_orderSumPrice intValue]+[_peiSongFeiData intValue]*100)],@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
+                [dataprovider GetchargeForPay:prm];
+            }
+            
+        }
+        else
+        {
+            NSLog(@"货到付款，直接跳到订单详情页");
+            OrderInfoViewController * orderinfoVC=[[OrderInfoViewController alloc] init];
+            orderinfoVC.orderInfoDetial=dict[@"data"];
+            orderinfoVC.lastprice=[_orderSumPrice intValue]+[_peiSongFeiData intValue];
+            orderinfoVC.orderData=_orderData;
+            [self.navigationController pushViewController:orderinfoVC animated:YES];
+        }
+        
 
     }
 }
@@ -345,6 +386,7 @@
                 NSLog(@"支付成功");
                 OrderInfoViewController * orderinfoVC=[[OrderInfoViewController alloc] init];
                 orderinfoVC.orderInfoDetial=dict[@"data"];
+                orderinfoVC.lastprice=[_orderSumPrice intValue]+[_peiSongFeiData intValue];
                 orderinfoVC.orderData=_orderData;
                 [self.navigationController pushViewController:orderinfoVC animated:YES];
         } else {

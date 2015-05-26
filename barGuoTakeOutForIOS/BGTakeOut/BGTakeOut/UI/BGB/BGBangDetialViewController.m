@@ -53,7 +53,6 @@
     NSLog(@"%@",dict);
     //添加scollView
     id result =dict[@"data"];
-    NSArray * imgArray=[[NSArray alloc] initWithObjects:result[@"img1"],result[@"img2"],result[@"img3"],result[@"img4"], nil];
     NSMutableArray *images = [[NSMutableArray alloc] init];
     for (int i=0; i<4; i++) {
         UIImageView * img=[[UIImageView alloc] init];

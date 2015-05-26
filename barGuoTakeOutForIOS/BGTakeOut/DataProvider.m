@@ -401,6 +401,33 @@
         [self PostRequest:url andpram:prm];
     }
 }
+/**
+ *  添加巴国币
+ *
+ *  @param prm 参数“包含userid和巴国币要增加的数量
+ */
+-(void)AddBGbi:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@edituserinfo.php",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)GetOrderPrice:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Order/api_getOrderPrice",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)OrderReciver:(NSString *)ordernum
+{
+    if (ordernum) {
+        NSDictionary * prm=@{@"ordernum":ordernum};
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Order/api_ensureOrder",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
 
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
 {

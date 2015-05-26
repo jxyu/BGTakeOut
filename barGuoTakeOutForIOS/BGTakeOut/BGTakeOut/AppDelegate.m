@@ -439,5 +439,21 @@
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider BGBangXintuijian:prm];
 }
+-(void)AddBGbi:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider AddBGbi:prm];
+}
+
+-(void)GetOrderPrice:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetOrderPrice:prm];
+}
+-(void)OrderReciver:(NSString *)ordernum
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider OrderReciver:ordernum];
+}
 
 @end

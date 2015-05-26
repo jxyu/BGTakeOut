@@ -41,13 +41,11 @@
     [super viewDidLoad];
     [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     @try {
-        if ([Toolkit isSystemIOS8]) {
-            [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
-                NSLog(@"%@",addressString);
-                NSString *strUrl = [addressString stringByReplacingOccurrencesOfString:@"中国" withString:@""];
-                [self setBarTitle:[strUrl stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
-            }];
-        }
+        [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
+            NSLog(@"%@",addressString);
+            NSString *strUrl = [addressString stringByReplacingOccurrencesOfString:@"中国" withString:@""];
+            [self setBarTitle:[strUrl stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+        }];
         
         UIScrollView *scrollView_BackView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, SCREEN_HEIGHT-NavigationBar_HEIGHT-20-49)];
         scrollView_BackView.scrollEnabled=YES;

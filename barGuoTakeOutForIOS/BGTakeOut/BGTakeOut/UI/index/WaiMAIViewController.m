@@ -86,7 +86,11 @@
     [self addLeftButton:@"ic_actionbar_back.png"];
     tabledata=[[NSMutableArray alloc] init];
 //    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
-    
+    [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
+        NSLog(@"%@",addressString);
+        NSString *strUrl = [addressString stringByReplacingOccurrencesOfString:@"中国" withString:@""];
+        [self setBarTitle:[strUrl stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+    }];
     //添加Segmented Control
     UIView * lastView=[self.view.subviews lastObject];
     UIView * segmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 50)];
@@ -172,6 +176,17 @@
     image3.image=[UIImage imageNamed:@"down"];
     [BackView_menu addSubview:image3];
     [_Page addSubview:BackView_menu];
+    
+    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+        _lat=[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude] ;
+        _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
+        _page=[NSString stringWithFormat:@"%d",1];
+        _num =[NSString stringWithFormat:@"%d",KCantingNum];
+        _order=[NSString stringWithFormat:@"%d",1];
+        _activity=[NSString stringWithFormat:@"%d",1];
+        _category=[NSString stringWithFormat:@"%d",1];
+        [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:@"1" andCategory:@"1" andlat:_lat andlong:_long];
+    }];
     
     lastView=[_Page.subviews lastObject];
     CGFloat y=lastView.frame.origin.y+lastView.frame.size.height;
@@ -327,9 +342,6 @@
             
         }else
         {
-            for (id item in tabledata) {
-                [tabledata removeObject:item];
-            }
             tabledata=dict[@"data"];
         }
         [_tableView reloadData];
@@ -442,12 +454,12 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%@",indexPath);
-    if ([@"1" isEqual:Canting[indexPath.row][@"isopen"]]) {
-        NSString * restid=Canting[indexPath.row][@"resid"];
+    if ([@"1" isEqual:tabledata[indexPath.row][@"isopen"]]) {
+        NSString * restid=tabledata[indexPath.row][@"resid"];
         _myCantingView=[[CantingInfoViewController alloc] initWithNibName:@"CantingInfoViewController" bundle:[NSBundle mainBundle]];
         _myCantingView.resid=restid;
-        _myCantingView.peisongData=Canting[indexPath.row][@"deliveryprice"];
-        _myCantingView.name=Canting[indexPath.row][@"name"];
+        _myCantingView.peisongData=tabledata[indexPath.row][@"deliveryprice"];
+        _myCantingView.name=tabledata[indexPath.row][@"name"];
         [self.navigationController pushViewController:_myCantingView animated:YES];
         
     }
@@ -489,8 +501,8 @@
         BackView_paixu=[[UIView alloc] initWithFrame:CGRectMake(0, 40, _Page.frame.size.width, 30*self.areas.count+self.areas.count)];
         BackView_paixu.backgroundColor=[UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
         for (int i=0; i<self.areas.count; i++) {
-            
-            UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, 30*i+1, BackView_paixu.frame.size.width, 30)];
+            UIView * lastView=[BackView_paixu.subviews lastObject];
+            UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+1, BackView_paixu.frame.size.width, 30)];
             itemView.backgroundColor=[UIColor whiteColor];
             UIImageView * icon1=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 15)];
             icon1.image=[UIImage imageNamed:imagearray1[i]];
@@ -525,8 +537,8 @@
         BackView_paixu=[[UIView alloc] initWithFrame:CGRectMake(0, 40, _Page.frame.size.width, 30*self.classifys.count+self.classifys.count)];
         BackView_paixu.backgroundColor=[UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
         for (int i=0; i<self.classifys.count; i++) {
-            
-            UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, 30*i+1, BackView_paixu.frame.size.width, 30)];
+            UIView * lastview=[BackView_paixu.subviews lastObject];
+            UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, lastview.frame.origin.y+lastview.frame.size.height+1, BackView_paixu.frame.size.width, 30)];
             itemView.backgroundColor=[UIColor whiteColor];
             UIImageView * icon1=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 15)];
             icon1.image=[UIImage imageNamed:imagearray2[i]];
@@ -560,8 +572,8 @@
         BackView_paixu=[[UIView alloc] initWithFrame:CGRectMake(0, 40, _Page.frame.size.width, 30*self.sorts.count+self.sorts.count)];
         BackView_paixu.backgroundColor=[UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
         for (int i=0; i<self.sorts.count; i++) {
-            
-            UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, 30*i+1, BackView_paixu.frame.size.width, 30)];
+            UIView * lastView=[BackView_paixu.subviews lastObject];
+            UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+1, BackView_paixu.frame.size.width, 30)];
             itemView.backgroundColor=[UIColor whiteColor];
             UIImageView * icon1=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 15)];
             switch ([_sorts[i][@"actid"] intValue]) {
@@ -601,7 +613,6 @@
             [btn_defaultPaixu addTarget:self action:@selector(GetActiveResList:) forControlEvents:UIControlEventTouchUpInside];
             [itemView addSubview:btn_defaultPaixu];
             [BackView_paixu addSubview:itemView];
-            
         }
         [_Page addSubview:BackView_paixu];
         isSortShow=YES;

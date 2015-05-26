@@ -84,6 +84,11 @@
     isShow=NO;
     if (dictionary[@"userid"]) {
         [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
+        [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
+            NSLog(@"%@",addressString);
+            NSString *strUrl = [addressString stringByReplacingOccurrencesOfString:@"中国" withString:@""];
+            [self setBarTitle:[strUrl stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+        }];
         //添加Segmented Control
         UIView * lastView=[self.view.subviews lastObject];
         UIView * segmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 50)];
