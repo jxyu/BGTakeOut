@@ -100,6 +100,9 @@
             case 4:
                 cell.status.text=@"卖家已接单，正在配送";
                 break;
+            case 5:
+                cell.status.text=@"未付款，待付款";
+                break;
             case 7:
                 cell.status.text=@"未付款,订单取消，交易关闭";
                 break;

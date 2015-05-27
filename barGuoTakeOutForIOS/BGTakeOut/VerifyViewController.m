@@ -63,11 +63,11 @@ static NSMutableArray* _userData2;
 
 -(void)clickLeftButton
 {
-    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil)
-                                                  message:NSLocalizedString(@"codedelaymsg", nil)
+    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"通知", nil)
+                                                  message:NSLocalizedString(@"是否返回", nil)
                                                  delegate:self
-                                        cancelButtonTitle:NSLocalizedString(@"back", nil)
-                                        otherButtonTitles:NSLocalizedString(@"wait", nil), nil];
+                                        cancelButtonTitle:NSLocalizedString(@"返回", nil)
+                                        otherButtonTitles:NSLocalizedString(@"不返回", nil), nil];
     _alert2=alert;
     [alert show];
 }
@@ -123,6 +123,7 @@ static NSMutableArray* _userData2;
                 [alert show];
             }
         }];
+//        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -247,6 +248,9 @@ static NSMutableArray* _userData2;
     [navigationBar pushNavigationItem:navigationItem animated:NO];
     [navigationItem setLeftBarButtonItem:leftButton];
     [self.view addSubview:navigationBar];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(close) name:NOTIFICATION_CLOSE_B object:nil];
+
     
     UILabel* label=[[UILabel alloc] init];
     label.frame=CGRectMake(15, 53+statusBarHeight, self.view.frame.size.width - 30, 21);
@@ -383,6 +387,8 @@ static NSMutableArray* _userData2;
     return;
 }
 
-
+-(void) close{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end

@@ -41,13 +41,11 @@
     [super viewDidLoad];
     [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     @try {
-        if ([Toolkit isSystemIOS8]) {
-            [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
-                NSLog(@"%@",addressString);
-                NSString *strUrl = [addressString stringByReplacingOccurrencesOfString:@"中国" withString:@""];
-                [self setBarTitle:[strUrl stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
-            }];
-        }
+        [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
+            NSLog(@"%@",addressString);
+            NSString *strUrl = [addressString stringByReplacingOccurrencesOfString:@"中国" withString:@""];
+            [self setBarTitle:[strUrl stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+        }];
         
         UIScrollView *scrollView_BackView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, SCREEN_HEIGHT-NavigationBar_HEIGHT-20-49)];
         scrollView_BackView.scrollEnabled=YES;
@@ -207,7 +205,13 @@
 -(void)GetLocation
 {
     self.autolocation=[[AutoLocationViewController alloc] initWithNibName:@"AutoLocationViewController" bundle:[NSBundle mainBundle]];
+    [_autolocation setDelegateObject:self setBackFunctionName:@"GetautolocationBackCall:"];
     [self.navigationController pushViewController:_autolocation animated:YES];
+}
+
+-(void)GetautolocationBackCall:(id)dict
+{
+    [self setBarTitle:dict[@"area"]];
 }
 
 -(void)DoMyWaiMai
@@ -301,11 +305,10 @@
         [        dataProvider getduibaurlWithAppkey:duiba_app_key appsecret:duiba_app_secret userid:userinfoWithFile[@"userid"]];
     }else{
         //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
-        LoginViewController* loginVC=        [[LoginViewController alloc] init];
+        LoginViewController* loginVC= [[LoginViewController alloc] init];
         [self.navigationController pushViewController:loginVC animated:YES];
         
     }
-    
 }
 -(void)getDuibaAutoLoginUrl:(id)dict{
     NSLog(@"%@",dict);

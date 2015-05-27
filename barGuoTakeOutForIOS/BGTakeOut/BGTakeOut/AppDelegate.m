@@ -17,6 +17,8 @@
 
 #import "UMSocialQQHandler.h"
 
+#import "Pingpp.h"
+
 
 #define app_Key @"6d6636b9d200"
 #define app_Secret @"04507a9ebfb819fedcb19e598d8be0f1"
@@ -193,6 +195,27 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    [Pingpp handleOpenURL:url
+           withCompletion:^(NSString *result, PingppError *error) {
+               if ([result isEqualToString:@"success"]) {
+                   // 支付成功
+                   NSLog(@"支付成功，准备跳转");
+                   [[NSNotificationCenter defaultCenter] postNotificationName:@"OrderPay_success" object:nil];
+               } else {
+                   // 支付失败或取消
+                   NSLog(@"Error: code=%lu msg=%@", (unsigned long)error.code, [error getMsg]);
+               }
+           }];
+    return  YES;
+}
+
+
 #pragma mark - 自定义tabbarVC的相关方法
 -(void)changeRootView
 {
@@ -438,6 +461,22 @@
 {
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider BGBangXintuijian:prm];
+}
+-(void)AddBGbi:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider AddBGbi:prm];
+}
+
+-(void)GetOrderPrice:(id)prm
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetOrderPrice:prm];
+}
+-(void)OrderReciver:(NSString *)ordernum
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider OrderReciver:ordernum];
 }
 
 @end

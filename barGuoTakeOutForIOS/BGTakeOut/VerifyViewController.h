@@ -18,13 +18,12 @@
 @property(nonatomic,strong)  UIButton* repeatSMSBtn;
 @property(nonatomic,strong)  UIButton* submitBtn;
 @property(nonatomic,assign) NSString* isVerify;
-
+@property(nonatomic,strong) UIWindow* window;
 @property (nonatomic, strong) UILabel *voiceCallMsgLabel;
 @property (nonatomic, strong) UIButton *voiceCallButton;
 
 -(void)setPhone:(NSString*)phone AndAreaCode:(NSString*)areaCode;
 -(void)submit;
 -(void)CannotGetSMS;
--(void)inputPwd;
 
 @end

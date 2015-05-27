@@ -168,7 +168,7 @@
                 UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), KWidth/3, KAreaListHeight)];
                 areaitem.backgroundColor=[UIColor colorWithRed:236/255.0 green:237/255.0 blue:241/255.0 alpha:1.0];
                 
-                [areaitem setTag:i];
+                [areaitem setTag:[areaArray[i][@"catid"] intValue]];
                 [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"name"]] forState:UIControlStateNormal];
                 [areaitem addTarget:self action:@selector(CantingItemClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -371,9 +371,8 @@
 {
     NSLog(@"添加一份");
     isClick=NO;
-    [choseDone setEnabled:YES];
     int goodsCount=0;
-    [choseDone setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
+    float SumPrice=0;
     for (UILabel *item in lbl_array) {
         if (item.tag==sender.tag) {
             item.text=[NSString stringWithFormat:@"%d",[item.text intValue]+1];
@@ -383,6 +382,7 @@
     if (ShoppingCar.count>0) {
         int i=0;
         BOOL isExit=false;
+        
         ShoppingCarModel * mydata;
         for (ShoppingCarModel * item in ShoppingCar) {
 //            NSLog(@"分类：要添加的：%@,要比较的%@",GoodsListArray[sender.tag][@"category"],item.Goods[@"category"]);
@@ -420,7 +420,15 @@
         _badgeView.badgeText = [NSString stringWithFormat:@"%d",goodsCount];
         _badgeView.backgroundColor=[UIColor redColor];
     }
-    
+    for (int i=0; i<ShoppingCar.count; i++) {
+        ShoppingCarModel * item=ShoppingCar[i];
+        NSString * price=item.Goods[@"price"];
+        SumPrice+=item.Num*[price floatValue];
+    }
+    if (SumPrice>=[_beginprice floatValue]) {
+        [choseDone setEnabled:YES];
+        [choseDone setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
+    }
     [tableView_gouwuche reloadData];
     [_GoodsList reloadData];
 }
@@ -428,13 +436,16 @@
 -(void)goodsJianClick:(UIButton *)sender
 {
     NSLog(@"减少一份");
+    
     isClick=NO;
     int goodsCount=0;
-    [choseDone setEnabled:YES];
-    [choseDone setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
+    float SumPrice =0;
     if (ShoppingCar.count>0) {
         int i=0;
         BOOL isExit=false;
+        
+        [choseDone setEnabled:YES];
+        [choseDone setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
         ShoppingCarModel * mydata;
         for (ShoppingCarModel * item in ShoppingCar) {
 //            NSLog(@"分类：要添加的：%@,要比较的%@",GoodsListArray[sender.tag][@"category"],item.Goods[@"category"]);
@@ -454,8 +465,6 @@
         }
         
     }
-    
-    
     if (_badgeView) {
         _badgeView.badgeText = [NSString stringWithFormat:@"%d",goodsCount];
     }
@@ -464,6 +473,16 @@
         _badgeView = [[JSBadgeView alloc] initWithParentView:_locationForbadge alignment:JSBadgeViewAlignmentTopRight];
         _badgeView.badgeText = [NSString stringWithFormat:@"%d",goodsCount];
         _badgeView.backgroundColor=[UIColor redColor];
+    }
+    
+    for (int i=0; i<ShoppingCar.count; i++) {
+        ShoppingCarModel * item=ShoppingCar[i];
+        NSString * price=item.Goods[@"price"];
+        SumPrice+=item.Num*[price floatValue];
+    }
+    if (SumPrice<[_beginprice floatValue]) {
+        [choseDone setEnabled:NO];
+        choseDone.backgroundColor=[UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1.0];
     }
     [tableView_gouwuche reloadData];
     [_GoodsList reloadData];
@@ -606,12 +625,40 @@
 
 -(void)payForShoppingCar
 {
-    _myOrderView=[[OrderForSureViewController alloc] initWithNibName:@"OrderForSureViewController" bundle:[NSBundle mainBundle]];
-    _myOrderView.orderData=ShoppingCar;
-    _myOrderView.resid=_resid;
-    _myOrderView.peiSongFeiData=_peisongData;
-    _myOrderView.orderSumPrice=_lableinShoppingList.text;
-    [self.navigationController pushViewController:_myOrderView animated:YES];
+    NSMutableArray * orderdataArray=[[NSMutableArray alloc] init];
+    
+    for (int i=0; i<ShoppingCar.count; i++) {
+        NSMutableDictionary * dict=[[NSMutableDictionary alloc] init];
+        ShoppingCarModel *item=ShoppingCar[i];
+        [dict setObject:item.Goods[@"goodsid"] forKey:@"goodsid"];
+        [dict setObject:item.Goods[@"name"] forKey:@"goodsname"];
+        [dict setObject:item.Goods[@"activity"] forKey:@"activity"];
+        [dict setObject:[NSString stringWithFormat:@"%d",item.Num] forKey:@"count"];
+        [dict setObject:item.Goods[@"price"] forKey:@"price"];
+        
+        [orderdataArray addObject:dict];
+    }
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:orderdataArray
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:nil];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                 encoding:NSUTF8StringEncoding];
+    NSDictionary * prm=@{@"goodsdetail":jsonString};
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetorderPriceBackCall:"];
+    [dataprovider GetOrderPrice:prm];
+}
+-(void)GetorderPriceBackCall:(id)dict
+{
+    if ([dict[@"status"] intValue]==1) {
+        _myOrderView=[[OrderForSureViewController alloc] initWithNibName:@"OrderForSureViewController" bundle:[NSBundle mainBundle]];
+        _myOrderView.orderData=ShoppingCar;
+        _myOrderView.resid=_resid;
+        _myOrderView.peiSongFeiData=_peisongData;
+        _myOrderView.orderSumPrice=dict[@"data"][@"totalprice"];
+        [self.navigationController pushViewController:_myOrderView animated:YES];
+
+    }
 }
 
 -(void)CanTingXiangqingBackCall:(id)dict
@@ -701,8 +748,8 @@
         lastView=BackView_userPingjia;
         UIView * BackView_youhuiquan=[[UIView alloc] initWithFrame:CGRectMake(0,lastView.frame.origin.y+lastView.frame.size.height+5 , KWidth, 40)];
         BackView_youhuiquan.backgroundColor=[UIColor whiteColor];
-        UIImageView * imgView=[[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 20, 20)];
-        imgView.image=[UIImage imageNamed:@"placeholder.png"];
+        UIImageView * imgView=[[UIImageView alloc] initWithFrame:CGRectMake(20, 12.5, 15, 15)];
+        imgView.image=[UIImage imageNamed:@"quan"];
         [BackView_youhuiquan addSubview:imgView];
         UILabel * lbl_Viewtitle=[[UILabel alloc] initWithFrame:CGRectMake(imgView.frame.origin.x+imgView.frame.size.width+2, 10, 200, 20)];
         lbl_Viewtitle.text=[NSString stringWithFormat:@"餐厅可使用优惠券"];
@@ -712,8 +759,8 @@
         lastView=BackView_youhuiquan;
         UIView * BackView_che=[[UIView alloc] initWithFrame:CGRectMake(0,lastView.frame.origin.y+lastView.frame.size.height+1 , KWidth, 40)];
         BackView_che.backgroundColor=[UIColor whiteColor];
-        UIImageView * imgView_che=[[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 20, 20)];
-        imgView_che.image=[UIImage imageNamed:@"placeholder.png"];
+        UIImageView * imgView_che=[[UIImageView alloc] initWithFrame:CGRectMake(20, 12.5, 15, 15)];
+        imgView_che.image=[UIImage imageNamed:@"che"];
         [BackView_che addSubview:imgView_che];
         UILabel * lbl_cheViewtitle=[[UILabel alloc] initWithFrame:CGRectMake(imgView.frame.origin.x+imgView.frame.size.width+2, 10, 200, 20)];
         lbl_cheViewtitle.text=[NSString stringWithFormat:@"新用户可获Uber 5-50元券"];

@@ -71,8 +71,6 @@
         [SVProgressHUD showErrorWithStatus:@"您还未收藏任何信息" maskType:SVProgressHUDMaskTypeBlack];
         
     }
-    
-    
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -148,7 +146,7 @@
     [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetClictionBackCall:"];
-    NSDictionary * dictionary=@{@"userid":_userid,@"page":@"1",@"num":@"8"};
+    NSDictionary * dictionary=@{@"userid":_userid,@"page":[NSString stringWithFormat:@"%d",page],@"num":@"8"};
     [dataprovider GetAllCollection:dictionary];
     page++;
 }

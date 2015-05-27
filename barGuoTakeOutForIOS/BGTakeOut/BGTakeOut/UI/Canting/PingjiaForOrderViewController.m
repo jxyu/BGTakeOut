@@ -134,11 +134,26 @@
 }
 -(void)SubmitBackCall:(id)dict
 {
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+    NSDictionary* userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
     [SVProgressHUD dismiss];
     if ([dict[@"status"] intValue]==1) {
         [SVProgressHUD showSuccessWithStatus:@"提交成功" maskType:SVProgressHUDMaskTypeBlack];
+        if (userinfoWithFile[@"userid"]) {
+            NSDictionary *prm=@{@"userid":userinfoWithFile[@"userid"],@"baguobi":[NSString stringWithFormat:@"%d",(int)_price*10]};
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            [dataprovider setDelegateObject:self setBackFunctionName:@"AddBGBiBackCall:"];
+            [dataprovider AddBGbi:prm];
+
+        }
         [self.navigationController popoverPresentationController];
     }
 }
 
+-(void)AddBGBiBackCall:(id)dict
+{
+    NSLog(@"添加巴国币返回成功");
+}
 @end

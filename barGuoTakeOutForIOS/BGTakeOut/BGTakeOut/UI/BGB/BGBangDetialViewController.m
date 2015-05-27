@@ -53,7 +53,6 @@
     NSLog(@"%@",dict);
     //添加scollView
     id result =dict[@"data"];
-    NSArray * imgArray=[[NSArray alloc] initWithObjects:result[@"img1"],result[@"img2"],result[@"img3"],result[@"img4"], nil];
     NSMutableArray *images = [[NSMutableArray alloc] init];
     for (int i=0; i<4; i++) {
         UIImageView * img=[[UIImageView alloc] init];
@@ -74,7 +73,6 @@
         }
     }
     _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
-    _cycleScrollView.delegate = self;
     _cycleScrollView.titlesGroup = titles;
     
     [page addSubview:_cycleScrollView];
@@ -121,6 +119,7 @@
     [btn_mydianzan setTitle:[NSString stringWithFormat:@"（%@）喜欢",dict[@"data"][@"starnum"]] forState:UIControlStateNormal];
     btn_mydianzan.titleLabel.font=[UIFont systemFontOfSize:13];
     [btn_mydianzan setTitleColor:[UIColor colorWithRed:121/255.0 green:121/255.0 blue:121/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [btn_mydianzan addTarget:self action:@selector(dianzanFunction) forControlEvents:UIControlEventTouchUpInside];
     btn_mydianzan.layer.borderWidth=1;
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 220/255.0,220/255.0, 220/255.0, 1 });
@@ -177,4 +176,19 @@
                                 shareToSnsNames:snsList
                                        delegate:nil];
 }
+-(void)dianzanFunction
+{
+    [SVProgressHUD showWithStatus:@"点赞" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"dianzanBackCall:"];
+    [dataprovider BGBangDianzanFuncWithuserid:_userid  andartid:_articleid];
+}
+-(void)dianzanBackCall:(id)dict
+{
+    [SVProgressHUD dismiss];
+    if ([dict[@"status"] intValue]==1) {
+        [SVProgressHUD showSuccessWithStatus:@"点赞成功" maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
+
 @end

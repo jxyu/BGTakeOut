@@ -15,5 +15,6 @@
 @interface OrderInfoViewController : BaseNavigationController <UIScrollViewDelegate,RefreshHeaderAndFooterViewDelegate,UIAlertViewDelegate>
 @property(nonatomic,strong)NSDictionary * orderInfoDetial;
 @property(nonatomic,strong)NSArray * orderData;
+@property(nonatomic)NSInteger * lastprice;
 @property(nonatomic,strong)PingjiaForOrderViewController *mypingjia;
 @end

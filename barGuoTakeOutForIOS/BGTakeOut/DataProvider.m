@@ -324,7 +324,7 @@
 -(void)GetAllCollection:(id)prm
 {
     if (prm) {
-        NSString * url=[NSString stringWithFormat:@"%@getcollections.php",KURL];
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Node/api_getCollection",KURL];
         [self PostRequest:url andpram:prm];
     }
 }
@@ -389,7 +389,7 @@
 -(void)BGBangDianzanFuncWithuserid:(NSString *)userid andartid:(NSString *)articleid
 {
     if (userid&&articleid) {
-        NSString * url=[NSString stringWithFormat:@"%@commitbaguostar.php",KURL];
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Rank/api_commitBaguoStar",KURL];
         NSDictionary * prm=@{@"userid":userid,@"articleid":articleid};
         [self PostRequest:url andpram:prm];
     }
@@ -398,6 +398,33 @@
 {
     if (prm) {
         NSString * url=[NSString stringWithFormat:@"%@server/Home/Rank/ai_getNewRank",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+/**
+ *  添加巴国币
+ *
+ *  @param prm 参数“包含userid和巴国币要增加的数量
+ */
+-(void)AddBGbi:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@edituserinfo.php",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)GetOrderPrice:(id)prm
+{
+    if (prm) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Order/api_getOrderPrice",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)OrderReciver:(NSString *)ordernum
+{
+    if (ordernum) {
+        NSDictionary * prm=@{@"ordernum":ordernum};
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Order/api_ensureOrder",KURL];
         [self PostRequest:url andpram:prm];
     }
 }

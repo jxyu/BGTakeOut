@@ -10,6 +10,11 @@
 #import "BaseNavigationController.h"
 
 @interface AutoLocationViewController : BaseNavigationController
+{
+    id CallBackObject;
+    NSString * callBackFunctionName;
+}
 
+- (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName;
 
 @end

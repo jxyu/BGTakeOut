@@ -28,10 +28,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    LinkArray1=[NSArray arrayWithObjects:@"http://www.baidu.com",@"http://www.sina.com.cn/",@"http://www.sohu.com/"@"http://www.qq.com/",@"http://www.ifeng.com/",nil];
-    LinkArray2=[NSArray arrayWithObjects:@"http://www.taobao.com",@"http://www.jd.com/",@"http://www.tmall.com/"@"http://www.yhd.com/",@"http://www.vip.com/",nil];
-    LinkArray3=[NSArray arrayWithObjects:@"http://www.ganji.com",@"http://www.youyuan.com/",@"http://tv.sohu.com/"@"http://ios.d.cn/",@"http://www.qidian.com/Default.aspx",nil];
-    LinkArray4=[NSArray arrayWithObjects:@"http://www.qunar.com/",@"http://www.12306.cn/mormhweb/",@"http://www.ip138.com/weizhang.htm"@"http://www.kuaidi100.com/",@"http://baidu.lecai.com/",nil];
+    LinkArray1=[NSArray arrayWithObjects:@"http://www.baidu.com",@"http://www.sina.com.cn/",@"http://www.sohu.com/",@"http://www.qq.com/",@"http://www.ifeng.com/",nil];
+    LinkArray2=[NSArray arrayWithObjects:@"http://www.taobao.com",@"http://www.jd.com/",@"http://www.tmall.com/",@"http://www.yhd.com/",@"http://www.vip.com/",nil];
+    LinkArray3=[NSArray arrayWithObjects:@"http://www.ganji.com",@"http://www.youyuan.com/",@"http://tv.sohu.com/",@"http://ios.d.cn/",@"http://www.qidian.com/Default.aspx",nil];
+    LinkArray4=[NSArray arrayWithObjects:@"http://www.qunar.com/",@"http://www.12306.cn/mormhweb/",@"http://www.ip138.com/weizhang.htm",@"http://www.kuaidi100.com/",@"http://baidu.lecai.com/",nil];
     
     
     // Do any additional setup after loading the view from its nib.
@@ -84,26 +84,26 @@
                 
                 
                 cell.lbl_1.text=@"百度";
-                cell.btn_1.tag=[[NSString stringWithFormat:@"1%ld",(long)indexPath.section] integerValue];
+                cell.btn_1.tag=10;
                 [cell.btn_1 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
                 cell.img_2.image=[UIImage imageNamed:@"Image-5"];
                 cell.img_2.layer.masksToBounds =YES;
                 cell.img_2.layer.cornerRadius =corner_radius;
 
                 cell.lbl_2.text=@"新浪";
-                cell.btn_2.tag=[[NSString stringWithFormat:@"2%ld",(long)indexPath.section] integerValue];
+                cell.btn_2.tag=11;
                 [cell.btn_2 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
                 cell.img_3.image=[UIImage imageNamed:@"Image-6"];
                 cell.lbl_3.text=@"搜狐";
-                cell.btn_3.tag=[[NSString stringWithFormat:@"3%ld",(long)indexPath.section] integerValue];
+                cell.btn_3.tag=12;
                 [cell.btn_3 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
                 cell.img_4.image=[UIImage imageNamed:@"Image-7"];
                 cell.lbl_4.text=@"腾讯";
-                cell.btn_4.tag=[[NSString stringWithFormat:@"4%ld",(long)indexPath.section] integerValue];
+                cell.btn_4.tag=13;
                 [cell.btn_4 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
                 cell.img_5.image=[UIImage imageNamed:@"Image-8"];
                 cell.lbl_5.text=@"凤凰";
-                cell.btn_5.tag=[[NSString stringWithFormat:@"5%ld",(long)indexPath.section] integerValue];
+                cell.btn_5.tag=14;
                 [cell.btn_5 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
                 cell.img_3.layer.masksToBounds =YES;
                 cell.img_3.layer.cornerRadius =corner_radius;
@@ -132,15 +132,15 @@
                 cell.img_5.image=[UIImage imageNamed:@"vip.png"];
                 cell.lbl_5.text=@"唯品会";
                 
-                cell.btn_1.tag=[[NSString stringWithFormat:@"1%ld",(long)indexPath.section] integerValue];
+                cell.btn_1.tag=20;
                 [cell.btn_1 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
-                cell.btn_2.tag=[[NSString stringWithFormat:@"2%ld",(long)indexPath.section] integerValue];
+                cell.btn_2.tag=21;
                 [cell.btn_2 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
-                cell.btn_3.tag=[[NSString stringWithFormat:@"3%ld",(long)indexPath.section] integerValue];
+                cell.btn_3.tag=22;
                 [cell.btn_3 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
-                cell.btn_4.tag=[[NSString stringWithFormat:@"4%ld",(long)indexPath.section] integerValue];
+                cell.btn_4.tag=23;
                 [cell.btn_4 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
-                cell.btn_5.tag=[[NSString stringWithFormat:@"5%ld",(long)indexPath.section] integerValue];
+                cell.btn_5.tag=24;
                 [cell.btn_5 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
                 cell.img_3.layer.masksToBounds =YES;
                 cell.img_3.layer.cornerRadius =corner_radius;
@@ -168,15 +168,15 @@
                 cell.img_5.image=[UIImage imageNamed:@"EBook.png"];
                 cell.lbl_5.text=@"电子书";
                 
-                cell.btn_1.tag=[[NSString stringWithFormat:@"1%ld",(long)indexPath.section] integerValue];
+                cell.btn_1.tag=30;
                 [cell.btn_1 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
-                cell.btn_2.tag=[[NSString stringWithFormat:@"2%ld",(long)indexPath.section] integerValue];
+                cell.btn_2.tag=31;
                 [cell.btn_2 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
-                cell.btn_3.tag=[[NSString stringWithFormat:@"3%ld",(long)indexPath.section] integerValue];
+                cell.btn_3.tag=32;
                 [cell.btn_3 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
-                cell.btn_4.tag=[[NSString stringWithFormat:@"4%ld",(long)indexPath.section] integerValue];
+                cell.btn_4.tag=33;
                 [cell.btn_4 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
-                cell.btn_5.tag=[[NSString stringWithFormat:@"5%ld",(long)indexPath.section] integerValue];
+                cell.btn_5.tag=34;
                 [cell.btn_5 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
                 cell.img_3.layer.masksToBounds =YES;
                 cell.img_3.layer.cornerRadius =corner_radius;
@@ -204,15 +204,15 @@
                 cell.img_5.image=[UIImage imageNamed:@"caipiao.png"];
                 cell.lbl_5.text=@"彩票";
                 
-                cell.btn_1.tag=[[NSString stringWithFormat:@"1%ld",(long)indexPath.section] integerValue];
+                cell.btn_1.tag=40;
                 [cell.btn_1 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
-                cell.btn_2.tag=[[NSString stringWithFormat:@"2%ld",(long)indexPath.section] integerValue];
+                cell.btn_2.tag=41;
                 [cell.btn_2 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
-                cell.btn_3.tag=[[NSString stringWithFormat:@"3%ld",(long)indexPath.section] integerValue];
+                cell.btn_3.tag=42;
                 [cell.btn_3 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
-                cell.btn_4.tag=[[NSString stringWithFormat:@"4%ld",(long)indexPath.section] integerValue];
+                cell.btn_4.tag=43;
                 [cell.btn_4 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
-                cell.btn_5.tag=[[NSString stringWithFormat:@"5%ld",(long)indexPath.section] integerValue];
+                cell.btn_5.tag=44;
                 [cell.btn_5 addTarget:self action:@selector(BtnInCellClick:) forControlEvents:UIControlEventTouchUpInside];
                 cell.img_3.layer.masksToBounds =YES;
                 cell.img_3.layer.cornerRadius =corner_radius;
@@ -245,19 +245,19 @@
 -(void)BtnInCellClick:(UIButton *)sender
 {
     NSLog(@"%ld",(long)sender.tag);
-    int temp=sender.tag%10;
+    int temp=sender.tag/10;
     switch (temp) {
-        case 0:
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:LinkArray1[sender.tag/10-1]]];
-            break;
         case 1:
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:LinkArray2[sender.tag/10-1]]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:LinkArray1[sender.tag-10]]];
             break;
         case 2:
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:LinkArray3[sender.tag/10-1]]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:LinkArray2[sender.tag-20]]];
             break;
         case 3:
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:LinkArray4[sender.tag/10-1]]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:LinkArray3[sender.tag-30]]];
+            break;
+        case 4:
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:LinkArray4[sender.tag-40]]];
             break;
         default:
             break;

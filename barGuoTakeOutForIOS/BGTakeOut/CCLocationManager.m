@@ -128,24 +128,51 @@
 
 -(void)startLocation
 {
-    if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied)
-    {
+//    if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied)
+//    {
         _manager=[[CLLocationManager alloc]init];
-        _manager.delegate=self;
-        _manager.desiredAccuracy = kCLLocationAccuracyBest;
-        if ([Toolkit isSystemIOS8]) {
-            [_manager requestAlwaysAuthorization];
+//        _manager.delegate=self;
+//        _manager.desiredAccuracy = kCLLocationAccuracyBest;
+//        if ([Toolkit isSystemIOS8]) {
+//            [_manager requestAlwaysAuthorization];
+//        }
+//        
+//        _manager.distanceFilter=100;
+//        [_manager startUpdatingLocation];
+    
+        // 如果定位服务可用
+        if([CLLocationManager locationServicesEnabled])
+        {
+            DLog( @"开始执行定位服务" );
+            // 设置定位精度：最佳精度
+            _manager.desiredAccuracy = kCLLocationAccuracyBest;
+            // 设置距离过滤器为0米，表示每移动50米更新一次位置
+            _manager.distanceFilter = kCLDistanceFilterNone;
+            // 将视图控制器自身设置为CLLocationManager的delegate
+            // 因此该视图控制器需要实现CLLocationManagerDelegate协议
+            _manager.delegate = self;
+            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+                
+                if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+                    
+                    [_manager requestAlwaysAuthorization];
+                }
+                
+            }
+            // 开始监听定位信息
+            [_manager startUpdatingLocation];
         }
-        
-        _manager.distanceFilter=100;
-        [_manager startUpdatingLocation];
-    }
-    else
-    {
-        UIAlertView *alvertView=[[UIAlertView alloc]initWithTitle:@"提示" message:@"需要开启定位服务,请到设置->隐私,打开定位服务" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-        [alvertView show];
-        
-    }
+        else
+        {
+            DLog( @"无法使用定位服务！" );
+        }
+//    }
+//    else
+//    {
+//        UIAlertView *alvertView=[[UIAlertView alloc]initWithTitle:@"提示" message:@"需要开启定位服务,请到设置->隐私,打开定位服务" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+//        [alvertView show];
+//        
+//    }
     
 }
 - (void)locationManager:(CLLocationManager *)manager
