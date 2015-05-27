@@ -190,7 +190,7 @@
     
     lastView=[_Page.subviews lastObject];
     CGFloat y=lastView.frame.origin.y+lastView.frame.size.height;
-    _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-y)];
+    _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-y-49)];
     _tableView.delegate=self;
     _tableView.dataSource=self;
     [_Page addSubview:_tableView];
@@ -286,7 +286,7 @@
         
     }else{
         [_tableView.footer endRefreshing];
-        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:dict[@"msg"] delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:@"没有更多数据" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
         [alert show];
     }
     

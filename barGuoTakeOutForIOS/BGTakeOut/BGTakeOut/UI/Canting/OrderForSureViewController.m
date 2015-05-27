@@ -39,6 +39,7 @@
     
     NSDictionary *dictionary;
     NSArray * address;
+    NSDictionary * orderinfodetial;
     
 }
 
@@ -47,6 +48,7 @@
     // Do any additional setup after loading the view from its nib.
     PayOnLineForChange=YES;
     PayWX=NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"OrderPay_success" object:nil];
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self setBarTitle:@"订单确认"];
     [self addLeftButton:@"ic_actionbar_back.png"];
@@ -349,12 +351,14 @@
         [dataprovider setDelegateObject:self setBackFunctionName:@"GetChargeBackCall:"];
         if (PayOnLineForChange) {
             if (PayWX) {
-                NSDictionary * prm=@{@"channel":@"wx",@"amount":[NSString stringWithFormat:@"%d",([_orderSumPrice intValue]+[_peiSongFeiData intValue]*100)],@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
+//                NSDictionary * prm=@{@"channel":@"wx",@"amount":[NSString stringWithFormat:@"%d",([_orderSumPrice intValue]+[_peiSongFeiData intValue]*100)],@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
+                NSDictionary * prm=@{@"channel":@"wx",@"amount":@"1",@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
                 [dataprovider GetchargeForPay:prm];
             }
             else
             {
-                NSDictionary * prm=@{@"channel":@"alipay",@"amount":[NSString stringWithFormat:@"%d",([_orderSumPrice intValue]+[_peiSongFeiData intValue]*100)],@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
+//                NSDictionary * prm=@{@"channel":@"alipay",@"amount":[NSString stringWithFormat:@"%d",([_orderSumPrice intValue]+[_peiSongFeiData intValue]*100)],@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
+                NSDictionary * prm=@{@"channel":@"alipay",@"amount":@"1",@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
                 [dataprovider GetchargeForPay:prm];
             }
             
@@ -378,17 +382,14 @@
 -(void)GetChargeBackCall:(id)dict
 {
     NSLog(@"%@",dict);
+    
+    
     if (dict) {
         NSData* jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
         NSString* str_data = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        [Pingpp createPayment:str_data viewController:self appURLScheme:@"BGTackOut" withCompletion:^(NSString *result, PingppError *error) {
+        [Pingpp createPayment:str_data viewController:self appURLScheme:@"BGTakeOut" withCompletion:^(NSString *result, PingppError *error) {
             if ([result isEqualToString:@"success"]) {
                 NSLog(@"支付成功");
-                OrderInfoViewController * orderinfoVC=[[OrderInfoViewController alloc] init];
-                orderinfoVC.orderInfoDetial=dict[@"data"];
-                orderinfoVC.lastprice=[_orderSumPrice intValue]+[_peiSongFeiData intValue];
-                orderinfoVC.orderData=_orderData;
-                [self.navigationController pushViewController:orderinfoVC animated:YES];
         } else {
             NSLog(@"PingppError: code=%lu msg=%@", (unsigned long)error.code, [error getMsg]);
         }
@@ -430,5 +431,14 @@
 }
 
 
+-(void)existUserInfo
+{
+    OrderInfoViewController * orderinfoVC=[[OrderInfoViewController alloc] init];
+    orderinfoVC.orderInfoDetial=OrderInfo;
+    orderinfoVC.lastprice=[_orderSumPrice intValue]+[_peiSongFeiData intValue];
+    orderinfoVC.orderData=_orderData;
+    [self.navigationController pushViewController:orderinfoVC animated:YES];
+
+}
 
 @end

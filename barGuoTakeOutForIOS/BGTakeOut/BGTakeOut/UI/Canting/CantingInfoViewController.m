@@ -168,7 +168,7 @@
                 UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), KWidth/3, KAreaListHeight)];
                 areaitem.backgroundColor=[UIColor colorWithRed:236/255.0 green:237/255.0 blue:241/255.0 alpha:1.0];
                 
-                [areaitem setTag:i];
+                [areaitem setTag:[areaArray[i][@"catid"] intValue]];
                 [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"name"]] forState:UIControlStateNormal];
                 [areaitem addTarget:self action:@selector(CantingItemClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -371,9 +371,8 @@
 {
     NSLog(@"添加一份");
     isClick=NO;
-    [choseDone setEnabled:YES];
     int goodsCount=0;
-    [choseDone setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
+    float SumPrice=0;
     for (UILabel *item in lbl_array) {
         if (item.tag==sender.tag) {
             item.text=[NSString stringWithFormat:@"%d",[item.text intValue]+1];
@@ -383,6 +382,7 @@
     if (ShoppingCar.count>0) {
         int i=0;
         BOOL isExit=false;
+        
         ShoppingCarModel * mydata;
         for (ShoppingCarModel * item in ShoppingCar) {
 //            NSLog(@"分类：要添加的：%@,要比较的%@",GoodsListArray[sender.tag][@"category"],item.Goods[@"category"]);
@@ -420,7 +420,15 @@
         _badgeView.badgeText = [NSString stringWithFormat:@"%d",goodsCount];
         _badgeView.backgroundColor=[UIColor redColor];
     }
-    
+    for (int i=0; i<ShoppingCar.count; i++) {
+        ShoppingCarModel * item=ShoppingCar[i];
+        NSString * price=item.Goods[@"price"];
+        SumPrice+=item.Num*[price floatValue];
+    }
+    if (SumPrice>=[_beginprice floatValue]) {
+        [choseDone setEnabled:YES];
+        [choseDone setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
+    }
     [tableView_gouwuche reloadData];
     [_GoodsList reloadData];
 }
@@ -428,13 +436,16 @@
 -(void)goodsJianClick:(UIButton *)sender
 {
     NSLog(@"减少一份");
+    
     isClick=NO;
     int goodsCount=0;
-    [choseDone setEnabled:YES];
-    [choseDone setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
+    float SumPrice =0;
     if (ShoppingCar.count>0) {
         int i=0;
         BOOL isExit=false;
+        
+        [choseDone setEnabled:YES];
+        [choseDone setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
         ShoppingCarModel * mydata;
         for (ShoppingCarModel * item in ShoppingCar) {
 //            NSLog(@"分类：要添加的：%@,要比较的%@",GoodsListArray[sender.tag][@"category"],item.Goods[@"category"]);
@@ -454,8 +465,6 @@
         }
         
     }
-    
-    
     if (_badgeView) {
         _badgeView.badgeText = [NSString stringWithFormat:@"%d",goodsCount];
     }
@@ -464,6 +473,16 @@
         _badgeView = [[JSBadgeView alloc] initWithParentView:_locationForbadge alignment:JSBadgeViewAlignmentTopRight];
         _badgeView.badgeText = [NSString stringWithFormat:@"%d",goodsCount];
         _badgeView.backgroundColor=[UIColor redColor];
+    }
+    
+    for (int i=0; i<ShoppingCar.count; i++) {
+        ShoppingCarModel * item=ShoppingCar[i];
+        NSString * price=item.Goods[@"price"];
+        SumPrice+=item.Num*[price floatValue];
+    }
+    if (SumPrice<[_beginprice floatValue]) {
+        [choseDone setEnabled:NO];
+        choseDone.backgroundColor=[UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1.0];
     }
     [tableView_gouwuche reloadData];
     [_GoodsList reloadData];

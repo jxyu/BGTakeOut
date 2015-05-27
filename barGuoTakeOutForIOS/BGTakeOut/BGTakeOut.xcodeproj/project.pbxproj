@@ -2003,7 +2003,7 @@
 				TargetAttributes = {
 					80067CA11ADCA0F100394FB7 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = M7YC435M3S;
+						DevelopmentTeam = 7X578356T4;
 					};
 					80067CBA1ADCA0F100394FB7 = {
 						CreatedOnToolsVersion = 6.3;
@@ -2129,7 +2129,6 @@
 				809C10141AF7408E0059A317 /* cp.png in Resources */,
 				804038761B06D62500061866 /* han.png in Resources */,
 				80617EA81B100864007E979B /* res@2x.png in Resources */,
-				8083AA2D1B0C2C1500307238 /* index_waimai2@2x.png in Resources */,
 				80BDBE3B1B0F241000EC0CEA /* MultilevelTableViewCell.xib in Resources */,
 				80D309741B04B718009A2BF3 /* BGBangTableViewCell.xib in Resources */,
 				804784FF1AF99A15001B451E /* baidu.png in Resources */,

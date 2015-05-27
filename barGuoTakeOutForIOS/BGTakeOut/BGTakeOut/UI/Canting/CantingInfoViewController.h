@@ -16,6 +16,7 @@
 @property(nonatomic,strong)NSString *resid;
 @property(nonatomic,strong)NSString *name;
 @property(nonatomic,strong)NSString *peisongData;
+@property(nonatomic,strong)NSString *beginprice;
 @property(nonatomic,strong)OrderForSureViewController *myOrderView;
 
 -(void)CantingclickLeftButton;

@@ -35,6 +35,13 @@
     NSString *district;//县区
 }
 
+#pragma mark 赋值回调
+- (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName
+{
+    CallBackObject = cbobject;
+    callBackFunctionName = selectorName;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -75,6 +82,7 @@
     changeAdress.layer.cornerRadius=6;
     [changeAdress setTitle:@"切换地址" forState:UIControlStateNormal];
     [changeAdress setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [changeAdress addTarget:self action:@selector(changeAddressButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [backgroundview addSubview:changeAdress];
     [self.view addSubview:backgroundview];
     
@@ -282,15 +290,25 @@
 #pragma mark 提交选定的地区
 -(void)submitAreaClick:(UIButton *)sender
 {
-//    NSLog(@"SUBMIT%@",province);
-//    NSLog(@"SUBMIT%@",city);
-//    NSLog(@"SUBMIT%@",district);
     NSString *lastArea=[NSString stringWithFormat:@"%@%@%@",province,city,district];
     [_selectArea setTitle:lastArea forState:UIControlStateNormal];
     _selectArea.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
-    
     [sender.superview removeFromSuperview];
 }
 
-
+-(void)changeAddressButtonClick
+{
+    if (province&&city&&district) {
+        NSString *lastArea=[NSString stringWithFormat:@"%@%@%@",province,city,district];
+        NSDictionary * areadict=@{@"area":lastArea};
+        SEL func_selector = NSSelectorFromString(callBackFunctionName);
+        if ([CallBackObject respondsToSelector:func_selector]) {
+            NSLog(@"回调成功...");
+            [CallBackObject performSelectorInBackground:func_selector withObject:areadict];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }else{
+            NSLog(@"回调失败...");
+        }
+    }
+}
 @end

@@ -11,7 +11,7 @@
 #import "BaseNavigationController.h"
 #import "AppDelegate.h"
 
-@interface OrderForSureViewController : BaseNavigationController<UITextViewDelegate,UIScrollViewDelegate>
+@interface OrderForSureViewController : BaseNavigationController<UITextViewDelegate,UIScrollViewDelegate,UIApplicationDelegate>
 @property(nonatomic,strong)NSArray * orderData;
 @property(nonatomic,strong)NSString * peiSongFeiData;
 @property(nonatomic,strong)NSString * resid;

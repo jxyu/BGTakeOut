@@ -78,14 +78,16 @@
             tousu.delegate=self;
             [self.view addSubview:tousu];
             
-            uilabel=[[UILabel alloc] initWithFrame:CGRectMake(17, NavigationBar_HEIGHT+20+8, 100, 10)];
+            uilabel=[[UILabel alloc] initWithFrame:CGRectMake(17, NavigationBar_HEIGHT+20+8, 100, 15)];
             uilabel.text = @"请填写投诉内容..";
             uilabel.enabled = NO;//lable必须设置为不可用
             uilabel.backgroundColor = [UIColor clearColor];
+            uilabel.font=[UIFont systemFontOfSize:13];
             [self.view addSubview:uilabel];
-            lbl_zishu=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, NavigationBar_HEIGHT+20+tousu.frame.size.height-30, 150, 10)];
+            lbl_zishu=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, NavigationBar_HEIGHT+20+tousu.frame.size.height-30, 150, 15)];
             lbl_zishu.text=@"还能输入140个字";
             lbl_zishu.enabled=NO;
+            lbl_zishu.font=[UIFont systemFontOfSize:13];
             lbl_zishu.backgroundColor=[UIColor clearColor];
             [self.view addSubview:lbl_zishu];
             btn_tousu=[[UIButton alloc] initWithFrame:CGRectMake(20, tousu.frame.origin.y+tousu.frame.size.height+10, KWidth-40, 35)];
@@ -264,14 +266,16 @@
     zhiwei.delegate=self;
     [self.view addSubview:zhiwei];
     
-    uilabelzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(17, lastView.frame.origin.y+lastView.frame.size.height+5+8, 100, 10)];
+    uilabelzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(17, lastView.frame.origin.y+lastView.frame.size.height+5+8, 100, 15)];
     uilabelzhiwei.text = @"请填写您的信息..";
     uilabelzhiwei.enabled = NO;//lable必须设置为不可用
+    uilabelzhiwei.font=[UIFont systemFontOfSize:13];
     uilabelzhiwei.backgroundColor = [UIColor clearColor];
     [self.view addSubview:uilabelzhiwei];
-    lbl_zishuzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, lastView.frame.origin.y+lastView.frame.size.height+5+zhiwei.frame.size.height-30, 150, 10)];
+    lbl_zishuzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, lastView.frame.origin.y+lastView.frame.size.height+5+zhiwei.frame.size.height-30, 150, 15)];
     lbl_zishuzhiwei.text=@"还能输入140个字";
     lbl_zishuzhiwei.enabled=NO;
+    lbl_zishuzhiwei.font=[UIFont systemFontOfSize:13];
     lbl_zishuzhiwei.backgroundColor=[UIColor clearColor];
     [self.view addSubview:lbl_zishuzhiwei];
     UIButton * btn_zhiwei=[[UIButton alloc] initWithFrame:CGRectMake(20, zhiwei.frame.origin.y+zhiwei.frame.size.height+10, SCREEN_WIDTH-40, 35)];
@@ -336,14 +340,16 @@
     zhaoshang.delegate=self;
     [self.view addSubview:zhaoshang];
     
-    uilabelzhaoshang=[[UILabel alloc] initWithFrame:CGRectMake(17, lastView.frame.origin.y+lastView.frame.size.height+5+8, 100, 10)];
+    uilabelzhaoshang=[[UILabel alloc] initWithFrame:CGRectMake(17, lastView.frame.origin.y+lastView.frame.size.height+5+8, 100, 15)];
     uilabelzhaoshang.text = @"请填写招商信息..";
     uilabelzhaoshang.enabled = NO;//lable必须设置为不可用
+    uilabelzhaoshang.font=[UIFont systemFontOfSize:13];
     uilabelzhaoshang.backgroundColor = [UIColor clearColor];
     [self.view addSubview:uilabelzhaoshang];
-    UILabel * lbl_zishuzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, lastView.frame.origin.y+lastView.frame.size.height+5+zhiwei.frame.size.height-30, 150, 10)];
+    UILabel * lbl_zishuzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, lastView.frame.origin.y+lastView.frame.size.height+5+zhiwei.frame.size.height-30, 150, 15)];
     lbl_zishuzhaoshang.text=@"还能输入140个字";
     lbl_zishuzhaoshang.enabled=NO;
+    lbl_zishuzhaoshang.font=[UIFont systemFontOfSize:13];
     lbl_zishuzhaoshang.backgroundColor=[UIColor clearColor];
     [self.view addSubview:lbl_zishuzhaoshang];
     UIButton * btn_zhiwei=[[UIButton alloc] initWithFrame:CGRectMake(20, zhaoshang.frame.origin.y+zhaoshang.frame.size.height+10, SCREEN_WIDTH-40, 35)];

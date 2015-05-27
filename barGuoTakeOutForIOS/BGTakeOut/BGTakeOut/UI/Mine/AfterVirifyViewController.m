@@ -22,8 +22,6 @@
 {
     [self dismissViewControllerAnimated:YES completion:^{
         _window.hidden=YES;
-        //关掉注册controller
-//        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CLOSE_B object:nil userInfo:nil];
 
     }];
 }

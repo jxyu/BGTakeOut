@@ -205,7 +205,13 @@
 -(void)GetLocation
 {
     self.autolocation=[[AutoLocationViewController alloc] initWithNibName:@"AutoLocationViewController" bundle:[NSBundle mainBundle]];
+    [_autolocation setDelegateObject:self setBackFunctionName:@"GetautolocationBackCall:"];
     [self.navigationController pushViewController:_autolocation animated:YES];
+}
+
+-(void)GetautolocationBackCall:(id)dict
+{
+    [self setBarTitle:dict[@"area"]];
 }
 
 -(void)DoMyWaiMai
@@ -299,11 +305,10 @@
         [        dataProvider getduibaurlWithAppkey:duiba_app_key appsecret:duiba_app_secret userid:userinfoWithFile[@"userid"]];
     }else{
         //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
-        LoginViewController* loginVC=        [[LoginViewController alloc] init];
+        LoginViewController* loginVC= [[LoginViewController alloc] init];
         [self.navigationController pushViewController:loginVC animated:YES];
         
     }
-    
 }
 -(void)getDuibaAutoLoginUrl:(id)dict{
     NSLog(@"%@",dict);

@@ -355,6 +355,7 @@
             cell.adress.text=_TextArray[indexPath.row][@"resaddress"];
             cell.logoImage.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,_TextArray[indexPath.row][@"reslogo"]]]]];
             if ([_TextArray[indexPath.row][@"isstarted"] intValue]==1) {
+                cell.dianzan.tag=indexPath.row;
                 [cell.dianzan setImage:[UIImage imageNamed:@"zan@2x"] forState:UIControlStateNormal];
                 [cell.dianzan setTitle:[NSString stringWithFormat:@"(%d)喜欢",[_TextArray[indexPath.row][@"starnum"] intValue]] forState:UIControlStateNormal];
                 [cell.dianzan setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
