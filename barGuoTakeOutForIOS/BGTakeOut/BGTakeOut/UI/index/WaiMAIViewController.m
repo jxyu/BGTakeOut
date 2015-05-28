@@ -394,6 +394,7 @@
     if ([@"1" isEqual:tabledata[indexPath.row][@"isopen"]]) {
         NSString * restid=tabledata[indexPath.row][@"resid"];
         _myCantingView=[[CantingInfoViewController alloc] initWithNibName:@"CantingInfoViewController" bundle:[NSBundle mainBundle]];
+        _myCantingView.beginprice=tabledata[indexPath.row][@"begindeliveryprice"];
         _myCantingView.resid=restid;
         _myCantingView.peisongData=tabledata[indexPath.row][@"deliveryprice"];
         _myCantingView.name=tabledata[indexPath.row][@"name"];

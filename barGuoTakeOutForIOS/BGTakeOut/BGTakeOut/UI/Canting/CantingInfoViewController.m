@@ -104,7 +104,7 @@
         _ShoppingListView.backgroundColor=[UIColor whiteColor];
         choseDone=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-90, 0, 90, 50)];
         choseDone.backgroundColor=[UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1.0];
-        [choseDone setTitle:@"选好了" forState:UIControlStateNormal];
+        [choseDone setTitle:[NSString stringWithFormat:@"%@元起送",_beginprice] forState:UIControlStateNormal];
         [choseDone addTarget:self action:@selector(payForShoppingCar) forControlEvents:UIControlEventTouchUpInside];
         [choseDone setEnabled:NO];
         [_ShoppingListView addSubview:choseDone];
@@ -119,7 +119,7 @@
         [self.view addSubview:_shoppingListPage];
         
         
-        gouwuche_icon=[[UIButton alloc] initWithFrame:CGRectMake(10,SCREEN_HEIGHT-55, 50, 50)];
+        gouwuche_icon=[[UIButton alloc] initWithFrame:CGRectMake(10,SCREEN_HEIGHT-85, 50, 50)];
         gouwuche_icon.layer.masksToBounds=YES;
         gouwuche_icon.layer.cornerRadius=25;
         gouwuche_icon.imageView.bounds=CGRectMake(0, 0, 30, 30);
@@ -372,7 +372,7 @@
     NSLog(@"添加一份");
     isClick=NO;
     int goodsCount=0;
-    float SumPrice=0;
+    int SumPrice=0;
     for (UILabel *item in lbl_array) {
         if (item.tag==sender.tag) {
             item.text=[NSString stringWithFormat:@"%d",[item.text intValue]+1];
@@ -423,11 +423,20 @@
     for (int i=0; i<ShoppingCar.count; i++) {
         ShoppingCarModel * item=ShoppingCar[i];
         NSString * price=item.Goods[@"price"];
-        SumPrice+=item.Num*[price floatValue];
+        SumPrice+=item.Num*[price intValue];
     }
+    _lableinShoppingList.text=[NSString stringWithFormat:@"%d",SumPrice];
+    
     if (SumPrice>=[_beginprice floatValue]) {
         [choseDone setEnabled:YES];
+        [choseDone setTitle:@"选好了"  forState:UIControlStateNormal];
         [choseDone setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
+    }
+    else
+    {
+        int lastprice=[_beginprice intValue]-SumPrice;
+        [choseDone setTitle:[NSString stringWithFormat:@"还差%d元",lastprice]  forState:UIControlStateNormal];
+        choseDone.backgroundColor=[UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1.0];
     }
     [tableView_gouwuche reloadData];
     [_GoodsList reloadData];
@@ -439,13 +448,11 @@
     
     isClick=NO;
     int goodsCount=0;
-    float SumPrice =0;
+    int SumPrice =0;
     if (ShoppingCar.count>0) {
         int i=0;
         BOOL isExit=false;
         
-        [choseDone setEnabled:YES];
-        [choseDone setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
         ShoppingCarModel * mydata;
         for (ShoppingCarModel * item in ShoppingCar) {
 //            NSLog(@"分类：要添加的：%@,要比较的%@",GoodsListArray[sender.tag][@"category"],item.Goods[@"category"]);
@@ -478,10 +485,19 @@
     for (int i=0; i<ShoppingCar.count; i++) {
         ShoppingCarModel * item=ShoppingCar[i];
         NSString * price=item.Goods[@"price"];
-        SumPrice+=item.Num*[price floatValue];
+        SumPrice+=item.Num*[price intValue];
     }
+    _lableinShoppingList.text=[NSString stringWithFormat:@"%d",SumPrice];
     if (SumPrice<[_beginprice floatValue]) {
         [choseDone setEnabled:NO];
+        int lastprice=[_beginprice intValue]-SumPrice;
+        [choseDone setTitle:[NSString stringWithFormat:@"还差%d元",lastprice]  forState:UIControlStateNormal];
+        choseDone.backgroundColor=[UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1.0];
+    }
+    else
+    {
+        
+        [choseDone setTitle:@"选好了"  forState:UIControlStateNormal];
         choseDone.backgroundColor=[UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1.0];
     }
     [tableView_gouwuche reloadData];

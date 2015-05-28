@@ -179,8 +179,9 @@
 
 -(void)GetWeather:(NSString *)city
 {
-    NSString * url=[NSString stringWithFormat:@"http://apistore.baidu.com/microservice/weather?citypinyin=%@",city];
-    [self PostRequest:url andpram:nil];
+    NSString * url=@"http://api.36wu.com/Weather/GetMoreWeather";
+    NSDictionary * prm=@{@"district":city,@"format":@"json"};
+    [self PostRequest2:url andpram:prm];
 }
 -(void)GetUserInfoWithUserID:(NSString *)userid
 {
@@ -457,7 +458,36 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error:%@",error);
     }];
-    
+}
+
+-(void)PostRequest2:(NSString *)url andpram:(NSDictionary *)pram
+{
+    AFHTTPRequestOperationManager * manage=[[AFHTTPRequestOperationManager alloc] init];
+    manage.responseSerializer=[AFHTTPResponseSerializer serializer];
+    manage.requestSerializer=[AFHTTPRequestSerializer serializer];
+    manage.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/json"];//可接收到的数据类型
+    manage.requestSerializer.timeoutInterval=10;//设置请求时限
+    NSDictionary * prm =[[NSDictionary alloc] init];
+    if (pram!=nil) {
+        prm=pram;
+    }
+    [manage POST:url parameters:prm success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //        NSDictionary * dict =responseObject;
+        NSString *str=[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSData * data =[str dataUsingEncoding:NSUTF8StringEncoding];
+        id dict =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
+        SEL func_selector = NSSelectorFromString(callBackFunctionName);
+        if ([CallBackObject respondsToSelector:func_selector]) {
+            NSLog(@"回调成功...");
+            [CallBackObject performSelector:func_selector withObject:dict];
+        }else{
+            NSLog(@"回调失败...");
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error:%@",error);
+    }];
 }
 
 - (void)uploadImageWithImage:(NSString *)imagePath andurl:(NSString *)url
