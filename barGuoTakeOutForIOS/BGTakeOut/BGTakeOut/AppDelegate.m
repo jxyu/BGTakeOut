@@ -479,4 +479,10 @@
     [dataprovider OrderReciver:ordernum];
 }
 
+-(void)IsLuckDay:(NSString *)userid
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider IsLuckDay:userid];
+}
+
 @end

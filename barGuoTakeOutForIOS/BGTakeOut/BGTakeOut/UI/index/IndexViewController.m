@@ -34,6 +34,7 @@
 @implementation IndexViewController
 {
     UIView * page;
+    NSDictionary* userinfoWithFile;
 }
 
 
@@ -329,55 +330,41 @@
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
-    NSDictionary* userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
     
-    NSString *plistPathForDate=[rootPath stringByAppendingPathComponent:@"OtherInfo.plist"];
-    NSDictionary* otherinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPathForDate];
+    
     if(userinfoWithFile[@"userid"]){
         //!!!:  已经登录完成，调用接口获取免登陆链接在页面中显示
-        NSComparisonResult result3 = [otherinfoWithFile[@"date"] compare:[NSDate date]];
-        if (NSOrderedAscending==result3) {
-            NSDictionary * dict=@{@"date": [self getPriousorLaterDateFromDate:[NSDate date] withMonth:1]};
-            NSString *rootPathtoWrite = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                      NSUserDomainMask, YES) objectAtIndex:0];
-            NSString *plistPathtoWrite = [rootPathtoWrite stringByAppendingPathComponent:@"OtherInfo.plist"];
-            BOOL result= [dict writeToFile:plistPathtoWrite atomically:YES];
-            if (result) {
-                DataProvider* dataProvider1=[[DataProvider alloc] init];
-                [dataProvider1 setDelegateObject:self setBackFunctionName:@"getDuibaAutoLoginUrlDetail:"];
-                [dataProvider1 getduibaurlForDetailWithAppkey:duiba_app_key appsecret:duiba_app_secret userid:userinfoWithFile[@"userid"] url:duiba_luck_game];
-            }
-        }
-        else
-        {
-            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:@"每月只能抽奖一次" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil];
-            [alert show];
-        }
+        
+        DataProvider* dataProvider1=[[DataProvider alloc] init];
+        [dataProvider1 setDelegateObject:self setBackFunctionName:@"IsLuckDayBackCall:"];
+        [dataProvider1 IsLuckDay:userinfoWithFile[@"userid"]];
     }
     else
     {
         
         //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
-        LoginViewController* loginVC=        [[LoginViewController alloc] init];
+        LoginViewController* loginVC= [[LoginViewController alloc] init];
         [self.navigationController pushViewController:loginVC animated:YES];
         
     }
 }
 
-
--(NSDate *)getPriousorLaterDateFromDate:(NSDate *)date withMonth:(int)month
-
+-(void)IsLuckDayBackCall:(id)dict
 {
-    
-    NSDateComponents *comps = [[NSDateComponents alloc] init];
-    
-    [comps setMonth:month];
-    
-    NSCalendar *calender = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    
-    NSDate *mDate = [calender dateByAddingComponents:comps toDate:date options:0];
-    
-    return mDate;
-    
+    if ([dict[@"status"] intValue]==1) {
+        
+        DataProvider* dataProvider1=[[DataProvider alloc] init];
+        [dataProvider1 setDelegateObject:self setBackFunctionName:@"getDuibaAutoLoginUrlDetail:"];
+        [dataProvider1 getduibaurlForDetailWithAppkey:duiba_app_key appsecret:duiba_app_secret userid:userinfoWithFile[@"userid"] url:duiba_luck_game];
+        
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:@"每月只能抽奖一次" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil];
+        [alert show];
+    }
+
 }
+
 @end

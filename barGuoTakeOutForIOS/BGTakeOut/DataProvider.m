@@ -429,6 +429,14 @@
         [self PostRequest:url andpram:prm];
     }
 }
+-(void)IsLuckDay:(NSString *)userid
+{
+    if (userid) {
+        NSDictionary * prm =@{@"userid":userid};
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Order/api_IsDrawed",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
 
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
 {

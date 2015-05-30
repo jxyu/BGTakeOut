@@ -62,6 +62,7 @@
 -(void)AddBGbi:(id)prm;
 -(void)GetOrderPrice:(id)prm;
 -(void)OrderReciver:(NSString *)ordernum;
+-(void)IsLuckDay:(NSString *)userid;
 
 
 /**
