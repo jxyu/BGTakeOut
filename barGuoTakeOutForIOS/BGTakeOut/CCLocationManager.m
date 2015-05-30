@@ -22,6 +22,7 @@
 @implementation CCLocationManager
 
 
+
 + (CCLocationManager *)shareLocation{
     static dispatch_once_t pred = 0;
     __strong static id _sharedObject = nil;
@@ -184,6 +185,7 @@
 {
     _manager = nil;
 }
+
 
 
 @end

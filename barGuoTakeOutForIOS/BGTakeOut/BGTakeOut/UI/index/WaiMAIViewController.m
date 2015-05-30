@@ -391,9 +391,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%@",indexPath);
-    if ([@"1" isEqual:tabledata[indexPath.row][@"isopen"]]) {
+    if ([@"1" isEqual:tabledata[indexPath.row][@"isopen"]]&&[self isBetweenFromHour:tabledata[indexPath.row][@"start"] toHour:tabledata[indexPath.row][@"end"]]) {
         NSString * restid=tabledata[indexPath.row][@"resid"];
         _myCantingView=[[CantingInfoViewController alloc] initWithNibName:@"CantingInfoViewController" bundle:[NSBundle mainBundle]];
+        _myCantingView.beginprice=tabledata[indexPath.row][@"begindeliveryprice"];
         _myCantingView.resid=restid;
         _myCantingView.peisongData=tabledata[indexPath.row][@"deliveryprice"];
         _myCantingView.name=tabledata[indexPath.row][@"name"];
@@ -582,6 +583,63 @@
     isActiveShow=NO;
     isAgain=YES;
 }
+
+/**
+ *  判断当前时间是否在店铺营业时间段内
+ *
+ *  @param fromHour 开始营业时间
+ *  @param toHour   结束营业时间
+ *
+ *  @return 返回bool
+ */
+- (BOOL)isBetweenFromHour:(id)fromHour toHour:(id)toHour
+{
+    if (fromHour!=[NSNull null]&&toHour!=[NSNull null]) {
+        NSString * strFromhour=(NSString * )fromHour;
+        NSArray * fromtimeArray=[strFromhour componentsSeparatedByString:@":"];
+        NSString * strTohour=(NSString *)toHour;
+        NSArray * totimeArray=[strTohour componentsSeparatedByString:@":"];
+        NSDate *date8 = [self getCustomDateWithHour:[fromtimeArray[0] integerValue] andMinute:[fromtimeArray[1] integerValue]];
+        NSDate *date23 = [self getCustomDateWithHour:[totimeArray[0] integerValue] andMinute:[totimeArray[1] integerValue]];
+        NSDate *currentDate = [NSDate date];
+        
+        if ([currentDate compare:date8]==NSOrderedDescending && [currentDate compare:date23]==NSOrderedAscending)
+        {
+            NSLog(@"该时间在 %@-%@ 之间！", fromHour, toHour);
+            return YES;
+        }
+
+    }
+        return NO;
+}
+
+/**
+ * @brief 生成当天的某个点（返回的是伦敦时间，可直接与当前时间[NSDate date]比较）
+ * @param hour 如hour为“8”，就是上午8:00（本地时间）
+ */
+- (NSDate *)getCustomDateWithHour:(NSInteger)hour andMinute:(NSInteger)minute
+{
+    //获取当前时间
+    NSDate *currentDate = [NSDate date];
+    NSCalendar *currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *currentComps = [[NSDateComponents alloc] init];
+    
+    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    
+    currentComps = [currentCalendar components:unitFlags fromDate:currentDate];
+    
+    //设置当天的某个点
+    NSDateComponents *resultComps = [[NSDateComponents alloc] init];
+    [resultComps setYear:[currentComps year]];
+    [resultComps setMonth:[currentComps month]];
+    [resultComps setDay:[currentComps day]];
+    [resultComps setHour:hour];
+    [resultComps setMinute:minute];
+    
+    NSCalendar *resultCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    return [resultCalendar dateFromComponents:resultComps];
+}
+
 
 @end
 

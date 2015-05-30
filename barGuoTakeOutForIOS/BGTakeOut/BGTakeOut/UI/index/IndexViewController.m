@@ -34,6 +34,7 @@
 @implementation IndexViewController
 {
     UIView * page;
+    NSDictionary* userinfoWithFile;
 }
 
 
@@ -318,7 +319,6 @@
     CreditNavigationController *nav=[[CreditNavigationController alloc]initWithRootViewController:web];
     [nav setNavColorStyle:navi_bg_color];
     [self presentViewController:nav animated:YES completion:nil];
-    
 }
 -(void)testclick
 {
@@ -330,19 +330,41 @@
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
-    NSDictionary* userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
-    if(userinfoWithFile){
+    userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    
+    
+    if(userinfoWithFile[@"userid"]){
         //!!!:  已经登录完成，调用接口获取免登陆链接在页面中显示
+        
         DataProvider* dataProvider1=[[DataProvider alloc] init];
-        [dataProvider1 setDelegateObject:self setBackFunctionName:@"getDuibaAutoLoginUrlDetail:"];
+        [dataProvider1 setDelegateObject:self setBackFunctionName:@"IsLuckDayBackCall:"];
+        [dataProvider1 IsLuckDay:userinfoWithFile[@"userid"]];
+    }
+    else
+    {
         
-        [dataProvider1 getduibaurlForDetailWithAppkey:duiba_app_key appsecret:duiba_app_secret userid:userinfoWithFile[@"userid"] url:duiba_luck_game];
-        
-    }else{
         //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
-        LoginViewController* loginVC=        [[LoginViewController alloc] init];
+        LoginViewController* loginVC= [[LoginViewController alloc] init];
         [self.navigationController pushViewController:loginVC animated:YES];
         
     }
 }
+
+-(void)IsLuckDayBackCall:(id)dict
+{
+    if ([dict[@"status"] intValue]==1) {
+        
+        DataProvider* dataProvider1=[[DataProvider alloc] init];
+        [dataProvider1 setDelegateObject:self setBackFunctionName:@"getDuibaAutoLoginUrlDetail:"];
+        [dataProvider1 getduibaurlForDetailWithAppkey:duiba_app_key appsecret:duiba_app_secret userid:userinfoWithFile[@"userid"] url:duiba_luck_game];
+        
+    }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:@"每月只能抽奖一次" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil];
+        [alert show];
+    }
+
+}
+
 @end
