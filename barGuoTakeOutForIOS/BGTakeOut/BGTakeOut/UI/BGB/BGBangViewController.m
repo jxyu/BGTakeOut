@@ -355,18 +355,31 @@
             cell.adress.text=_TextArray[indexPath.row][@"resaddress"];
             cell.logoImage.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,_TextArray[indexPath.row][@"reslogo"]]]]];
             if ([_TextArray[indexPath.row][@"isstarted"] intValue]==1) {
+                if (_TextArray[indexPath.row][@"starnum"]!=[NSNull null]) {
+                    [cell.dianzan setTitle:[NSString stringWithFormat:@"(%d)喜欢",[_TextArray[indexPath.row][@"starnum"] intValue]] forState:UIControlStateNormal];
+                }
+                else
+                {
+                    [cell.dianzan setTitle:[NSString stringWithFormat:@"(%d)喜欢",0] forState:UIControlStateNormal];
+                }
+                
                 cell.dianzan.tag=indexPath.row;
                 [cell.dianzan setImage:[UIImage imageNamed:@"zan@2x"] forState:UIControlStateNormal];
-                [cell.dianzan setTitle:[NSString stringWithFormat:@"(%d)喜欢",[_TextArray[indexPath.row][@"starnum"] intValue]] forState:UIControlStateNormal];
                 [cell.dianzan setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
                 [cell.dianzan addTarget:self action:@selector(dianzanFunction:) forControlEvents:UIControlEventTouchUpInside];
             }
             else
             {
-                [cell.dianzan setTitle:[NSString stringWithFormat:@"(%d)喜欢",[_TextArray[indexPath.row][@"starnum"] intValue]] forState:UIControlStateNormal];
+                
+                if (_TextArray[indexPath.row][@"starnum"]!=[NSNull null]) {
+                    [cell.dianzan setTitle:[NSString stringWithFormat:@"(%d)喜欢",[_TextArray[indexPath.row][@"starnum"] intValue]] forState:UIControlStateNormal];
+                }
+                else
+                {
+                    [cell.dianzan setTitle:[NSString stringWithFormat:@"(%d)喜欢",0] forState:UIControlStateNormal];
+                }
                 cell.dianzan.tag=indexPath.row;
                 [cell.dianzan addTarget:self action:@selector(dianzanFunction:) forControlEvents:UIControlEventTouchUpInside];
-                
             }
             cell.lbl_renzheng.text=[NSString stringWithFormat:@"认证%@分",_TextArray[indexPath.row][@"authenscore"]];
             [cell.Btn_share addTarget:self action:@selector(BGBangShare:) forControlEvents:UIControlEventTouchUpInside];

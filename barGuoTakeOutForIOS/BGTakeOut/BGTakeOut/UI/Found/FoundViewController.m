@@ -10,6 +10,7 @@
 #import "FoundTableViewCell.h"
 #import "DataProvider.h"
 #import "AppDelegate.h"
+#import "CCLocationManager.h"
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 #define corner_radius 14
@@ -24,6 +25,7 @@
     NSArray * LinkArray2;
     NSArray * LinkArray3;
     NSArray * LinkArray4;
+    CLGeocoder *geoCoder;
 }
 
 - (void)viewDidLoad {
@@ -34,23 +36,40 @@
     LinkArray4=[NSArray arrayWithObjects:@"http://www.qunar.com/",@"http://www.12306.cn/mormhweb/",@"http://www.ip138.com/weizhang.htm",@"http://www.kuaidi100.com/",@"http://baidu.lecai.com/",nil];
     
     
-    // Do any additional setup after loading the view from its nib.
+    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+        CLLocation *c = [[CLLocation alloc] initWithLatitude:locationCorrrdinate.latitude longitude:locationCorrrdinate.longitude];
+        //创建位置
+        CLGeocoder *revGeo = [[CLGeocoder alloc] init];
+        [revGeo reverseGeocodeLocation:c
+         //反向地理编码
+                     completionHandler:^(NSArray *placemarks, NSError *error) {
+                         if (!error && [placemarks count] > 0)
+                         {
+                             NSDictionary *dict =
+                             [[placemarks objectAtIndex:0] addressDictionary]; NSLog(@"street address: %@",
+                                                                                     //记录地址
+                                                                                     [dict objectForKey:@"City"]);
+                             DataProvider * dataprovider =[[DataProvider alloc] init];
+                             [dataprovider setDelegateObject:self setBackFunctionName:@"GetWeatherCallBack:"];
+                             [dataprovider GetWeather:[[dict objectForKey:@"City"] stringByReplacingOccurrencesOfString:@"市" withString:@""]];
+                         }
+                         else
+                         {
+                             NSLog(@"ERROR: %@", error); }
+                     }];
+    }];
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-    DataProvider * dataprovider =[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"GetWeatherCallBack:"];
-    [dataprovider GetWeather:@"linyi"];
     
     
-    //    Weather =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+25, KWidth, 60)];
-    //    Weather.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];;
-    //    [self.view addSubview:Weather];
+    Weather =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+25, KWidth, 60)];
+    Weather.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];;
+    [self.view addSubview:Weather];
     
-    UITableView *foundTable=[[UITableView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
+    UITableView *foundTable=[[UITableView alloc] initWithFrame:CGRectMake(0, Weather.frame.origin.y+Weather.frame.size.height+5, SCREEN_WIDTH, SCREEN_HEIGHT-49-120)];
     foundTable.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     foundTable.delegate=self;
     foundTable.dataSource=self;
     [self.view addSubview:foundTable];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -271,22 +290,20 @@
 -(void)GetWeatherCallBack:(id)dict
 {
     NSLog(@"%@",dict);
-    NSLog(@"%@",dict[@"retdata"][@"city"]);
-    NSLog(@"%@",dict[@"retdata"][@"weather"]);
     UIView * v_temp=[[UIView alloc] initWithFrame:CGRectMake(20, 3, 100, Weather.frame.size.height-6)];
     v_temp.backgroundColor=[UIColor whiteColor];
-    UILabel * Temp=[[UILabel alloc] initWithFrame:CGRectMake(30, 00, 50, v_temp.frame.size.height)];
-    Temp.text=dict[@"retData"][@"temp"];
+    UILabel * Temp=[[UILabel alloc] initWithFrame:CGRectMake(10, 00, 100, v_temp.frame.size.height)];
+    Temp.text=dict[@"data"][@"temp_1"];
     [v_temp addSubview:Temp];
     [Weather addSubview:v_temp];
     
     UIView * v_city=[[UIView alloc] initWithFrame:CGRectMake(v_temp.frame.origin.x+v_temp.frame.size.width+1, 3, 180, Weather.frame.size.height-6)];
     v_city.backgroundColor=[UIColor whiteColor];
     UILabel *city=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, v_city.frame.size.height/2)];
-    city.text=dict[@"retData"][@"city"];
+    city.text=dict[@"data"][@"city"];
     [v_city addSubview:city];
-    UILabel * weather=[[UILabel alloc] initWithFrame:CGRectMake(0, v_city.frame.size.height/2, 40, v_city.frame.size.height/2)];
-    weather.text=dict[@"retData"][@"weather"];
+    UILabel * weather=[[UILabel alloc] initWithFrame:CGRectMake(0, v_city.frame.size.height/2, 100, v_city.frame.size.height/2)];
+    weather.text=dict[@"data"][@"weather_1"];
     [v_city addSubview:weather];
     [Weather addSubview:v_city];
 }
@@ -294,4 +311,38 @@
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] showTabBar];
 }
+
+
+- (void)locationAddressWithLocation:(CLLocation *)locationGps
+{
+    geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:locationGps completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (error) {
+             NSLog(@"error: %@",error.description);
+         }
+         else{
+             NSLog(@"placemarks count %d",placemarks.count);
+             for (CLPlacemark *placeMark in placemarks)
+             {
+                 NSLog(@"地址name:%@ ",placeMark.name);
+                 NSLog(@"地址thoroughfare:%@",placeMark.thoroughfare);
+                 NSLog(@"地址subThoroughfare:%@",placeMark.subThoroughfare);
+                 NSLog(@"地址locality:%@",placeMark.locality);
+                 NSLog(@"地址subLocality:%@",placeMark.subLocality);
+                 NSLog(@"地址administrativeArea:%@",placeMark.administrativeArea);
+                 NSLog(@"地址subAdministrativeArea:%@",placeMark.subAdministrativeArea);
+                 NSLog(@"地址postalCode:%@",placeMark.postalCode);
+                 NSLog(@"地址ISOcountryCode:%@",placeMark.ISOcountryCode);
+                 NSLog(@"地址country:%@",placeMark.country);
+                 NSLog(@"地址inlandWater:%@",placeMark.inlandWater);
+                 NSLog(@"地址ocean:%@",placeMark.ocean);
+                 NSLog(@"地址areasOfInterest:%@",placeMark.areasOfInterest);
+             }
+         }
+         
+     }];
+}
+
+
 @end

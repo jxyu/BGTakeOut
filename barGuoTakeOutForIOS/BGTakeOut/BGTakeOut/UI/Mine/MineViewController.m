@@ -107,7 +107,7 @@
         [tishi setTextColor:[UIColor whiteColor]];
         [UserBackGroundView addSubview:tishi];
         
-        UIImageView * goImage=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-10-20, (UserBackGroundView.frame.size.height-25)/2, 20, 25)];
+        UIImageView * goImage=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-10-15, (UserBackGroundView.frame.size.height-25)/2, 10, 15)];
         goImage.image=[UIImage imageNamed:@"go.png"];
         [UserBackGroundView addSubview:goImage];
         
@@ -336,7 +336,7 @@
     [tishi setTextColor:[UIColor whiteColor]];
     [UserBackGroundView addSubview:tishi];
     
-    UIImageView * goImage=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-10-20, (UserBackGroundView.frame.size.height-25)/2, 20, 25)];
+    UIImageView * goImage=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-10-20, (UserBackGroundView.frame.size.height-25)/2, 10, 13)];
     goImage.image=[UIImage imageNamed:@"go.png"];
     [UserBackGroundView addSubview:goImage];
     

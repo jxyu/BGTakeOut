@@ -185,6 +185,7 @@
 		809C101A1AF7408E0059A317 /* set.png in Resources */ = {isa = PBXBuildFile; fileRef = 809C10111AF7408E0059A317 /* set.png */; };
 		809C101B1AF7408E0059A317 /* tscl.png in Resources */ = {isa = PBXBuildFile; fileRef = 809C10121AF7408E0059A317 /* tscl.png */; };
 		809C101C1AF7408E0059A317 /* zsjm.png in Resources */ = {isa = PBXBuildFile; fileRef = 809C10131AF7408E0059A317 /* zsjm.png */; };
+		80A492EB1B171D5800E98D81 /* OtherInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80A492EA1B171D5800E98D81 /* OtherInfo.plist */; };
 		80A5293B1AE48EDE00FE6F90 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A5292E1AE48EDE00FE6F90 /* SDCollectionViewCell.m */; };
 		80A5293C1AE48EDE00FE6F90 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A529301AE48EDE00FE6F90 /* SDCycleScrollView.m */; };
 		80A5293D1AE48EDE00FE6F90 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80A529321AE48EDE00FE6F90 /* TAAbstractDotView.m */; };
@@ -627,6 +628,7 @@
 		809C10111AF7408E0059A317 /* set.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = set.png; sourceTree = "<group>"; };
 		809C10121AF7408E0059A317 /* tscl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tscl.png; sourceTree = "<group>"; };
 		809C10131AF7408E0059A317 /* zsjm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zsjm.png; sourceTree = "<group>"; };
+		80A492EA1B171D5800E98D81 /* OtherInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OtherInfo.plist; sourceTree = "<group>"; };
 		80A5292D1AE48EDE00FE6F90 /* SDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCollectionViewCell.h; sourceTree = "<group>"; };
 		80A5292E1AE48EDE00FE6F90 /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCollectionViewCell.m; sourceTree = "<group>"; };
 		80A5292F1AE48EDE00FE6F90 /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleScrollView.h; sourceTree = "<group>"; };
@@ -1024,6 +1026,7 @@
 				80067CA71ADCA0F100394FB7 /* main.m */,
 				809ABD531AFC4DB000E7C662 /* UserInfo.plist */,
 				8AD6616A1B03764400D61EDA /* PrefixHeader.pch */,
+				80A492EA1B171D5800E98D81 /* OtherInfo.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2171,6 +2174,7 @@
 				80D309651B04B706009A2BF3 /* BGGiftViewController.xib in Resources */,
 				8040387E1B06D62500061866 /* xu.png in Resources */,
 				80895F081AFF34DC00908181 /* blueArrow@2x.png in Resources */,
+				80A492EB1B171D5800E98D81 /* OtherInfo.plist in Resources */,
 				80843F1C1AE25ACC006AC3B7 /* WaiMai.jpg in Resources */,
 				80D3098B1B04B721009A2BF3 /* OrderForSureViewController.xib in Resources */,
 				808E50AC1B0B1405002F87AC /* ShoppingCarTableViewCell.xib in Resources */,
