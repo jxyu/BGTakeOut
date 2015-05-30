@@ -82,6 +82,12 @@
                                                                                      categories:[NSSet setWithObject:categorys]];
         [UMessage registerRemoteNotificationAndUserNotificationSettings:userSettings];
         
+//        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings
+//                                                                             settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge)
+//                                                                             categories:[NSSet setWithObject:categorys]]];
+//        
+//        
+//        [[UIApplication sharedApplication] registerForRemoteNotifications];
     } else{
         //register remoteNotification types
         [UMessage registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge
@@ -129,8 +135,10 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     [UMessage registerDeviceToken:deviceToken];
+    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    NSString *stringDeviceToken = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
 
-    NSString* stringDeviceToken=    [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
     set_sp(stringDeviceToken, @"devicetoken");
     //TODO: 是否已经登录，登录使用userid和devicetoken绑定调用推送接口，没有登录不进行绑定，在登陆后绑定
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
@@ -142,10 +150,16 @@
         DataProvider* dataProvider=[[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"commitSuccess"];
         [dataProvider commitdevicetokenWithUserid:userinfoWithFile[@"userid"] token:stringDeviceToken];
+        
     }else{
         //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
     }
     
+}
+//注册push功能失败 后 返回错误信息，执行相应的处理
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err
+{
+    NSLog(@"Push Register Error:%@", err.description);
 }
 -(void)commitSuccess:(id)dict{
     DLog(@"commitUser-device token:%@",dict);
