@@ -103,7 +103,7 @@
             break;
         case 1:
             imagename=@"timer.png";
-            lbl_Status.text=@"付款完成，等待餐厅接单";
+            lbl_Status.text=@"等待餐厅接单";
             break;
         case 2:
             imagename=@"timer.png";

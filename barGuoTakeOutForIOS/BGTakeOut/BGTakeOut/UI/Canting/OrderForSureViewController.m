@@ -240,7 +240,7 @@
         [PayOutLine setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
         [PayWXWay setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
     }
-    else if(2==sender.tag)
+    if(2==sender.tag)
     {
         PayOnLineForChange=NO;
         PayWX=YES;
@@ -248,13 +248,13 @@
         [PayOutLine setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
         [PayOnLine setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
     }
-    else
+    if(3==sender.tag)
     {
         PayOnLineForChange=NO;
         PayWX=NO;
         [PayWXWay setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
-        [PayOutLine setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
-        [PayOnLine setImage:[UIImage imageNamed:@"RadioButtonSelected"] forState:UIControlStateNormal];
+        [PayOutLine setImage:[UIImage imageNamed:@"RadioButtonSelected"] forState:UIControlStateNormal];
+        [PayOnLine setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
     }
 }
 
