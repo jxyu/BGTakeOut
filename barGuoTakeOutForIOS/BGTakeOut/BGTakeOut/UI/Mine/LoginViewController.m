@@ -130,8 +130,8 @@
                 NSLog(@"回调失败...");
             }
         }
-        NSString * token=[[NSString alloc] initWithData:    get_sp(@"devicetoken") encoding:NSUTF8StringEncoding];
-
+        NSString * token=get_sp(@"devicetoken");
+        DLog(@"%@",get_sp(@"devicetoken"));
             //!!!:  已经登录完成，
             DataProvider* dataProvider=[[DataProvider alloc] init];
             [dataProvider setDelegateObject:self setBackFunctionName:@"commitSuccess:"];
