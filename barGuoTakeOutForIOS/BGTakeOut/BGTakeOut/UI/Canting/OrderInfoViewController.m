@@ -1184,7 +1184,19 @@
 
 -(void)TryAnotherOrder
 {
+    if (OrderInfo[@"resid"]!=[NSNull null]) {
+        _myCanting=[[CantingInfoViewController alloc] initWithNibName:@"CantingInfoViewController" bundle:[NSBundle mainBundle]];
+        _myCanting.resid=OrderInfo[@"resid"];
+        _myCanting.name=OrderInfo[@"resname"];
+        _myCanting.peisongData=OrderInfo[@"deliveryprice"];
+        _myCanting.beginprice=OrderInfo[@"begindeliveryprice"];
+        [self.navigationController pushViewController:_myCanting animated:YES];
+    }
     
+}
+-(void)clickLeftButton:(UIButton *)sender
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 

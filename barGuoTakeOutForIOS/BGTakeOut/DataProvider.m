@@ -236,7 +236,7 @@
 -(void)GetOrderInfoWithOrderNum:(NSString *)ordernum
 {
     if (ordernum) {
-        NSString * url=[NSString stringWithFormat:@"%@getorderdetail.php",KURL];
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Order/api_getOrderDetail",KURL];
         NSDictionary * prm=@{@"ordernum":ordernum};
         [self PostRequest:url andpram:prm];
     }
@@ -255,8 +255,17 @@
 {
     if (page&&num&&userid&&isgetdefault) {
         NSString * url=[NSString stringWithFormat:@"%@server/Home/User/api_getaddress",KURL];
-        NSDictionary * prm=@{@"page":page,@"num":num,@"userid":userid,@"isgetdefault":isgetdefault};
-        [self PostRequest:url andpram:prm];
+        if ([isgetdefault isEqual:@""]) {
+            NSDictionary * prm=@{@"page":page,@"num":num,@"userid":userid};
+            [self PostRequest:url andpram:prm];
+        }
+        else
+        {
+            NSDictionary * prm=@{@"page":page,@"num":num,@"userid":userid,@"isgetdefault":isgetdefault};
+            [self PostRequest:url andpram:prm];
+        }
+        
+        
     }
 }
 

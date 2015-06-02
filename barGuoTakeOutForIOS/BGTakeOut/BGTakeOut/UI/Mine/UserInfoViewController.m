@@ -509,12 +509,11 @@
 
 -(void)Btn_AddressManagerClick
 {
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"Btn_AddressManagerBackCall:"];
-    [dataprovider GetUserAddressListWithPage:@"1" andnum:@"16" anduserid:_UserInfoData[@"userid"] andisgetdefault:@""];
-    
-    
-    
+    if (_UserInfoData[@"userid"]) {
+        self.myaddressList=[[AddressListViewController alloc] init];
+        self.myaddressList.userid=_UserInfoData[@"userid"];
+        [self.navigationController pushViewController:_myaddressList animated:YES];
+    }
 }
 
 -(void)sub_navigationLeftClick
@@ -522,122 +521,4 @@
     [_page removeFromSuperview ];
 }
 
--(void)Btn_AddressManagerBackCall:(id)dict
-{
-    NSLog(@"获取收货地址：%@",dict);
-    AddressArray=[[NSArray alloc] initWithArray:dict[@"data"]];
-    _page=[[UIView alloc] initWithFrame:CGRectMake(0, 0, KWidth, KHeight)];
-    _page.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-    [self.view addSubview:_page];
-    UINavigationBar * navigationBarsub = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, 64)];
-    navigationBarsub.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    navigationBarsub.translucent=YES;
-    UINavigationItem *mynavigationItemsub = [[UINavigationItem alloc] initWithTitle:@"收货地址"];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Image-2"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(sub_navigationLeftClick)];
-    [navigationBarsub pushNavigationItem:mynavigationItemsub animated:NO];
-    [mynavigationItemsub setLeftBarButtonItem:leftButton];
-    [_page addSubview:navigationBarsub];
-    UIScrollView *scrollView_address=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, KWidth, KHeight-64)];
-    scrollView_address.scrollEnabled=YES;
-    
-    if (1==[dict[@"status"] intValue]) {
-        NSArray * addressArray=[[NSArray alloc] initWithArray:dict[@"data"]];
-        for (int i=0; i<addressArray.count; i++) {
-            UIView * lastView=[scrollView_address.subviews lastObject];
-            UIView * view_address=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+5, KWidth, 100)];
-            view_address.backgroundColor=[UIColor colorWithRed:85/255.0 green:88/255.0 blue:95/25.0 alpha:1.0];
-            UILabel * lbl_name=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 40, 50)];
-            lbl_name.text=addressArray[i][@"realname"];
-            lbl_name.font=[UIFont systemFontOfSize:14];
-            lbl_name.textColor=[UIColor whiteColor];
-            [view_address addSubview:lbl_name];
-            UILabel * lbl_phoneNum=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, 10, 150, 20)];
-            lbl_phoneNum.text=addressArray[i][@"phonenum"];
-            lbl_phoneNum.textColor=[UIColor whiteColor];
-            [view_address addSubview:lbl_phoneNum];
-            UILabel * lbl_address=[[UILabel alloc]initWithFrame:CGRectMake(10, lbl_name.frame.origin.y+lbl_name.frame.size.height+5,KWidth-50 , 50)];
-            [lbl_address setLineBreakMode:NSLineBreakByWordWrapping];
-            lbl_address.numberOfLines=0;
-            lbl_address.text=[NSString stringWithFormat:@"%@%@",[addressArray[i][@"isdefault"] isEqual:@"1"]?@"［默认］":@"",addressArray[i][@"addressdetail"]];
-            lbl_address.font=[UIFont systemFontOfSize:13];
-            lbl_address.textColor=[UIColor whiteColor];
-            [view_address addSubview:lbl_address];
-            
-            UIButton * Btn_zhezhao=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, KWidth-40, view_address.frame.size.height)];
-            Btn_zhezhao.tag=i;
-            [Btn_zhezhao addTarget:self action:@selector(CellClickFuc:) forControlEvents:UIControlEventTouchUpInside];
-            [view_address addSubview:Btn_zhezhao];
-            [scrollView_address addSubview:view_address];
-            
-            UIImageView * img_default=[[UIImageView alloc] initWithFrame:CGRectMake(KWidth-30, 40, 20, 20)];
-            img_default.image=[UIImage imageNamed:@"sure.png"];
-            img_default.layer.masksToBounds=YES;
-            img_default.layer.cornerRadius=10;
-            img_default.layer.borderWidth=1;
-            CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-            CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 1,1,1,1 });
-            [img_default.layer setBorderColor:colorref];
-            [view_address addSubview:img_default];
-            UIButton * btn_SetDefault=[[UIButton alloc] initWithFrame:CGRectMake(Btn_zhezhao.frame.size.width, 0, 40, view_address.frame.size.height)];
-            [btn_SetDefault addTarget:self action:@selector(SetDefaultAddress:) forControlEvents:UIControlEventTouchUpInside];
-            btn_SetDefault.tag=i;
-            [view_address addSubview:btn_SetDefault];
-        }
-        
-        
-    }
-    [scrollView_address setContentSize:CGSizeMake(0, 600)];
-    [_page addSubview:scrollView_address];
-   
-    
-    UIView * BackView_addAddres=[[UIView alloc] initWithFrame:CGRectMake(0, KHeight-40, KWidth, 40)];
-    BackView_addAddres.backgroundColor=[UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0];
-    UIButton * btn_addAddress=[[UIButton alloc] initWithFrame:CGRectMake((KWidth-100)/2, 10, 100, 20)];
-    btn_addAddress.layer.masksToBounds=YES;
-    btn_addAddress.layer.cornerRadius=10;
-    [btn_addAddress setTitle:@"添加地址" forState:UIControlStateNormal];
-    [btn_addAddress setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    btn_addAddress.backgroundColor=[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
-    [btn_addAddress addTarget:self action:@selector(btn_addAddressClick) forControlEvents:UIControlEventTouchUpInside];
-    [BackView_addAddres addSubview:btn_addAddress];
-    [_page addSubview:BackView_addAddres];
-    [self.view addSubview:_page];
-}
--(void)btn_addAddressClick
-{
-    
-    self.myAddress=[[AddAddressViewController alloc] initWithNibName:@"AddAddressViewController" bundle:[NSBundle mainBundle]];
-    _myAddress.userid=_UserInfoData[@"userid"];
-    [self.navigationController pushViewController:_myAddress animated:YES];
-}
-
--(void)CellClickFuc:(UIButton * )sender
-{
-    NSLog(@"%ld",(long)sender.tag);
-    self.myAddress=[[AddAddressViewController alloc] initWithNibName:@"AddAddressViewController" bundle:[NSBundle mainBundle]];
-    _myAddress.userid=_UserInfoData[@"userid"];
-    _myAddress.dict=AddressArray[sender.tag];
-    [self.navigationController pushViewController:_myAddress animated:YES];
-    
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
-}
--(void)SetDefaultAddress:(UIButton *)sender
-{
-    NSMutableDictionary* prm=[[NSMutableDictionary alloc] initWithDictionary:AddressArray[sender.tag]];
-    [prm setObject:@"1" forKey:@"isdefault"];
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"SetDefautaddressBackCall:"];
-    [dataprovider EditAddress:prm];
-}
--(void)SetDefautaddressBackCall:(id)dict
-{
-    NSLog(@"设置默认地址%@",dict);
-    [self Btn_AddressManagerClick];
-}
 @end

@@ -68,11 +68,7 @@
     [dataprovider GetUserAddressListWithPage:@"1" andnum:@"8" anduserid:dictionary[@"userid"] andisgetdefault:@"1"];
     
     UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, 5, KWidth, 40)];
-    if (address) {
-        
-    }
-    else
-    {
+    if (!address) {
         BackgroundView1.backgroundColor=[UIColor whiteColor];
         UILabel * PhoneNum =[[UILabel alloc ] initWithFrame:CGRectMake(10, 5, 80, 30)];
         PhoneNum.text=@"手机号：";

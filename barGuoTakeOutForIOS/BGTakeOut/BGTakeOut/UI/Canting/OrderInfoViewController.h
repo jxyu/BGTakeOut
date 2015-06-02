@@ -11,6 +11,7 @@
 #import "RefreshHeaderAndFooterView.h"
 #import "PingjiaForOrderViewController.h"
 #import "MZTimerLabel.h"
+#import "CantingInfoViewController.h"
 
 
 @interface OrderInfoViewController : BaseNavigationController <UIScrollViewDelegate,RefreshHeaderAndFooterViewDelegate,UIAlertViewDelegate,MZTimerLabelDelegate>
@@ -18,4 +19,5 @@
 @property(nonatomic,strong)NSArray * orderData;
 @property(nonatomic)NSInteger * lastprice;
 @property(nonatomic,strong)PingjiaForOrderViewController *mypingjia;
+@property(nonatomic,strong)CantingInfoViewController * myCanting;
 @end

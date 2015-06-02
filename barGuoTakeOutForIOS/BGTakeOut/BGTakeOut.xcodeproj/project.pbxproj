@@ -281,6 +281,7 @@
 		80F04CD71AE7963C00A29052 /* icon_chose_arrow_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F04CD31AE7963C00A29052 /* icon_chose_arrow_nor@2x.png */; };
 		80F04CD81AE7963C00A29052 /* icon_chose_arrow_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F04CD41AE7963C00A29052 /* icon_chose_arrow_sel@2x.png */; };
 		80F04CD91AE7963C00A29052 /* icon_chose_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F04CD51AE7963C00A29052 /* icon_chose_bottom@2x.png */; };
+		80F113B41B1DB1BB00DFBB11 /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F113B31B1DB1BB00DFBB11 /* AddressListViewController.m */; };
 		8A0EB6E31B12CC5400E1FFB8 /* index_waimai2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A0EB6E21B12CC5400E1FFB8 /* index_waimai2@2x.png */; };
 		8A16D2831B09855500974168 /* PingjiaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D2811B09855500974168 /* PingjiaViewController.m */; };
 		8A16D2841B09855500974168 /* PingjiaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A16D2821B09855500974168 /* PingjiaViewController.xib */; };
@@ -769,6 +770,8 @@
 		80F04CD31AE7963C00A29052 /* icon_chose_arrow_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_arrow_nor@2x.png"; sourceTree = "<group>"; };
 		80F04CD41AE7963C00A29052 /* icon_chose_arrow_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_arrow_sel@2x.png"; sourceTree = "<group>"; };
 		80F04CD51AE7963C00A29052 /* icon_chose_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_bottom@2x.png"; sourceTree = "<group>"; };
+		80F113B21B1DB1BB00DFBB11 /* AddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListViewController.h; sourceTree = "<group>"; };
+		80F113B31B1DB1BB00DFBB11 /* AddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListViewController.m; sourceTree = "<group>"; };
 		8A0EB6E21B12CC5400E1FFB8 /* index_waimai2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_waimai2@2x.png"; sourceTree = "<group>"; };
 		8A16D2801B09855500974168 /* PingjiaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingjiaViewController.h; sourceTree = "<group>"; };
 		8A16D2811B09855500974168 /* PingjiaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingjiaViewController.m; sourceTree = "<group>"; };
@@ -1653,6 +1656,8 @@
 				80D309B31B04B73F009A2BF3 /* UserInfoViewController.xib */,
 				80D91ED71B0DDEDE0009B3B0 /* AfterVirifyViewController.h */,
 				80D91ED81B0DDEDE0009B3B0 /* AfterVirifyViewController.m */,
+				80F113B21B1DB1BB00DFBB11 /* AddressListViewController.h */,
+				80F113B31B1DB1BB00DFBB11 /* AddressListViewController.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -2356,6 +2361,7 @@
 				8088515A1AE8D83E002614AC /* TQStarRatingView.m in Sources */,
 				806383BF1AF0624E00AF9866 /* JSBadgeView.m in Sources */,
 				808995FB1AE0DED90059038D /* YJViewController.m in Sources */,
+				80F113B41B1DB1BB00DFBB11 /* AddressListViewController.m in Sources */,
 				8AD8199C1B0C6A7900CA4B24 /* MJRefreshComponent.m in Sources */,
 				804E96CB1B0234AC00803F5C /* UIImage+NSBundle.m in Sources */,
 				804E96C21B02311D00803F5C /* BaseNavigationController.m in Sources */,

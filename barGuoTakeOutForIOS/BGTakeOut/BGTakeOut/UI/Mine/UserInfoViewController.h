@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AddAddressViewController.h"
 #import "BaseNavigationController.h"
+#import "AddressListViewController.h"
 
 @interface UserInfoViewController : BaseNavigationController
 {
@@ -21,5 +22,5 @@
 
 @property(nonatomic,copy)id UserInfoData;
 @property(nonatomic,strong)AddAddressViewController * myAddress;
-
+@property(nonatomic,strong)AddressListViewController * myaddressList;
 @end
