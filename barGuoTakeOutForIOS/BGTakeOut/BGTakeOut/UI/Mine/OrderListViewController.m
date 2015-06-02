@@ -37,7 +37,8 @@
     orderListdata=[[NSMutableArray alloc] init];
     page=1;
     num=8;
-    
+    [self loadNewData];
+
     TableView_orderList=[[UITableView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20,SCREEN_WIDTH , SCREEN_HEIGHT-NavigationBar_HEIGHT-20)];
     TableView_orderList.delegate=self;
     TableView_orderList.dataSource=self;
@@ -46,7 +47,6 @@
     [TableView_orderList addLegendFooterWithRefreshingBlock:^{
         [weakself loadNewData];
     }];
-    [self loadNewData];
 }
 -(void)GetOrderListBackCall:(id)dict
 {
@@ -115,8 +115,12 @@
             default:
                 break;
         }
-        [cell.logo sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,orderListdata[indexPath.row][@"reslogo"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
-        cell.resname.text=orderListdata[indexPath.section][@"resname"];
+        if (orderListdata[indexPath.row][@"reslogo"]!=[NSNull null]) {
+            [cell.logo sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,orderListdata[indexPath.row][@"reslogo"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+        }
+        if (orderListdata[indexPath.section][@"resname"]!=[NSNull null]) {
+            cell.resname.text=orderListdata[indexPath.section][@"resname"];
+        }
         cell.price.text=[NSString stringWithFormat:@"¥%@",orderListdata[indexPath.section][@"orderprice"]];
         
     }

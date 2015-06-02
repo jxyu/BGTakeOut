@@ -1958,11 +1958,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
-            timestampString = "454411442.478883"
+            timestampString = "454900789.771296"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -1974,11 +1974,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
-            timestampString = "454411442.478883"
+            timestampString = "454900789.771296"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
             landmarkName = "-PayForOrder:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1990,11 +1990,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
-            timestampString = "454411442.478883"
+            timestampString = "454900789.771296"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "-PayForOrder:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2006,11 +2006,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
-            timestampString = "454411442.478883"
+            timestampString = "454900789.771296"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1051"
-            endingLineNumber = "1051"
+            startingLineNumber = "1059"
+            endingLineNumber = "1059"
             landmarkName = "-PayForOrder:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2022,11 +2022,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
-            timestampString = "454411442.478883"
+            timestampString = "454900789.771296"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "965"
-            endingLineNumber = "965"
+            startingLineNumber = "972"
+            endingLineNumber = "972"
             landmarkName = "-PayForOrder:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2038,11 +2038,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
-            timestampString = "454411442.478883"
+            timestampString = "454900789.771296"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "966"
-            endingLineNumber = "966"
+            startingLineNumber = "973"
+            endingLineNumber = "973"
             landmarkName = "-PayForOrder:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2054,11 +2054,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
-            timestampString = "454411442.478883"
+            timestampString = "454900789.771296"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "987"
-            endingLineNumber = "987"
+            startingLineNumber = "994"
+            endingLineNumber = "994"
             landmarkName = "-PayForOrder:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2070,11 +2070,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Mine/OrderListViewController.m"
-            timestampString = "454217339.219158"
+            timestampString = "454674552.62255"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2086,11 +2086,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
-            timestampString = "454411442.478883"
+            timestampString = "454900789.771296"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -2102,11 +2102,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
-            timestampString = "454411442.478883"
+            timestampString = "454900789.771296"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "-GetOrderInfoBackCall:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2118,11 +2118,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
-            timestampString = "454411442.478883"
+            timestampString = "454900789.771296"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "-GetOrderInfoBackCall:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2134,11 +2134,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
-            timestampString = "454411442.478883"
+            timestampString = "454900789.771296"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "974"
-            endingLineNumber = "974"
+            startingLineNumber = "981"
+            endingLineNumber = "981"
             landmarkName = "-PayForOrder:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2886,11 +2886,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
-            timestampString = "454411442.478883"
+            timestampString = "454900789.771296"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "-PayForOrder:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2982,11 +2982,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
-            timestampString = "454411442.478883"
+            timestampString = "454900789.771296"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "976"
-            endingLineNumber = "976"
+            startingLineNumber = "983"
+            endingLineNumber = "983"
             landmarkName = "-PayForOrder:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3538,7 +3538,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
@@ -3574,12 +3574,188 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/IndexViewController.m"
-            timestampString = "454644304.064715"
+            timestampString = "454671841.490041"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
+            startingLineNumber = "358"
+            endingLineNumber = "358"
             landmarkName = "-IsLuckDayBackCall:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/Mine/LoginViewController.m"
+            timestampString = "454663074.252742"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "-LoginBack:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/Mine/LoginViewController.m"
+            timestampString = "454663111.545777"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "-LoginBack:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/Mine/OrderListViewController.m"
+            timestampString = "454671996.524232"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "-numberOfSectionsInTableView:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/Mine/OrderListViewController.m"
+            timestampString = "454672093.474044"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "-GetOrderListBackCall:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/Mine/OrderListViewController.m"
+            timestampString = "454672333.669935"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/Mine/OrderListViewController.m"
+            timestampString = "454674552.62255"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.h"
+            timestampString = "454898036.343193"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "orderInfoDetial"
+            landmarkType = "19">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
+            timestampString = "454900789.771296"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
+            landmarkName = "-PayForOrder:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
+            timestampString = "454900789.771296"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
+            landmarkName = "-PayForOrder:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
+            timestampString = "454900789.771296"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "997"
+            endingLineNumber = "997"
+            landmarkName = "-PayForOrder:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/Canting/OrderInfoViewController.m"
+            timestampString = "454900789.771296"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1051"
+            endingLineNumber = "1051"
+            landmarkName = "-PayForOrder:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

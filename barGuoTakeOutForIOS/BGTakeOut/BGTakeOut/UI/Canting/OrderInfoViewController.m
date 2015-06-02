@@ -11,6 +11,8 @@
 #import "AppDelegate.h"
 #import "ShoppingCarModel.h"
 #import "DataProvider.h"
+#import "CantingInfoViewController.h"
+
 
 
 #define KWidth self.view.frame.size.width
@@ -325,11 +327,13 @@
             UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(lbl_title.frame.origin.x+lbl_title.frame.size.width, 10, 1, 20)];
             fenge.backgroundColor=[UIColor colorWithRed:209/255.0 green:209/255.0 blue:209/255.0 alpha:1.0];
             [backview_StatusInfo addSubview:fenge];
-            //    timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:nil userInfo:nil repeats:YES];
-            //    [timer setFireDate:[NSDate distantPast]];//开启
             UILabel * lbl_TimeCount=[[UILabel alloc] initWithFrame:CGRectMake(fenge.frame.origin.x+fenge.frame.size.width, 10,(KWidth-80)/2 , 20)];
             [lbl_TimeCount setTextAlignment:NSTextAlignmentCenter];
-            lbl_TimeCount.text=[NSString stringWithFormat:@"预计10分钟内接单"];
+//            lbl_TimeCount.text=[NSString stringWithFormat:@"预计10分钟内接单"];
+            MZTimerLabel *timer = [[MZTimerLabel alloc] initWithLabel:lbl_TimeCount andTimerType:MZTimerLabelTypeTimer];
+            [timer setCountDownTime:600];
+            [timer start];
+            timer.delegate=self;
             [backview_StatusInfo addSubview:lbl_TimeCount];
             fenge.backgroundColor=[UIColor colorWithRed:221/255.0 green:220/255.0 blue:218/255.0 alpha:1.0];
             [BackView_OrderTitle addSubview:backview_StatusInfo];
@@ -954,7 +958,13 @@
     Img_orderListTitle.image=[UIImage imageNamed:@"Home"];
     [BackView_OrderListTitle addSubview:Img_orderListTitle];
     UILabel * lbl_CantingTitle=[[UILabel alloc] initWithFrame:CGRectMake(40, 10, 150, 20)];
-    lbl_CantingTitle.text=dict[@"resname"];
+    if (dict[@"resname"]!=[NSNull null]) {
+        lbl_CantingTitle.text=dict[@"resname"];
+    }
+    else
+    {
+        lbl_CantingTitle.text=@"";
+    }
     [BackView_OrderListTitle addSubview:lbl_CantingTitle];
     UIImageView * goImage=[[UIImageView alloc] initWithFrame:CGRectMake(KWidth-10-20, (BackView_OrderListTitle.frame.size.height-15)/2, 11, 15)];
     goImage.image=[UIImage imageNamed:@"go.png"];
@@ -1002,6 +1012,7 @@
     btn_OtherOrder.layer.borderColor=(__bridge CGColorRef)([UIColor colorWithRed:246/255.0 green:135/255.0 blue:82/255.0 alpha:1.0]);
     [btn_OtherOrder setTitle:@"再来一单" forState:UIControlStateNormal];
     [btn_OtherOrder setTitleColor:[UIColor colorWithRed:246/255.0 green:135/255.0 blue:82/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [btn_OtherOrder addTarget:self action:@selector(TryAnotherOrder) forControlEvents:UIControlEventTouchUpInside];
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 1,116/255.0, 15/255.0, 1 });
     [btn_OtherOrder.layer setBorderColor:colorref];
@@ -1128,7 +1139,7 @@
 {
     NSLog(@"电话催单。%@",OrderInfo);
     UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@""
-                                                   message:OrderInfo[@"resphone"]
+                                                   message:OrderInfo[@"resphone"]!=[NSNull null]?OrderInfo[@"resphone"]:@"餐厅未设置电话号码"
                                                   delegate:self
                                          cancelButtonTitle:@"取消"
                                          otherButtonTitles:@"呼叫", nil];
@@ -1153,12 +1164,25 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSLog(@"%ld",(long)buttonIndex);
-    if (1==buttonIndex) {
+    if (1==buttonIndex&&OrderInfo[@"resphone"]!=[NSNull null]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",OrderInfo[@"resphone"]]]];
     }
 }
 
--(void)PayForOrder
+/**
+ *  倒计时时间到，取消订单
+ *
+ *  @param timerLabel <#timerLabel description#>
+ *  @param countTime  <#countTime description#>
+ */
+-(void)timerLabel:(MZTimerLabel*)timerLabel finshedCountDownTimerWithTime:(NSTimeInterval)countTime{
+    //time is up, what should I do master?
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"CancelOrderBackCall:"];
+    [dataprovider CancelOrderWithOrderNum:OrderInfo[@"ordernum"]];
+}
+
+-(void)TryAnotherOrder
 {
     
 }

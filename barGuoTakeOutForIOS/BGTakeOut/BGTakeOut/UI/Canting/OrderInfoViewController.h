@@ -10,9 +10,10 @@
 #import "BaseNavigationController.h"
 #import "RefreshHeaderAndFooterView.h"
 #import "PingjiaForOrderViewController.h"
+#import "MZTimerLabel.h"
 
 
-@interface OrderInfoViewController : BaseNavigationController <UIScrollViewDelegate,RefreshHeaderAndFooterViewDelegate,UIAlertViewDelegate>
+@interface OrderInfoViewController : BaseNavigationController <UIScrollViewDelegate,RefreshHeaderAndFooterViewDelegate,UIAlertViewDelegate,MZTimerLabelDelegate>
 @property(nonatomic,strong)NSDictionary * orderInfoDetial;
 @property(nonatomic,strong)NSArray * orderData;
 @property(nonatomic)NSInteger * lastprice;

@@ -128,6 +128,7 @@
 		806383F91AF0BE6500AF9866 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 806383E91AF0BE6500AF9866 /* UIView+WebCacheOperation.m */; };
 		806F9D8F1B09914C0076B81F /* PingjiaForOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806F9D8E1B09914C0076B81F /* PingjiaForOrderViewController.m */; };
 		806F9D921B09CDC90076B81F /* PinglunForBGBangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806F9D911B09CDC90076B81F /* PinglunForBGBangViewController.m */; };
+		806FDD611B1D2B41006F4763 /* MZTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 806FDD601B1D2B41006F4763 /* MZTimerLabel.m */; };
 		8072B9071AEB34D800597ABB /* lipin_kindle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8072B9041AEB34D800597ABB /* lipin_kindle.png */; };
 		8072B9081AEB34D800597ABB /* lipin_weidan.png in Resources */ = {isa = PBXBuildFile; fileRef = 8072B9051AEB34D800597ABB /* lipin_weidan.png */; };
 		8072B9091AEB34D800597ABB /* lipin_xiaomi.png in Resources */ = {isa = PBXBuildFile; fileRef = 8072B9061AEB34D800597ABB /* lipin_xiaomi.png */; };
@@ -553,6 +554,8 @@
 		806F9D8E1B09914C0076B81F /* PingjiaForOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingjiaForOrderViewController.m; sourceTree = "<group>"; };
 		806F9D901B09CDC90076B81F /* PinglunForBGBangViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinglunForBGBangViewController.h; sourceTree = "<group>"; };
 		806F9D911B09CDC90076B81F /* PinglunForBGBangViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinglunForBGBangViewController.m; sourceTree = "<group>"; };
+		806FDD5F1B1D2B41006F4763 /* MZTimerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MZTimerLabel.h; sourceTree = "<group>"; };
+		806FDD601B1D2B41006F4763 /* MZTimerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MZTimerLabel.m; sourceTree = "<group>"; };
 		8072B9041AEB34D800597ABB /* lipin_kindle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lipin_kindle.png; sourceTree = "<group>"; };
 		8072B9051AEB34D800597ABB /* lipin_weidan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lipin_weidan.png; sourceTree = "<group>"; };
 		8072B9061AEB34D800597ABB /* lipin_xiaomi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lipin_xiaomi.png; sourceTree = "<group>"; };
@@ -1213,6 +1216,15 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
+		806FDD5E1B1D2B27006F4763 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				806FDD5F1B1D2B41006F4763 /* MZTimerLabel.h */,
+				806FDD601B1D2B41006F4763 /* MZTimerLabel.m */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
 		80793F9A1AEF606F0066C62C /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1648,6 +1660,7 @@
 		80F04CC51AE7959C00A29052 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				806FDD5E1B1D2B27006F4763 /* Timer */,
 				80BDBE291B0F241000EC0CEA /* MultilevelMenu */,
 				8AD819A71B0C6A8C00CA4B24 /* MJExtension */,
 				8AD819821B0C6A7900CA4B24 /* MJRefresh */,
@@ -2386,6 +2399,7 @@
 				80067CA81ADCA0F100394FB7 /* main.m in Sources */,
 				80A5293E1AE48EDE00FE6F90 /* TAAnimatedDotView.m in Sources */,
 				8AB4A0E41B062AC20007BC48 /* WantRecommendViewController.m in Sources */,
+				806FDD611B1D2B41006F4763 /* MZTimerLabel.m in Sources */,
 				8A16D29B1B0A129900974168 /* ShopPingjia.m in Sources */,
 				806383EC1AF0BE6500AF9866 /* SDImageCache.m in Sources */,
 				8A16D2881B098B3200974168 /* HMSegmentedControl.m in Sources */,

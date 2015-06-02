@@ -391,7 +391,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%@",indexPath);
-    if ([@"1" isEqual:tabledata[indexPath.row][@"isopen"]]&&[self isBetweenFromHour:tabledata[indexPath.row][@"start"] toHour:tabledata[indexPath.row][@"end"]]) {
+    if ([@"1" isEqual:tabledata[indexPath.row][@"isopen"]])//&&[self isBetweenFromHour:tabledata[indexPath.row][@"start"] toHour:tabledata[indexPath.row][@"end"]]
+    {
         NSString * restid=tabledata[indexPath.row][@"resid"];
         _myCantingView=[[CantingInfoViewController alloc] initWithNibName:@"CantingInfoViewController" bundle:[NSBundle mainBundle]];
         _myCantingView.beginprice=tabledata[indexPath.row][@"begindeliveryprice"];

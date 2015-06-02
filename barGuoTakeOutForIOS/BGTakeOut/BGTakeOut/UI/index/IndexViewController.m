@@ -164,6 +164,7 @@
 
 -(void)ContinueAddUIView:(id)dict
 {
+    [SVProgressHUD dismiss];
     //添加scollView
     id result =dict;
     NSMutableArray *images = [[NSMutableArray alloc] init];
@@ -192,7 +193,7 @@
     
     [page addSubview:_cycleScrollView];
     
-    [SVProgressHUD dismiss];
+    
 }
 
 
@@ -212,6 +213,7 @@
 
 -(void)GetautolocationBackCall:(id)dict
 {
+    [SVProgressHUD dismiss];
     [self setBarTitle:dict[@"area"]];
 }
 
@@ -279,6 +281,7 @@
     }
 }
 -(void)getDuibaAutoLoginUrlDetail:(id)dict{
+    [SVProgressHUD dismiss];
     NSLog(@"detail:%@",dict);
     NSDictionary* d=    (    NSDictionary*)dict;
     NSString* url=    d[@"data"][@"url"];
