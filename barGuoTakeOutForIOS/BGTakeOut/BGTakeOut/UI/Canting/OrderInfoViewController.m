@@ -1192,7 +1192,6 @@
         _myCanting.beginprice=OrderInfo[@"begindeliveryprice"];
         [self.navigationController pushViewController:_myCanting animated:YES];
     }
-    
 }
 -(void)clickLeftButton:(UIButton *)sender
 {

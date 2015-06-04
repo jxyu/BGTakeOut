@@ -63,7 +63,8 @@
 -(void)GetOrderPrice:(id)prm;
 -(void)OrderReciver:(NSString *)ordernum;
 -(void)IsLuckDay:(NSString *)userid;
-
+-(void)GetLuckGift:(NSString *)userid;
+-(void)CheckIsPhoneExist:(NSString *)phone;
 
 /**
  *  获得兑吧详情页

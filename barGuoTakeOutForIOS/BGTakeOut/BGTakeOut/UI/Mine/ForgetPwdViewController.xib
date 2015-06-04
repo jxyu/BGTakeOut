@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ForgetPwdViewController">
+            <connections>
+                <outlet property="btn_next" destination="fHS-9F-UgY" id="OpG-yB-cDF"/>
+                <outlet property="txt_PhoneNum" destination="UgQ-1b-ZC9" id="4J4-QQ-XyZ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UgQ-1b-ZC9">
+                    <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHS-9F-UgY">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <color key="backgroundColor" red="0.85882352941176465" green="0.13333333333333333" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="fEo-XL-gCG"/>
+                    </constraints>
+                    <state key="normal" title="下一步">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="fEo-XL-gCG"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="fEo-XL-gCG"/>
+                        </mask>
+                    </variation>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="UgQ-1b-ZC9" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="50" id="7lY-Ud-GcJ"/>
+                <constraint firstItem="fHS-9F-UgY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="100" id="fSS-qA-rpv"/>
+                <constraint firstItem="fHS-9F-UgY" firstAttribute="top" secondItem="UgQ-1b-ZC9" secondAttribute="bottom" constant="46" id="gK1-1g-546"/>
+                <constraint firstItem="UgQ-1b-ZC9" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="71" id="lHV-BS-hkv"/>
+                <constraint firstAttribute="trailing" secondItem="fHS-9F-UgY" secondAttribute="trailing" constant="100" id="n2j-Es-Oqo"/>
+                <constraint firstAttribute="trailing" secondItem="UgQ-1b-ZC9" secondAttribute="trailing" constant="50" id="onY-oo-34m"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="UgQ-1b-ZC9"/>
+                    <exclude reference="fHS-9F-UgY"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="7lY-Ud-GcJ"/>
+                    <exclude reference="lHV-BS-hkv"/>
+                    <exclude reference="onY-oo-34m"/>
+                    <exclude reference="fSS-qA-rpv"/>
+                    <exclude reference="gK1-1g-546"/>
+                    <exclude reference="n2j-Es-Oqo"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="UgQ-1b-ZC9"/>
+                    <include reference="fHS-9F-UgY"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="7lY-Ud-GcJ"/>
+                    <include reference="lHV-BS-hkv"/>
+                    <include reference="onY-oo-34m"/>
+                    <include reference="fSS-qA-rpv"/>
+                    <include reference="gK1-1g-546"/>
+                    <include reference="n2j-Es-Oqo"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>

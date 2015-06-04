@@ -12,12 +12,14 @@
 #import "DataProvider.h"
 #import <SMS_SDK/SMS_SDK.h>
 #import "AppDelegate.h"
+#import "ForgetPwdViewController.h"
 
 
 #define KWidth self.view.frame.size.width
 
 @interface LoginViewController ()
 @property(nonatomic,strong)UINavigationItem *mynavigationItem;
+@property(nonatomic,strong)ForgetPwdViewController * myForgetpwd;
 
 @end
 
@@ -83,6 +85,11 @@
     [btn_login addTarget:self action:@selector(LoginClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn_login];
     
+    UIButton * btn_ForgetPwd=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-140, btn_login.frame.origin.y+btn_login.frame.size.height+10, 120, 20)];
+    [btn_ForgetPwd setTitle:@"忘记密码？" forState:UIControlStateNormal];
+    [btn_ForgetPwd setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn_ForgetPwd addTarget:self action:@selector(Btn_ForgetPwdClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn_ForgetPwd];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -159,5 +166,11 @@
     }];
 //    [self.navigationController pushViewController:reg animated:YES];
     
+}
+
+-(void)Btn_ForgetPwdClick
+{
+    self.myForgetpwd=[[ForgetPwdViewController alloc] initWithNibName:@"ForgetPwdViewController" bundle:[NSBundle mainBundle]];
+    [self.navigationController pushViewController:_myForgetpwd animated:YES];
 }
 @end

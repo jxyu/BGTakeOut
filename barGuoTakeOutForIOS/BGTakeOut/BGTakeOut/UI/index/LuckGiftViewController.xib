@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LuckGiftViewController">
+            <connections>
+                <outlet property="btn_getnumber" destination="39N-xz-Nhd" id="mjE-dk-D5q"/>
+                <outlet property="lbl_roll" destination="hHS-Rw-eiD" id="IFV-Ua-oxU"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="抽奖规则具体介绍奖品名称介绍" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hHS-Rw-eiD">
+                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="250" id="u7B-I3-Aqo"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="u7B-I3-Aqo"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="u7B-I3-Aqo"/>
+                        </mask>
+                    </variation>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="39N-xz-Nhd">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <color key="backgroundColor" red="0.96078431372549022" green="0.6470588235294118" blue="0.043137254901960784" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="9Rf-48-Jb0"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <state key="normal" title="确认抽奖">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="9Rf-48-Jb0"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="9Rf-48-Jb0"/>
+                        </mask>
+                    </variation>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="hHS-Rw-eiD" secondAttribute="trailing" constant="10" id="WMr-PA-rac"/>
+                <constraint firstItem="39N-xz-Nhd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="Xff-4c-dlO"/>
+                <constraint firstItem="39N-xz-Nhd" firstAttribute="top" secondItem="hHS-Rw-eiD" secondAttribute="bottom" constant="30" id="fK5-FN-ARd"/>
+                <constraint firstAttribute="trailing" secondItem="39N-xz-Nhd" secondAttribute="trailing" constant="10" id="kcF-Ba-3Ve"/>
+                <constraint firstItem="hHS-Rw-eiD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="nPb-y1-BdS"/>
+                <constraint firstItem="hHS-Rw-eiD" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="p2q-cD-v1p"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="hHS-Rw-eiD"/>
+                    <exclude reference="39N-xz-Nhd"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="WMr-PA-rac"/>
+                    <exclude reference="nPb-y1-BdS"/>
+                    <exclude reference="p2q-cD-v1p"/>
+                    <exclude reference="Xff-4c-dlO"/>
+                    <exclude reference="fK5-FN-ARd"/>
+                    <exclude reference="kcF-Ba-3Ve"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="hHS-Rw-eiD"/>
+                    <include reference="39N-xz-Nhd"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="WMr-PA-rac"/>
+                    <include reference="nPb-y1-BdS"/>
+                    <include reference="p2q-cD-v1p"/>
+                    <include reference="Xff-4c-dlO"/>
+                    <include reference="fK5-FN-ARd"/>
+                    <include reference="kcF-Ba-3Ve"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>

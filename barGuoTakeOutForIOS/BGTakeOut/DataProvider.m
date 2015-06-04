@@ -447,6 +447,23 @@
     }
 }
 
+-(void)GetLuckGift:(NSString *)userid
+{
+    if (userid) {
+        NSDictionary * prm =@{@"userid":userid};
+        NSString * url=[NSString stringWithFormat:@"%@drawlottery.php",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+-(void)CheckIsPhoneExist:(NSString *)phone
+{
+    if (phone) {
+        NSDictionary * prm =@{@"phonenum":phone};
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/User/api_checkPhone",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
 {
     AFHTTPRequestOperationManager * manage=[[AFHTTPRequestOperationManager alloc] init];

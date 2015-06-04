@@ -338,10 +338,12 @@
     
     if(userinfoWithFile[@"userid"]){
         //!!!:  已经登录完成，调用接口获取免登陆链接在页面中显示
-        
-        DataProvider* dataProvider1=[[DataProvider alloc] init];
-        [dataProvider1 setDelegateObject:self setBackFunctionName:@"IsLuckDayBackCall:"];
-        [dataProvider1 IsLuckDay:userinfoWithFile[@"userid"]];
+        self.myLuckGift=[[LuckGiftViewController alloc] initWithNibName:@"LuckGiftViewController" bundle:[NSBundle mainBundle]];
+        _myLuckGift.userid=userinfoWithFile[@"userid"];
+        [self.navigationController pushViewController:_myLuckGift animated:YES];
+//        DataProvider* dataProvider1=[[DataProvider alloc] init];
+//        [dataProvider1 setDelegateObject:self setBackFunctionName:@"IsLuckDayBackCall:"];
+//        [dataProvider1 IsLuckDay:userinfoWithFile[@"userid"]];
     }
     else
     {

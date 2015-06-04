@@ -485,4 +485,16 @@
     [dataprovider IsLuckDay:userid];
 }
 
+-(void)GetLuckGift:(NSString *)userid
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetLuckGift:userid];
+}
+
+-(void)CheckIsPhoneExist:(NSString *)phone
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider CheckIsPhoneExist:phone];
+}
+
 @end

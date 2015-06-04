@@ -14,6 +14,8 @@
 		80067CB31ADCA0F100394FB7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80067CB21ADCA0F100394FB7 /* Images.xcassets */; };
 		80067CB61ADCA0F100394FB7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80067CB41ADCA0F100394FB7 /* LaunchScreen.xib */; };
 		80067CC21ADCA0F100394FB7 /* BGTakeOutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 80067CC11ADCA0F100394FB7 /* BGTakeOutTests.m */; };
+		802627541B1FDC81009E02D7 /* ForgetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 802627521B1FDC81009E02D7 /* ForgetPwdViewController.m */; };
+		802627551B1FDC81009E02D7 /* ForgetPwdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 802627531B1FDC81009E02D7 /* ForgetPwdViewController.xib */; };
 		802C33E31AE5FB00003B83CC /* changeAdress_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 802C33E21AE5FB00003B83CC /* changeAdress_icon.png */; };
 		802C33E71AE61D5D003B83CC /* arrow_gray_collapse_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 802C33E41AE61D5D003B83CC /* arrow_gray_collapse_n.png */; };
 		802C33E81AE61D5D003B83CC /* btn_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 802C33E51AE61D5D003B83CC /* btn_delete.png */; };
@@ -172,6 +174,8 @@
 		808E50AC1B0B1405002F87AC /* ShoppingCarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 808E50AA1B0B1405002F87AC /* ShoppingCarTableViewCell.xib */; };
 		8090B47D1B05F07400C174D8 /* pinglun@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8090B47B1B05F07400C174D8 /* pinglun@2x.png */; };
 		8090B47E1B05F07400C174D8 /* pinglunhui@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8090B47C1B05F07400C174D8 /* pinglunhui@2x.png */; };
+		80941DC31B1F11ED007CA325 /* LuckGiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80941DC11B1F11ED007CA325 /* LuckGiftViewController.m */; };
+		80941DC41B1F11ED007CA325 /* LuckGiftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80941DC21B1F11ED007CA325 /* LuckGiftViewController.xib */; };
 		809ABD541AFC4DB000E7C662 /* UserInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 809ABD531AFC4DB000E7C662 /* UserInfo.plist */; };
 		809ABD561AFCAC6B00E7C662 /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 809ABD551AFCAC6B00E7C662 /* placeholder@2x.png */; };
 		809C10011AF714E90059A317 /* BGB.png in Resources */ = {isa = PBXBuildFile; fileRef = 809C0FFE1AF714E90059A317 /* BGB.png */; };
@@ -403,6 +407,9 @@
 		80067CBB1ADCA0F100394FB7 /* BGTakeOutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BGTakeOutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		80067CC01ADCA0F100394FB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80067CC11ADCA0F100394FB7 /* BGTakeOutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BGTakeOutTests.m; sourceTree = "<group>"; };
+		802627511B1FDC81009E02D7 /* ForgetPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPwdViewController.h; sourceTree = "<group>"; };
+		802627521B1FDC81009E02D7 /* ForgetPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPwdViewController.m; sourceTree = "<group>"; };
+		802627531B1FDC81009E02D7 /* ForgetPwdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgetPwdViewController.xib; sourceTree = "<group>"; };
 		802C33E21AE5FB00003B83CC /* changeAdress_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = changeAdress_icon.png; sourceTree = "<group>"; };
 		802C33E41AE61D5D003B83CC /* arrow_gray_collapse_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_gray_collapse_n.png; sourceTree = "<group>"; };
 		802C33E51AE61D5D003B83CC /* btn_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_delete.png; sourceTree = "<group>"; };
@@ -618,6 +625,9 @@
 		808E50AA1B0B1405002F87AC /* ShoppingCarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppingCarTableViewCell.xib; sourceTree = "<group>"; };
 		8090B47B1B05F07400C174D8 /* pinglun@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinglun@2x.png"; sourceTree = "<group>"; };
 		8090B47C1B05F07400C174D8 /* pinglunhui@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinglunhui@2x.png"; sourceTree = "<group>"; };
+		80941DC01B1F11ED007CA325 /* LuckGiftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuckGiftViewController.h; sourceTree = "<group>"; };
+		80941DC11B1F11ED007CA325 /* LuckGiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuckGiftViewController.m; sourceTree = "<group>"; };
+		80941DC21B1F11ED007CA325 /* LuckGiftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LuckGiftViewController.xib; sourceTree = "<group>"; };
 		809ABD531AFC4DB000E7C662 /* UserInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInfo.plist; sourceTree = "<group>"; };
 		809ABD551AFCAC6B00E7C662 /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
 		809C0FFE1AF714E90059A317 /* BGB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BGB.png; sourceTree = "<group>"; };
@@ -1559,6 +1569,9 @@
 				8AB4A0F41B06F7D10007BC48 /* ShopAlbumViewController.m */,
 				8AB4A0F51B06F7D10007BC48 /* ShopAlbumViewController.xib */,
 				8A16D2931B0999B800974168 /* Pingjia */,
+				80941DC01B1F11ED007CA325 /* LuckGiftViewController.h */,
+				80941DC11B1F11ED007CA325 /* LuckGiftViewController.m */,
+				80941DC21B1F11ED007CA325 /* LuckGiftViewController.xib */,
 			);
 			path = index;
 			sourceTree = "<group>";
@@ -1658,6 +1671,9 @@
 				80D91ED81B0DDEDE0009B3B0 /* AfterVirifyViewController.m */,
 				80F113B21B1DB1BB00DFBB11 /* AddressListViewController.h */,
 				80F113B31B1DB1BB00DFBB11 /* AddressListViewController.m */,
+				802627511B1FDC81009E02D7 /* ForgetPwdViewController.h */,
+				802627521B1FDC81009E02D7 /* ForgetPwdViewController.m */,
+				802627531B1FDC81009E02D7 /* ForgetPwdViewController.xib */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -2090,6 +2106,7 @@
 				802C33E31AE5FB00003B83CC /* changeAdress_icon.png in Resources */,
 				8090B47D1B05F07400C174D8 /* pinglun@2x.png in Resources */,
 				80EE2BE71B0096D900FA4AF6 /* home.png in Resources */,
+				802627551B1FDC81009E02D7 /* ForgetPwdViewController.xib in Resources */,
 				804038781B06D62500061866 /* jiang.png in Resources */,
 				8072B9081AEB34D800597ABB /* lipin_weidan.png in Resources */,
 				80D5EEE21AFDEEB600C95421 /* paysure.png in Resources */,
@@ -2164,6 +2181,7 @@
 				80D309C31B04B73F009A2BF3 /* UserInfoViewController.xib in Resources */,
 				8AB4A0ED1B06D55E0007BC48 /* xing_mi@2x.png in Resources */,
 				804785101AF99A15001B451E /* xinlang.png in Resources */,
+				80941DC41B1F11ED007CA325 /* LuckGiftViewController.xib in Resources */,
 				809C10191AF7408E0059A317 /* jian_quan.png in Resources */,
 				80D5EEE11AFDEEB600C95421 /* no.png in Resources */,
 				8040387F1B06D62500061866 /* xun.png in Resources */,
@@ -2366,6 +2384,7 @@
 				804E96CB1B0234AC00803F5C /* UIImage+NSBundle.m in Sources */,
 				804E96C21B02311D00803F5C /* BaseNavigationController.m in Sources */,
 				806383F41AF0BE6500AF9866 /* UIImage+GIF.m in Sources */,
+				80941DC31B1F11ED007CA325 /* LuckGiftViewController.m in Sources */,
 				806383F61AF0BE6500AF9866 /* UIImage+WebP.m in Sources */,
 				806023321ADFB71400E1C498 /* AFSecurityPolicy.m in Sources */,
 				8A71D0A91B01DE1600D6C01D /* CreditWebView.m in Sources */,
@@ -2390,6 +2409,7 @@
 				80D309661B04B706009A2BF3 /* JokeTableViewCell.m in Sources */,
 				806383F51AF0BE6500AF9866 /* UIImage+MultiFormat.m in Sources */,
 				808995EC1AE0DE290059038D /* VerifyViewController.m in Sources */,
+				802627541B1FDC81009E02D7 /* ForgetPwdViewController.m in Sources */,
 				806F9D921B09CDC90076B81F /* PinglunForBGBangViewController.m in Sources */,
 				80F04CCE1AE795FB00A29052 /* NYSegmentedControl.m in Sources */,
 				8AD8199E1B0C6A7900CA4B24 /* MJRefreshFooter.m in Sources */,

@@ -16,6 +16,7 @@
 #import "MineViewController.h"
 #import "FoundViewController.h"
 #import "LuckyGameViewController.h"
+#import "LuckGiftViewController.h"
 @interface IndexViewController : BaseNavigationController<NSURLConnectionDataDelegate,UITabBarDelegate>
 @property(nonatomic,strong)AutoLocationViewController * autolocation;
 @property(nonatomic,strong)WaiMAIViewController * myWaiMai;
@@ -24,6 +25,7 @@
 @property(nonatomic,strong)BGGiftViewController * myGiftView;
 @property(nonatomic,strong)FoundViewController *myFound;
 @property(nonatomic,strong)MineViewController * myMine;
+@property(nonatomic,strong)LuckGiftViewController *myLuckGift;
 
 
 
