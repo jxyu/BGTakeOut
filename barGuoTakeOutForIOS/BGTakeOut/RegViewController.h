@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SectionsViewController.h"
+#import "BaseNavigationController.h"
 
 @protocol SecondViewControllerDelegate;
 
-@interface RegViewController : UIViewController
+@interface RegViewController : BaseNavigationController
 <
 UIAlertViewDelegate,
 UITableViewDataSource,

@@ -11,6 +11,19 @@
 
 @implementation TableViewCell
 
+
+-(void)initLayout{
+    
+    _starRatingView= [[AMRatingControl alloc] initWithLocation:CGPointMake(0, 0)
+                                                    emptyColor:[UIColor lightGrayColor]
+                                                    solidColor:[UIColor redColor]
+                                                  andMaxRating:5];
+    [_starRatingView setUserInteractionEnabled:NO];
+    _starRatingView.backgroundColor=[UIColor clearColor];
+    [_PingjiaView addSubview:_starRatingView];
+    
+}
+
 - (void)awakeFromNib {
     // Initialization code
     

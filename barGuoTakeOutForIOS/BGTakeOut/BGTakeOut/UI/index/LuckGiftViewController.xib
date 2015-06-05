@@ -23,7 +23,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="250" id="u7B-I3-Aqo"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                     <variation key="default">
@@ -67,7 +67,7 @@
                 <constraint firstItem="39N-xz-Nhd" firstAttribute="top" secondItem="hHS-Rw-eiD" secondAttribute="bottom" constant="30" id="fK5-FN-ARd"/>
                 <constraint firstAttribute="trailing" secondItem="39N-xz-Nhd" secondAttribute="trailing" constant="10" id="kcF-Ba-3Ve"/>
                 <constraint firstItem="hHS-Rw-eiD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="nPb-y1-BdS"/>
-                <constraint firstItem="hHS-Rw-eiD" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="p2q-cD-v1p"/>
+                <constraint firstItem="hHS-Rw-eiD" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="69" id="p2q-cD-v1p"/>
             </constraints>
             <variation key="default">
                 <mask key="subviews">

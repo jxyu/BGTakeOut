@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 
 #import <SMS_SDK/SMS_UserInfo.h>
+#import "BaseNavigationController.h"
 
-@interface VerifyViewController : UIViewController <UIAlertViewDelegate>
+@interface VerifyViewController : BaseNavigationController <UIAlertViewDelegate>
 
 @property(nonatomic,strong)  UILabel* telLabel;
 @property(nonatomic,strong)  UITextField* verifyCodeField;

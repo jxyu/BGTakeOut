@@ -42,10 +42,24 @@
     [super viewDidLoad];
     [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     @try {
+//        _imgLeft.image=[UIImage imageNamed:@"index_location"];
+//        _imgRight.image=[UIImage imageNamed:@"index_down"];
+        [self setBarTitle:@"自动定位"] ;
+        UIImageView * image_left=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-45, _lblTitle.frame.origin.y+13, 14, 15)];
+        image_left.tag=1111;
+        image_left.image=[UIImage imageNamed:@"index_location"];
+        [self.view addSubview:image_left];
+        UIImageView * image_right=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2+35, _lblTitle.frame.origin.y+18, 12, 9)];
+        image_right.tag=1112;
+        image_right.image=[UIImage imageNamed:@"index_down"];
+        [self.view addSubview:image_right];
         [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
             NSLog(@"%@",addressString);
-            NSString *strUrl = [addressString stringByReplacingOccurrencesOfString:@"中国" withString:@""];
-            [self setBarTitle:[strUrl stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+            NSArray *array = [addressString componentsSeparatedByString:@"省"]; //从字符A中分隔成2个元素的数组
+            [self setBarTitle:[array[1] stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+            CGSize singleLineStringSize = [array[1] sizeWithFont:[UIFont systemFontOfSize:15]];
+            image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 14, 15);
+            image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 9);
         }];
         
         UIScrollView *scrollView_BackView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, SCREEN_HEIGHT-NavigationBar_HEIGHT-20-49)];
@@ -55,7 +69,7 @@
         [btn_location addTarget:self action:@selector(GetLocation) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:btn_location];
         
-        UIView * fillview=[[UIView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, 120)];
+        UIView * fillview=[[UIView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, 140)];
         fillview.tag=101;
         [page addSubview:fillview];
         
@@ -80,7 +94,7 @@
         UIImageView * imgV_waimai2=[[UIImageView alloc] initWithFrame:CGRectMake(lbl_waimaititle.frame.origin.x+lbl_waimaititle.frame.size.width, 20, 60, 60)];
         imgV_waimai2.image=[UIImage imageNamed:@"index_waimai2"];
         [BackView_Waimai addSubview:imgV_waimai2];
-        UIImageView * img_go=[[UIImageView alloc] initWithFrame:CGRectMake(imgV_waimai2.frame.origin.x+imgV_waimai2.frame.size.width+10, 40, 14, 23)];
+        UIImageView * img_go=[[UIImageView alloc] initWithFrame:CGRectMake(imgV_waimai2.frame.origin.x+imgV_waimai2.frame.size.width+25, 40, 11, 16)];
         img_go.image=[UIImage imageNamed:@"go.png"];
         [BackView_Waimai addSubview:img_go];
         [page addSubview:BackView_Waimai];
@@ -109,11 +123,28 @@
         //更多礼品按钮
         lastinarray=[page.subviews lastObject] ;
         y=[lastinarray frame].origin.y+lastinarray.frame.size.height+kJianXi;
-        UIButton * Gift= [[UIButton alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 28)];
-        [Gift setImage:[UIImage imageNamed:@"lipin_more.jpg"] forState:UIControlStateNormal];
+        UIView * backView_moreGift=[[UIView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 40)];
+        backView_moreGift.backgroundColor=[UIColor whiteColor];
+        UIImageView * image_moregift=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 17, 17)];
+        image_moregift.image=[UIImage imageNamed:@"lipinicon"];
+        [backView_moreGift addSubview:image_moregift];
+        UILabel * lbl_moreTitle=[[UILabel alloc] initWithFrame:CGRectMake(image_moregift.frame.origin.x+image_moregift.frame.size.width+5, 10, 100, 20)];
+        lbl_moreTitle.text=@"巴国礼品站";
+        [backView_moreGift addSubview:lbl_moreTitle];
+        UILabel * lbl_more=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-60, 10, 50, 20)];
+        lbl_more.text=@"更多";
+        lbl_more.font=[UIFont systemFontOfSize:15];
+        lbl_more.textColor=[UIColor grayColor];
+        [backView_moreGift addSubview:lbl_more];
+        UIImageView * img_go_more=[[UIImageView alloc] initWithFrame:CGRectMake(lbl_more.frame.origin.x+40, 12, 10, 15)];
+        img_go_more.image=[UIImage imageNamed:@"go.png"];
+        [backView_moreGift addSubview:img_go_more];
+        UIButton * Gift= [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
+//        [Gift setImage:[UIImage imageNamed:@"lipin_more.jpg"] forState:UIControlStateNormal];
         [Gift addTarget:self action:@selector(MoreGift) forControlEvents:UIControlEventTouchUpInside];
         [Gift setShowsTouchWhenHighlighted:YES];
-        [page addSubview:Gift];
+        [backView_moreGift addSubview:Gift];
+        [page addSubview:backView_moreGift];
         
         //添加下面展示的三样礼品
         lastinarray=[page.subviews lastObject] ;
@@ -135,7 +166,6 @@
         y=[lastinarray frame].origin.y+lastinarray.frame.size.height;
         UIButton * Gift_3= [[UIButton alloc] initWithFrame:CGRectMake(x+2+2, y+2, SCREEN_WIDTH/2-4, 60)];
         [Gift_3 setBackgroundImage:[UIImage imageNamed:@"home_gift_rightdown@2x.jpg"] forState:UIControlStateNormal] ;
-
         [Gift_3 addTarget:self action:@selector(gotoGiftRightDown) forControlEvents:UIControlEventTouchUpInside];
         Gift_3.backgroundColor=[UIColor clearColor];
         [page addSubview:Gift_3];

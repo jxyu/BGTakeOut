@@ -236,18 +236,8 @@ static NSMutableArray* _userData2;
         statusBarHeight=20;
     }
     //创建一个导航栏
-    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0+statusBarHeight, self.view.frame.size.width, 44)];
-    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"返回", nil)
-                                                                   style:UIBarButtonItemStyleBordered
-                                                                  target:self
-                                                                  action:@selector(clickLeftButton)];
-    
-    //设置导航栏内容
-    [navigationItem setTitle:NSLocalizedString(@"验证码", nil)];
-    [navigationBar pushNavigationItem:navigationItem animated:NO];
-    [navigationItem setLeftBarButtonItem:leftButton];
-    [self.view addSubview:navigationBar];
+    _lblTitle.text=@"验证";
+    [self addLeftButton:@"ic_actionbar_back.png"];
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(close) name:NOTIFICATION_CLOSE_B object:nil];
 
@@ -292,8 +282,7 @@ static NSMutableArray* _userData2;
     
     _submitBtn=[UIButton buttonWithType:UIButtonTypeSystem];
     [_submitBtn setTitle:NSLocalizedString(@"确定", nil) forState:UIControlStateNormal];
-    NSString *icon = [NSString stringWithFormat:@"smssdk.bundle/button4.png"];
-    [_submitBtn setBackgroundImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
+    _submitBtn.backgroundColor=[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
     _submitBtn.frame=CGRectMake(15, 220+statusBarHeight, self.view.frame.size.width - 30, 42);
     [_submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_submitBtn addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
@@ -309,8 +298,8 @@ static NSMutableArray* _userData2;
     _voiceCallMsgLabel.hidden = YES;
     
     _voiceCallButton=[UIButton buttonWithType:UIButtonTypeSystem];
-    [_voiceCallButton setTitle:NSLocalizedString(@"try voice call", nil) forState:UIControlStateNormal];
-    [_voiceCallButton setBackgroundImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
+    [_voiceCallButton setTitle:NSLocalizedString(@"尝试下电话验证码", nil) forState:UIControlStateNormal];
+    _voiceCallButton.backgroundColor=[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
     _voiceCallButton.frame=CGRectMake(15, 300+statusBarHeight, self.view.frame.size.width - 30, 42);
     [_voiceCallButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_voiceCallButton addTarget:self action:@selector(tryVoiceCall) forControlEvents:UIControlEventTouchUpInside];
@@ -338,7 +327,7 @@ static NSMutableArray* _userData2;
     _timer1=timer;
     _timer2=timer2;
     
-    [SMS_MBProgressHUD showMessag:NSLocalizedString(@"sendingin", nil) toView:self.view];
+    [SMS_MBProgressHUD showMessag:NSLocalizedString(@"加载中..", nil) toView:self.view];
     
 }
 
@@ -389,6 +378,11 @@ static NSMutableArray* _userData2;
 
 -(void) close{
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)clickLeftButton:(UIButton *)sender
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end

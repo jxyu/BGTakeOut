@@ -15,4 +15,5 @@
 @interface BGBangViewController : BaseNavigationController <UITabBarDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)BGBangDetialViewController *BGBangDetialVC;
 @property(nonatomic,strong)LoginViewController * myLogin;
+
 @end

@@ -47,8 +47,8 @@
 {
     self.backgroundColor    = [UIColor clearColor];
     self.layer.cornerRadius = CGRectGetWidth(self.frame) / 2;
-    self.layer.borderColor  = [UIColor whiteColor].CGColor;
-    self.layer.borderWidth  = 2;
+    self.layer.borderColor  = [UIColor grayColor].CGColor;
+    self.layer.borderWidth  = 1;
 }
 
 
@@ -56,8 +56,10 @@
 {
     if (active) {
         self.backgroundColor = [UIColor whiteColor];
+        self.layer.borderColor  = [UIColor whiteColor].CGColor;
     } else {
         self.backgroundColor = [UIColor clearColor];
+        self.layer.borderColor  = [UIColor grayColor].CGColor;
     }
 }
 

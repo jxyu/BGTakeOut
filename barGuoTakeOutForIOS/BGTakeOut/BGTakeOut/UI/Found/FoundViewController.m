@@ -30,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setBarTitle:@"发现"];
     LinkArray1=[NSArray arrayWithObjects:@"http://www.baidu.com",@"http://www.sina.com.cn/",@"http://www.sohu.com/",@"http://www.qq.com/",@"http://www.ifeng.com/",nil];
     LinkArray2=[NSArray arrayWithObjects:@"http://www.taobao.com",@"http://www.jd.com/",@"http://www.tmall.com/",@"http://www.yhd.com/",@"http://www.vip.com/",nil];
     LinkArray3=[NSArray arrayWithObjects:@"http://www.ganji.com",@"http://www.youyuan.com/",@"http://tv.sohu.com/",@"http://ios.d.cn/",@"http://www.qidian.com/Default.aspx",nil];

@@ -69,10 +69,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-//    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-//        _lat=[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude] ;
-//        _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
-//    }];
+    //    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+    //        _lat=[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude] ;
+    //        _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
+    //    }];
     isAgain=NO;
     table_page=1;
     _order=@"1";
@@ -82,14 +82,51 @@
     iscategaryShow=NO;
     isSortShow=NO;
     
+    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
+    tabledata=[[NSMutableArray alloc] init];
+    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+        _lat=[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude] ;
+        _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
+        _page=[NSString stringWithFormat:@"%d",1];
+        _num =[NSString stringWithFormat:@"%d",KCantingNum];
+        _order=[NSString stringWithFormat:@"%d",1];
+        _activity=[NSString stringWithFormat:@"%d",1];
+        _category=[NSString stringWithFormat:@"%d",1];
+        [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:@"1" andCategory:@"1" andlat:_lat andlong:_long];
+    }];
+    
+    
     //添加导航栏
     [self addLeftButton:@"ic_actionbar_back.png"];
-    tabledata=[[NSMutableArray alloc] init];
-//    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
+    [self setBarTitle:@"自动定位"] ;
+    UIImageView * image_left=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-45, _lblTitle.frame.origin.y+13, 14, 15)];
+    image_left.tag=1111;
+    image_left.image=[UIImage imageNamed:@"index_location"];
+    [self.view addSubview:image_left];
+    UIImageView * image_right=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2+35, _lblTitle.frame.origin.y+18, 12, 9)];
+    image_right.tag=1112;
+    image_right.image=[UIImage imageNamed:@"index_down"];
+    [self.view addSubview:image_right];
     [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
         NSLog(@"%@",addressString);
-        NSString *strUrl = [addressString stringByReplacingOccurrencesOfString:@"中国" withString:@""];
-        [self setBarTitle:[strUrl stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+        NSArray *array = [addressString componentsSeparatedByString:@"省"]; //从字符A中分隔成2个元素的数组
+        [self setBarTitle:[array[1] stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+        image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 14, 15);
+        image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 9);
+        
+        
+        //        [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+        //            _lat=[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude] ;
+        //            _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
+        //            _page=[NSString stringWithFormat:@"%d",1];
+        //            _num =[NSString stringWithFormat:@"%d",KCantingNum];
+        //            _order=[NSString stringWithFormat:@"%d",1];
+        //            _activity=[NSString stringWithFormat:@"%d",1];
+        //            _category=[NSString stringWithFormat:@"%d",1];
+        //            [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:@"1" andCategory:@"1" andlat:_lat andlong:_long];
+        //        }];
+        
+        
     }];
     //添加Segmented Control
     UIView * lastView=[self.view.subviews lastObject];
@@ -123,19 +160,19 @@
     [self.view addSubview:_Page];
     // 数据
     self.sorts=@[@"促销活动"];
-    self.areas = @[@"全部",@"巴国推荐",@"超市",@"汉餐",@"清真",@"早餐",@"午餐"];
-    self.classifys = @[@"默认排序",@"已通过认证",@"销量最大",@"评价最高",@"价位高到低",@"价位低到高"];
-    imagearray1=@[@"zong.png",@"jian.png",@"dian.png",@"han.png",@"qing.png",@"zao.png",@"wu.png"];
-    imagearray2=@[@"xu.png",@"zheng.png",@"xiaoliang.png",@"timer.png",@"jiawei.png",@"jiawei.png"];
-//    imagearray3=@[@""]
+    self.areas = @[@"全部",@"巴国推荐",@"超市",@"汉餐",@"清真",@"早餐",@"午餐",@"其他"];
+    self.classifys = @[@"默认排序",@"已通过认证",@"距离最近",@"销量最大",@"评价最高",@"价位高到低",@"价位低到高"];
+    imagearray1=@[@"zong.png",@"jian.png",@"dian.png",@"han.png",@"qing.png",@"zao.png",@"wu.png",@"ling.png"];
+    imagearray2=@[@"xu.png",@"zheng.png",@"langWay@2x.png",@"xiaoliang.png",@"timer.png",@"jiawei.png",@"jiawei.png"];
+    //    imagearray3=@[@""]
     
     // 添加下拉菜单
     
-//    DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:44];
-////    menu.im
-//    menu.delegate = self;
-//    menu.dataSource = self;
-//    [_Page addSubview:menu];
+    //    DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:44];
+    ////    menu.im
+    //    menu.delegate = self;
+    //    menu.dataSource = self;
+    //    [_Page addSubview:menu];
     
     
     UIView * BackView_menu=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
@@ -177,27 +214,30 @@
     [BackView_menu addSubview:image3];
     [_Page addSubview:BackView_menu];
     
-    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-        _lat=[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude] ;
-        _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
-        _page=[NSString stringWithFormat:@"%d",1];
-        _num =[NSString stringWithFormat:@"%d",KCantingNum];
-        _order=[NSString stringWithFormat:@"%d",1];
-        _activity=[NSString stringWithFormat:@"%d",1];
-        _category=[NSString stringWithFormat:@"%d",1];
-        [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:@"1" andCategory:@"1" andlat:_lat andlong:_long];
-    }];
+    //    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+    //        _lat=[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude] ;
+    //        _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
+    //        _page=[NSString stringWithFormat:@"%d",1];
+    //        _num =[NSString stringWithFormat:@"%d",KCantingNum];
+    //        _order=[NSString stringWithFormat:@"%d",1];
+    //        _activity=[NSString stringWithFormat:@"%d",1];
+    //        _category=[NSString stringWithFormat:@"%d",1];
+    //        [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:@"1" andCategory:@"1" andlat:_lat andlong:_long];
+    //    }];
     
     lastView=[_Page.subviews lastObject];
     CGFloat y=lastView.frame.origin.y+lastView.frame.size.height;
+    
     _tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-y-49)];
     _tableView.delegate=self;
     _tableView.dataSource=self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_Page addSubview:_tableView];
     __weak typeof(self) weakself=self;
     [_tableView addLegendFooterWithRefreshingBlock:^{
         [weakself loadNewData];
     }];
+    
     [self loadNewData];
     
 }
@@ -215,15 +255,15 @@
 {
     NSLog(@"dsfsadfa%ld",(long)self.segmentedControl.selectedSegmentIndex);
     if (1==self.segmentedControl.selectedSegmentIndex) {
-//        _Page.hidden=YES;
-         NSLog(@"other");
+        //        _Page.hidden=YES;
+        NSLog(@"other");
         isAgain=YES;
         [self GetrestaurantListPage:@"1" andNum:_num andOrder:_order andActivity:_activity andCategory:@"8" andlat:_lat andlong:_long];
         [_tableView reloadData];
     }
     else
     {
-//        _Page.hidden=NO;
+        //        _Page.hidden=NO;
         isAgain=YES;
         [self GetrestaurantListPage:@"1" andNum:_num andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
         [_tableView reloadData];
@@ -269,28 +309,33 @@
 }
 -(void)bulidrestaurantList:(id)dict
 {
+    [SVProgressHUD dismiss];
     if ([dict[@"status"]intValue]==1) {
         NSLog(@"餐厅数据%@",dict);
         if (!isAgain) {
             Canting=[NSArray arrayWithArray:dict[@"data"]];
             for (int i=0; i<Canting.count; i++) {
                 [tabledata addObject:Canting[i]];
+                
             }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_tableView reloadData];
+            });
             
         }else
         {
             tabledata=dict[@"data"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_tableView reloadData];
+            });
         }
-        [_tableView reloadData];
-        [_tableView.footer endRefreshing];
-        
     }else{
-        [_tableView.footer endRefreshing];
-        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:@"没有更多数据" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
-        [alert show];
+        
+        [SVProgressHUD showErrorWithStatus:@"没有更多数据" maskType:SVProgressHUDMaskTypeBlack];
     }
+//    [_tableView reloadData];
+    [_tableView.footer endRefreshing];
     
-    [SVProgressHUD dismiss];
     
 }
 
@@ -315,60 +360,66 @@
     if (cell == nil) {
         activearray=[[NSArray alloc] initWithArray:tabledata[indexPath.row][@"activities"]];
         cell  = [[[NSBundle mainBundle] loadNibNamed:@"TableViewCell" owner:self options:nil] lastObject];
+        [cell initLayout];
         [cell.Canting_icon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,tabledata[indexPath.row][@"logo"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+        cell.Canting_icon.layer.masksToBounds=YES;
+        cell.Canting_icon.layer.cornerRadius=4;
+        cell.layer.borderWidth=1;
+        cell.layer.borderColor=(__bridge CGColorRef)([UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0]);
         if ([tabledata[indexPath.row][@"isauthentic"] boolValue]) {
             cell.Renzheng.image=[UIImage imageNamed:@"renzheng.png"];
         }
         cell.CantingName.text=tabledata[indexPath.row][@"name"];
         cell.Adress.text=tabledata[indexPath.row][@"addressname"];
-        cell.starRatingView =[[TQStarRatingView alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height) numberOfStar:5 andlightstarnum:[tabledata[indexPath.row][@"totalcredit"] intValue]];
-        [cell.PingjiaView addSubview:cell.starRatingView];
-        UIButton * zhezhao=[[UIButton alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height)];
-        [cell.PingjiaView addSubview:zhezhao];
-//        for (int i=0; i<activearray.count; i++) {//此处，鲁森说cell的下边不要active了，所以注释掉
-//            UIImageView * img_icon;
-//            switch ([activearray[i][@"actid"] intValue]) {
-//                case 1:
-//                    
-//                    break;
-//                case 2:
-//                    img_icon=[[UIImageView alloc] initWithFrame:CGRectMake(10, i*20+5, 15, 15)];
-//                    img_icon.image=[UIImage imageNamed:@"fu.png"];
-//                    break;
-//                case 3:
-//                    img_icon=[[UIImageView alloc] initWithFrame:CGRectMake(10, i*20+5, 15, 15)];
-//                    img_icon.image=[UIImage imageNamed:@"15.png"];
-//                    break;
-////                case 4:
-////                    <#statements#>
-////                    break;
-////                case 5:
-////                    <#statements#>
-////                    break;
-////                case 6:
-////                    <#statements#>
-////                    break;
-//                case 7:
-//                    img_icon=[[UIImageView alloc] initWithFrame:CGRectMake(10, i*20+5, 15, 15)];
-//                    img_icon.image=[UIImage imageNamed:@"xun.png"];
-//                    break;
-////                case 8:
-////                    <#statements#>
-////                    break;
-//                    
-//                default:
-//                    break;
-//            }
-//            
-//            UILabel * lbl_active=[[UILabel alloc] initWithFrame:CGRectMake(40, i*20+5, 200, 18)];
-//            lbl_active.text=activearray[i][@"name"];
-//            lbl_active.font=[UIFont systemFontOfSize:13];
-//            lbl_active.textColor=[UIColor grayColor];
-//            cell.CantingActive.frame=CGRectMake(cell.CantingActive.frame.origin.x, cell.CantingActive.frame.origin.y, cell.CantingActive.frame.size.width, cell.CantingActive.frame.size.height+20*(i-1));
-//            [cell.CantingActive addSubview:img_icon];
-//            [cell.CantingActive addSubview:lbl_active];
-//        }
-
+        cell.starRatingView.rating=[tabledata[indexPath.row][@"totalcredit"] intValue];
+        //        cell.starRatingView =[[TQStarRatingView alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height) numberOfStar:5 andlightstarnum:[tabledata[indexPath.row][@"totalcredit"] intValue]];
+        //        [cell.PingjiaView addSubview:cell.starRatingView];
+        //        UIButton * zhezhao=[[UIButton alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height)];
+        //        [cell.PingjiaView addSubview:zhezhao];
+        //        for (int i=0; i<activearray.count; i++) {//此处，鲁森说cell的下边不要active了，所以注释掉
+        //            UIImageView * img_icon;
+        //            switch ([activearray[i][@"actid"] intValue]) {
+        //                case 1:
+        //
+        //                    break;
+        //                case 2:
+        //                    img_icon=[[UIImageView alloc] initWithFrame:CGRectMake(10, i*20+5, 15, 15)];
+        //                    img_icon.image=[UIImage imageNamed:@"fu.png"];
+        //                    break;
+        //                case 3:
+        //                    img_icon=[[UIImageView alloc] initWithFrame:CGRectMake(10, i*20+5, 15, 15)];
+        //                    img_icon.image=[UIImage imageNamed:@"15.png"];
+        //                    break;
+        ////                case 4:
+        ////                    <#statements#>
+        ////                    break;
+        ////                case 5:
+        ////                    <#statements#>
+        ////                    break;
+        ////                case 6:
+        ////                    <#statements#>
+        ////                    break;
+        //                case 7:
+        //                    img_icon=[[UIImageView alloc] initWithFrame:CGRectMake(10, i*20+5, 15, 15)];
+        //                    img_icon.image=[UIImage imageNamed:@"xun.png"];
+        //                    break;
+        ////                case 8:
+        ////                    <#statements#>
+        ////                    break;
+        //
+        //                default:
+        //                    break;
+        //            }
+        //
+        //            UILabel * lbl_active=[[UILabel alloc] initWithFrame:CGRectMake(40, i*20+5, 200, 18)];
+        //            lbl_active.text=activearray[i][@"name"];
+        //            lbl_active.font=[UIFont systemFontOfSize:13];
+        //            lbl_active.textColor=[UIColor grayColor];
+        //            cell.CantingActive.frame=CGRectMake(cell.CantingActive.frame.origin.x, cell.CantingActive.frame.origin.y, cell.CantingActive.frame.size.width, cell.CantingActive.frame.size.height+20*(i-1));
+        //            [cell.CantingActive addSubview:img_icon];
+        //            [cell.CantingActive addSubview:lbl_active];
+        //        }
+        
         [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
     }
     else
@@ -384,7 +435,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height=110.0;
-//    CGFloat height=180.0+(activearray.count-1)*30;
+    //    CGFloat height=180.0+(activearray.count-1)*30;
     return height;
 }
 
@@ -407,7 +458,7 @@
         
         [alert show];
     }
-    [tableView deselectRowAtIndexPath:indexPath animated:NO]; 
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     
 }
@@ -437,11 +488,11 @@
     NSLog(@"热门分类");
     if (!iscategaryShow) {
         [BackView_paixu removeFromSuperview];
-        BackView_paixu=[[UIView alloc] initWithFrame:CGRectMake(0, 40, _Page.frame.size.width, 30*self.areas.count+self.areas.count)];
-        BackView_paixu.backgroundColor=[UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
+        BackView_paixu=[[UIView alloc] initWithFrame:CGRectMake(0, 40, _Page.frame.size.width, 35*self.areas.count+self.areas.count)];
+        BackView_paixu.backgroundColor=[UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1.0];
         for (int i=0; i<self.areas.count; i++) {
             UIView * lastView=[BackView_paixu.subviews lastObject];
-            UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+1, BackView_paixu.frame.size.width, 30)];
+            UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+1, BackView_paixu.frame.size.width, 35)];
             itemView.backgroundColor=[UIColor whiteColor];
             UIImageView * icon1=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 15)];
             icon1.image=[UIImage imageNamed:imagearray1[i]];
@@ -473,11 +524,11 @@
     NSLog(@"排序");
     if (!isSortShow) {
         [BackView_paixu removeFromSuperview];
-        BackView_paixu=[[UIView alloc] initWithFrame:CGRectMake(0, 40, _Page.frame.size.width, 30*self.classifys.count+self.classifys.count)];
-        BackView_paixu.backgroundColor=[UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
+        BackView_paixu=[[UIView alloc] initWithFrame:CGRectMake(0, 40, _Page.frame.size.width, 35*self.classifys.count+self.classifys.count)];
+        BackView_paixu.backgroundColor=[UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1.0];
         for (int i=0; i<self.classifys.count; i++) {
             UIView * lastview=[BackView_paixu.subviews lastObject];
-            UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, lastview.frame.origin.y+lastview.frame.size.height+1, BackView_paixu.frame.size.width, 30)];
+            UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, lastview.frame.origin.y+lastview.frame.size.height+1, BackView_paixu.frame.size.width, 35)];
             itemView.backgroundColor=[UIColor whiteColor];
             UIImageView * icon1=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 15)];
             icon1.image=[UIImage imageNamed:imagearray2[i]];
@@ -508,11 +559,11 @@
     
     if (!isSortShow) {
         [BackView_paixu removeFromSuperview];
-        BackView_paixu=[[UIView alloc] initWithFrame:CGRectMake(0, 40, _Page.frame.size.width, 30*self.sorts.count+self.sorts.count)];
-        BackView_paixu.backgroundColor=[UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
+        BackView_paixu=[[UIView alloc] initWithFrame:CGRectMake(0, 40, _Page.frame.size.width, 35*self.sorts.count+self.sorts.count)];
+        BackView_paixu.backgroundColor=[UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1.0];
         for (int i=0; i<self.sorts.count; i++) {
             UIView * lastView=[BackView_paixu.subviews lastObject];
-            UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+1, BackView_paixu.frame.size.width, 30)];
+            UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+1, BackView_paixu.frame.size.width, 35)];
             itemView.backgroundColor=[UIColor whiteColor];
             UIImageView * icon1=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 15)];
             switch ([_sorts[i][@"actid"] intValue]) {
@@ -609,9 +660,9 @@
             NSLog(@"该时间在 %@-%@ 之间！", fromHour, toHour);
             return YES;
         }
-
+        
     }
-        return NO;
+    return NO;
 }
 
 /**

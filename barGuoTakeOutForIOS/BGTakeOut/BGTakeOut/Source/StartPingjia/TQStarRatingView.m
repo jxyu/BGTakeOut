@@ -75,7 +75,7 @@
         for (int i = 0; i < _lightStarNumber; i ++)
         {
             UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
-            imageView.frame = CGRectMake(i * frame.size.width / self.numberOfStar, 0, frame.size.width / self.numberOfStar, frame.size.height);
+            imageView.frame = CGRectMake(i * frame.size.width / self.numberOfStar+2, 0, frame.size.width / self.numberOfStar, frame.size.height);
             [view addSubview:imageView];
         }
         view.frame=self.starBackgroundView.frame;
@@ -106,8 +106,10 @@
     }
     
     NSString * str = [NSString stringWithFormat:@"%0.2f",p.x / self.frame.size.width];
+    NSLog(@"%f",self.frame.size.width);
     float score = [str floatValue];
     p.x = score * self.frame.size.width;
+    
     self.starForegroundView.frame = CGRectMake(0, 0, p.x, self.frame.size.height);
     
     if(self.delegate && [self.delegate respondsToSelector:@selector(starRatingView: score:)])

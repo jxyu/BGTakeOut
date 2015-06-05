@@ -43,7 +43,7 @@ static NSString *originUserAgent;
 }
 -(id)initWithUrlByPresent:(NSString *)url{
     self=[self initWithUrl:url];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"25.png"] style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem=leftButton;
     byPresent=YES;
     

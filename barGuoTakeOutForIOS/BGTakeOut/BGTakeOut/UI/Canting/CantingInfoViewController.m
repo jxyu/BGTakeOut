@@ -14,14 +14,15 @@
 #import "JSBadgeView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+WebCache.h"
-#import "TQStarRatingView.h"
+#import "AMRatingControl.h"
 #import "CommenDef.h"
 #import "AppDelegate.h"
 #import "ShopAlbumViewController.h"
 #import "PingjiaViewController.h"
+#import "UMSocial.h"
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
-#define KAreaListHeight 50 //scollview中的button的高度
+#define KAreaListHeight 60 //scollview中的button的高度
 #define KURL @"http://121.42.139.60/baguo/"
 
 @interface CantingInfoViewController ()
@@ -43,11 +44,12 @@
     NSArray * GoodsListArray;
     NSMutableArray * ShoppingCar;
     BOOL isClick;
+    BOOL isgouwucheShow;
     UIButton *  choseDone;
     UIView * CantingsegmentView;//放segmentcontrol的view
     NSDictionary * dictionary;
     NSMutableArray * lbl_array;
-    UIButton * gouwuche_icon;
+    UIView * BackView_gouwuche_icon;
     UITableView * tableView_gouwuche;
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -61,6 +63,7 @@
     @try {
         ShoppingCar=[[NSMutableArray alloc] init];
         isClick=NO;
+        isgouwucheShow=NO;
         [self setBarTitle:_name];
         [self addLeftButton:@"ic_actionbar_back.png"];
         [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
@@ -118,20 +121,31 @@
         _shoppingListPage=[[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 50)];
         [self.view addSubview:_shoppingListPage];
         
+        BackView_gouwuche_icon=[[UIView alloc] initWithFrame:CGRectMake(10,SCREEN_HEIGHT-85, 60, 60)];
+        BackView_gouwuche_icon.layer.masksToBounds=YES;
+        BackView_gouwuche_icon.layer.cornerRadius=30;
+        BackView_gouwuche_icon.backgroundColor=[UIColor colorWithRed:128/255.0 green:128/255.0 blue:128/255.0 alpha:1.0];
         
-        gouwuche_icon=[[UIButton alloc] initWithFrame:CGRectMake(10,SCREEN_HEIGHT-85, 50, 50)];
-        gouwuche_icon.layer.masksToBounds=YES;
-        gouwuche_icon.layer.cornerRadius=25;
-        gouwuche_icon.imageView.bounds=CGRectMake(0, 0, 30, 30);
-        [gouwuche_icon setImage:[UIImage imageNamed:@"gouwuche_icon"] forState:UIControlStateNormal];
-        [gouwuche_icon setBackgroundColor:[UIColor colorWithRed:128/255.0 green:128/255.0 blue:128/255.0 alpha:1.0]];
-        [gouwuche_icon addTarget:self action:@selector(ShowGouWuChe) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:gouwuche_icon];
+        UIImageView * img_gouwuche_icon=[[UIImageView alloc] initWithFrame:CGRectMake(10,10, 40, 40)];
+        img_gouwuche_icon.image=[UIImage imageNamed:@"gouwuche_icon"];
+        img_gouwuche_icon.backgroundColor=[UIColor clearColor];
+        [BackView_gouwuche_icon addSubview:img_gouwuche_icon];
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ShowGouWuChe)];
         
-        _locationForbadge=[[UILabel alloc] initWithFrame:CGRectMake(gouwuche_icon.frame.origin.x+gouwuche_icon.frame.size.width-5, gouwuche_icon.frame.origin.y, 5, 5)];
+        [BackView_gouwuche_icon addGestureRecognizer:tapGesture];
+        
+//        UIButton * gouwuche_icon=[[UIButton alloc] initWithFrame:CGRectMake(0,0,60,60)];
+//        gouwuche_icon.layer.masksToBounds=YES;
+//        [gouwuche_icon setShowsTouchWhenHighlighted:NO];
+//        gouwuche_icon.layer.cornerRadius=30;
+//        gouwuche_icon.adjustsImageWhenHighlighted = NO;
+//        [gouwuche_icon setBackgroundColor:[UIColor clearColor]];
+//        [gouwuche_icon addTarget:self action:@selector(ShowGouWuChe) forControlEvents:UIControlEventTouchUpInside];
+//        [BackView_gouwuche_icon addSubview:gouwuche_icon];
+        [self.view addSubview:BackView_gouwuche_icon];
+        
+        _locationForbadge=[[UILabel alloc] initWithFrame:CGRectMake(BackView_gouwuche_icon.frame.origin.x+BackView_gouwuche_icon.frame.size.width-10, BackView_gouwuche_icon.frame.origin.y+10, 5, 5)];
         [self.view addSubview:_locationForbadge];
-        
-        
         
         DataProvider * cantingdataprovider =[[DataProvider alloc] init];
         [cantingdataprovider setDelegateObject:self setBackFunctionName:@"BuildCategray:"];
@@ -162,22 +176,47 @@
         _areaScroll.scrollEnabled=YES;
         _areaScroll.backgroundColor=[UIColor colorWithRed:236/255.0 green:237/255.0 blue:241/255.0 alpha:1.0];
         id result =dict;
+        NSString *catid=@"";
         if (result) {
             NSArray * areaArray =[[NSArray alloc ] initWithArray:result[@"data"]];
             for (int i=0; i<areaArray.count; i++) {
-                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), KWidth/3, KAreaListHeight)];
-                areaitem.backgroundColor=[UIColor colorWithRed:236/255.0 green:237/255.0 blue:241/255.0 alpha:1.0];
+                UIView * lastview=[_areaScroll.subviews lastObject];
+                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, lastview.frame.origin.y+lastview.frame.size.height, KWidth/3, KAreaListHeight)];
                 
                 [areaitem setTag:[areaArray[i][@"catid"] intValue]];
-                [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                if (i==0) {
+                    [areaitem setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    areaitem.backgroundColor=[UIColor whiteColor];
+                    catid=areaArray[i][@"catid"];
+                }
+                else
+                {
+                    [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                    areaitem.backgroundColor=[UIColor colorWithRed:236/255.0 green:237/255.0 blue:241/255.0 alpha:1.0];
+                }
+                areaitem.titleLabel.font=[UIFont systemFontOfSize:14];
                 [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"name"]] forState:UIControlStateNormal];
                 [areaitem addTarget:self action:@selector(CantingItemClick:) forControlEvents:UIControlEventTouchUpInside];
+                UIView * isred=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 3, areaitem.frame.size.height)];
+                if (i==0) {
+                    isred.backgroundColor=[UIColor redColor];
+                }
+                isred.tag=1111;
+                [areaitem addSubview:isred];
                 [_areaScroll addSubview:areaitem];
+                UIView * Backview=[[UIView alloc] initWithFrame:CGRectMake(0, areaitem.frame.origin.y+areaitem.frame.size.height, _areaScroll.frame.size.width, 1)];
+                Backview.backgroundColor=[UIColor colorWithRed:218/255.0 green:218/255.0 blue:228/255.0 alpha:1.0];
+                [_areaScroll addSubview:Backview];
             }
             _areaScroll.contentSize=CGSizeMake(0, areaArray.count*(KAreaListHeight+1));
         }
         [_CantingPage addSubview:_areaScroll];
+        DataProvider * dataprovider =[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"BuildGoodsList:"];
+        [dataprovider GetGoodsinCategory:catid];
     }
+    
+    
     
 }
 
@@ -193,7 +232,7 @@
             _CantingPage.hidden=YES;
             NSLog(@"other");
             _ShoppingListView.hidden=YES;
-            gouwuche_icon.hidden=YES;
+            BackView_gouwuche_icon.hidden=YES;
             if (_badgeView) {
                 _badgeView.hidden=YES;
             }
@@ -212,7 +251,7 @@
         {
             _CantingPage.hidden=NO;
             _ShoppingListView.hidden=NO;
-            gouwuche_icon.hidden=NO;
+            BackView_gouwuche_icon.hidden=NO;
             if (_badgeView) {
                 _badgeView.hidden=NO;
             }
@@ -232,12 +271,22 @@
     for (UIView * item in _areaScroll.subviews) {
         if ([item isKindOfClass:[UIButton class]]) {
             UIButton * itemBtn =(UIButton *)item;
+            for (UIView *itemview in itemBtn.subviews) {
+                if (itemview.tag==1111) {
+                    itemview.backgroundColor=[UIColor clearColor];
+                }
+            }
             item.backgroundColor=[UIColor colorWithRed:236/255.0 green:237/255.0 blue:241/255.0 alpha:1.0];
             [itemBtn setTitleColor:[UIColor blackColor]  forState:UIControlStateNormal];
         }
     }
     sender.backgroundColor=[UIColor whiteColor];
     [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    for (UIView *itemview in sender.subviews) {
+        if (itemview.tag==1111) {
+            itemview.backgroundColor=[UIColor redColor];
+        }
+    }
     DataProvider * dataprovider =[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"BuildGoodsList:"];
     [dataprovider GetGoodsinCategory:[NSString stringWithFormat:@"%d",(int)sender.tag]];
@@ -378,6 +427,7 @@
             item.text=[NSString stringWithFormat:@"%d",[item.text intValue]+1];
         }
     }
+    BackView_gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255 green:180/255 blue:0/255 alpha:1.0];
     ShoppingCarModel * shopModel=[[ShoppingCarModel alloc] init];
     if (ShoppingCar.count>0) {
         int i=0;
@@ -417,6 +467,8 @@
     else
     {
         _badgeView = [[JSBadgeView alloc] initWithParentView:_locationForbadge alignment:JSBadgeViewAlignmentTopRight];
+        _badgeView.layer.masksToBounds=YES;
+        _badgeView.layer.cornerRadius=8;
         _badgeView.badgeText = [NSString stringWithFormat:@"%d",goodsCount];
         _badgeView.backgroundColor=[UIColor redColor];
     }
@@ -425,7 +477,7 @@
         NSString * price=item.Goods[@"price"];
         SumPrice+=item.Num*[price intValue];
     }
-    _lableinShoppingList.text=[NSString stringWithFormat:@"%d",SumPrice];
+    _lableinShoppingList.text=[NSString stringWithFormat:@"共¥%d",SumPrice];
     
     if (SumPrice>=[_beginprice floatValue]) {
         [choseDone setEnabled:YES];
@@ -487,7 +539,7 @@
         NSString * price=item.Goods[@"price"];
         SumPrice+=item.Num*[price intValue];
     }
-    _lableinShoppingList.text=[NSString stringWithFormat:@"%d",SumPrice];
+    _lableinShoppingList.text=[NSString stringWithFormat:@"共¥%d",SumPrice];
     if (SumPrice<[_beginprice floatValue]) {
         [choseDone setEnabled:NO];
         int lastprice=[_beginprice intValue]-SumPrice;
@@ -496,7 +548,7 @@
     }
     else
     {
-        
+        BackView_gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255 green:180/255 blue:0/255 alpha:1.0];
         [choseDone setTitle:@"选好了"  forState:UIControlStateNormal];
         choseDone.backgroundColor=[UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1.0];
     }
@@ -523,33 +575,33 @@
     tableView_gouwuche.delegate=self;
     tableView_gouwuche.dataSource=self;
     
-    if (!gouwuche_icon.selected) {
+    if (!isgouwucheShow ){
         //购物车列表出现
         [_shoppingListPage addSubview:tableView_gouwuche];
         _shoppingListPage.frame=CGRectMake(0, SCREEN_HEIGHT-viewheight-50, SCREEN_WIDTH, viewheight);
         [self.view addSubview:_ShoppingListView];
-        gouwuche_icon.frame=CGRectMake(gouwuche_icon.frame.origin.x, gouwuche_icon.frame.origin.y-viewheight, gouwuche_icon.frame.size.width, gouwuche_icon.frame.size.height);
-        gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255 green:180/255 blue:0/255 alpha:1.0];
-        [self.view addSubview:gouwuche_icon];
-        [self.view addSubview:gouwuche_icon];
+        BackView_gouwuche_icon.frame=CGRectMake(BackView_gouwuche_icon.frame.origin.x, BackView_gouwuche_icon.frame.origin.y-viewheight, BackView_gouwuche_icon.frame.size.width, BackView_gouwuche_icon.frame.size.height);
+        BackView_gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255 green:180/255 blue:0/255 alpha:1.0];
+        [self.view addSubview:BackView_gouwuche_icon];
+        [self.view addSubview:BackView_gouwuche_icon];
         _ShoppingListView.backgroundColor=[UIColor whiteColor];
-        _lableinShoppingList.text=[NSString stringWithFormat:@"%.2f",SumPrice];
+        _lableinShoppingList.text=[NSString stringWithFormat:@"共¥%.2f",SumPrice];
         [_lableinShoppingList setTextColor:[UIColor redColor]];
         _locationForbadge.frame=CGRectMake(_locationForbadge.frame.origin.x, _locationForbadge.frame.origin.y-viewheight, 5, 5);
         [self.view addSubview:_locationForbadge];
-        gouwuche_icon.selected=YES;
+        isgouwucheShow=YES;
     }else
     {
         _shoppingListPage.frame=CGRectMake(0, SCREEN_HEIGHT+viewheight+50, KWidth, viewheight);
         [self.view addSubview:_ShoppingListView];
-        gouwuche_icon.frame=CGRectMake(gouwuche_icon.frame.origin.x, gouwuche_icon.frame.origin.y+viewheight, gouwuche_icon.frame.size.width, gouwuche_icon.frame.size.height);
-        gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255.0 green:180/255.0 blue:0/255.0 alpha:1.0];
-        [self.view addSubview:gouwuche_icon];
+        BackView_gouwuche_icon.frame=CGRectMake(BackView_gouwuche_icon.frame.origin.x, BackView_gouwuche_icon.frame.origin.y+viewheight, BackView_gouwuche_icon.frame.size.width, BackView_gouwuche_icon.frame.size.height);
+        BackView_gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255.0 green:180/255.0 blue:0/255.0 alpha:1.0];
+        [self.view addSubview:BackView_gouwuche_icon];
         _ShoppingListView.backgroundColor=[UIColor whiteColor];
-        _lableinShoppingList.text=[NSString stringWithFormat:@"%.2f",SumPrice];
+        _lableinShoppingList.text=[NSString stringWithFormat:@"共¥%.2f",SumPrice];
         _locationForbadge.frame=CGRectMake(_locationForbadge.frame.origin.x, _locationForbadge.frame.origin.y+viewheight, 5, 5);
         [self.view addSubview:_locationForbadge];
-        gouwuche_icon.selected=NO;
+        isgouwucheShow=NO;
     }
 }
 
@@ -592,7 +644,7 @@
         [ShoppingCar removeObjectAtIndex:sender.tag];
         _badgeView.badgeText = [NSString stringWithFormat:@"%lu",(unsigned long)ShoppingCar.count];
         tableView_gouwuche.frame=CGRectMake(tableView_gouwuche.frame.origin.x, tableView_gouwuche.frame.origin.y+50, tableView_gouwuche.frame.size.width, tableView_gouwuche.frame.size.height);
-        gouwuche_icon.frame=CGRectMake(gouwuche_icon.frame.origin.x, gouwuche_icon.frame.origin.y+50, gouwuche_icon.frame.size.width, gouwuche_icon.frame.size.height);
+        BackView_gouwuche_icon.frame=CGRectMake(BackView_gouwuche_icon.frame.origin.x, BackView_gouwuche_icon.frame.origin.y+50, BackView_gouwuche_icon.frame.size.width, BackView_gouwuche_icon.frame.size.height);
         _locationForbadge.frame=CGRectMake(_locationForbadge.frame.origin.x, _locationForbadge.frame.origin.y+50, 5, 5);
         
     }
@@ -601,7 +653,7 @@
         mylable.text=[NSString stringWithFormat:@"%d",[mylable.text intValue]-1];
         ShoppingCarModel * modelofshoppingcar= ShoppingCar[sender.tag];
         modelofshoppingcar.Num-=1;
-        _lableinShoppingList.text=[NSString stringWithFormat:@"%.2f",[_lableinShoppingList.text floatValue]-[modelofshoppingcar.Goods[@"price"] floatValue]] ;
+        _lableinShoppingList.text=[NSString stringWithFormat:@"共¥%.2f",[_lableinShoppingList.text floatValue]-[modelofshoppingcar.Goods[@"price"] floatValue]] ;
     }
     [tableView_gouwuche reloadData];
     [_GoodsList reloadData];
@@ -632,7 +684,7 @@
         mylable.text=[NSString stringWithFormat:@"%d",[mylable.text intValue]+1];
         ShoppingCarModel * modelofshoppingcar= ShoppingCar[sender.tag];
         modelofshoppingcar.Num+=1;
-        _lableinShoppingList.text=[NSString stringWithFormat:@"%.2f",[_lableinShoppingList.text floatValue]+[modelofshoppingcar.Goods[@"price"] floatValue]] ;
+        _lableinShoppingList.text=[NSString stringWithFormat:@"共¥%.2f",[_lableinShoppingList.text floatValue]+[modelofshoppingcar.Goods[@"price"] floatValue]] ;
     }
     [tableView_gouwuche reloadData];
     [_GoodsList reloadData];
@@ -681,7 +733,16 @@
 {
     NSLog(@"%@",dict);
     if (dict[@"data"]) {
-        [self addRightButton:@"shoucang@2x.png"];
+        
+        if ([dict[@"data"][@"iscollected"] integerValue]==0) {
+            [self addRightButton:@"shoucang@2x.png"];
+        }
+        else
+        {
+            [self addRightButton:@"shoucang-@2x.png"];
+        }
+        
+        _imgRight.bounds=CGRectMake(0, 0, 20, 20);
         CGFloat y=CantingsegmentView.frame.origin.y+CantingsegmentView.frame.size.height;
         _CantingOtherPage=[[UIView alloc] initWithFrame:CGRectMake(0, y, KWidth, KHeight-y)];
         _CantingOtherPage.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
@@ -693,13 +754,27 @@
         UIView * CantingHeadView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, _CantingOtherPage.frame.size.width,80)];
         CantingHeadView.backgroundColor=[UIColor whiteColor];
         UIImageView * cantingLogo=[[UIImageView alloc] initWithFrame:CGRectMake(20, 15, 50, 50)];
+        cantingLogo.layer.masksToBounds=YES;
+        cantingLogo.layer.cornerRadius=5;
         [cantingLogo sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,dict[@"data"][@"logo"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
         [CantingHeadView addSubview:cantingLogo];
-        UILabel * lbl_cantingName=[[UILabel alloc] initWithFrame:CGRectMake(cantingLogo.frame.origin.x+cantingLogo.frame.size.width+20, 10, 150, 20)];
+        UILabel * lbl_cantingName=[[UILabel alloc] initWithFrame:CGRectMake(cantingLogo.frame.origin.x+cantingLogo.frame.size.width+20, 15, 150, 20)];
         lbl_cantingName.text=dict[@"data"][@"name"];
         [CantingHeadView addSubview:lbl_cantingName];
-        TQStarRatingView * pingjia=[[TQStarRatingView alloc]initWithFrame:CGRectMake(lbl_cantingName.frame.origin.x, lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height+2, 80, 20) numberOfStar:5 andlightstarnum:[dict[@"data"][@"totalcredit"] intValue]];
-        [CantingHeadView addSubview:pingjia];
+        
+        UIButton * btn_share=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-50, lbl_cantingName.frame.origin.y, 40, 20)];
+        [btn_share setImage:[UIImage imageNamed:@"canting_share_icom"] forState:UIControlStateNormal];
+        [btn_share addTarget:self action:@selector(Btn_shareClick) forControlEvents:UIControlEventTouchUpInside];
+        [CantingHeadView addSubview:btn_share];
+        
+        AMRatingControl * amratingcontrol= [[AMRatingControl alloc] initWithLocation:CGPointMake(lbl_cantingName.frame.origin.x,lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height+8 )
+                                       emptyColor:[UIColor lightGrayColor]
+                                       solidColor:[UIColor redColor]
+                                     andMaxRating:5];
+        [amratingcontrol setUserInteractionEnabled:NO];
+        amratingcontrol.backgroundColor=[UIColor clearColor];
+        amratingcontrol.rating=[dict[@"data"][@"totalcredit"] intValue];
+        [CantingHeadView addSubview:amratingcontrol];
         
         
         
@@ -713,6 +788,7 @@
         UILabel * lbl_qisongjianame=[[UILabel alloc] initWithFrame:CGRectMake(lbl_qisongjia.frame.origin.x, lbl_qisongjia.frame.origin.y+lbl_qisongjia.frame.size.height+5, 40, 15)];
         lbl_qisongjianame.text=@"起送价";
         lbl_qisongjianame.font=[UIFont fontWithName:@"Helvetica" size:12];
+        lbl_qisongjianame.textColor=[UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
         [lbl_qisongjianame setTextAlignment:NSTextAlignmentCenter];
         [BackView_time addSubview:lbl_qisongjianame];
         [otherViewScroll addSubview:BackView_time];
@@ -725,6 +801,7 @@
         [BackView_WaiSongFei addSubview:lbl_waisongfei];
         UILabel * lbl_waisongfeiname=[[UILabel alloc] initWithFrame:CGRectMake(lbl_qisongjia.frame.origin.x, lbl_qisongjia.frame.origin.y+lbl_qisongjia.frame.size.height+5, 40, 15)];
         lbl_waisongfeiname.text=@"外送费";
+        lbl_waisongfeiname.textColor=[UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
         lbl_waisongfeiname.font=[UIFont fontWithName:@"Helvetica" size:12];
         [lbl_waisongfeiname setTextAlignment:NSTextAlignmentCenter];
         [BackView_WaiSongFei addSubview:lbl_waisongfeiname];
@@ -738,6 +815,7 @@
         [BackView_WaiSongTime addSubview:lbl_waisongtime];
         UILabel * lbl_waisongtimename=[[UILabel alloc] initWithFrame:CGRectMake(lbl_qisongjia.frame.origin.x, lbl_qisongjia.frame.origin.y+lbl_qisongjia.frame.size.height+5, 60, 15)];
         lbl_waisongtimename.text=@"外送时间";
+        lbl_waisongtimename.textColor=[UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
         lbl_waisongtimename.font=[UIFont fontWithName:@"Helvetica" size:12];
         [lbl_waisongtimename setTextAlignment:NSTextAlignmentCenter];
         [BackView_WaiSongTime addSubview:lbl_waisongtimename];
@@ -752,6 +830,7 @@
         [BackView_userPingjia addSubview:viewTitle];
         UILabel * commentcount=[[UILabel alloc] initWithFrame:CGRectMake(viewTitle.frame.origin.x+viewTitle.frame.size.width+1, 10, 60, 20)];
         commentcount.text=[NSString stringWithFormat:@"(%@条)",dict[@"data"][@"commentCount"]];
+        commentcount.textColor=[UIColor redColor];
         [BackView_userPingjia addSubview:commentcount];
         UIImageView * goImg=[[UIImageView alloc] initWithFrame:CGRectMake(KWidth-25, 10, 14, 20)];
         goImg.image=[UIImage imageNamed:@"go.png"];
@@ -767,7 +846,7 @@
         UIImageView * imgView=[[UIImageView alloc] initWithFrame:CGRectMake(20, 12.5, 15, 15)];
         imgView.image=[UIImage imageNamed:@"quan"];
         [BackView_youhuiquan addSubview:imgView];
-        UILabel * lbl_Viewtitle=[[UILabel alloc] initWithFrame:CGRectMake(imgView.frame.origin.x+imgView.frame.size.width+2, 10, 200, 20)];
+        UILabel * lbl_Viewtitle=[[UILabel alloc] initWithFrame:CGRectMake(imgView.frame.origin.x+imgView.frame.size.width+8, 10, 200, 20)];
         lbl_Viewtitle.text=[NSString stringWithFormat:@"餐厅可使用优惠券"];
         [BackView_youhuiquan addSubview:lbl_Viewtitle];
         [otherViewScroll addSubview:BackView_youhuiquan];
@@ -778,7 +857,7 @@
         UIImageView * imgView_che=[[UIImageView alloc] initWithFrame:CGRectMake(20, 12.5, 15, 15)];
         imgView_che.image=[UIImage imageNamed:@"che"];
         [BackView_che addSubview:imgView_che];
-        UILabel * lbl_cheViewtitle=[[UILabel alloc] initWithFrame:CGRectMake(imgView.frame.origin.x+imgView.frame.size.width+2, 10, 200, 20)];
+        UILabel * lbl_cheViewtitle=[[UILabel alloc] initWithFrame:CGRectMake(imgView.frame.origin.x+imgView.frame.size.width+8, 10, 200, 20)];
         lbl_cheViewtitle.text=[NSString stringWithFormat:@"新用户可获Uber 5-50元券"];
         [BackView_che addSubview:lbl_cheViewtitle];
         [otherViewScroll addSubview:BackView_che];
@@ -792,6 +871,7 @@
         [BackView_pic addSubview:picviewTitle];
         UILabel * piccount=[[UILabel alloc] initWithFrame:CGRectMake(viewTitle.frame.origin.x+viewTitle.frame.size.width+1, 10, 60, 20)];
         piccount.text=[NSString stringWithFormat:@"(%@条)",dict[@"data"][@"albumcount"]];
+        piccount.textColor=[UIColor redColor];
         [BackView_pic addSubview:piccount];
         goImg=[[UIImageView alloc] initWithFrame:CGRectMake(KWidth-25, 10, 14, 20)];
         goImg.image=[UIImage imageNamed:@"go.png"];
@@ -804,7 +884,7 @@
         lastView=BackView_pic;
         UIView * yingyeTime=[[UIView alloc] initWithFrame:CGRectMake(0,lastView.frame.origin.y+lastView.frame.size.height+1 , KWidth, 40)];
         yingyeTime.backgroundColor=[UIColor whiteColor];
-        UILabel * yingyeviewTitle=[[UILabel alloc] initWithFrame:CGRectMake(20, 10, 100, 20)];
+        UILabel * yingyeviewTitle=[[UILabel alloc] initWithFrame:CGRectMake(13, 10, 100, 20)];
         [yingyeviewTitle setTextAlignment:NSTextAlignmentCenter];
         yingyeviewTitle.text=[NSString stringWithFormat:@"营业时间："];
         [yingyeTime addSubview:yingyeviewTitle];
@@ -816,7 +896,7 @@
         lastView=yingyeTime;
         UIView * BackView_Tel=[[UIView alloc] initWithFrame:CGRectMake(0,lastView.frame.origin.y+lastView.frame.size.height+1 , KWidth, 40)];
         BackView_Tel.backgroundColor=[UIColor whiteColor];
-        UILabel * lbl_TelTitle=[[UILabel alloc] initWithFrame:CGRectMake(20, 10, 100, 20)];
+        UILabel * lbl_TelTitle=[[UILabel alloc] initWithFrame:CGRectMake(13, 10, 100, 20)];
         [lbl_TelTitle setTextAlignment:NSTextAlignmentCenter];
         lbl_TelTitle.text=[NSString stringWithFormat:@"联系电话："];
         [BackView_Tel addSubview:lbl_TelTitle];
@@ -829,7 +909,7 @@
         lastView=[otherViewScroll.subviews lastObject];
         UIView * BackView_address=[[UIView alloc] initWithFrame:CGRectMake(0,lastView.frame.origin.y+lastView.frame.size.height+5 , KWidth, 40)];
         BackView_address.backgroundColor=[UIColor whiteColor];
-        UILabel * lbl_addressTitle=[[UILabel alloc] initWithFrame:CGRectMake(20, 10, 100, 20)];
+        UILabel * lbl_addressTitle=[[UILabel alloc] initWithFrame:CGRectMake(13, 10, 100, 20)];
         [lbl_addressTitle setTextAlignment:NSTextAlignmentCenter];
         lbl_addressTitle.text=[NSString stringWithFormat:@"店铺地址："];
         [BackView_address addSubview:lbl_addressTitle];
@@ -904,6 +984,21 @@
     UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:dict[@"msg"] delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
     [alert show];
     [self addRightButton:@"shoucang-@2x.png"];
+}
+-(void)Btn_shareClick
+{
+    NSLog(@"分享餐厅");
+    //分享巴国榜
+    NSString *shareText = @"快来加入掌尚街，享受生活的乐趣吧！";             //分享内嵌文字
+    UIImage *shareImage = [UIImage imageNamed:@"1136-1"];          //分享内嵌图片
+    NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSession,UMShareToEmail,UMShareToSms,nil];
+    //调用快速分享接口
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:umeng_app_key
+                                      shareText:shareText
+                                     shareImage:shareImage
+                                shareToSnsNames:snsList
+                                       delegate:nil];
 }
 
 @end

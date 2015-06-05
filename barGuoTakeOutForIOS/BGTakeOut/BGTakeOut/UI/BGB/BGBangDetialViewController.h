@@ -14,5 +14,5 @@
 @property(nonatomic,strong)NSString *articleid;
 @property(nonatomic,strong)NSString* userid;
 @property(nonatomic,strong)PinglunForBGBangViewController * myPinglun;
-
+@property(nonatomic,strong)NSString * isstarted;
 @end

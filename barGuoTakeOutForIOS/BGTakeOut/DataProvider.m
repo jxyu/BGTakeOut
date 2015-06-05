@@ -128,7 +128,7 @@
 -(void)registerPerson:(NSString *)phone andPwd:(NSString *)pwd
 {
     if (phone!=nil &&pwd!=nil) {
-        NSString * url=[NSString stringWithFormat:@"%@register.php",KURL];
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/User/api_register",KURL];
         NSDictionary * prm=@{@"phonenum":phone,@"password":pwd};
         [self PostRequest:url andpram:prm];
     }

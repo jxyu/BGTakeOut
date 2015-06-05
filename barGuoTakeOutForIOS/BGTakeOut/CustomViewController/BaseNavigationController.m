@@ -45,17 +45,15 @@
 //    [self.view addSubview:imageline1];
     
     
-    _lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(DefaultLeftImageWidth, _orginY  + 0, SCREEN_WIDTH - 2 * DefaultLeftImageWidth, NavigationBar_HEIGHT)];
+//    _lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(DefaultLeftImageWidth, _orginY  + 0, SCREEN_WIDTH - 2 * DefaultLeftImageWidth, NavigationBar_HEIGHT)];
+    _lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(DefaultLeftImageWidth+50, _orginY  + 0, 120, NavigationBar_HEIGHT)];
     _lblTitle.backgroundColor = [UIColor clearColor];
-    _lblTitle.adjustsFontSizeToFitWidth = YES;
+//    _lblTitle.adjustsFontSizeToFitWidth = YES;
     //[_lblTitle setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20]];
     //_lblTitle.font = [UIFont boldSystemFontOfSize:20];
     _lblTitle.textColor = [UIColor whiteColor];
-    _lblTitle.text=@"自动定位";
     _lblTitle.font=[UIFont boldSystemFontOfSize:18];
     _lblTitle.textAlignment = NSTextAlignmentCenter;
-    _lblTitle.lineBreakMode = NSLineBreakByTruncatingTail;
-    _lblTitle.numberOfLines = 0;
     _lblTitle.center = CGPointMake(_topView.center.x, _lblTitle.center.y);
     [self.view addSubview:_lblTitle];
     

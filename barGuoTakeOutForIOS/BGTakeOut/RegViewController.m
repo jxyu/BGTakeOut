@@ -110,7 +110,7 @@
         }
     }
 
-    NSString* str=[NSString stringWithFormat:@"%@:%@ %@",NSLocalizedString(@"号码确认", nil),self.areaCodeField.text,self.telField.text];
+    NSString* str=[NSString stringWithFormat:@"%@:%@ %@",NSLocalizedString(@"通知", nil),self.areaCodeField.text,self.telField.text];
     _str=[NSString stringWithFormat:@"%@",self.telField.text];
     UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"号码为：", nil)
                                                   message:str delegate:self
@@ -133,9 +133,7 @@
         {
             if (!error)
             {
-                [self presentViewController:verify animated:YES completion:^{
-                    ;
-                }];
+                [self.navigationController pushViewController:verify animated:YES];
             }
             else
             {
@@ -168,16 +166,8 @@
     }
     
     //创建一个导航栏
-    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0+statusBarHeight, self.view.frame.size.width, 44)];
-    UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:nil];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"返回", nil)
-                                                                   style:UIBarButtonItemStyleBordered
-                                                                  target:self
-                                                                  action:@selector(clickLeftButton)];
-    [navigationItem setTitle:NSLocalizedString(@"注册", nil)];
-    [navigationBar pushNavigationItem:navigationItem animated:NO];
-    [navigationItem setLeftBarButtonItem:leftButton];
-    [self.view addSubview:navigationBar];
+    _lblTitle.text=@"注册";
+    [self addLeftButton:@"ic_actionbar_back.png"];
     
     
 //    UILabel* label=[[UILabel alloc] init];
@@ -189,24 +179,27 @@
 //    label.textColor=[UIColor darkGrayColor];
 //    [self.view addSubview:label];
     
-    UITableView* tableView=[[UITableView alloc] initWithFrame:CGRectMake(10, 106+statusBarHeight, self.view.frame.size.width - 20, 45) style:UITableViewStylePlain];
+    UITableView* tableView=[[UITableView alloc] initWithFrame:CGRectMake(10, 65, self.view.frame.size.width - 20, 45) style:UITableViewStylePlain];
     [self.view addSubview:tableView];
     
     //区域码
     UITextField* areaCodeField=[[UITextField alloc] init];
-    areaCodeField.frame=CGRectMake(10, 155+statusBarHeight, (self.view.frame.size.width - 30)/4, 40+statusBarHeight/4);
-    areaCodeField.borderStyle=UITextBorderStyleBezel;
+    areaCodeField.frame=CGRectMake(10, 93+statusBarHeight, (self.view.frame.size.width - 30)/4, 40+statusBarHeight/4);
     areaCodeField.text=[NSString stringWithFormat:@"+86"];
     areaCodeField.textAlignment=UITextAlignmentCenter;
+    areaCodeField.layer.borderColor=(__bridge CGColorRef)([UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0]);
     areaCodeField.font=[UIFont fontWithName:@"Helvetica" size:18];
     areaCodeField.keyboardType=UIKeyboardTypePhonePad;
     [self.view addSubview:areaCodeField];
     
     //
     UITextField* telField=[[UITextField alloc] init];
-    telField.frame=CGRectMake(20+(self.view.frame.size.width - 30)/4, 155+statusBarHeight,(self.view.frame.size.width - 30)*3/4 , 40+statusBarHeight/4);
-    telField.borderStyle=UITextBorderStyleBezel;
-    telField.placeholder=NSLocalizedString(@"telfield", nil);
+    telField.frame=CGRectMake(20+(self.view.frame.size.width - 30)/4, 93+statusBarHeight,(self.view.frame.size.width - 30)*3/4 , 40+statusBarHeight/4);
+    telField.placeholder=NSLocalizedString(@"请输入手机号", nil);
+    telField.layer.borderWidth=1;
+    telField.layer.borderColor=(__bridge CGColorRef)([UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0]);
+    telField.layer.masksToBounds=YES;
+    telField.layer.cornerRadius=2;
     telField.keyboardType=UIKeyboardTypePhonePad;
     telField.clearButtonMode=UITextFieldViewModeWhileEditing;
     [self.view addSubview:telField];
@@ -214,9 +207,8 @@
     //
     UIButton* nextBtn=[UIButton buttonWithType:UIButtonTypeSystem];
     [nextBtn setTitle:NSLocalizedString(@"下一步", nil) forState:UIControlStateNormal];
-    NSString *icon = [NSString stringWithFormat:@"smssdk.bundle/button4.png"];
-    [nextBtn setBackgroundImage:[UIImage imageNamed:icon] forState:UIControlStateNormal];
-    nextBtn.frame=CGRectMake(10, 220+statusBarHeight, self.view.frame.size.width - 20, 42);
+    nextBtn.backgroundColor=[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
+    nextBtn.frame=CGRectMake(30, 140+statusBarHeight, self.view.frame.size.width - 60, 42);
     [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(nextStep) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:nextBtn];
@@ -354,6 +346,11 @@
 //    [self presentViewController:country2 animated:YES completion:^{
 //        ;
 //    }];
+}
+
+-(void)clickLeftButton:(UIButton *)sender
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end

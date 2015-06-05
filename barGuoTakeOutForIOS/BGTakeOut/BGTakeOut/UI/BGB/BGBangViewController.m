@@ -58,19 +58,21 @@
     NSInteger table_page;
     
     
-    UITableView * menutableView;
+    UIScrollView * menuScrollView;
     UIScrollView * firstScrollView;
     UIScrollView * thirdScrollView;
     NSMutableArray * categary1;
     NSMutableArray * categary2;
     NSMutableArray * categary3;
     UIView * BackView_paixu;
+    int clickCatgrayitem;
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    clickCatgrayitem=0;
     [self BuildBiewelement];
     
     
@@ -78,9 +80,11 @@
 
 -(void)BuildBiewelement
 {
+    [self setBarTitle:@"巴国榜"];
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+    
     dictionary =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
     _TextArray=[[NSMutableArray alloc] init];
     categary1=[[NSMutableArray alloc] init];
@@ -90,13 +94,23 @@
     isShow=NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"exit_userinfo" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"user_login_info" object:nil];
     if (dictionary[@"userid"]) {
         [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
+        UIImageView * image_left=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-45, _lblTitle.frame.origin.y+13, 14, 15)];
+        image_left.tag=1111;
+        image_left.image=[UIImage imageNamed:@"index_location"];
+        [self.view addSubview:image_left];
+        UIImageView * image_right=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2+35, _lblTitle.frame.origin.y+18, 12, 9)];
+        image_right.tag=1112;
+        image_right.image=[UIImage imageNamed:@"index_down"];
+        [self.view addSubview:image_right];
         [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
             NSLog(@"%@",addressString);
-            NSString *strUrl = [addressString stringByReplacingOccurrencesOfString:@"中国" withString:@""];
-            [self setBarTitle:[strUrl stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+            NSArray *array = [addressString componentsSeparatedByString:@"省"]; //从字符A中分隔成2个元素的数组
+            [self setBarTitle:[array[1] stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+            CGSize singleLineStringSize = [array[1] sizeWithFont:[UIFont systemFontOfSize:15]];
+            image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 14, 15);
+            image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 9);
         }];
         //添加Segmented Control
         UIView * lastView=[self.view.subviews lastObject];
@@ -193,11 +207,11 @@
         [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
             [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"2" andThreeid:@"9" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude]];
         }];
-        menutableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH/3, _Page.frame.size.height-40)];
-        menutableView.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
-        menutableView.delegate=self;
-        menutableView.dataSource=self;
-        menutableView.tag=150;
+        
+        menuScrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH/3, _Page.frame.size.height-40)];
+        menuScrollView.scrollEnabled=YES;
+        menuScrollView.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
+        
         
         firstScrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3, 40, SCREEN_WIDTH/3, _Page.frame.size.height-40)];
         firstScrollView.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
@@ -209,9 +223,8 @@
     else
     {
         _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
-        UIView * item =_myLogin.view;
         [_myLogin setDelegateObject:self setBackFunctionName:@"LoginBackCall:"];
-        [self.view addSubview:item];
+        [self.navigationController pushViewController:_myLogin animated:YES];
     }
     
 }
@@ -484,6 +497,7 @@
     {
         self.BGBangDetialVC=[[BGBangDetialViewController alloc] init];
         _BGBangDetialVC.articleid=_TextArray[indexPath.row][@"articleid"];
+        _BGBangDetialVC.isstarted=_TextArray[indexPath.row][@"isstarted"];
         _BGBangDetialVC.userid=dictionary[@"userid"];
         [self.navigationController pushViewController:_BGBangDetialVC animated:YES];
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -497,7 +511,7 @@
     if (1==self.segmentedControl.selectedSegmentIndex) {
 //        _Page.hidden=YES;
         NSLog(@"other");
-        [menutableView removeFromSuperview];
+        [menuScrollView removeFromSuperview];
         [firstScrollView removeFromSuperview];
         [thirdScrollView removeFromSuperview];
         [BackView_paixu removeFromSuperview];
@@ -511,7 +525,7 @@
     {
         isAgain=YES;
 //        _Page.hidden=NO;
-        [menutableView removeFromSuperview];
+        [menuScrollView removeFromSuperview];
         [firstScrollView removeFromSuperview];
         [thirdScrollView removeFromSuperview];
         [BackView_paixu removeFromSuperview];
@@ -626,13 +640,13 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
 {
     NSLog(@"默认分类");
     if (!isClick) {
-        [_Page addSubview:menutableView];
+        [_Page addSubview:menuScrollView];
         isClick=YES;
     }
     else
     {
         isClick=NO;
-        [menutableView removeFromSuperview];
+        [menuScrollView removeFromSuperview];
         [firstScrollView removeFromSuperview];
         [thirdScrollView removeFromSuperview];
     }
@@ -749,6 +763,56 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
             categary3 =dict[@"data"];
         }
     }
+    for (int i=0; i<categary1.count; i++) {
+        UIButton * item=[[UIButton alloc] initWithFrame:CGRectMake(0, 100*i+1, menuScrollView.frame.size.width, 100)];
+        item.backgroundColor=[UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
+        item.tag=[categary1[i][@"oneid"] intValue];
+        UIImageView * img_icom=[[UIImageView alloc] initWithFrame:CGRectMake(35, 20, 30, 30)];
+        switch ([categary1[i][@"oneid"] intValue]) {
+            case 1:
+                img_icom.image=[UIImage imageNamed:@"res_hui"];
+                break;
+            case 2:
+                img_icom.image=[UIImage imageNamed:@"food_hui"];
+                break;
+            case 3:
+                img_icom.image=[UIImage imageNamed:@"music_hui"];
+                break;
+            case 4:
+                img_icom.image=[UIImage imageNamed:@"jiazheng_hui"];
+                break;
+            case 5:
+                img_icom.image=[UIImage imageNamed:@"wedding_hui"];
+                break;
+            case 6:
+                img_icom.image=[UIImage imageNamed:@"peixun_hui"];
+                break;
+            case 7:
+                img_icom.image=[UIImage imageNamed:@"zhuangxiu_hui"];
+                break;
+            case 8:
+                img_icom.image=[UIImage imageNamed:@"truck_hui"];
+                break;
+                
+            default:
+                break;
+        }
+        img_icom.tag=200;
+        [item addSubview:img_icom];
+        UILabel * lbl_Title=[[UILabel alloc] initWithFrame:CGRectMake(10, img_icom.frame.origin.y+img_icom.frame.size.height+15, 80, 20)];
+        lbl_Title.text=categary1[i][@"name"];
+        lbl_Title.tag=201;
+        lbl_Title.textColor=[UIColor colorWithRed:149/255.0 green:149/255.0 blue:149/255.0 alpha:1.0];
+        [lbl_Title setTextAlignment:NSTextAlignmentCenter];
+        [item addSubview:lbl_Title];
+        UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(10, 95, 80, 5)];
+        fenge.backgroundColor=[UIColor redColor];
+        fenge.tag=202;
+        [item addSubview:fenge];
+        [menuScrollView addSubview:item];
+    }
+    UIView *lastView=[menuScrollView.subviews lastObject];
+    menuScrollView.contentSize=CGSizeMake(0, lastView.frame.origin.y+lastView.frame.size.height+1);
 }
 -(void)Getthirdcategray:(UIButton *)sender
 {
@@ -770,7 +834,7 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
 -(void)finishChoosefenlei:(UIButton *)sender
 {
     _threeid=categary3[sender.tag][@"threeid"];
-    [menutableView removeFromSuperview];
+    [menuScrollView removeFromSuperview];
     [firstScrollView removeFromSuperview];
     [thirdScrollView removeFromSuperview];
     [self MakePramAndGetData:@"1" andNum:_num andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm];
@@ -787,6 +851,11 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
 {
     NSLog(@"BGBangVC收到通知");
     [self BuildBiewelement];
+}
+
+-(void)LoginBackCall:(id)dict
+{
+     [self BuildBiewelement];
 }
 
 @end

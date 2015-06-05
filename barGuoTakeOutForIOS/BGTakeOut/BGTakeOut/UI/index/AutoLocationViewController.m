@@ -48,7 +48,14 @@
     //添加导航栏
     [self setBarTitle:@"自动定位"];
     [self addLeftButton:@"ic_actionbar_back.png"];
-    
+//    for (UIView *items in self.navigationController.view.subviews) {
+//        if ([items isKindOfClass:[UIImageView class]]) {
+//            UIImageView * item=(UIImageView *)items;
+//            if (item.tag==1111||item.tag==1112) {
+//                [item removeFromSuperview];
+//            }
+//        }
+//    }
 #pragma mark 添加手动切换按钮
     UIView * lastObject=[self.view.subviews lastObject];
     CGFloat y=lastObject.frame.size.height;

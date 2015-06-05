@@ -36,13 +36,13 @@
         _imageView = imageView;
         [self addSubview:imageView];
         
-        UILabel *titleLabel = [[UILabel alloc] init];
-        titleLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-        _titleLabel = titleLabel;
-        _titleLabel.hidden = YES;
-        _titleLabel.textColor = [UIColor whiteColor];
-        _titleLabel.font = [UIFont systemFontOfSize:14];
-        [self addSubview:titleLabel];
+//        UILabel *titleLabel = [[UILabel alloc] init];
+//        titleLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+//        _titleLabel = titleLabel;
+//        _titleLabel.hidden = YES;
+//        _titleLabel.textColor = [UIColor whiteColor];
+//        _titleLabel.font = [UIFont systemFontOfSize:14];
+//        [self addSubview:titleLabel];
     }
     
     return self;

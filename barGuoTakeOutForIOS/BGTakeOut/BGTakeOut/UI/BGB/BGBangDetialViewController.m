@@ -10,8 +10,9 @@
 #import "CommenDef.h"
 #import "AppDelegate.h"
 #import "DataProvider.h"
-#import "SDCycleScrollView.h"
 #import "TQStarRatingView.h"
+#import "SDCycleScrollView.h"
+#import "AMRatingControl.h"
 #import "UIImageView+WebCache.h"
 #import "UMSocial.h"
 #define KURL @"http://121.42.139.60/baguo/"
@@ -23,11 +24,11 @@
 {
     UIScrollView * ScrollView_page;
     UIView * page;
-    TQStarRatingView *starRatingView_weidao;
-    TQStarRatingView *starRatingView_weisheng;
-    TQStarRatingView *starRatingView_huanjing;
-    TQStarRatingView *starRatingView_fuwu;
-    TQStarRatingView *starRatingView_xingjiabi;
+    AMRatingControl *starRatingView_weidao;
+    AMRatingControl *starRatingView_weisheng;
+    AMRatingControl *starRatingView_huanjing;
+    AMRatingControl *starRatingView_fuwu;
+    AMRatingControl *starRatingView_xingjiabi;
 }
 
 
@@ -76,37 +77,74 @@
     _cycleScrollView.titlesGroup = titles;
     
     [page addSubview:_cycleScrollView];
+
     UIView * BackVeiw_star=[[UIView alloc] initWithFrame:CGRectMake(0, _cycleScrollView.frame.origin.y+_cycleScrollView.frame.size.height+5, SCREEN_WIDTH, 170)];
     BackVeiw_star.backgroundColor=[UIColor whiteColor];
     UILabel * lbl_weidao=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
     lbl_weidao.text=@"味道";
-    starRatingView_weidao =[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_weidao.frame.origin.x+lbl_weidao.frame.size.width,10 , SCREEN_WIDTH-80, 20) numberOfStar:10 andlightstarnum:[dict[@"data"][@"tastescore"] intValue]];
+    starRatingView_weidao =[[AMRatingControl alloc] initWithLocation:CGPointMake(80, 8)
+                                                          emptyColor:[UIColor lightGrayColor]
+                                                          solidColor:[UIColor redColor]
+                                                        andMaxRating:10];
+    [starRatingView_weidao setUserInteractionEnabled:NO];
+    starRatingView_weidao.backgroundColor=[UIColor clearColor];
+    starRatingView_weidao.rating=[dict[@"data"][@"tastescore"] intValue];
+    starRatingView_weidao.tag=1;
     [BackVeiw_star addSubview:lbl_weidao];
     [BackVeiw_star addSubview:starRatingView_weidao];
-    
     UILabel * lbl_weisheng=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_weidao.frame.origin.y+lbl_weidao.frame.size.height+10, 60, 20)];
     lbl_weisheng.text=@"卫生";
-    starRatingView_weisheng =[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_weisheng.frame.origin.x+lbl_weisheng.frame.size.width,starRatingView_weidao.frame.origin.y+starRatingView_weidao.frame.size.height+10 , SCREEN_WIDTH-80, 20) numberOfStar:10 andlightstarnum:[dict[@"data"][@"tastescore"] intValue]];
+    starRatingView_weisheng =[[AMRatingControl alloc] initWithLocation:CGPointMake(80, lbl_weidao.frame.origin.y+lbl_weidao.frame.size.height+8)
+                                                            emptyColor:[UIColor lightGrayColor]
+                                                            solidColor:[UIColor redColor]
+                                                          andMaxRating:10];
+    [starRatingView_weisheng setUserInteractionEnabled:NO];
+    starRatingView_weisheng.backgroundColor=[UIColor clearColor];
+    starRatingView_weisheng.rating=[dict[@"data"][@"hygienismscore"] intValue];
+    
+    starRatingView_weisheng.tag=2;
     [BackVeiw_star addSubview:lbl_weisheng];
     [BackVeiw_star addSubview:starRatingView_weisheng];
     
     UILabel * lbl_huanjing=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_weisheng.frame.origin.y+lbl_weisheng.frame.size.height+10, 60, 20)];
     lbl_huanjing.text=@"环境";
-    starRatingView_huanjing=[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_huanjing.frame.origin.x+lbl_huanjing.frame.size.width,starRatingView_weisheng.frame.origin.y+starRatingView_weisheng.frame.size.height+10  , SCREEN_WIDTH-80, 20) numberOfStar:10 andlightstarnum:[dict[@"data"][@"tastescore"] intValue]];
+    starRatingView_huanjing=[[AMRatingControl alloc] initWithLocation:CGPointMake(80, lbl_weisheng.frame.origin.y+lbl_weisheng.frame.size.height+8)
+                                                           emptyColor:[UIColor lightGrayColor]
+                                                           solidColor:[UIColor redColor]
+                                                         andMaxRating:10];
+    [starRatingView_huanjing setUserInteractionEnabled:NO];
+    starRatingView_huanjing.backgroundColor=[UIColor clearColor];
+    starRatingView_huanjing.rating=[dict[@"data"][@"environmentscore"] intValue];
+    starRatingView_huanjing.tag=3;
     [BackVeiw_star addSubview:lbl_huanjing];
     [BackVeiw_star addSubview:starRatingView_huanjing];
     
     UILabel * lbl_fuwu=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_huanjing.frame.origin.y+lbl_huanjing.frame.size.height+10, 60, 20)];
     lbl_fuwu.text=@"服务";
-    starRatingView_fuwu =[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_fuwu.frame.origin.x+lbl_fuwu.frame.size.width,starRatingView_huanjing.frame.origin.y+starRatingView_huanjing.frame.size.height+10  , SCREEN_WIDTH-80, 20) numberOfStar:10 andlightstarnum:[dict[@"data"][@"tastescore"] intValue]];
+    starRatingView_fuwu =[[AMRatingControl alloc] initWithLocation:CGPointMake(80, lbl_huanjing.frame.origin.y+lbl_huanjing.frame.size.height+8)
+                                                        emptyColor:[UIColor lightGrayColor]
+                                                        solidColor:[UIColor redColor]
+                                                      andMaxRating:10];
+    [starRatingView_fuwu setUserInteractionEnabled:NO];
+    starRatingView_fuwu.backgroundColor=[UIColor clearColor];
+    starRatingView_fuwu.rating=[dict[@"data"][@"servicescore"] intValue];
+    starRatingView_fuwu.tag=4;
     [BackVeiw_star addSubview:lbl_fuwu];
     [BackVeiw_star addSubview:starRatingView_fuwu];
     
     UILabel * lbl_xingjiabi=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_fuwu.frame.origin.y+lbl_fuwu.frame.size.height+10, 60, 20)];
     lbl_xingjiabi.text=@"性价比";
-    starRatingView_xingjiabi =[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_xingjiabi.frame.origin.x+lbl_xingjiabi.frame.size.width,starRatingView_fuwu.frame.origin.y+starRatingView_fuwu.frame.size.height+10, SCREEN_WIDTH-80, 20) numberOfStar:10 andlightstarnum:[dict[@"data"][@"tastescore"] intValue]];
+    starRatingView_xingjiabi =[[AMRatingControl alloc] initWithLocation:CGPointMake(80, lbl_fuwu.frame.origin.y+lbl_fuwu.frame.size.height+8)
+                                                             emptyColor:[UIColor lightGrayColor]
+                                                             solidColor:[UIColor redColor]
+                                                           andMaxRating:10];
+    [starRatingView_xingjiabi setUserInteractionEnabled:NO];
+    starRatingView_xingjiabi.backgroundColor=[UIColor clearColor];
+    starRatingView_xingjiabi.tag=5;
+    starRatingView_xingjiabi.rating=[dict[@"data"][@"costperformancescore"] intValue];
     [BackVeiw_star addSubview:lbl_xingjiabi];
     [BackVeiw_star addSubview:starRatingView_xingjiabi];
+ 
     [page addSubview:BackVeiw_star];
     UITextView * lbl_baguobangContent=[[UITextView alloc] initWithFrame:CGRectMake(0, BackVeiw_star.frame.origin.y+BackVeiw_star.frame.size.height+5, SCREEN_WIDTH, 200)];
     lbl_baguobangContent.text=dict[@"data"][@"content"];
@@ -115,21 +153,37 @@
     [self.view addSubview:ScrollView_page];
     
     UIButton * btn_mydianzan=[[UIButton alloc] initWithFrame:CGRectMake(10, SCREEN_HEIGHT-40, (SCREEN_WIDTH-20)/3, 30)];
-    [btn_mydianzan setImage:[UIImage imageNamed:@"zanhui@2x"] forState:UIControlStateNormal];
-    [btn_mydianzan setTitle:[NSString stringWithFormat:@"（%@）喜欢",dict[@"data"][@"starnum"]] forState:UIControlStateNormal];
+    if ([_isstarted intValue]==1) {
+        [btn_mydianzan setImage:[UIImage imageNamed:@"bgb_dianzan_hong"] forState:UIControlStateNormal];
+        [btn_mydianzan setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [btn_mydianzan setImage:[UIImage imageNamed:@"bgb_dianzan_hui"] forState:UIControlStateNormal];
+        [btn_mydianzan setTitleColor:[UIColor colorWithRed:121/255.0 green:121/255.0 blue:121/255.0 alpha:1.0] forState:UIControlStateNormal];
+    }
+    [btn_mydianzan setTitle:[NSString stringWithFormat:@"(%@)喜欢", dict[@"data"][@"starnum"]!=[NSNull null]?dict[@"data"][@"starnum"]:@"0"]forState:UIControlStateNormal];
     btn_mydianzan.titleLabel.font=[UIFont systemFontOfSize:13];
-    [btn_mydianzan setTitleColor:[UIColor colorWithRed:121/255.0 green:121/255.0 blue:121/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [btn_mydianzan addTarget:self action:@selector(dianzanFunction) forControlEvents:UIControlEventTouchUpInside];
+    [btn_mydianzan addTarget:self action:@selector(dianzanFunction:) forControlEvents:UIControlEventTouchUpInside];
     btn_mydianzan.layer.borderWidth=1;
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 220/255.0,220/255.0, 220/255.0, 1 });
     btn_mydianzan.layer.borderColor=colorref;
     [self.view addSubview:btn_mydianzan];
     UIButton * btn_pinglun=[[UIButton alloc] initWithFrame:CGRectMake(btn_mydianzan.frame.origin.x+btn_mydianzan.frame.size.width, SCREEN_HEIGHT-40, (SCREEN_WIDTH-20)/3, 30 )];
-    btn_pinglun.imageView.bounds=CGRectMake(0, 0, 20, 20);
-    [btn_pinglun setImage:[UIImage imageNamed:@"pinglunhui@2x.png"] forState:UIControlStateNormal];
-    [btn_pinglun setTitle:[NSString stringWithFormat:@"（%@）评论",dict[@"data"][@"authenscore"]] forState:UIControlStateNormal];
-    [btn_pinglun setTitleColor:[UIColor colorWithRed:121/255.0 green:121/255.0 blue:121/255.0 alpha:1.0] forState:UIControlStateNormal];
+    btn_pinglun.imageView.bounds=CGRectMake(0, 0, 10, 10);
+    if (dict[@"data"][@"isrecommend"]!=[NSNull null]&&[dict[@"data"][@"isrecommend"] intValue]==1)
+    {
+        [btn_pinglun setImage:[UIImage imageNamed:@"bgb_pinglunicon_hong"] forState:UIControlStateNormal];
+        [btn_pinglun setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [btn_pinglun setImage:[UIImage imageNamed:@"bgb_pinglunicon_hui"] forState:UIControlStateNormal];
+        [btn_pinglun setTitleColor:[UIColor colorWithRed:121/255.0 green:121/255.0 blue:121/255.0 alpha:1.0] forState:UIControlStateNormal];
+    }
+    
+    [btn_pinglun setTitle:[NSString stringWithFormat:@"（%@）评论",dict[@"data"][@"authenscore"]!=[NSNull null]?dict[@"data"][@"authenscore"]:@"0"] forState:UIControlStateNormal];
     btn_pinglun.titleLabel.font=[UIFont systemFontOfSize:13];
     btn_pinglun.layer.borderWidth=1;
     [btn_pinglun addTarget:self action:@selector(showPinglunView) forControlEvents:UIControlEventTouchUpInside];
@@ -176,7 +230,7 @@
                                 shareToSnsNames:snsList
                                        delegate:nil];
 }
--(void)dianzanFunction
+-(void)dianzanFunction:(UIButton *)sender
 {
     [SVProgressHUD showWithStatus:@"点赞" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];

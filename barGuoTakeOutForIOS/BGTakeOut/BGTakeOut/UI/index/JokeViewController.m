@@ -35,9 +35,11 @@
     [self addLeftButton:@"ic_actionbar_back.png"];
     JokeArray=[[NSMutableArray alloc] init];
     table_page=1;
-    mytableView=[[UITableView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, SCREEN_HEIGHT-NavigationBar_HEIGHT-20)];
+    mytableView=[[UITableView alloc] initWithFrame:CGRectMake(5, NavigationBar_HEIGHT+20+5, SCREEN_WIDTH-10, SCREEN_HEIGHT-NavigationBar_HEIGHT-25)];
     mytableView.delegate=self;
     mytableView.dataSource=self;
+    mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    mytableView.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self.view addSubview:mytableView];
     __weak typeof(self) weakself=self;
     [mytableView addLegendFooterWithRefreshingBlock:^{
@@ -85,30 +87,36 @@
 }
 
 // 实现每一行Cell的内容，tableView重用机制
--(JokeTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"JokeCellIdentifier";
-    JokeTableViewCell *cell = (JokeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell  = [[[NSBundle mainBundle] loadNibNamed:@"JokeTableViewCell" owner:self options:nil] lastObject];
-        cell.jokecontent.text=[NSString stringWithFormat:@"%@",JokeArray[indexPath.row][@"content"]];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
-        
-    }
-    else
-    {
-        for (UIView *subView in cell.contentView.subviews)
-        {
-            [subView removeFromSuperview];
-        }
-    }
+    UITableViewCell * cell=[[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0,tableView.frame.size.width , [self heightForString:JokeArray[indexPath.row][@"content"] andWidth:SCREEN_WIDTH-30])];
+    UIView * jianju=[[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, 5)];
+    jianju.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+    [cell addSubview:jianju];
+    UILabel * lbl_title=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 150, 20)];
+    lbl_title.text=JokeArray[indexPath.row][@"title"]!=[NSNull null]?JokeArray[indexPath.row][@"title"]:@"";
+    [cell addSubview:lbl_title];
+    UILabel * lbl_updatatime=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-100, 10, 100, 20)];
+    lbl_updatatime.text=JokeArray[indexPath.row][@"updatetime"]!=[NSNull null]?JokeArray[indexPath.row][@"updatetime"]:@"";
+    lbl_updatatime.textColor=[UIColor grayColor];
+    lbl_updatatime.font=[UIFont systemFontOfSize:14];
+    [cell addSubview:lbl_updatatime];
+    UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(10, lbl_updatatime.frame.origin.y+lbl_updatatime.frame.size.height+5, cell.frame.size.width-20, 1)];
+    fenge.backgroundColor=[UIColor colorWithRed:159/255.0 green:159/255.0 blue:159/255.0 alpha:1.0];
+    [cell addSubview:fenge];
+    UITextView * txt_content=[[UITextView alloc] initWithFrame:CGRectMake(0, fenge.frame.origin.y+2, cell.frame.size.width, [self heightForString:JokeArray[indexPath.row][@"content"] andWidth:SCREEN_WIDTH-30]+40)];
+    txt_content.font=[UIFont systemFontOfSize:15];
+    txt_content.editable=NO;
+    txt_content.text=JokeArray[indexPath.row][@"content"]!=[NSNull null]?JokeArray[indexPath.row][@"content"]:@"";
+    [cell addSubview:txt_content];
+    cell.frame=CGRectMake(0, 0, tableView.frame.size.width, txt_content.frame.origin.y+txt_content.frame.size.height+1);
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat height=220.0;
-    return height;
+    CGFloat height=[self heightForString:JokeArray[indexPath.row][@"content"] andWidth:SCREEN_WIDTH-30];
+    return height+78;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -122,6 +130,20 @@
     [dataProvider setDelegateObject:self setBackFunctionName:@"BuildJokeView:"];
     [dataProvider GetJoke:[NSString stringWithFormat:@"%ld",(long)table_page] andnum:@"6"];
     table_page++;
+}
+
+- (float) heightForString:(NSString *)value andWidth:(float)width{
+    //获取当前文本的属性
+    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:value];
+    NSRange range = NSMakeRange(0, attrStr.length);
+    // 获取该段attributedString的属性字典
+    NSDictionary *dic = [attrStr attributesAtIndex:0 effectiveRange:&range];
+    // 计算文本的大小
+    CGSize sizeToFit = [value boundingRectWithSize:CGSizeMake(width - 16.0, MAXFLOAT) // 用于计算文本绘制时占据的矩形块
+                                           options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading // 文本绘制时的附加选项
+                                        attributes:dic        // 文字的属性
+                                           context:nil].size; // context上下文。包括一些信息，例如如何调整字间距以及缩放。该对象包含的信息将用于文本绘制。该参数可为nil
+    return sizeToFit.height + 16.0;
 }
 
 @end

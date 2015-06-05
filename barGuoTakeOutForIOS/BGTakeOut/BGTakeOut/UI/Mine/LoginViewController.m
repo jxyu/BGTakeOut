@@ -15,6 +15,7 @@
 #import "ForgetPwdViewController.h"
 
 
+
 #define KWidth self.view.frame.size.width
 
 @interface LoginViewController ()
@@ -44,7 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    [self setBarTitle:@"登录"];
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self addLeftButton:@"ic_actionbar_back.png"];
     [self addRightbuttontitle:@"注册"];
@@ -161,9 +162,7 @@
 -(void)clickRightButton:(UIButton *)sender
 {
     RegViewController* reg=[[RegViewController alloc] init];
-    [self presentViewController:reg animated:YES completion:^{
-        NSLog(@"zhucewancheng回到前一页");
-    }];
+    [self.navigationController pushViewController:reg animated:YES];
 //    [self.navigationController pushViewController:reg animated:YES];
     
 }

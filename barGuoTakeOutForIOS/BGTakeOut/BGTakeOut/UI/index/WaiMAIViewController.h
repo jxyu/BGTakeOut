@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "CantingInfoViewController.h"
 #import "BaseNavigationController.h"
+#import "AMRatingControl.h"
 
 @interface WaiMAIViewController : BaseNavigationController
 @property(nonatomic,strong)CantingInfoViewController * myCantingView;
+@property(nonatomic,strong)AMRatingControl *starRatingView;
 
 @end
