@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *btn_jia;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_num;
 @property (weak, nonatomic) IBOutlet UIButton *btn_jian;
+@property (weak, nonatomic) IBOutlet UILabel *lbl_price;
 
 @end

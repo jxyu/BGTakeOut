@@ -73,7 +73,6 @@ typedef enum{
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
     if (![_threeid isEqualToString:@""]) {
 
-
         text.text=[NSString stringWithFormat:@"%@ - %@ - %@",_onetitle,_twotitle,_threetitle];
         text.textColor=[UIColor blackColor];
     }

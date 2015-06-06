@@ -45,11 +45,11 @@
 //        _imgLeft.image=[UIImage imageNamed:@"index_location"];
 //        _imgRight.image=[UIImage imageNamed:@"index_down"];
         [self setBarTitle:@"自动定位"] ;
-        UIImageView * image_left=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-45, _lblTitle.frame.origin.y+13, 14, 15)];
+        UIImageView * image_left=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-45, _lblTitle.frame.origin.y+13, 13, 15)];
         image_left.tag=1111;
         image_left.image=[UIImage imageNamed:@"index_location"];
         [self.view addSubview:image_left];
-        UIImageView * image_right=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2+35, _lblTitle.frame.origin.y+18, 12, 9)];
+        UIImageView * image_right=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2+35, _lblTitle.frame.origin.y+18, 12, 7)];
         image_right.tag=1112;
         image_right.image=[UIImage imageNamed:@"index_down"];
         [self.view addSubview:image_right];
@@ -57,15 +57,14 @@
             NSLog(@"%@",addressString);
             NSArray *array = [addressString componentsSeparatedByString:@"省"]; //从字符A中分隔成2个元素的数组
             [self setBarTitle:[array[1] stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
-            CGSize singleLineStringSize = [array[1] sizeWithFont:[UIFont systemFontOfSize:15]];
-            image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 14, 15);
-            image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 9);
+            image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 13, 15);
+            image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 7);
         }];
         
         UIScrollView *scrollView_BackView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, SCREEN_HEIGHT-NavigationBar_HEIGHT-20-49)];
         scrollView_BackView.scrollEnabled=YES;
         page=[[UIView alloc ] init];
-        UIButton * btn_location=[[UIButton alloc] initWithFrame:CGRectMake(50, 0, SCREEN_WIDTH-100, 64)];
+        UIButton * btn_location=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
         [btn_location addTarget:self action:@selector(GetLocation) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:btn_location];
         

@@ -7,7 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RankCategoryViewController">
             <connections>
-                <outlet property="tableView" destination="Apf-0W-z3v" id="R6z-E0-6RA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,41 +14,7 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Apf-0W-z3v">
-                    <rect key="frame" x="0.0" y="45" width="600" height="600"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </tableView>
-            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstAttribute="bottom" secondItem="Apf-0W-z3v" secondAttribute="bottom" constant="155" id="0Lt-ZM-SWi">
-                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
-                </constraint>
-                <constraint firstAttribute="trailing" secondItem="Apf-0W-z3v" secondAttribute="trailing" constant="-200" id="Lgb-OK-2Mg">
-                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
-                </constraint>
-                <constraint firstItem="Apf-0W-z3v" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="fsI-53-WUM"/>
-                <constraint firstItem="Apf-0W-z3v" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="45" id="lnx-5T-Q6P">
-                    <variation key="heightClass=regular-widthClass=compact" constant="44"/>
-                </constraint>
-            </constraints>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="0Lt-ZM-SWi"/>
-                    <exclude reference="Lgb-OK-2Mg"/>
-                    <exclude reference="fsI-53-WUM"/>
-                    <exclude reference="lnx-5T-Q6P"/>
-                </mask>
-            </variation>
-            <variation key="heightClass=regular-widthClass=compact">
-                <mask key="constraints">
-                    <include reference="0Lt-ZM-SWi"/>
-                    <include reference="Lgb-OK-2Mg"/>
-                    <include reference="fsI-53-WUM"/>
-                    <include reference="lnx-5T-Q6P"/>
-                </mask>
-            </variation>
         </view>
     </objects>
 </document>

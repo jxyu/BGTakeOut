@@ -511,4 +511,22 @@
     [dataprovider CheckIsPhoneExist:phone];
 }
 
+-(void)GetLocHistory:(NSString *)userid
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetLocHistory:userid];
+}
+
+-(void)submitLocHistory:(NSString *)userid andlocation:(NSString *)location
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider submitLocHistory:userid andlocation:location];
+}
+
+-(void)ClearLocHistory:(NSString *)userid
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider ClearLocHistory:userid];
+}
+
 @end

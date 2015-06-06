@@ -387,7 +387,10 @@
 }
 
 
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
+}
 
 
 -(void)resetPwd

@@ -105,41 +105,56 @@
             [self GetZhaoShangInfo];
             break;
         case 20:
+        {
             lbl_SetgroupTitle=[[UILabel alloc] initWithFrame:CGRectMake(10, NavigationBar_HEIGHT+20+10, 80, 15)];
             lbl_SetgroupTitle.text=@"帮助";
             [self.view addSubview:lbl_SetgroupTitle];
-            pushMsg=[[UIView alloc] initWithFrame:CGRectMake(0, lbl_SetgroupTitle.frame.origin.y+lbl_SetgroupTitle.frame.size.height+2, KWidth, 40)];
+            pushMsg=[[UIView alloc] initWithFrame:CGRectMake(0, lbl_SetgroupTitle.frame.origin.y+lbl_SetgroupTitle.frame.size.height+10, KWidth, 60)];
             pushMsg.backgroundColor=[UIColor whiteColor];
-            lbl_pushMsg=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 20)];
+            lbl_pushMsg=[[UILabel alloc] initWithFrame:CGRectMake(10, 20, 100, 20)];
             lbl_pushMsg.text=@"推送消息";
             [pushMsg addSubview:lbl_pushMsg];
+            UIImageView * img_go=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-21, 20, 11, 16)];
+            img_go.image=[UIImage imageNamed:@"go.png"];
+            [pushMsg addSubview:img_go];
             [self.view addSubview:pushMsg];
-            zixunTel=[[UIView alloc] initWithFrame:CGRectMake(0, pushMsg.frame.origin.y+pushMsg.frame.size.height+1, KWidth, 40)];
+            zixunTel=[[UIView alloc] initWithFrame:CGRectMake(0, pushMsg.frame.origin.y+pushMsg.frame.size.height+1, KWidth, 60)];
             zixunTel.backgroundColor=[UIColor whiteColor];
-            lal_zixunTel=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 20)];
+            lal_zixunTel=[[UILabel alloc] initWithFrame:CGRectMake(10, 20, 100, 20)];
             lal_zixunTel.text=@"咨询电话";
             [zixunTel addSubview:lal_zixunTel];
+            UIImageView * img_go1=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-21, 20, 11, 16)];
+            img_go1.image=[UIImage imageNamed:@"go.png"];
+            [zixunTel addSubview:img_go1];
             [self.view addSubview:zixunTel];
             
             lbl_About=[[UILabel alloc] initWithFrame:CGRectMake(10, zixunTel.frame.size.height+zixunTel.frame.origin.y+10, 200, 15)];
             lbl_About.text=@"关于巴国外卖";
             [self.view addSubview:lbl_About];
-            banbenNow=[[UIView alloc] initWithFrame:CGRectMake(0, lbl_About.frame.origin.y+lbl_About.frame.size.height+2, KWidth, 40)];
+            banbenNow=[[UIView alloc] initWithFrame:CGRectMake(0, lbl_About.frame.origin.y+lbl_About.frame.size.height+10, KWidth, 60)];
             banbenNow.backgroundColor=[UIColor whiteColor];
-            lbl_banbenNow=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 200, 20)];
+            lbl_banbenNow=[[UILabel alloc] initWithFrame:CGRectMake(10, 20, 200, 20)];
             lbl_banbenNow.text=@"当前版本：1.1.0";
             [banbenNow addSubview:lbl_banbenNow];
+            UIImageView * img_go2=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-21, 20, 11, 16)];
+            img_go2.image=[UIImage imageNamed:@"go.png"];
+            [banbenNow addSubview:img_go2];
             [self.view addSubview:banbenNow];
-            yijian=[[UIView alloc] initWithFrame:CGRectMake(0, banbenNow.frame.origin.y+banbenNow.frame.size.height+1, KWidth, 40)];
+            yijian=[[UIView alloc] initWithFrame:CGRectMake(0, banbenNow.frame.origin.y+banbenNow.frame.size.height+1, KWidth, 60)];
             yijian.backgroundColor=[UIColor whiteColor];
-            lbl_yijian=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 20)];
+            lbl_yijian=[[UILabel alloc] initWithFrame:CGRectMake(10, 20, 100, 20)];
             lbl_yijian.text=@"意见反馈";
             [yijian addSubview:lbl_yijian];
+            UIImageView * img_go3=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-21, 20, 11, 16)];
+            img_go3.image=[UIImage imageNamed:@"go.png"];
+            [yijian addSubview:img_go3];
             [self.view addSubview:yijian];
             
-            logout=[[UIButton alloc] initWithFrame:CGRectMake(40, yijian.frame.origin.y+yijian.frame.size.height+5, KWidth-80, 30)];
+            logout=[[UIButton alloc] initWithFrame:CGRectMake(40, yijian.frame.origin.y+yijian.frame.size.height+10, KWidth-80, 50)];
             logout.backgroundColor=[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
             [logout setTitle:@"退出账号" forState:UIControlStateNormal];
+            logout.layer.masksToBounds=YES;
+            logout.layer.cornerRadius=4;
             [logout addTarget:self action:@selector(LogoutFuc) forControlEvents:UIControlEventTouchUpInside];
             [logout setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [self.view addSubview:logout];
@@ -157,6 +172,7 @@
             lbl_zhongyang.font=[UIFont fontWithName:@"Helvetica" size:12];
             lbl_zhongyang.textColor=[UIColor grayColor];
             [self.view addSubview:lbl_zhongyang];
+        }
             break;
         default:
             break;

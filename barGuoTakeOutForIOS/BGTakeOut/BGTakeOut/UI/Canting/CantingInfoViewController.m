@@ -51,6 +51,8 @@
     NSMutableArray * lbl_array;
     UIView * BackView_gouwuche_icon;
     UITableView * tableView_gouwuche;
+    
+    UIView * Backview;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -120,6 +122,7 @@
         
         _shoppingListPage=[[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 50)];
         [self.view addSubview:_shoppingListPage];
+        
         
         BackView_gouwuche_icon=[[UIView alloc] initWithFrame:CGRectMake(10,SCREEN_HEIGHT-85, 60, 60)];
         BackView_gouwuche_icon.layer.masksToBounds=YES;
@@ -395,6 +398,7 @@
             cell.btn_jian.tag=indexPath.row;
             [cell.btn_jia addTarget:self action:@selector(jia_btnClick:) forControlEvents:UIControlEventTouchUpInside];
             cell.btn_jia.tag=indexPath.row;
+            cell.lbl_price.text=[NSString stringWithFormat:@"¥%@",item.Goods[@"name"]];
         }
         return cell;
     }
@@ -576,33 +580,61 @@
     tableView_gouwuche.dataSource=self;
     
     if (!isgouwucheShow ){
+        
+        Backview=[[UIView alloc] initWithFrame:_ShoppingListView.frame];
+        Backview.backgroundColor=[UIColor colorWithRed:235/255.0 green:235/255.0 blue:237/255.0 alpha:1.0];
+        UILabel * lbl_gouwuche_Title=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
+        lbl_gouwuche_Title.text=@"购物车";
+        lbl_gouwuche_Title.textColor=[UIColor colorWithRed:173/255.0 green:173/255.0 blue:173/255.0 alpha:1.0];
+        [Backview addSubview:lbl_gouwuche_Title];
+        
+        UIImageView  * img_del=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-120, 10, 18, 20)];
+        img_del.image=[UIImage imageNamed:@"ic_clear_search_history"];
+        [Backview addSubview:img_del];
+        
+        UILabel * lbl_clearTitle=[[UILabel alloc] initWithFrame:CGRectMake(img_del.frame.origin.x+img_del.frame.size.width+10, 10, 80, 20)];
+        lbl_clearTitle.text=@"清空全部";
+        lbl_clearTitle.textColor=[UIColor colorWithRed:173/255.0 green:173/255.0 blue:173/255.0 alpha:1.0];
+        [Backview addSubview:lbl_clearTitle];
+        UIButton * btn_clearAll=[[UIButton alloc] initWithFrame:CGRectMake(img_del.frame.origin.x, 5, 110, 30)];
+        [btn_clearAll addTarget:self action:@selector(clearnAll) forControlEvents:UIControlEventTouchUpInside];
+        [Backview addSubview:btn_clearAll];
+        
+        
         //购物车列表出现
         [_shoppingListPage addSubview:tableView_gouwuche];
         _shoppingListPage.frame=CGRectMake(0, SCREEN_HEIGHT-viewheight-50, SCREEN_WIDTH, viewheight);
         [self.view addSubview:_ShoppingListView];
-        BackView_gouwuche_icon.frame=CGRectMake(BackView_gouwuche_icon.frame.origin.x, BackView_gouwuche_icon.frame.origin.y-viewheight, BackView_gouwuche_icon.frame.size.width, BackView_gouwuche_icon.frame.size.height);
-        BackView_gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255 green:180/255 blue:0/255 alpha:1.0];
-        [self.view addSubview:BackView_gouwuche_icon];
-        [self.view addSubview:BackView_gouwuche_icon];
-        _ShoppingListView.backgroundColor=[UIColor whiteColor];
-        _lableinShoppingList.text=[NSString stringWithFormat:@"共¥%.2f",SumPrice];
-        [_lableinShoppingList setTextColor:[UIColor redColor]];
-        _locationForbadge.frame=CGRectMake(_locationForbadge.frame.origin.x, _locationForbadge.frame.origin.y-viewheight, 5, 5);
-        [self.view addSubview:_locationForbadge];
-        isgouwucheShow=YES;
-    }else
-    {
-        _shoppingListPage.frame=CGRectMake(0, SCREEN_HEIGHT+viewheight+50, KWidth, viewheight);
-        [self.view addSubview:_ShoppingListView];
-        BackView_gouwuche_icon.frame=CGRectMake(BackView_gouwuche_icon.frame.origin.x, BackView_gouwuche_icon.frame.origin.y+viewheight, BackView_gouwuche_icon.frame.size.width, BackView_gouwuche_icon.frame.size.height);
+        BackView_gouwuche_icon.frame=CGRectMake(BackView_gouwuche_icon.frame.origin.x, BackView_gouwuche_icon.frame.origin.y-viewheight-50, BackView_gouwuche_icon.frame.size.width, BackView_gouwuche_icon.frame.size.height);
+        Backview.frame=CGRectMake(0, BackView_gouwuche_icon.frame.origin.y+50, SCREEN_WIDTH, 40);
+        [self.view addSubview:Backview];
         BackView_gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255.0 green:180/255.0 blue:0/255.0 alpha:1.0];
         [self.view addSubview:BackView_gouwuche_icon];
         _ShoppingListView.backgroundColor=[UIColor whiteColor];
         _lableinShoppingList.text=[NSString stringWithFormat:@"共¥%.2f",SumPrice];
-        _locationForbadge.frame=CGRectMake(_locationForbadge.frame.origin.x, _locationForbadge.frame.origin.y+viewheight, 5, 5);
+        [_lableinShoppingList setTextColor:[UIColor redColor]];
+        _locationForbadge.frame=CGRectMake(_locationForbadge.frame.origin.x, _locationForbadge.frame.origin.y-viewheight-50, 5, 5);
+        [self.view addSubview:_locationForbadge];
+        isgouwucheShow=YES;
+    }else
+    {
+        [Backview removeFromSuperview];
+        _shoppingListPage.frame=CGRectMake(0, SCREEN_HEIGHT+viewheight+50, KWidth, viewheight);
+        [self.view addSubview:_ShoppingListView];
+        BackView_gouwuche_icon.frame=CGRectMake(BackView_gouwuche_icon.frame.origin.x, BackView_gouwuche_icon.frame.origin.y+viewheight+50, BackView_gouwuche_icon.frame.size.width, BackView_gouwuche_icon.frame.size.height);
+        BackView_gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255.0 green:180/255.0 blue:0/255.0 alpha:1.0];
+        [self.view addSubview:BackView_gouwuche_icon];
+        _ShoppingListView.backgroundColor=[UIColor whiteColor];
+        _lableinShoppingList.text=[NSString stringWithFormat:@"共¥%.2f",SumPrice];
+        _locationForbadge.frame=CGRectMake(_locationForbadge.frame.origin.x, _locationForbadge.frame.origin.y+viewheight+50, 5, 5);
         [self.view addSubview:_locationForbadge];
         isgouwucheShow=NO;
     }
+}
+
+-(void)clearnAll
+{
+    
 }
 
 - (UIColor *) stringTOColor:(NSString *)str

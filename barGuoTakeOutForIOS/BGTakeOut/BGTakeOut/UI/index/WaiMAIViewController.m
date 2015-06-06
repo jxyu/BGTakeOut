@@ -99,11 +99,11 @@
     //添加导航栏
     [self addLeftButton:@"ic_actionbar_back.png"];
     [self setBarTitle:@"自动定位"] ;
-    UIImageView * image_left=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-45, _lblTitle.frame.origin.y+13, 14, 15)];
+    UIImageView * image_left=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-45, _lblTitle.frame.origin.y+13, 13, 15)];
     image_left.tag=1111;
     image_left.image=[UIImage imageNamed:@"index_location"];
     [self.view addSubview:image_left];
-    UIImageView * image_right=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2+35, _lblTitle.frame.origin.y+18, 12, 9)];
+    UIImageView * image_right=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2+35, _lblTitle.frame.origin.y+18, 12, 7)];
     image_right.tag=1112;
     image_right.image=[UIImage imageNamed:@"index_down"];
     [self.view addSubview:image_right];
@@ -111,8 +111,8 @@
         NSLog(@"%@",addressString);
         NSArray *array = [addressString componentsSeparatedByString:@"省"]; //从字符A中分隔成2个元素的数组
         [self setBarTitle:[array[1] stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
-        image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 14, 15);
-        image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 9);
+        image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 13, 15);
+        image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 7);
         
         
         //        [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
@@ -266,6 +266,7 @@
         //        _Page.hidden=NO;
         isAgain=YES;
         [self GetrestaurantListPage:@"1" andNum:_num andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
+        
         [_tableView reloadData];
     }
 }

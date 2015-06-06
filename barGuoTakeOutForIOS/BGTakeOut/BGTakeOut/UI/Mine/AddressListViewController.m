@@ -105,9 +105,12 @@
     
     UIView * BackView_addAddres=[[UIView alloc] initWithFrame:CGRectMake(0, _page.frame.size.height-40, SCREEN_WIDTH, 40)];
     BackView_addAddres.backgroundColor=[UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0];
-    UIButton * btn_addAddress=[[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-100)/2, 10, 100, 20)];
+    UIButton * btn_addAddress=[[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-100)/2, 5, 100, 30)];
     btn_addAddress.layer.masksToBounds=YES;
     btn_addAddress.layer.cornerRadius=10;
+    btn_addAddress.titleLabel.font=[UIFont systemFontOfSize:15];
+    
+    
     [btn_addAddress setTitle:@"添加地址" forState:UIControlStateNormal];
     [btn_addAddress setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     btn_addAddress.backgroundColor=[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];

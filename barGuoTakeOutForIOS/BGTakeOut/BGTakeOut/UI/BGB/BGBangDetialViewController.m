@@ -236,12 +236,14 @@
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"dianzanBackCall:"];
     [dataprovider BGBangDianzanFuncWithuserid:_userid  andartid:_articleid];
+    
 }
 -(void)dianzanBackCall:(id)dict
 {
     [SVProgressHUD dismiss];
     if ([dict[@"status"] intValue]==1) {
         [SVProgressHUD showSuccessWithStatus:@"点赞成功" maskType:SVProgressHUDMaskTypeBlack];
+        
     }
 }
 

@@ -17,6 +17,9 @@
     NSString * callBackFunctionName;
 }
 @property(nonatomic,strong)NSData * data;
+-(void)GetLocHistory:(NSString *)userid;
+-(void)submitLocHistory:(NSString *)userid andlocation:(NSString *)location;
+-(void)ClearLocHistory:(NSString *)userid;
 -(void)PostGetMsg;
 -(void)GetJoke:(NSString *)page andnum:(NSString *)num;
 -(void)GetLipin;

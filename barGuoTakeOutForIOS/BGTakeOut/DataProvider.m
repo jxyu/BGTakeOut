@@ -54,6 +54,33 @@
     [queue addOperation:httprequest];
 }
 
+-(void)GetLocHistory:(NSString *)userid
+{
+    if (userid) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/User/api_getLocHistory",KURL];
+        NSDictionary * prm=@{@"userid":userid};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)submitLocHistory:(NSString *)userid andlocation:(NSString *)location
+{
+    if (userid&&location) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/User/api_commitLocHistory",KURL];
+        NSDictionary * prm=@{@"userid":userid,@"location":location};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)ClearLocHistory:(NSString *)userid
+{
+    if (userid) {
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/User/api_delLocHistory",KURL];
+        NSDictionary * prm=@{@"userid":userid};
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 #pragma mark 获取笑话信息
 -(void)GetJoke:(NSString *)page andnum:(NSString *)num
 {
@@ -463,6 +490,7 @@
         [self PostRequest:url andpram:prm];
     }
 }
+
 
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
 {
