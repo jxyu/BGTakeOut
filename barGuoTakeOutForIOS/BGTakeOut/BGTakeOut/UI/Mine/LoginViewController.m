@@ -13,6 +13,7 @@
 #import <SMS_SDK/SMS_SDK.h>
 #import "AppDelegate.h"
 #import "ForgetPwdViewController.h"
+#import "SecriteViewController.h"
 
 
 
@@ -21,6 +22,7 @@
 @interface LoginViewController ()
 @property(nonatomic,strong)UINavigationItem *mynavigationItem;
 @property(nonatomic,strong)ForgetPwdViewController * myForgetpwd;
+@property(nonatomic,strong)SecriteViewController *mysecriteVC;
 
 @end
 
@@ -78,8 +80,20 @@
     [BackgroundView2 addSubview:txt_pwd];
     [self.view addSubview:BackgroundView2];
     
+    UILabel * lbl_secrit=[[UILabel alloc] initWithFrame:CGRectMake(10, BackgroundView2.frame.origin.y+BackgroundView2.frame.size.height+10, 170, 15)];
+    lbl_secrit.text=@"点击下一步表示您已完成阅读";
+    lbl_secrit.textColor=[UIColor grayColor];
+    lbl_secrit.font=[UIFont systemFontOfSize:13];
+    [self.view addSubview:lbl_secrit];
+    UIButton * btn_secrit=[[UIButton alloc] initWithFrame:CGRectMake(lbl_secrit.frame.origin.x+lbl_secrit.frame.size.width, lbl_secrit.frame.origin.y, 60, 15)];
+    [btn_secrit setTitle:@"隐私政策" forState:UIControlStateNormal];
+    [btn_secrit setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    btn_secrit.titleLabel.font=[UIFont systemFontOfSize:13];
+    [btn_secrit addTarget:self action:@selector(btn_secritClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn_secrit];
     
-    UIButton * btn_login=[[UIButton alloc] initWithFrame:CGRectMake(30, BackgroundView2.frame.origin.y+BackgroundView2.frame.size.height+10, 260, 40)];
+    
+    UIButton * btn_login=[[UIButton alloc] initWithFrame:CGRectMake(30, btn_secrit.frame.origin.y+btn_secrit.frame.size.height+10, 260, 40)];
     [btn_login setBackgroundColor:[UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0]];
     [btn_login setTitle:@"登录" forState:UIControlStateNormal];
     [btn_login setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -98,6 +112,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)btn_secritClick
+{
+    _mysecriteVC=[[SecriteViewController alloc] initWithNibName:@"SecriteViewController" bundle:[NSBundle mainBundle]];
+    [self.navigationController pushViewController:_mysecriteVC animated:YES];
+}
 
 -(void)LoginClick
 {

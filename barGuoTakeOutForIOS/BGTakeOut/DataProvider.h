@@ -17,6 +17,7 @@
     NSString * callBackFunctionName;
 }
 @property(nonatomic,strong)NSData * data;
+-(void)dellongHistory:(NSString * )historyid;
 -(void)GetLocHistory:(NSString *)userid;
 -(void)submitLocHistory:(NSString *)userid andlocation:(NSString *)location;
 -(void)ClearLocHistory:(NSString *)userid;
@@ -68,6 +69,7 @@
 -(void)IsLuckDay:(NSString *)userid;
 -(void)GetLuckGift:(NSString *)userid;
 -(void)CheckIsPhoneExist:(NSString *)phone;
+-(void)GetSomeInfonWithType:(NSString *)type;
 
 /**
  *  获得兑吧详情页

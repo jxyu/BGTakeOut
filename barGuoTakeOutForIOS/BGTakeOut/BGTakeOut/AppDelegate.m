@@ -529,4 +529,16 @@
     [dataprovider ClearLocHistory:userid];
 }
 
+-(void)dellongHistory:(NSString * )historyid
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider dellongHistory:historyid];
+}
+
+-(void)GetSomeInfonWithType:(NSString *)type
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetSomeInfonWithType:type];
+}
+
 @end

@@ -104,11 +104,8 @@ static NSMutableArray* _userData2;
                 NSLog(@"验证成功");
                 AfterVirifyViewController * afterverify=[[AfterVirifyViewController alloc] init];
                 afterverify.telLabel=_telLabel.text;
-                __weak typeof(self) weakself = self;
-                [self presentViewController:afterverify animated:YES completion:^{
-                    NSLog(@"验证成功后跳页");
-//                    [weakself dismiss];
-                }];
+
+                [self.navigationController pushViewController:afterverify animated:YES];
                 
             }
             else if(0==state)

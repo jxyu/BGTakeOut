@@ -291,7 +291,7 @@
 -(void)GetWeatherCallBack:(id)dict
 {
     NSLog(@"%@",dict);
-    UIView * v_temp=[[UIView alloc] initWithFrame:CGRectMake(20, 3, 100, Weather.frame.size.height-6)];
+    UIView * v_temp=[[UIView alloc] initWithFrame:CGRectMake(10, 3, 110, Weather.frame.size.height-6)];
     v_temp.backgroundColor=[UIColor whiteColor];
     UILabel * Temp=[[UILabel alloc] initWithFrame:CGRectMake(10, 00, 100, v_temp.frame.size.height)];
     Temp.text=dict[@"data"][@"temp_1"];
@@ -303,7 +303,7 @@
     UILabel *city=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, v_city.frame.size.height/2)];
     city.text=dict[@"data"][@"city"];
     [v_city addSubview:city];
-    UILabel * weather=[[UILabel alloc] initWithFrame:CGRectMake(0, v_city.frame.size.height/2, 100, v_city.frame.size.height/2)];
+    UILabel * weather=[[UILabel alloc] initWithFrame:CGRectMake(0, v_city.frame.size.height/2, 130, v_city.frame.size.height/2)];
     weather.text=dict[@"data"][@"weather_1"];
     [v_city addSubview:weather];
     [Weather addSubview:v_city];

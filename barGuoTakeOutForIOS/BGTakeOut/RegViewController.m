@@ -9,6 +9,7 @@
 #import "RegViewController.h"
 #import "VerifyViewController.h"
 #import "SectionsViewController.h"
+#import "SecriteViewController.h"
 
 #import <SMS_SDK/SMS_SDK.h>
 #import <SMS_SDK/CountryAndAreaCode.h>
@@ -31,6 +32,7 @@
     NSString* _defaultCode;
     NSString* _defaultCountryName;
 }
+@property(nonatomic,strong)SecriteViewController *mysecriteVC;
 
 @end
 
@@ -110,9 +112,9 @@
         }
     }
 
-    NSString* str=[NSString stringWithFormat:@"%@:%@ %@",NSLocalizedString(@"通知", nil),self.areaCodeField.text,self.telField.text];
+    NSString* str=[NSString stringWithFormat:@"%@:%@ %@",NSLocalizedString(@"号码为", nil),self.areaCodeField.text,self.telField.text];
     _str=[NSString stringWithFormat:@"%@",self.telField.text];
-    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"号码为：", nil)
+    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"通知：", nil)
                                                   message:str delegate:self
                                         cancelButtonTitle:NSLocalizedString(@"取消", nil)
                                         otherButtonTitles:NSLocalizedString(@"确定", nil), nil];
@@ -203,12 +205,22 @@
     telField.keyboardType=UIKeyboardTypePhonePad;
     telField.clearButtonMode=UITextFieldViewModeWhileEditing;
     [self.view addSubview:telField];
-    
+    UILabel * lbl_secrit=[[UILabel alloc] initWithFrame:CGRectMake(10, telField.frame.origin.y+telField.frame.size.height+10, 170, 15)];
+    lbl_secrit.text=@"点击下一步表示您已完成阅读";
+    lbl_secrit.textColor=[UIColor grayColor];
+    lbl_secrit.font=[UIFont systemFontOfSize:13];
+    [self.view addSubview:lbl_secrit];
+    UIButton * btn_secrit=[[UIButton alloc] initWithFrame:CGRectMake(lbl_secrit.frame.origin.x+lbl_secrit.frame.size.width, lbl_secrit.frame.origin.y, 60, 15)];
+    [btn_secrit setTitle:@"隐私政策" forState:UIControlStateNormal];
+    [btn_secrit setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    btn_secrit.titleLabel.font=[UIFont systemFontOfSize:13];
+    [btn_secrit addTarget:self action:@selector(btn_secritClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn_secrit];
     //
     UIButton* nextBtn=[UIButton buttonWithType:UIButtonTypeSystem];
     [nextBtn setTitle:NSLocalizedString(@"下一步", nil) forState:UIControlStateNormal];
     nextBtn.backgroundColor=[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
-    nextBtn.frame=CGRectMake(30, 140+statusBarHeight, self.view.frame.size.width - 60, 42);
+    nextBtn.frame=CGRectMake(30, 170+statusBarHeight, self.view.frame.size.width - 60, 42);
     [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(nextStep) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:nextBtn];
@@ -227,6 +239,13 @@
     //设置本地区号
     [self setTheLocalAreaCode];
     }
+
+
+-(void)btn_secritClick
+{
+    _mysecriteVC=[[SecriteViewController alloc] initWithNibName:@"SecriteViewController" bundle:[NSBundle mainBundle]];
+    [self.navigationController pushViewController:_mysecriteVC animated:YES];
+}
 
 -(void)setTheLocalAreaCode
 {

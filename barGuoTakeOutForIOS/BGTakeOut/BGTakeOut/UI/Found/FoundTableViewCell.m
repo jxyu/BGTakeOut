@@ -20,4 +20,11 @@
     // Configure the view for the selected state
 }
 
+- (void)setFrame:(CGRect)frame {
+    
+    frame.size.width = self.window.frame.size.width;
+    [super setFrame:frame];
+    
+}
+
 @end

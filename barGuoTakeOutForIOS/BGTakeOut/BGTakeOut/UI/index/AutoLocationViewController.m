@@ -39,6 +39,7 @@
     NSString * userid;
     UIScrollView * historyScrollView;
     NSArray *itemArray;
+    BOOL IsareaListShow;
 }
 
 #pragma mark 赋值回调
@@ -51,6 +52,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     itemArray=[[NSArray alloc] init];
+    IsareaListShow=NO;
     // Do any additional setup after loading the view from its nib.
     [self myinitView];
 }
@@ -182,6 +184,7 @@
             [itemBackView addSubview:lbl_locationTitle];
             
             UIButton * btn_del=[[UIButton alloc] initWithFrame:CGRectMake(lbl_locationTitle.frame.origin.x+lbl_locationTitle.frame.size.width+25, 10, 20, 20)];
+            btn_del.tag=[itemArray[i][@"id"] intValue];
             [btn_del setImage:[UIImage imageNamed:@"delHistory"] forState:UIControlStateNormal];
             [btn_del addTarget:self action:@selector(delHistoryAddress:) forControlEvents:UIControlEventTouchUpInside];
             [itemBackView addSubview:btn_del];
@@ -193,7 +196,7 @@
         UIButton * btn_delAll=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, clearhistory.frame.size.width, 40)];
         [btn_delAll setTitle:@"清空历史记录" forState:UIControlStateNormal];
         [btn_delAll addTarget:self action:@selector(delAllHistory) forControlEvents:UIControlEventTouchUpInside];
-        btn_delAll.titleLabel.textColor=[UIColor blackColor];
+        [btn_delAll setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [clearhistory addSubview:btn_delAll];
         [historyScrollView addSubview:clearhistory];
         lastview=[historyScrollView.subviews lastObject];
@@ -207,7 +210,16 @@
 -(void)delAllHistory
 {
     [historyScrollView removeFromSuperview];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"ClearAllHistoryBackCall:"];
+    [dataprovider ClearLocHistory:userid];
 }
+
+-(void)ClearAllHistoryBackCall:(id)dict
+{
+    NSLog(@"%@",dict);
+}
+
 /**
  *  删除单个历史记录
  *
@@ -215,7 +227,17 @@
  */
 -(void)delHistoryAddress:(UIButton *)sender
 {
-    
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"dellongHistory:"];
+    [dataprovider dellongHistory:[NSString stringWithFormat:@"%ld",(long)sender.tag]];
+}
+
+-(void)dellongHistory:(id)dict
+{
+    NSLog(@"%@",dict);
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetLocHistoryBackCall:"];
+    [dataprovider GetLocHistory:userid];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -242,33 +264,47 @@
 #pragma mark 获取数据
 -(void)GetAreaList
 {
-    _SelectView =[[UIView alloc] initWithFrame:CGRectMake(Kleft, KAreaListY, SCREEN_WIDTH/4*3, KScrollHeight+40)];
+    
+    _SelectView =[[UIView alloc] initWithFrame:CGRectMake(0, KAreaListY, SCREEN_WIDTH, SCREEN_HEIGHT-KAreaListY)];
     DataProvider * dataProvider =[[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"BulidAreaList:"];
     [dataProvider GetArea:@"" andareatype:@"0"];
+   
 }
 #pragma mark 新建地区选择view
 -(void)BulidAreaList:(id)dict
 {
-    UIScrollView * areaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/4, KScrollHeight)];
-    areaScroll.scrollEnabled=YES;
-    areaScroll.backgroundColor=[UIColor grayColor];
-    id result =dict;
-    if (result) {
-        NSArray * areaArray =[[NSArray alloc ] initWithArray:result[@"data"]];
-        for (int i=0; i<areaArray.count; i++) {
-            UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), SCREEN_WIDTH/4, KAreaListHeight)];
-            areaitem.backgroundColor=[UIColor whiteColor];
-            [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"provinceName"]] forState:UIControlStateNormal];
-            areaitem.tag=[areaArray[i][@"provinceId"] intValue];
-            [areaitem addTarget:self action:@selector(AreaItemClick:) forControlEvents:UIControlEventTouchUpInside];
-            [areaScroll addSubview:areaitem];
+    
+    if (!IsareaListShow) {
+        UIScrollView * areaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/5, _SelectView.frame.size.height)];
+        areaScroll.scrollEnabled=YES;
+        areaScroll.backgroundColor=[UIColor grayColor];
+        id result =dict;
+        if (result) {
+            NSArray * areaArray =[[NSArray alloc ] initWithArray:result[@"data"]];
+            for (int i=0; i<areaArray.count; i++) {
+                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), SCREEN_WIDTH/5, KAreaListHeight)];
+                areaitem.backgroundColor=[UIColor whiteColor];
+                [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"provinceName"]] forState:UIControlStateNormal];
+                areaitem.tag=[areaArray[i][@"provinceId"] intValue];
+                [areaitem addTarget:self action:@selector(AreaItemClick:) forControlEvents:UIControlEventTouchUpInside];
+                [areaScroll addSubview:areaitem];
+            }
+            areaScroll.contentSize=CGSizeMake(0, areaArray.count*(KAreaListHeight+5));
         }
-        areaScroll.contentSize=CGSizeMake(0, areaArray.count*(KAreaListHeight+1));
+        [_SelectView addSubview:areaScroll];
+        [self.view addSubview:_SelectView];
+        IsareaListShow=YES;
     }
-    [_SelectView addSubview:areaScroll];
-    [self.view addSubview:_SelectView];
+    else
+    {
+        [_SelectView removeFromSuperview];
+        IsareaListShow=NO;
+    }
+    
+    
+    
 }
 
 #pragma mark 选择省份事件
@@ -303,13 +339,13 @@
                 break;
             case 12:
             {
-                district= sender.currentTitle;
-                NSLog(@"00%ld",(long)sender.tag);
-                UIButton * submitArea=[[UIButton alloc] initWithFrame:CGRectMake(0,300, SCREEN_WIDTH/4*3, 40)];
-                submitArea.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-                [submitArea setTitle:@"确定" forState:UIControlStateNormal];
-                [submitArea addTarget:self action:@selector(submitAreaClick:) forControlEvents:UIControlEventTouchUpInside];
-                [_SelectView addSubview:submitArea];
+//                district= sender.currentTitle;
+//                NSLog(@"00%ld",(long)sender.tag);
+//                UIButton * submitArea=[[UIButton alloc] initWithFrame:CGRectMake(0,300, SCREEN_WIDTH/4*3, 40)];
+//                submitArea.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
+//                [submitArea setTitle:@"确定" forState:UIControlStateNormal];
+//                [submitArea addTarget:self action:@selector(submitAreaClick:) forControlEvents:UIControlEventTouchUpInside];
+//                [_SelectView addSubview:submitArea];
             }
                 break;
                 
@@ -332,14 +368,14 @@
 -(void)SecondBulidAreaList:(id)dict
 {
     @try {
-        UIScrollView * CityareaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/4, 0, SCREEN_WIDTH/4, KScrollHeight)];
+        UIScrollView * CityareaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5, 0, SCREEN_WIDTH/5, _SelectView.frame.size.height)];
         CityareaScroll.scrollEnabled=YES;
         CityareaScroll.backgroundColor=[UIColor grayColor];
         id result =dict;
         if (result) {
             NSArray * areaArray =[[NSArray alloc ] initWithArray:result[@"data"]];
             for (int i=0; i<areaArray.count; i++) {
-                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), SCREEN_WIDTH/4, KAreaListHeight)];
+                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), SCREEN_WIDTH/5, KAreaListHeight)];
                 areaitem.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
                 [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"cityName"]] forState:UIControlStateNormal];
@@ -365,19 +401,19 @@
 -(void)ThridBulidAreaList:(id)dict
 {
     @try {
-        UIScrollView * ThirdareaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2, 0, SCREEN_WIDTH/4, KScrollHeight)];
+        UIScrollView * ThirdareaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5*2, 0, SCREEN_WIDTH/5, KScrollHeight)];
         ThirdareaScroll.scrollEnabled=YES;
         ThirdareaScroll.backgroundColor=[UIColor grayColor];
         id result =dict;
         if (result) {
             NSArray * areaArray =[[NSArray alloc ] initWithArray:result[@"data"]];
             for (int i=0; i<areaArray.count; i++) {
-                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), SCREEN_WIDTH/4, KAreaListHeight)];
+                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), SCREEN_WIDTH/5, KAreaListHeight)];
                 areaitem.backgroundColor=[UIColor colorWithRed:232/255.0 green:232/255.0 blue:232/255.0 alpha:1.0];
                 [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"districtName"]] forState:UIControlStateNormal];
                 areaitem.tag=[areaArray[i][@"districtId"] intValue];
-                [areaitem addTarget:self action:@selector(AreaItemClick:) forControlEvents:UIControlEventTouchUpInside];
+                [areaitem addTarget:self action:@selector(submitAreaClick:) forControlEvents:UIControlEventTouchUpInside];
                 [ThirdareaScroll addSubview:areaitem];
             }
             ThirdareaScroll.contentSize=CGSizeMake(0, areaArray.count*(KAreaListHeight+1));
@@ -396,10 +432,10 @@
 #pragma mark 提交选定的地区
 -(void)submitAreaClick:(UIButton *)sender
 {
-    NSString *lastArea=[NSString stringWithFormat:@"%@%@%@",province,city,district];
+    NSString *lastArea=[NSString stringWithFormat:@"%@%@%@",province,city,sender.currentTitle];
     [_selectArea setTitle:lastArea forState:UIControlStateNormal];
     _selectArea.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
-    [sender.superview removeFromSuperview];
+    [_SelectView removeFromSuperview];
     
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"submitBackCall:"];

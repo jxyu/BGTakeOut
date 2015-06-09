@@ -8,9 +8,11 @@
 
 #import "AfterVirifyViewController.h"
 #import "DataProvider.h"
+#import "SecriteViewController.h"
 
 @interface AfterVirifyViewController ()
 @property(nonatomic,strong) UIWindow* window;
+@property(nonatomic,strong)SecriteViewController *mysecriteVC;
 @end
 
 @implementation AfterVirifyViewController
@@ -20,10 +22,7 @@
 
 -(void)clickLeftButton:(UIButton *)sender
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-        _window.hidden=YES;
-
-    }];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,7 +41,20 @@
     [txt_pwd setKeyboardType:UIKeyboardTypeAlphabet];
     [Backview addSubview:txt_pwd];
     [backForPwd addSubview:Backview];
-    UIButton * tijiao=[[UIButton alloc] initWithFrame:CGRectMake(30, 110, 260, 40)];
+    
+    UILabel * lbl_secrit=[[UILabel alloc] initWithFrame:CGRectMake(10, Backview.frame.origin.y+Backview.frame.size.height+10, 170, 15)];
+    lbl_secrit.text=@"点击下一步表示您已完成阅读";
+    lbl_secrit.textColor=[UIColor grayColor];
+    lbl_secrit.font=[UIFont systemFontOfSize:13];
+    [backForPwd addSubview:lbl_secrit];
+    UIButton * btn_secrit=[[UIButton alloc] initWithFrame:CGRectMake(lbl_secrit.frame.origin.x+lbl_secrit.frame.size.width, lbl_secrit.frame.origin.y, 60, 15)];
+    [btn_secrit setTitle:@"隐私政策" forState:UIControlStateNormal];
+    [btn_secrit setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    btn_secrit.titleLabel.font=[UIFont systemFontOfSize:13];
+    [btn_secrit addTarget:self action:@selector(btn_secritClick) forControlEvents:UIControlEventTouchUpInside];
+    [backForPwd addSubview:btn_secrit];
+    
+    UIButton * tijiao=[[UIButton alloc] initWithFrame:CGRectMake(30, 140, 260, 40)];
     [tijiao setTitle:@"确定" forState:UIControlStateNormal];
     [tijiao setTintColor:[UIColor whiteColor]];
     [tijiao setBackgroundColor:[UIColor redColor]];
@@ -51,6 +63,12 @@
     [tijiao addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchUpInside];
     [backForPwd addSubview:tijiao];
     [self.view addSubview:backForPwd];
+}
+
+-(void)btn_secritClick
+{
+    _mysecriteVC=[[SecriteViewController alloc] initWithNibName:@"SecriteViewController" bundle:[NSBundle mainBundle]];
+    [self.navigationController pushViewController:_mysecriteVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

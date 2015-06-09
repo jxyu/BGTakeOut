@@ -129,7 +129,7 @@
     [BackView_BGB addSubview:image_BGB];
     UILabel * lbl_BGB=[[UILabel alloc] initWithFrame:CGRectMake((BackView_BGB.frame.size.width-60)/2, 50, 60, 20)];
     lbl_BGB.font=[UIFont systemFontOfSize:14];
-    lbl_BGB.textColor=[UIColor redColor];
+    lbl_BGB.textColor=[UIColor colorWithRed:232/255.0 green:55/255.0 blue:45/255.0 alpha:1.0];
     lbl_BGB.text=@"巴国币";
     [lbl_BGB setTextAlignment:NSTextAlignmentCenter];
     [BackView_BGB addSubview:lbl_BGB];
@@ -148,7 +148,7 @@
     [BackView_DD addSubview:image_DD];
     UILabel * lbl_DD=[[UILabel alloc] initWithFrame:CGRectMake((BackView_DD.frame.size.width-60)/2, 50, 60, 20)];
     lbl_DD.font=[UIFont systemFontOfSize:14];
-    lbl_DD.textColor=[UIColor redColor];
+    lbl_DD.textColor=[UIColor colorWithRed:232/255.0 green:55/255.0 blue:45/255.0 alpha:1.0];
     lbl_DD.text=@"订单";
     [lbl_DD setTextAlignment:NSTextAlignmentCenter];
     [BackView_DD addSubview:lbl_DD];
@@ -167,7 +167,7 @@
     [BackView_SC addSubview:image_SC];
     UILabel * lbl_SC=[[UILabel alloc] initWithFrame:CGRectMake((BackView_SC.frame.size.width-60)/2, 50, 60, 20)];
     lbl_SC.font=[UIFont systemFontOfSize:14];
-    lbl_SC.textColor=[UIColor redColor];
+    lbl_SC.textColor=[UIColor colorWithRed:232/255.0 green:55/255.0 blue:45/255.0 alpha:1.0];
     lbl_SC.text=@"收藏";
     [lbl_SC setTextAlignment:NSTextAlignmentCenter];
     [BackView_SC addSubview:lbl_SC];
@@ -274,7 +274,7 @@
     _myOther.UserInfoData=UserInfoData;
     switch (sender.tag) {
         case 0:
-            
+            [self JumpToOffical];
             break;
         case 1:
             _myOther.Othertitle=@"公司简介";
@@ -305,6 +305,18 @@
     _myOther.celltag=sender.tag;
     [self.navigationController pushViewController:_myOther animated:YES];
     
+}
+
+-(void)JumpToOffical
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"jumpBackCall:"];
+    [dataprovider GetSomeInfonWithType:@"websitelink"];
+}
+
+-(void)jumpBackCall:(id)dict
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:dict[@"data"][@"websitelink"]]];
 }
 
 -(void)CallBackFuc:(id)dict

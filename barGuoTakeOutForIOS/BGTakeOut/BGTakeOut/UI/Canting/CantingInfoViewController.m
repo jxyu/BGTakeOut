@@ -72,7 +72,7 @@
         
         //添加Segmented Control
         UIView * lastView=[self.view.subviews lastObject];
-        CantingsegmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 50)];
+        CantingsegmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 50)];
         CantingsegmentView.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
         self.CantingsegmentedControl = [[NYSegmentedControl alloc] initWithItems:@[@"餐厅菜单", @"店铺详情"]];
         [self.CantingsegmentedControl addTarget:self action:@selector(CantingSegMentControlClick) forControlEvents:UIControlEventValueChanged];

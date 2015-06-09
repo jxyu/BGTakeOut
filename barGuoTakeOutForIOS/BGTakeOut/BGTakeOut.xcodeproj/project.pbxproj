@@ -144,6 +144,10 @@
 		8079CBE51B2198A7003D3082 /* bgb_fenxiang_hong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8079CBE11B2198A7003D3082 /* bgb_fenxiang_hong@2x.png */; };
 		8079CBE61B2198A7003D3082 /* bgb_fenxiang_hui@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8079CBE21B2198A7003D3082 /* bgb_fenxiang_hui@2x.png */; };
 		8079CBE81B21C814003D3082 /* canting_share_icom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8079CBE71B21C814003D3082 /* canting_share_icom@2x.png */; };
+		807FC7D51B25353B007B80BC /* SetInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807FC7D41B25353B007B80BC /* SetInfoViewController.m */; };
+		807FC7D91B259406007B80BC /* SecriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807FC7D71B259406007B80BC /* SecriteViewController.m */; };
+		807FC7DA1B259406007B80BC /* SecriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 807FC7D81B259406007B80BC /* SecriteViewController.xib */; };
+		807FC7DC1B2597E8007B80BC /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 807FC7DB1B2597E8007B80BC /* index.html */; };
 		8083AA2C1B0C2C1500307238 /* index_waimai1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8083AA2A1B0C2C1500307238 /* index_waimai1@2x.png */; };
 		8083AA2F1B0C7CDC00307238 /* renzheng_BackView.png in Resources */ = {isa = PBXBuildFile; fileRef = 8083AA2E1B0C7CDC00307238 /* renzheng_BackView.png */; };
 		80843F181AE25ACC006AC3B7 /* joke@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 80843F131AE25ACC006AC3B7 /* joke@2x.jpg */; };
@@ -594,6 +598,12 @@
 		8079CBE11B2198A7003D3082 /* bgb_fenxiang_hong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgb_fenxiang_hong@2x.png"; sourceTree = "<group>"; };
 		8079CBE21B2198A7003D3082 /* bgb_fenxiang_hui@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgb_fenxiang_hui@2x.png"; sourceTree = "<group>"; };
 		8079CBE71B21C814003D3082 /* canting_share_icom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canting_share_icom@2x.png"; sourceTree = "<group>"; };
+		807FC7D31B25353B007B80BC /* SetInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetInfoViewController.h; sourceTree = "<group>"; };
+		807FC7D41B25353B007B80BC /* SetInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetInfoViewController.m; sourceTree = "<group>"; };
+		807FC7D61B259406007B80BC /* SecriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecriteViewController.h; sourceTree = "<group>"; };
+		807FC7D71B259406007B80BC /* SecriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecriteViewController.m; sourceTree = "<group>"; };
+		807FC7D81B259406007B80BC /* SecriteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecriteViewController.xib; sourceTree = "<group>"; };
+		807FC7DB1B2597E8007B80BC /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		8083AA2A1B0C2C1500307238 /* index_waimai1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "index_waimai1@2x.png"; sourceTree = "<group>"; };
 		8083AA2E1B0C7CDC00307238 /* renzheng_BackView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = renzheng_BackView.png; sourceTree = "<group>"; };
 		80843F131AE25ACC006AC3B7 /* joke@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "joke@2x.jpg"; sourceTree = "<group>"; };
@@ -1069,6 +1079,7 @@
 		80067CA51ADCA0F100394FB7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				807FC7DB1B2597E8007B80BC /* index.html */,
 				8AD6616B1B037FFC00D61EDA /* CommenDef.h */,
 				80067CA61ADCA0F100394FB7 /* Info.plist */,
 				80067CA71ADCA0F100394FB7 /* main.m */,
@@ -1722,6 +1733,11 @@
 				802627511B1FDC81009E02D7 /* ForgetPwdViewController.h */,
 				802627521B1FDC81009E02D7 /* ForgetPwdViewController.m */,
 				802627531B1FDC81009E02D7 /* ForgetPwdViewController.xib */,
+				807FC7D31B25353B007B80BC /* SetInfoViewController.h */,
+				807FC7D41B25353B007B80BC /* SetInfoViewController.m */,
+				807FC7D61B259406007B80BC /* SecriteViewController.h */,
+				807FC7D71B259406007B80BC /* SecriteViewController.m */,
+				807FC7D81B259406007B80BC /* SecriteViewController.xib */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -2166,6 +2182,7 @@
 				80B9FD151B22E56800BEB2D7 /* ic_location_gray@2x.png in Resources */,
 				80D5EEE21AFDEEB600C95421 /* paysure.png in Resources */,
 				809ABD561AFCAC6B00E7C662 /* placeholder@2x.png in Resources */,
+				807FC7DC1B2597E8007B80BC /* index.html in Resources */,
 				80D309C81B04C2B9009A2BF3 /* fenxianghong.png in Resources */,
 				80617EA71B100864007E979B /* peixun_hui@2x.png in Resources */,
 				804038821B06D62500061866 /* zhi.png in Resources */,
@@ -2321,6 +2338,7 @@
 				8AD9E1911B0F635900D2CB37 /* UMShareEditViewControlleriPad.xib in Resources */,
 				80B9F23A1AF87454003C264D /* MineBackImage.png in Resources */,
 				80D309B81B04B73F009A2BF3 /* LoginViewController.xib in Resources */,
+				807FC7DA1B259406007B80BC /* SecriteViewController.xib in Resources */,
 				802C33E71AE61D5D003B83CC /* arrow_gray_collapse_n.png in Resources */,
 				802DB4831AEA44FF00140AA9 /* like_icon_light.png in Resources */,
 				808EBFF91B21328A007E6902 /* langWay@2x.png in Resources */,
@@ -2408,6 +2426,7 @@
 				80BDBE3A1B0F241000EC0CEA /* MultilevelTableViewCell.m in Sources */,
 				8A16D28C1B098C8A00974168 /* OrderPingjiaViewController.m in Sources */,
 				806383F71AF0BE6500AF9866 /* UIImageView+HighlightedWebCache.m in Sources */,
+				807FC7D51B25353B007B80BC /* SetInfoViewController.m in Sources */,
 				808995E81AE0DE290059038D /* InvitationViewControllerEx.m in Sources */,
 				8060232F1ADFB71400E1C498 /* AFHTTPRequestOperationManager.m in Sources */,
 				806383EA1AF0BE6500AF9866 /* MKAnnotationView+WebCache.m in Sources */,
@@ -2487,6 +2506,7 @@
 				8AB4A0E91B06D4830007BC48 /* BGBTableViewCell.m in Sources */,
 				8AD8199D1B0C6A7900CA4B24 /* MJRefreshConst.m in Sources */,
 				80067CA81ADCA0F100394FB7 /* main.m in Sources */,
+				807FC7D91B259406007B80BC /* SecriteViewController.m in Sources */,
 				80A5293E1AE48EDE00FE6F90 /* TAAnimatedDotView.m in Sources */,
 				8AB4A0E41B062AC20007BC48 /* WantRecommendViewController.m in Sources */,
 				806FDD611B1D2B41006F4763 /* MZTimerLabel.m in Sources */,

@@ -10,11 +10,12 @@
 #import "DataProvider.h"
 #import "CommenDef.h"
 #import "AppDelegate.h"
+#import "SetInfoViewController.h"
 
-#define KWidth self.view.frame.size.width
-#define KHeight self.view.frame.size.height
+
 
 @interface OtherOfMineViewController ()
+@property(nonatomic,strong)SetInfoViewController *setinfo;
 @end
 
 @implementation OtherOfMineViewController
@@ -64,7 +65,7 @@
             
             break;
         case 1:
-            companyshow=[[UILabel alloc] initWithFrame:CGRectMake(10, NavigationBar_HEIGHT+30, KWidth-20, KHeight-NavigationBar_HEIGHT-40)];
+            companyshow=[[UILabel alloc] initWithFrame:CGRectMake(10, NavigationBar_HEIGHT+30, SCREEN_WIDTH-20, SCREEN_HEIGHT-NavigationBar_HEIGHT-40)];
             companyshow.text=@"公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介";
             companyshow.lineBreakMode=UILineBreakModeWordWrap;
             companyshow.numberOfLines=0;
@@ -73,7 +74,7 @@
             [self.view addSubview:companyshow];
             break;
         case 2:
-            tousu=[[UITextView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, KWidth, 80)];
+            tousu=[[UITextView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 80)];
             [tousu setKeyboardType:UIKeyboardTypeDefault];
             tousu.delegate=self;
             [self.view addSubview:tousu];
@@ -84,13 +85,13 @@
             uilabel.backgroundColor = [UIColor clearColor];
             uilabel.font=[UIFont systemFontOfSize:13];
             [self.view addSubview:uilabel];
-            lbl_zishu=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, NavigationBar_HEIGHT+20+tousu.frame.size.height-30, 150, 15)];
+            lbl_zishu=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-160, NavigationBar_HEIGHT+20+tousu.frame.size.height-30, 150, 15)];
             lbl_zishu.text=@"还能输入140个字";
             lbl_zishu.enabled=NO;
             lbl_zishu.font=[UIFont systemFontOfSize:13];
             lbl_zishu.backgroundColor=[UIColor clearColor];
             [self.view addSubview:lbl_zishu];
-            btn_tousu=[[UIButton alloc] initWithFrame:CGRectMake(20, tousu.frame.origin.y+tousu.frame.size.height+10, KWidth-40, 35)];
+            btn_tousu=[[UIButton alloc] initWithFrame:CGRectMake(20, tousu.frame.origin.y+tousu.frame.size.height+10, SCREEN_WIDTH-40, 35)];
             btn_tousu.backgroundColor=[UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
             [btn_tousu addTarget:self action:@selector(TouSuSubmit) forControlEvents:UIControlEventTouchUpInside];
             [btn_tousu setTitle:@"提交" forState:UIControlStateNormal];
@@ -109,7 +110,7 @@
             lbl_SetgroupTitle=[[UILabel alloc] initWithFrame:CGRectMake(10, NavigationBar_HEIGHT+20+10, 80, 15)];
             lbl_SetgroupTitle.text=@"帮助";
             [self.view addSubview:lbl_SetgroupTitle];
-            pushMsg=[[UIView alloc] initWithFrame:CGRectMake(0, lbl_SetgroupTitle.frame.origin.y+lbl_SetgroupTitle.frame.size.height+10, KWidth, 60)];
+            pushMsg=[[UIView alloc] initWithFrame:CGRectMake(0, lbl_SetgroupTitle.frame.origin.y+lbl_SetgroupTitle.frame.size.height+10, SCREEN_WIDTH, 60)];
             pushMsg.backgroundColor=[UIColor whiteColor];
             lbl_pushMsg=[[UILabel alloc] initWithFrame:CGRectMake(10, 20, 100, 20)];
             lbl_pushMsg.text=@"推送消息";
@@ -118,7 +119,7 @@
             img_go.image=[UIImage imageNamed:@"go.png"];
             [pushMsg addSubview:img_go];
             [self.view addSubview:pushMsg];
-            zixunTel=[[UIView alloc] initWithFrame:CGRectMake(0, pushMsg.frame.origin.y+pushMsg.frame.size.height+1, KWidth, 60)];
+            zixunTel=[[UIView alloc] initWithFrame:CGRectMake(0, pushMsg.frame.origin.y+pushMsg.frame.size.height+1, SCREEN_WIDTH, 60)];
             zixunTel.backgroundColor=[UIColor whiteColor];
             lal_zixunTel=[[UILabel alloc] initWithFrame:CGRectMake(10, 20, 100, 20)];
             lal_zixunTel.text=@"咨询电话";
@@ -131,7 +132,7 @@
             lbl_About=[[UILabel alloc] initWithFrame:CGRectMake(10, zixunTel.frame.size.height+zixunTel.frame.origin.y+10, 200, 15)];
             lbl_About.text=@"关于巴国外卖";
             [self.view addSubview:lbl_About];
-            banbenNow=[[UIView alloc] initWithFrame:CGRectMake(0, lbl_About.frame.origin.y+lbl_About.frame.size.height+10, KWidth, 60)];
+            banbenNow=[[UIView alloc] initWithFrame:CGRectMake(0, lbl_About.frame.origin.y+lbl_About.frame.size.height+10, SCREEN_WIDTH, 60)];
             banbenNow.backgroundColor=[UIColor whiteColor];
             lbl_banbenNow=[[UILabel alloc] initWithFrame:CGRectMake(10, 20, 200, 20)];
             lbl_banbenNow.text=@"当前版本：1.1.0";
@@ -140,17 +141,20 @@
             img_go2.image=[UIImage imageNamed:@"go.png"];
             [banbenNow addSubview:img_go2];
             [self.view addSubview:banbenNow];
-            yijian=[[UIView alloc] initWithFrame:CGRectMake(0, banbenNow.frame.origin.y+banbenNow.frame.size.height+1, KWidth, 60)];
+            yijian=[[UIView alloc] initWithFrame:CGRectMake(0, banbenNow.frame.origin.y+banbenNow.frame.size.height+1, SCREEN_WIDTH, 60)];
             yijian.backgroundColor=[UIColor whiteColor];
             lbl_yijian=[[UILabel alloc] initWithFrame:CGRectMake(10, 20, 100, 20)];
             lbl_yijian.text=@"意见反馈";
             [yijian addSubview:lbl_yijian];
+            UIButton * btn_yijian=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, yijian.frame.size.width, yijian.frame.size.height)];
+            [btn_yijian addTarget:self action:@selector(Btn_yijianClick) forControlEvents:UIControlEventTouchUpInside];
+            [yijian addSubview:btn_yijian];
             UIImageView * img_go3=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-21, 20, 11, 16)];
             img_go3.image=[UIImage imageNamed:@"go.png"];
             [yijian addSubview:img_go3];
             [self.view addSubview:yijian];
             
-            logout=[[UIButton alloc] initWithFrame:CGRectMake(40, yijian.frame.origin.y+yijian.frame.size.height+10, KWidth-80, 50)];
+            logout=[[UIButton alloc] initWithFrame:CGRectMake(40, yijian.frame.origin.y+yijian.frame.size.height+10, SCREEN_WIDTH-80, 50)];
             logout.backgroundColor=[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
             [logout setTitle:@"退出账号" forState:UIControlStateNormal];
             logout.layer.masksToBounds=YES;
@@ -159,14 +163,14 @@
             [logout setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [self.view addSubview:logout];
             
-            lbl_banquanfuhao=[[UILabel alloc] initWithFrame:CGRectMake(30, KHeight-80, KWidth-60, 20)];
+            lbl_banquanfuhao=[[UILabel alloc] initWithFrame:CGRectMake(30, SCREEN_HEIGHT-80, SCREEN_WIDTH-60, 20)];
             lbl_banquanfuhao.text=@"Coryright©2015-2018";
             [lbl_banquanfuhao setTextAlignment:NSTextAlignmentCenter];
             lbl_banquanfuhao.font=[UIFont fontWithName:@"Helvetica" size:12];
             lbl_banquanfuhao.textColor=[UIColor grayColor];
             [self.view addSubview:lbl_banquanfuhao];
             
-            lbl_zhongyang=[[UILabel alloc] initWithFrame:CGRectMake(30, KHeight-50, KWidth-60, 20)];
+            lbl_zhongyang=[[UILabel alloc] initWithFrame:CGRectMake(30, SCREEN_HEIGHT-50, SCREEN_WIDTH-60, 20)];
             lbl_zhongyang.text=@"阿克苏巴国城网络科技有限公司";
             [lbl_zhongyang setTextAlignment:NSTextAlignmentCenter];
             lbl_zhongyang.font=[UIFont fontWithName:@"Helvetica" size:12];
@@ -177,6 +181,13 @@
         default:
             break;
     }
+}
+
+-(void)Btn_yijianClick
+{
+    _setinfo=[[SetInfoViewController alloc] init];
+    _setinfo.setid=2;
+    [self.navigationController pushViewController:_setinfo animated:YES];
 }
 
 -(void)TouSuSubmit
@@ -277,7 +288,7 @@
     }
     UIView * lastView=[self.view.subviews lastObject];
     
-    zhiwei=[[UITextView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+5, KWidth, 80)];
+    zhiwei=[[UITextView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+5, SCREEN_WIDTH, 80)];
     [zhiwei setKeyboardType:UIKeyboardTypeDefault];
     zhiwei.delegate=self;
     [self.view addSubview:zhiwei];
@@ -288,7 +299,7 @@
     uilabelzhiwei.font=[UIFont systemFontOfSize:13];
     uilabelzhiwei.backgroundColor = [UIColor clearColor];
     [self.view addSubview:uilabelzhiwei];
-    lbl_zishuzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, lastView.frame.origin.y+lastView.frame.size.height+5+zhiwei.frame.size.height-30, 150, 15)];
+    lbl_zishuzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-160, lastView.frame.origin.y+lastView.frame.size.height+5+zhiwei.frame.size.height-30, 150, 15)];
     lbl_zishuzhiwei.text=@"还能输入140个字";
     lbl_zishuzhiwei.enabled=NO;
     lbl_zishuzhiwei.font=[UIFont systemFontOfSize:13];
@@ -351,7 +362,7 @@
     }
     UIView * lastView=[self.view.subviews lastObject];
     
-    zhaoshang=[[UITextView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+5, KWidth, 80)];
+    zhaoshang=[[UITextView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+5, SCREEN_WIDTH, 80)];
     [zhaoshang setKeyboardType:UIKeyboardTypeDefault];
     zhaoshang.delegate=self;
     [self.view addSubview:zhaoshang];
@@ -362,7 +373,7 @@
     uilabelzhaoshang.font=[UIFont systemFontOfSize:13];
     uilabelzhaoshang.backgroundColor = [UIColor clearColor];
     [self.view addSubview:uilabelzhaoshang];
-    UILabel * lbl_zishuzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, lastView.frame.origin.y+lastView.frame.size.height+5+zhiwei.frame.size.height-30, 150, 15)];
+    UILabel * lbl_zishuzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-160, lastView.frame.origin.y+lastView.frame.size.height+5+zhiwei.frame.size.height-30, 150, 15)];
     lbl_zishuzhaoshang.text=@"还能输入140个字";
     lbl_zishuzhaoshang.enabled=NO;
     lbl_zishuzhaoshang.font=[UIFont systemFontOfSize:13];

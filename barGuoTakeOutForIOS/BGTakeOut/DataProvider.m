@@ -491,6 +491,29 @@
     }
 }
 
+-(void)dellongHistory:(NSString * )historyid
+{
+    if (historyid) {
+        NSDictionary * prm =@{@"id":historyid};
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/User/api_delSingleLocHistory",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+/**
+ *  获取一些基本信息
+ *
+ *  @param type ：websitelink，官网链接、business,公司业务、contactphone，咨询电话
+ */
+-(void)GetSomeInfonWithType:(NSString *)type
+{
+    if (type) {
+        NSDictionary * prm =@{@"type":type};
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/My/apiget_basicdetail",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
 {

@@ -9,7 +9,7 @@
 #import "ForgetPwdViewController.h"
 #import "AppDelegate.h"
 #import "DataProvider.h"
-#import "RegViewController.h"
+#import "VerifyViewController.h"
 
 @interface ForgetPwdViewController ()
 
@@ -49,10 +49,28 @@
 -(void)CheckBackCall:(id)dict
 {
     if ([dict[@"status"] intValue]==0) {
-        RegViewController* reg=[[RegViewController alloc] init];
-        [self presentViewController:reg animated:YES completion:^{
-            NSLog(@"zhucewancheng回到前一页");
-        }];
+        VerifyViewController* verify=[[VerifyViewController alloc] init];
+        [verify setPhone:_txt_PhoneNum.text AndAreaCode:@"86"];
+        
+        [SMS_SDK getVerificationCodeBySMSWithPhone:_txt_PhoneNum.text
+                                              zone:@"86"
+                                            result:^(SMS_SDKError *error)
+         {
+             if (!error)
+             {
+                 [self.navigationController pushViewController:verify animated:YES];
+             }
+             else
+             {
+                 UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"codesenderrtitle", nil)
+                                                               message:[NSString stringWithFormat:@"状态码：%zi ,错误描述：%@",error.errorCode,error.errorDescription]
+                                                              delegate:self
+                                                     cancelButtonTitle:NSLocalizedString(@"sure", nil)
+                                                     otherButtonTitles:nil, nil];
+                 [alert show];
+             }
+             
+         }];
     }
     else
     {

@@ -26,5 +26,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbl_3;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_4;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_5;
-
+- (void)setFrame:(CGRect)frame;
 @end
