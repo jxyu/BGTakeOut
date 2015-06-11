@@ -16,6 +16,7 @@
 #import "CommenDef.h"
 #import "AppDelegate.h"
 #import "MJRefresh.h"
+#import "CWStarRateView.h"
 
 
 #define KCantingNum 5
@@ -372,7 +373,8 @@
         }
         cell.CantingName.text=tabledata[indexPath.row][@"name"];
         cell.Adress.text=tabledata[indexPath.row][@"addressname"];
-        cell.starRatingView.rating=[tabledata[indexPath.row][@"totalcredit"] intValue];
+        cell.starRateView.scorePercent=[tabledata[indexPath.row][@"totalcredit"] floatValue]/5;
+//        cell.starRatingView.rating=[tabledata[indexPath.row][@"totalcredit"] intValue];
         //        cell.starRatingView =[[TQStarRatingView alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height) numberOfStar:5 andlightstarnum:[tabledata[indexPath.row][@"totalcredit"] intValue]];
         //        [cell.PingjiaView addSubview:cell.starRatingView];
         //        UIButton * zhezhao=[[UIButton alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height)];

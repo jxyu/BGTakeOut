@@ -164,8 +164,8 @@
 -(void)Login:(NSString *)phone andPwd:(NSString *)pwd
 {
     if (phone!=nil &&pwd!=nil) {
-        NSString * url=[NSString stringWithFormat:@"%@login.php",KURL];
-        NSDictionary * prm=@{@"phonenum":phone,@"password":pwd};
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/User/api_login",KURL];
+        NSDictionary * prm=@{@"username":phone,@"password":pwd};
         [self PostRequest:url andpram:prm];
     }
 }
@@ -539,9 +539,11 @@
         }else{
             NSLog(@"回调失败...");
         }
+        [SVProgressHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error:%@",error);
+        [SVProgressHUD dismiss];
     }];
 }
 

@@ -198,7 +198,8 @@
             cell  = [[PingjiaTableViewCell alloc] initWithReuseIdentifier:TableIdentifier];
         }
         
-        cell.starRatingView.rating=[[[tableData objectAtIndex:indexPath.section] objectForKey:@"starnum"] integerValue];
+//        cell.starRatingView.rating=[[[tableData objectAtIndex:indexPath.section] objectForKey:@"starnum"] integerValue];
+        cell.starRateView.scorePercent = [[[tableData objectAtIndex:indexPath.section] objectForKey:@"starnum"] floatValue]/10;
 NSString* phone=        [self phoneNumToSecret:[[tableData objectAtIndex:indexPath.section] objectForKey:@"username"]];
         cell.usernameLbl.text=phone;
         

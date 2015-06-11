@@ -156,6 +156,7 @@
             }else{
                 NSLog(@"回调失败...");
             }
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
         NSString * token=get_sp(@"devicetoken");
         DLog(@"%@",get_sp(@"devicetoken"));

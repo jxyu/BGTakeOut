@@ -118,7 +118,7 @@
         itemName.text=item.Goods[@"name"];
         [orderBackground addSubview:itemName];
         UILabel * itemnum=[[UILabel alloc] initWithFrame:CGRectMake(itemName.frame.origin.x+itemName.frame.size.width, 5, 40, 20)];
-        itemnum.text=[NSString stringWithFormat:@"X%d",item.Num];
+        itemnum.text=[NSString stringWithFormat:@"x%d",item.Num];
         [orderBackground addSubview:itemnum];
         UILabel * itemprice=[[UILabel alloc] initWithFrame:CGRectMake(itemnum.frame.origin.x+itemnum.frame.size.width+20, 5, 80, 20)];
         itemprice.text=[NSString stringWithFormat:@"¥%.2f",item.Num*[item.Goods[@"price"] floatValue]];
@@ -167,7 +167,7 @@
     UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(10, 40, KWidth-20, 1)];
     fenge.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [PayWayBackView addSubview:fenge];
-    PayOnLine=[[UIButton alloc] initWithFrame:CGRectMake((KWidth/3-100)/2, 50, 100, 25)];
+    PayOnLine=[[UIButton alloc] initWithFrame:CGRectMake((KWidth/3-100)/2, 48, 100, 25)];
     [PayOnLine setTitle:@"支付宝" forState:UIControlStateNormal];
     PayOnLine.titleLabel.font=[UIFont systemFontOfSize:15];
     PayOnLine.tag=1;
@@ -175,7 +175,7 @@
     [PayOnLine addTarget:self action:@selector(ChangePayWay:) forControlEvents:UIControlEventTouchUpInside];
     [PayOnLine setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [PayWayBackView addSubview:PayOnLine];
-    PayWXWay=[[UIButton alloc] initWithFrame:CGRectMake(PayOnLine.frame.origin.x+PayOnLine.frame.size.width+(KWidth/3-100)/2, 50, 100, 25)];
+    PayWXWay=[[UIButton alloc] initWithFrame:CGRectMake(PayOnLine.frame.origin.x+PayOnLine.frame.size.width+(KWidth/3-100)/2, 48, 100, 25)];
     [PayWXWay setTitle:@"微信支付" forState:UIControlStateNormal];
     PayWXWay.titleLabel.font=[UIFont systemFontOfSize:15];
     PayWXWay.tag=2;
@@ -183,7 +183,7 @@
     [PayWXWay addTarget:self action:@selector(ChangePayWay:) forControlEvents:UIControlEventTouchUpInside];
     [PayWXWay setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [PayWayBackView addSubview:PayWXWay];
-    PayOutLine=[[UIButton alloc] initWithFrame:CGRectMake(PayWXWay.frame.origin.x+PayWXWay.frame.size.width+(KWidth/3-100)/2, 50, 100, 25)];
+    PayOutLine=[[UIButton alloc] initWithFrame:CGRectMake(PayWXWay.frame.origin.x+PayWXWay.frame.size.width+(KWidth/3-100)/2, 48, 100, 25)];
     [PayOutLine setTitle:@"货到付款" forState:UIControlStateNormal];
     [PayOutLine setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [PayOutLine setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];

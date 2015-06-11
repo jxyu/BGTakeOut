@@ -14,13 +14,19 @@
 
 -(void)initLayout{
     
-    _starRatingView= [[AMRatingControl alloc] initWithLocation:CGPointMake(0, 0)
-                                                    emptyColor:[UIColor lightGrayColor]
-                                                    solidColor:[UIColor redColor]
-                                                  andMaxRating:5];
-    [_starRatingView setUserInteractionEnabled:NO];
-    _starRatingView.backgroundColor=[UIColor clearColor];
-    [_PingjiaView addSubview:_starRatingView];
+//    _starRatingView= [[AMRatingControl alloc] initWithLocation:CGPointMake(0, 0)
+//                                                    emptyColor:[UIColor lightGrayColor]
+//                                                    solidColor:[UIColor redColor]
+//                                                  andMaxRating:5];
+//    [_starRatingView setUserInteractionEnabled:NO];
+//    _starRatingView.backgroundColor=[UIColor clearColor];
+//    [_PingjiaView addSubview:_starRatingView];
+    
+    self.starRateView = [[CWStarRateView alloc] initWithFrame:CGRectMake(0, 4, _PingjiaView.frame.size.width-4, _PingjiaView.frame.size.height-4) numberOfStars:5];
+    self.starRateView.scorePercent = 0.5;
+    self.starRateView.allowIncompleteStar = YES;
+    self.starRateView.hasAnimation = YES;
+    [_PingjiaView addSubview:self.starRateView];
     
 }
 

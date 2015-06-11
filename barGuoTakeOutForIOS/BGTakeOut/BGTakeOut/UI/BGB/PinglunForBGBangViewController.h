@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseNavigationController.h"
-#import "TQStarRatingView.h"
+#import "CWStarRateView.h"
 
-@interface PinglunForBGBangViewController : BaseNavigationController<StarRatingViewDelegate,UITextViewDelegate>
+@interface PinglunForBGBangViewController : BaseNavigationController<UITextViewDelegate,CWStarRateViewDelegate>
 @property(nonatomic,strong)NSString * articleid;
 @property(nonatomic,strong)NSString * userid;
 

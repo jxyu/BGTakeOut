@@ -20,6 +20,7 @@
 #import "ShopAlbumViewController.h"
 #import "PingjiaViewController.h"
 #import "UMSocial.h"
+#import "CWStarRateView.h"
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 #define KAreaListHeight 60 //scollview中的button的高度
@@ -129,7 +130,7 @@
         BackView_gouwuche_icon.layer.cornerRadius=30;
         BackView_gouwuche_icon.backgroundColor=[UIColor colorWithRed:128/255.0 green:128/255.0 blue:128/255.0 alpha:1.0];
         
-        UIImageView * img_gouwuche_icon=[[UIImageView alloc] initWithFrame:CGRectMake(10,10, 40, 40)];
+        UIImageView * img_gouwuche_icon=[[UIImageView alloc] initWithFrame:CGRectMake(16.0,16.5, 27, 27)];
         img_gouwuche_icon.image=[UIImage imageNamed:@"gouwuche_icon"];
         img_gouwuche_icon.backgroundColor=[UIColor clearColor];
         [BackView_gouwuche_icon addSubview:img_gouwuche_icon];
@@ -431,7 +432,7 @@
             item.text=[NSString stringWithFormat:@"%d",[item.text intValue]+1];
         }
     }
-    BackView_gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255 green:180/255 blue:0/255 alpha:1.0];
+    BackView_gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255.0 green:180/255.0 blue:0/255.0 alpha:1.0];
     ShoppingCarModel * shopModel=[[ShoppingCarModel alloc] init];
     if (ShoppingCar.count>0) {
         int i=0;
@@ -552,7 +553,7 @@
     }
     else
     {
-        BackView_gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255 green:180/255 blue:0/255 alpha:1.0];
+        BackView_gouwuche_icon.backgroundColor=[UIColor colorWithRed:255/255.0 green:180/255.0 blue:0/255.0 alpha:1.0];
         [choseDone setTitle:@"选好了"  forState:UIControlStateNormal];
         choseDone.backgroundColor=[UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1.0];
     }
@@ -799,14 +800,19 @@
         [btn_share addTarget:self action:@selector(Btn_shareClick) forControlEvents:UIControlEventTouchUpInside];
         [CantingHeadView addSubview:btn_share];
         
-        AMRatingControl * amratingcontrol= [[AMRatingControl alloc] initWithLocation:CGPointMake(lbl_cantingName.frame.origin.x,lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height+8 )
-                                       emptyColor:[UIColor lightGrayColor]
-                                       solidColor:[UIColor redColor]
-                                     andMaxRating:5];
-        [amratingcontrol setUserInteractionEnabled:NO];
-        amratingcontrol.backgroundColor=[UIColor clearColor];
-        amratingcontrol.rating=[dict[@"data"][@"totalcredit"] intValue];
-        [CantingHeadView addSubview:amratingcontrol];
+//        AMRatingControl * amratingcontrol= [[AMRatingControl alloc] initWithLocation:CGPointMake(lbl_cantingName.frame.origin.x,lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height+8 )
+//                                       emptyColor:[UIColor lightGrayColor]
+//                                       solidColor:[UIColor redColor]
+//                                     andMaxRating:5];
+//        [amratingcontrol setUserInteractionEnabled:NO];
+//        amratingcontrol.backgroundColor=[UIColor clearColor];
+//        amratingcontrol.rating=[dict[@"data"][@"totalcredit"] intValue];
+        
+        CWStarRateView * cwstarrateView=[[CWStarRateView alloc] initWithFrame:CGRectMake(lbl_cantingName.frame.origin.x,lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height+10,lbl_cantingName.frame.origin.x,lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height-10 ) numberOfStars:5];
+        cwstarrateView.scorePercent = [dict[@"data"][@"totalcredit"] floatValue]/5;
+        cwstarrateView.allowIncompleteStar = NO;
+        cwstarrateView.hasAnimation = YES;
+        [CantingHeadView addSubview:cwstarrateView];
         
         
         
@@ -857,8 +863,7 @@
         UIView * BackView_userPingjia=[[UIView alloc] initWithFrame:CGRectMake(0,lastView.frame.origin.y+lastView.frame.size.height+5 , KWidth, 40)];
         BackView_userPingjia.backgroundColor=[UIColor whiteColor];
         UILabel * viewTitle=[[UILabel alloc] initWithFrame:CGRectMake(20, 10, 100, 20)];
-        [viewTitle setTextAlignment:NSTextAlignmentCenter];
-        viewTitle.text=[NSString stringWithFormat:@"用户评论"];
+        viewTitle.text=@"用户评论";
         [BackView_userPingjia addSubview:viewTitle];
         UILabel * commentcount=[[UILabel alloc] initWithFrame:CGRectMake(viewTitle.frame.origin.x+viewTitle.frame.size.width+1, 10, 60, 20)];
         commentcount.text=[NSString stringWithFormat:@"(%@条)",dict[@"data"][@"commentCount"]];

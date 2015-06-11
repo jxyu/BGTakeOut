@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TQStarRatingView.h"
 #import "AMRatingControl.h"
+#import "CWStarRateView.h"
 
 @interface TableViewCell : UITableViewCell <StarRatingViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *Canting_icon;
@@ -21,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIView *CantingActive;
 //@property(nonatomic,strong)TQStarRatingView *starRatingView;
 @property(nonatomic,strong)AMRatingControl * starRatingView;
+@property (strong, nonatomic) CWStarRateView *starRateView;
 
 -(void)initLayout;
 

@@ -24,17 +24,21 @@
     _usernameLbl.font=[UIFont systemFontOfSize:15.0];
     [self addSubview:_usernameLbl];
     
-    _starRatingView= [[AMRatingControl alloc] initWithLocation:CGPointMake(8, 12)
-                                                    emptyColor:[UIColor lightGrayColor]
-                                                    solidColor:[UIColor redColor]
-                                                  andMaxRating:5];
-    [_starRatingView setUserInteractionEnabled:NO];
-    _starRatingView.backgroundColor=[UIColor clearColor];
-    [self addSubview:_starRatingView];
+//    _starRatingView= [[AMRatingControl alloc] initWithLocation:CGPointMake(8, 12)
+//                                                    emptyColor:[UIColor lightGrayColor]
+//                                                    solidColor:[UIColor redColor]
+//                                                  andMaxRating:5];
+//    [_starRatingView setUserInteractionEnabled:NO];
+//    _starRatingView.backgroundColor=[UIColor clearColor];
+//    [self addSubview:_starRatingView];
+//    
+//    
+//    _pingjiaContentLbl = [[UILabel alloc] initWithFrame:CGRectMake(8, 48, SCREEN_WIDTH-16, 40)];
+//    [self addSubview:_pingjiaContentLbl];
+    self.starRateView = [[CWStarRateView alloc] initWithFrame:CGRectMake(0, 4, 8, 12) numberOfStars:5];
     
-    
-    _pingjiaContentLbl = [[UILabel alloc] initWithFrame:CGRectMake(8, 48, SCREEN_WIDTH-16, 40)];
-    [self addSubview:_pingjiaContentLbl];
+    self.starRateView.allowIncompleteStar = YES;
+    self.starRateView.hasAnimation = YES;
 }
 -(void)setPingjiaText:(NSString *)text{
     CGRect frame=[self frame];

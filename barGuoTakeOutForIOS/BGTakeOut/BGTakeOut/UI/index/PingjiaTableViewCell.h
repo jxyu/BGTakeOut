@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "AMRatingControl.h"
+#import "CWStarRateView.h"
 @interface PingjiaTableViewCell : UITableViewCell
 @property(nonatomic,strong)UILabel* usernameLbl;
 @property(nonatomic,strong)UILabel* pingjiaContentLbl;
 @property(nonatomic,strong)AMRatingControl* starRatingView;
+@property(nonatomic,strong)CWStarRateView *starRateView;
 
 -(void)setPingjiaText:(NSString*)text;
 -(id)initWithReuseIdentifier:(NSString*)reuseIdentifier;
