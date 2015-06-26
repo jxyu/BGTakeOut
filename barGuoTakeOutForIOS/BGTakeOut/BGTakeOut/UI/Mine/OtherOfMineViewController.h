@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseNavigationController.h"
 
-@interface OtherOfMineViewController : BaseNavigationController <UITextViewDelegate>
+@interface OtherOfMineViewController : BaseNavigationController <UITextViewDelegate,UIAlertViewDelegate>
 @property(nonatomic,strong)NSString *Othertitle;
 @property(nonatomic)NSInteger celltag;
 @property(nonatomic,copy)id UserInfoData;

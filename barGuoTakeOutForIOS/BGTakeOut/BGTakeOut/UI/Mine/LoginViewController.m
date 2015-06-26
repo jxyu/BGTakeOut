@@ -53,7 +53,7 @@
     [self addRightbuttontitle:@"注册"];
     
     
-    UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+25, KWidth, 40)];
+    UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+25, SCREEN_WIDTH, 40)];
     BackgroundView1.backgroundColor=[UIColor whiteColor];
     UILabel * PhoneNum =[[UILabel alloc ] initWithFrame:CGRectMake(10, 5, 80, 30)];
     PhoneNum.text=@"手机号：";
@@ -67,7 +67,7 @@
     [self.view addSubview:BackgroundView1];
     
     lastView=BackgroundView1;
-    UIView * BackgroundView2=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+lastView.frame.origin.y+1, KWidth, 40)];
+    UIView * BackgroundView2=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+lastView.frame.origin.y+1, SCREEN_WIDTH, 40)];
     BackgroundView2.backgroundColor=[UIColor whiteColor];
     UILabel * Pwd =[[UILabel alloc ] initWithFrame:CGRectMake(10, 5, 80, 30)];
     Pwd.text=@"密码：";
@@ -93,7 +93,7 @@
     [self.view addSubview:btn_secrit];
     
     
-    UIButton * btn_login=[[UIButton alloc] initWithFrame:CGRectMake(30, btn_secrit.frame.origin.y+btn_secrit.frame.size.height+10, 260, 40)];
+    UIButton * btn_login=[[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-260)/2, btn_secrit.frame.origin.y+btn_secrit.frame.size.height+10, 260, 40)];
     [btn_login setBackgroundColor:[UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0]];
     [btn_login setTitle:@"登录" forState:UIControlStateNormal];
     [btn_login setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -141,7 +141,7 @@
 -(void)LoginBack:(id)dict
 {
     [SVProgressHUD dismiss];
-    if (1==[dict[@"status"] integerValue]) {
+    if (1==[dict[@"status"] integerValue]&&[dict[@"data"][@"isavailable"] isEqualToString:@"1"]) {
 //        NSString * path=[[NSBundle mainBundle] pathForResource:@"UserInfo" ofType:@"plist"];
         NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                                   NSUserDomainMask, YES) objectAtIndex:0];
@@ -164,11 +164,9 @@
             DataProvider* dataProvider=[[DataProvider alloc] init];
             [dataProvider setDelegateObject:self setBackFunctionName:@"commitSuccess:"];
             [dataProvider commitdevicetokenWithUserid:dict[@"data"][@"userid"] token:token];
-       
     }else
     {
-        
-        [SVProgressHUD showErrorWithStatus:@"登录失败" maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showErrorWithStatus:@"登录失败或者没有权限" maskType:SVProgressHUDMaskTypeBlack];
     }
     
 }

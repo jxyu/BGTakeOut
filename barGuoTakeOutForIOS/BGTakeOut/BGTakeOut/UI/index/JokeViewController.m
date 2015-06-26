@@ -90,6 +90,8 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell * cell=[[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0,tableView.frame.size.width , [self heightForString:JokeArray[indexPath.row][@"content"] andWidth:SCREEN_WIDTH-30])];
+    cell.layer.masksToBounds=YES;
+    cell.bounds=CGRectMake(0, 0, tableView.frame.size.width, cell.frame.size.height);
     UIView * jianju=[[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, 5)];
     jianju.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [cell addSubview:jianju];

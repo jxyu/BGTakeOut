@@ -53,134 +53,72 @@
     [self addLeftButton:@"ic_actionbar_back.png"];
     [self addRightbuttontitle:@"取消"];
     // Do any additional setup after loading the view.
-//    UIView * BackVeiw_star=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 170)];
-//    BackVeiw_star.backgroundColor=[UIColor whiteColor];
-//    UILabel * lbl_weidao=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
-//    lbl_weidao.text=@"味道";
-//    starRatingView_weidao =[[AMRatingControl alloc] initWithLocation:CGPointMake(80, 8)
-//                                                          emptyColor:[UIColor lightGrayColor]
-//                                                          solidColor:[UIColor redColor]
-//                                                        andMaxRating:10];
-//    [starRatingView_weidao setUserInteractionEnabled:YES];
-//    starRatingView_weidao.backgroundColor=[UIColor clearColor];
-//    [starRatingView_weidao addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
-//    starRatingView_weidao.tag=1;
-//    [BackVeiw_star addSubview:lbl_weidao];
-//    [BackVeiw_star addSubview:starRatingView_weidao];
-//    
-//    UILabel * lbl_weisheng=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_weidao.frame.origin.y+lbl_weidao.frame.size.height+10, 60, 20)];
-//    lbl_weisheng.text=@"卫生";
-//    starRatingView_weisheng =[[AMRatingControl alloc] initWithLocation:CGPointMake(80, lbl_weidao.frame.origin.y+lbl_weidao.frame.size.height+8)
-//                                                            emptyColor:[UIColor lightGrayColor]
-//                                                            solidColor:[UIColor redColor]
-//                                                          andMaxRating:10];
-//    [starRatingView_weisheng setUserInteractionEnabled:YES];
-//    starRatingView_weisheng.backgroundColor=[UIColor clearColor];
-//    [starRatingView_weisheng addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
-//
-//    starRatingView_weisheng.tag=2;
-//    [BackVeiw_star addSubview:lbl_weisheng];
-//    [BackVeiw_star addSubview:starRatingView_weisheng];
-//    
-//    UILabel * lbl_huanjing=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_weisheng.frame.origin.y+lbl_weisheng.frame.size.height+10, 60, 20)];
-//    lbl_huanjing.text=@"环境";
-//    starRatingView_huanjing=[[AMRatingControl alloc] initWithLocation:CGPointMake(80, lbl_weisheng.frame.origin.y+lbl_weisheng.frame.size.height+8)
-//                                                           emptyColor:[UIColor lightGrayColor]
-//                                                           solidColor:[UIColor redColor]
-//                                                         andMaxRating:10];
-//    [starRatingView_huanjing setUserInteractionEnabled:YES];
-//    starRatingView_huanjing.backgroundColor=[UIColor clearColor];
-//    [starRatingView_huanjing addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
-//    starRatingView_huanjing.tag=3;
-//    [BackVeiw_star addSubview:lbl_huanjing];
-//    [BackVeiw_star addSubview:starRatingView_huanjing];
-//    
-//    UILabel * lbl_fuwu=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_huanjing.frame.origin.y+lbl_huanjing.frame.size.height+10, 60, 20)];
-//    lbl_fuwu.text=@"服务";
-//    starRatingView_fuwu =[[AMRatingControl alloc] initWithLocation:CGPointMake(80, lbl_huanjing.frame.origin.y+lbl_huanjing.frame.size.height+8)
-//                                                        emptyColor:[UIColor lightGrayColor]
-//                                                        solidColor:[UIColor redColor]
-//                                                      andMaxRating:10];
-//    [starRatingView_fuwu setUserInteractionEnabled:YES];
-//    starRatingView_fuwu.backgroundColor=[UIColor clearColor];
-//    [starRatingView_fuwu addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
-//    starRatingView_fuwu.tag=4;
-//    [BackVeiw_star addSubview:lbl_fuwu];
-//    [BackVeiw_star addSubview:starRatingView_fuwu];
-//    
-//    UILabel * lbl_xingjiabi=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_fuwu.frame.origin.y+lbl_fuwu.frame.size.height+10, 60, 20)];
-//    lbl_xingjiabi.text=@"性价比";
-//    starRatingView_xingjiabi =[[AMRatingControl alloc] initWithLocation:CGPointMake(80, lbl_fuwu.frame.origin.y+lbl_fuwu.frame.size.height+8)
-//                                                             emptyColor:[UIColor lightGrayColor]
-//                                                             solidColor:[UIColor redColor]
-//                                                           andMaxRating:10];
-//    [starRatingView_xingjiabi setUserInteractionEnabled:YES];
-//    starRatingView_xingjiabi.backgroundColor=[UIColor clearColor];
-//    [starRatingView_xingjiabi addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
-//    starRatingView_xingjiabi.tag=5;
-//    [BackVeiw_star addSubview:lbl_xingjiabi];
-//    [BackVeiw_star addSubview:starRatingView_xingjiabi];
-    
     UIView * BackVeiw_star=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 170)];
     BackVeiw_star.backgroundColor=[UIColor whiteColor];
     UILabel * lbl_weidao=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
     lbl_weidao.text=@"味道";
-    weidao=[[CWStarRateView alloc] initWithFrame:CGRectMake(lbl_weidao.frame.origin.x+lbl_weidao.frame.size.width+8,lbl_weidao.frame.origin.y,230,lbl_weidao.frame.size.height) numberOfStars:10];
-    weidao.scorePercent = 0;
-    weidao.tag=0;
-    weidao.delegate=self;
-    weidao.allowIncompleteStar = YES;
-    weidao.hasAnimation = YES;
-    [BackVeiw_star addSubview:weidao];
+    starRatingView_weidao =[[AMRatingControl alloc] initWithLocation:CGPointMake(80, 8)
+                                                          emptyColor:[UIColor lightGrayColor]
+                                                          solidColor:[UIColor redColor]
+                                                        andMaxRating:10];
+    [starRatingView_weidao setUserInteractionEnabled:YES];
+    starRatingView_weidao.backgroundColor=[UIColor clearColor];
+    [starRatingView_weidao addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
+    starRatingView_weidao.tag=1;
     [BackVeiw_star addSubview:lbl_weidao];
     [BackVeiw_star addSubview:starRatingView_weidao];
+    
     UILabel * lbl_weisheng=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_weidao.frame.origin.y+lbl_weidao.frame.size.height+10, 60, 20)];
     lbl_weisheng.text=@"卫生";
-    weisheng=[[CWStarRateView alloc] initWithFrame:CGRectMake(lbl_weisheng.frame.origin.x+lbl_weisheng.frame.size.width+10,lbl_weisheng.frame.origin.y,230,+lbl_weidao.frame.size.height) numberOfStars:10];
-    weisheng.allowIncompleteStar = YES;
-    weisheng.delegate=self;
-    weisheng.scorePercent = 0;
-    weisheng.tag=1;
-    weisheng.hasAnimation = YES;
-    [BackVeiw_star addSubview:weisheng];
+    starRatingView_weisheng =[[AMRatingControl alloc] initWithLocation:CGPointMake(80, lbl_weidao.frame.origin.y+lbl_weidao.frame.size.height+8)
+                                                            emptyColor:[UIColor lightGrayColor]
+                                                            solidColor:[UIColor redColor]
+                                                          andMaxRating:10];
+    [starRatingView_weisheng setUserInteractionEnabled:YES];
+    starRatingView_weisheng.backgroundColor=[UIColor clearColor];
+    [starRatingView_weisheng addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
+
+    starRatingView_weisheng.tag=2;
     [BackVeiw_star addSubview:lbl_weisheng];
     [BackVeiw_star addSubview:starRatingView_weisheng];
     
     UILabel * lbl_huanjing=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_weisheng.frame.origin.y+lbl_weisheng.frame.size.height+10, 60, 20)];
     lbl_huanjing.text=@"环境";
-    huanjing=[[CWStarRateView alloc] initWithFrame:CGRectMake(lbl_huanjing.frame.origin.x+lbl_huanjing.frame.size.width+10,lbl_huanjing.frame.origin.y,230,+lbl_huanjing.frame.size.height) numberOfStars:10];
-    huanjing.allowIncompleteStar = YES;
-    huanjing.delegate=self;
-    huanjing.tag=2;
-    huanjing.scorePercent = 0;
-    huanjing.hasAnimation = YES;
-    [BackVeiw_star addSubview:huanjing];
+    starRatingView_huanjing=[[AMRatingControl alloc] initWithLocation:CGPointMake(80, lbl_weisheng.frame.origin.y+lbl_weisheng.frame.size.height+8)
+                                                           emptyColor:[UIColor lightGrayColor]
+                                                           solidColor:[UIColor redColor]
+                                                         andMaxRating:10];
+    [starRatingView_huanjing setUserInteractionEnabled:YES];
+    starRatingView_huanjing.backgroundColor=[UIColor clearColor];
+    [starRatingView_huanjing addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
+    starRatingView_huanjing.tag=3;
     [BackVeiw_star addSubview:lbl_huanjing];
     [BackVeiw_star addSubview:starRatingView_huanjing];
     
     UILabel * lbl_fuwu=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_huanjing.frame.origin.y+lbl_huanjing.frame.size.height+10, 60, 20)];
     lbl_fuwu.text=@"服务";
-    fuwu=[[CWStarRateView alloc] initWithFrame:CGRectMake(lbl_fuwu.frame.origin.x+lbl_fuwu.frame.size.width+10,lbl_fuwu.frame.origin.y,230,+lbl_fuwu.frame.size.height) numberOfStars:10];
-    fuwu.allowIncompleteStar = YES;
-    fuwu.delegate=self;
-    fuwu.hasAnimation = YES;
-    fuwu.tag=3;
-    fuwu.scorePercent = 0;
-    [BackVeiw_star addSubview:fuwu];
+    starRatingView_fuwu =[[AMRatingControl alloc] initWithLocation:CGPointMake(80, lbl_huanjing.frame.origin.y+lbl_huanjing.frame.size.height+8)
+                                                        emptyColor:[UIColor lightGrayColor]
+                                                        solidColor:[UIColor redColor]
+                                                      andMaxRating:10];
+    [starRatingView_fuwu setUserInteractionEnabled:YES];
+    starRatingView_fuwu.backgroundColor=[UIColor clearColor];
+    [starRatingView_fuwu addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
+    starRatingView_fuwu.tag=4;
     [BackVeiw_star addSubview:lbl_fuwu];
     [BackVeiw_star addSubview:starRatingView_fuwu];
     
     UILabel * lbl_xingjiabi=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_fuwu.frame.origin.y+lbl_fuwu.frame.size.height+10, 60, 20)];
     lbl_xingjiabi.text=@"性价比";
-    xingjiabi=[[CWStarRateView alloc] initWithFrame:CGRectMake(lbl_xingjiabi.frame.origin.x+lbl_xingjiabi.frame.size.width+10,lbl_xingjiabi.frame.origin.y,230,+lbl_xingjiabi.frame.size.height) numberOfStars:10];
-    xingjiabi.allowIncompleteStar = YES;
-    xingjiabi.delegate=self;
-    xingjiabi.tag=4;
-    xingjiabi.scorePercent = 0;
-    xingjiabi.hasAnimation = YES;
-    [BackVeiw_star addSubview:xingjiabi];
+    starRatingView_xingjiabi =[[AMRatingControl alloc] initWithLocation:CGPointMake(80, lbl_fuwu.frame.origin.y+lbl_fuwu.frame.size.height+8)
+                                                             emptyColor:[UIColor lightGrayColor]
+                                                             solidColor:[UIColor redColor]
+                                                           andMaxRating:10];
+    [starRatingView_xingjiabi setUserInteractionEnabled:YES];
+    starRatingView_xingjiabi.backgroundColor=[UIColor clearColor];
+    [starRatingView_xingjiabi addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
+    starRatingView_xingjiabi.tag=5;
     [BackVeiw_star addSubview:lbl_xingjiabi];
-    
     [BackVeiw_star addSubview:starRatingView_xingjiabi];
     [self.view addSubview:BackVeiw_star];
     UIView * BackView_content=[[UIView alloc] initWithFrame:CGRectMake(0, BackVeiw_star.frame.origin.y+BackVeiw_star.frame.size.height+20, SCREEN_WIDTH, 80)];
@@ -254,29 +192,29 @@
     [txtV_PingjiaContent resignFirstResponder];
 }
 
-//-(void)GetScoreForPingjia:(AMRatingControl *)sender
-//{
-//    [btn_Submit setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
-//    switch (sender.tag) {
-//        case 1:
-//            numOfWeiDao=[NSString stringWithFormat:@"%d",sender.rating];
-//            break;
-//        case 2:
-//            numOfweisheng=[NSString stringWithFormat:@"%d",sender.rating];
-//            break;
-//        case 3:
-//            numOfHuanJing=[NSString stringWithFormat:@"%d",sender.rating];
-//            break;
-//        case 4:
-//            numOfFuWu=[NSString stringWithFormat:@"%d",sender.rating];
-//            break;
-//        case 5:
-//            numOfXingjiabi=[NSString stringWithFormat:@"%d",sender.rating];
-//            break;
-//        default:
-//            break;
-//    }
-//}
+-(void)GetScoreForPingjia:(AMRatingControl *)sender
+{
+    [btn_Submit setBackgroundColor:[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0]];
+    switch (sender.tag) {
+        case 1:
+            numOfWeiDao=[NSString stringWithFormat:@"%ld",(long)sender.rating];
+            break;
+        case 2:
+            numOfweisheng=[NSString stringWithFormat:@"%ld",(long)sender.rating];
+            break;
+        case 3:
+            numOfHuanJing=[NSString stringWithFormat:@"%ld",(long)sender.rating];
+            break;
+        case 4:
+            numOfFuWu=[NSString stringWithFormat:@"%ld",(long)sender.rating];
+            break;
+        case 5:
+            numOfXingjiabi=[NSString stringWithFormat:@"%ld",(long)sender.rating];
+            break;
+        default:
+            break;
+    }
+}
 
 - (void)starRateView:(CWStarRateView *)starRateView scroePercentDidChange:(CGFloat)newScorePercent
 {

@@ -70,6 +70,9 @@
 -(void)GetLuckGift:(NSString *)userid;
 -(void)CheckIsPhoneExist:(NSString *)phone;
 -(void)GetSomeInfonWithType:(NSString *)type;
+-(void)delOrderListItem:(NSString *)ordernum;
+-(void)delAddress:(NSString *)addid;
+-(void)getRuller;
 
 /**
  *  获得兑吧详情页

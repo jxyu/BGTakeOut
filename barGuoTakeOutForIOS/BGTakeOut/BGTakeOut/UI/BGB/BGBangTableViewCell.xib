@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -17,8 +18,12 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9js-x8-fa3">
                         <rect key="frame" x="8" y="18" width="61" height="61"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="renzheng_BackView.png" translatesAutoresizingMaskIntoConstraints="NO" id="1dF-uZ-Pzp">
-                        <rect key="frame" x="227" y="13" width="80" height="21"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="renzheng_BackView.png" translatesAutoresizingMaskIntoConstraints="NO" id="1dF-uZ-Pzp">
+                        <rect key="frame" x="227" y="11" width="80" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="7Lp-2T-KZz"/>
+                            <constraint firstAttribute="width" constant="80" id="KLf-Ra-Ief"/>
+                        </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="地址：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Tx-Ko-VIt">
                         <rect key="frame" x="81" y="38" width="42" height="21"/>
@@ -32,22 +37,24 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PJG-p3-vAw">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PJG-p3-vAw">
                         <rect key="frame" x="227" y="64" width="61" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="GZV-wV-lG7"/>
+                            <constraint firstAttribute="width" constant="61" id="dvn-GJ-jtI"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <state key="normal" title="分享" image="fenxianghui@2x">
                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9dn-ub-ISt">
-                        <rect key="frame" x="240" y="13" width="54" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GmA-Xb-peU">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GmA-Xb-peU">
                         <rect key="frame" x="107" y="62" width="106" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="27" id="DPw-cW-QOr"/>
+                            <constraint firstAttribute="width" constant="106" id="HMS-Au-yY1"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="(10)喜欢" image="zanhui@2x">
                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -64,7 +71,27 @@
                         <rect key="frame" x="0.0" y="97" width="320" height="1"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9dn-ub-ISt">
+                        <rect key="frame" x="240" y="13" width="54" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="54" id="2tE-6h-KfE"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="1dF-uZ-Pzp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="DRR-5H-4KF"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="PJG-p3-vAw" secondAttribute="bottom" constant="1" id="TmI-cA-USv"/>
+                    <constraint firstItem="9dn-ub-ISt" firstAttribute="leading" secondItem="1dF-uZ-Pzp" secondAttribute="trailing" constant="-67" id="Tmq-L5-Z5Y"/>
+                    <constraint firstItem="PJG-p3-vAw" firstAttribute="leading" secondItem="GmA-Xb-peU" secondAttribute="trailing" constant="14" id="bVM-8a-jbb"/>
+                    <constraint firstItem="9dn-ub-ISt" firstAttribute="leading" secondItem="1dF-uZ-Pzp" secondAttribute="trailing" constant="-67" id="dTQ-VZ-kun"/>
+                    <constraint firstItem="9dn-ub-ISt" firstAttribute="top" secondItem="1dF-uZ-Pzp" secondAttribute="bottom" constant="-21" id="en1-Re-CWc"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="GmA-Xb-peU" secondAttribute="bottom" constant="1" id="i2W-lD-FJh"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="PJG-p3-vAw" secondAttribute="trailing" constant="24" id="ilQ-T8-avf"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="1dF-uZ-Pzp" secondAttribute="trailing" constant="5" id="nwP-ud-jbq"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="Btn_share" destination="PJG-p3-vAw" id="pBm-fM-Mdj"/>

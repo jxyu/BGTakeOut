@@ -11,11 +11,13 @@
 #import "CommenDef.h"
 #import "AppDelegate.h"
 #import "SetInfoViewController.h"
+#import "PushMessageViewController.h"
 
 
 
 @interface OtherOfMineViewController ()
 @property(nonatomic,strong)SetInfoViewController *setinfo;
+@property(nonatomic,strong)PushMessageViewController * mypushMessage;
 @end
 
 @implementation OtherOfMineViewController
@@ -92,7 +94,7 @@
             lbl_zishu.backgroundColor=[UIColor clearColor];
             [self.view addSubview:lbl_zishu];
             btn_tousu=[[UIButton alloc] initWithFrame:CGRectMake(20, tousu.frame.origin.y+tousu.frame.size.height+10, SCREEN_WIDTH-40, 35)];
-            btn_tousu.backgroundColor=[UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
+            btn_tousu.backgroundColor=[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
             [btn_tousu addTarget:self action:@selector(TouSuSubmit) forControlEvents:UIControlEventTouchUpInside];
             [btn_tousu setTitle:@"提交" forState:UIControlStateNormal];
             [self.view addSubview:btn_tousu];
@@ -118,6 +120,9 @@
             UIImageView * img_go=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-21, 20, 11, 16)];
             img_go.image=[UIImage imageNamed:@"go.png"];
             [pushMsg addSubview:img_go];
+            UIButton * btn_pushmessage=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, pushMsg.frame.size.width, pushMsg.frame.size.height)];
+            [btn_pushmessage addTarget:self action:@selector(btn_pushmessageClick:) forControlEvents:UIControlEventTouchUpInside];
+            [pushMsg addSubview:btn_pushmessage];
             [self.view addSubview:pushMsg];
             zixunTel=[[UIView alloc] initWithFrame:CGRectMake(0, pushMsg.frame.origin.y+pushMsg.frame.size.height+1, SCREEN_WIDTH, 60)];
             zixunTel.backgroundColor=[UIColor whiteColor];
@@ -127,6 +132,9 @@
             UIImageView * img_go1=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-21, 20, 11, 16)];
             img_go1.image=[UIImage imageNamed:@"go.png"];
             [zixunTel addSubview:img_go1];
+            UIButton * btn_zixunTel=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, zixunTel.frame.size.width, zixunTel.frame.size.height)];
+            [btn_zixunTel addTarget:self action:@selector(btn_zixunTel:) forControlEvents:UIControlEventTouchUpInside];
+            [zixunTel addSubview:btn_zixunTel];
             [self.view addSubview:zixunTel];
             
             lbl_About=[[UILabel alloc] initWithFrame:CGRectMake(10, zixunTel.frame.size.height+zixunTel.frame.origin.y+10, 200, 15)];
@@ -183,6 +191,32 @@
     }
 }
 
+-(void)btn_pushmessageClick:(UIButton *)sender
+{
+    _mypushMessage=[[PushMessageViewController alloc] init];
+    [self.navigationController pushViewController:_mypushMessage animated:YES];
+}
+
+-(void)btn_zixunTel:(UIButton *)sender
+{
+    UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:@"是否拨打电话" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"拨打", nil];
+    [alert show];
+}
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (1==buttonIndex) {
+        DataProvider * datarovider=[[DataProvider alloc] init];
+        [datarovider setDelegateObject:self setBackFunctionName:@"zixunTelBackcall:"];
+        [datarovider GetSomeInfonWithType:@"contactphone"];
+    }
+}
+
+-(void)zixunTelBackcall:(id)dict
+{
+    if ([dict[@"status"] intValue]==1) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",dict[@"data"][@"contactphone"]]]]; //拨号
+    }
+}
 -(void)Btn_yijianClick
 {
     _setinfo=[[SetInfoViewController alloc] init];
@@ -278,12 +312,12 @@
             BackView_zhaopinxinxi=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+lastView.frame.origin.y, SCREEN_WIDTH, 100)];
         }
         UILabel * lbl_zhiweiname=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, 20)];
-        lbl_zhiweiname.text=[NSString stringWithFormat:@"%d、%@",i,array[i][@"zhiwei"]];
+        lbl_zhiweiname.text=[NSString stringWithFormat:@"%d、%@",i,array[i][@"zhiwei"]==[NSNull null]?@"":array[i][@"zhiwei"]];
         [BackView_zhaopinxinxi addSubview:lbl_zhiweiname];
         UILabel * lbl_zhiweicontent=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_zhiweiname.frame.size.height+10, SCREEN_WIDTH-20, 60)];
         [lbl_zhiweicontent setLineBreakMode:NSLineBreakByWordWrapping];
         lbl_zhiweicontent.numberOfLines=0;
-        lbl_zhiweicontent.text=array[i][@"content"];
+        lbl_zhiweicontent.text=array[i][@"content"]==[NSNull null]?@"":array[i][@"content"];
         [BackView_zhaopinxinxi addSubview:lbl_zhiweicontent];
         [self.view addSubview:BackView_zhaopinxinxi];
     }
@@ -307,7 +341,7 @@
     lbl_zishuzhiwei.backgroundColor=[UIColor clearColor];
     [self.view addSubview:lbl_zishuzhiwei];
     UIButton * btn_zhiwei=[[UIButton alloc] initWithFrame:CGRectMake(20, zhiwei.frame.origin.y+zhiwei.frame.size.height+10, SCREEN_WIDTH-40, 35)];
-    btn_zhiwei.backgroundColor=[UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
+    btn_zhiwei.backgroundColor=[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
     [btn_zhiwei addTarget:self action:@selector(zhiweiSubmit) forControlEvents:UIControlEventTouchUpInside];
     [btn_zhiwei setTitle:@"提交" forState:UIControlStateNormal];
     [self.view addSubview:btn_zhiwei];
@@ -352,12 +386,12 @@
             BackView_zhaopinxinxi=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+lastView.frame.origin.y, SCREEN_WIDTH, 100)];
         }
         UILabel * lbl_zhiweiname=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, 20)];
-        lbl_zhiweiname.text=[NSString stringWithFormat:@"%d、%@",i,array[i][@"title"]];
+        lbl_zhiweiname.text=[NSString stringWithFormat:@"%d、%@",i,array[i][@"title"]==[NSNull null]?@"":array[i][@"title"]];
         [BackView_zhaopinxinxi addSubview:lbl_zhiweiname];
         UILabel * lbl_zhiweicontent=[[UILabel alloc] initWithFrame:CGRectMake(10, lbl_zhiweiname.frame.size.height+10, SCREEN_WIDTH-20, 60)];
         [lbl_zhiweicontent setLineBreakMode:NSLineBreakByWordWrapping];
         lbl_zhiweicontent.numberOfLines=0;
-        lbl_zhiweicontent.text=array[i][@"content"];
+        lbl_zhiweicontent.text=array[i][@"content"]==[NSNull null]?@"":array[i][@"content"];
         [BackView_zhaopinxinxi addSubview:lbl_zhiweicontent];
         [self.view addSubview:BackView_zhaopinxinxi];
     }
@@ -381,7 +415,7 @@
     lbl_zishuzhaoshang.backgroundColor=[UIColor clearColor];
     [self.view addSubview:lbl_zishuzhaoshang];
     UIButton * btn_zhiwei=[[UIButton alloc] initWithFrame:CGRectMake(20, zhaoshang.frame.origin.y+zhaoshang.frame.size.height+10, SCREEN_WIDTH-40, 35)];
-    btn_zhiwei.backgroundColor=[UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
+    btn_zhiwei.backgroundColor=[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
     [btn_zhiwei addTarget:self action:@selector(zhaoshangSubmit) forControlEvents:UIControlEventTouchUpInside];
     [btn_zhiwei setTitle:@"提交" forState:UIControlStateNormal];
     [self.view addSubview:btn_zhiwei];

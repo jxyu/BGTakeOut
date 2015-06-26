@@ -203,7 +203,7 @@
         MenuFirstTypeArray=[[NSMutableArray alloc] initWithObjects:dict, nil];
         
         [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"2" andThreeid:@"9" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude]];
+            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude]];
         }];
         
         menuScrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH/3, _Page.frame.size.height-40)];
@@ -267,6 +267,7 @@
 -(void)BuildTextItem:(id)dict
 {
     [SVProgressHUD dismiss];
+    [mytableView footerEndRefreshing];
     NSLog(@"%@",dict);
     if ([dict[@"status"] intValue]==1) {
         
@@ -313,6 +314,8 @@
     BGBangTableViewCell *cell = (BGBangTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell  = [[[NSBundle mainBundle] loadNibNamed:@"BGBangTableViewCell" owner:self options:nil] lastObject];
+        cell.layer.masksToBounds=YES;
+        cell.bounds=CGRectMake(0, 0, tableView.frame.size.width, cell.frame.size.height);
         cell.Name.text=_TextArray[indexPath.row][@"resname"];
         cell.adress.text=_TextArray[indexPath.row][@"resaddress"];
         cell.logoImage.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,_TextArray[indexPath.row][@"reslogo"]]]]];
@@ -343,7 +346,15 @@
             cell.dianzan.tag=indexPath.row;
             [cell.dianzan addTarget:self action:@selector(dianzanFunction1:) forControlEvents:UIControlEventTouchUpInside];
         }
-        cell.lbl_renzheng.text=[NSString stringWithFormat:@"认证%@分",_TextArray[indexPath.row][@"authenscore"]];
+        if (_TextArray[indexPath.row][@"authenscore"]!=[NSNull null]&&[_TextArray[indexPath.row][@"authenscore"] intValue]>0) {
+            cell.lbl_renzheng.text=[NSString stringWithFormat:@"认证%@分",_TextArray[indexPath.row][@"authenscore"]];
+        }
+        else
+        {
+            cell.lbl_renzheng.hidden=YES;
+            cell.renzheng.hidden=YES;
+        }
+        
         [cell.Btn_share addTarget:self action:@selector(BGBangShare:) forControlEvents:UIControlEventTouchUpInside];
         [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
     }

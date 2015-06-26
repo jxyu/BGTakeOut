@@ -48,7 +48,7 @@
 
 -(void)CheckBackCall:(id)dict
 {
-    if ([dict[@"status"] intValue]==0) {
+    if ([dict[@"status"] intValue]==1) {
         VerifyViewController* verify=[[VerifyViewController alloc] init];
         [verify setPhone:_txt_PhoneNum.text AndAreaCode:@"86"];
         

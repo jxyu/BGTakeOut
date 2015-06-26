@@ -12,20 +12,16 @@
 #import "Pingpp.h"
 #import "CommenDef.h"
 #import "OrderInfoViewController.h"
-#define KWidth self.view.frame.size.width
-#define KHeight self.view.frame.size.height
-
+#import "AddressListViewController.h"
 
 @interface OrderForSureViewController ()
-
+@property(nonatomic,strong)AddressListViewController * myaddresslist;
 @end
 
 @implementation OrderForSureViewController
 {
     NSDictionary *OrderInfo;
     UIView * myPage;
-    UITextField *txt_phoneNum;
-    UITextField *txt_address;
     
     UITextView * Costommessage;
     UILabel *uilabel;
@@ -38,7 +34,7 @@
     BOOL PayWX;
     
     NSDictionary *dictionary;
-    NSArray * address;
+    NSDictionary * address;
     NSDictionary * orderinfodetial;
     
 }
@@ -49,12 +45,14 @@
     PayOnLineForChange=YES;
     PayWX=NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"OrderPay_success" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectAddressBackCall:) name:@"select_address" object:nil];
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self setBarTitle:@"订单确认"];
     [self addLeftButton:@"ic_actionbar_back.png"];
     [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     
-    myPage=[[UIView alloc]initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+21, KWidth, KHeight-NavigationBar_HEIGHT-20)];
+    address =[[NSDictionary alloc] init];
+    myPage=[[UIView alloc]initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+21, SCREEN_WIDTH, SCREEN_HEIGHT-NavigationBar_HEIGHT-20)];
     myPage.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self.view addSubview:myPage];
     
@@ -67,45 +65,28 @@
     [dataprovider setDelegateObject:self setBackFunctionName:@"Btn_AddressDefaultBackCall:"];
     [dataprovider GetUserAddressListWithPage:@"1" andnum:@"8" anduserid:dictionary[@"userid"] andisgetdefault:@"1"];
     
-    UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, 5, KWidth, 40)];
+    UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, 5, SCREEN_WIDTH, 50)];
+    BackgroundView1.backgroundColor=[UIColor whiteColor];
     if (!address) {
-        BackgroundView1.backgroundColor=[UIColor whiteColor];
-        UILabel * PhoneNum =[[UILabel alloc ] initWithFrame:CGRectMake(10, 10, 20, 30)];
-        PhoneNum.text=@"＊";
-        PhoneNum.textColor=[UIColor redColor];
-        [BackgroundView1 addSubview:PhoneNum];
-        UIView * lastView=[[BackgroundView1 subviews] lastObject];
-        CGFloat x=lastView.frame.origin.x+lastView.frame.size.width;
-        txt_phoneNum=[[UITextField alloc] initWithFrame:CGRectMake(x, 0, 200, 40)];
-        [txt_phoneNum setKeyboardType:UIKeyboardTypeNumberPad];
-        [txt_phoneNum setPlaceholder:@"手机号"];
-        [BackgroundView1 addSubview:txt_phoneNum];
+        UIImageView * img_add=[[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 20, 20)];
+        img_add.image=[UIImage imageNamed:@"add-40"];
+        [BackgroundView1 addSubview:img_add];
+        UILabel * lbl_addtitle=[[UILabel alloc] initWithFrame:CGRectMake(img_add.frame.origin.x+img_add.frame.size.width+10, 15, 200, 20)];
+        lbl_addtitle.text=@"新增收餐地址";
+        lbl_addtitle.textColor=[UIColor redColor];
+        [BackgroundView1 addSubview:lbl_addtitle];
+        UIButton * btn_addaddress=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, BackgroundView1.frame.size.width, BackgroundView1.frame.size.height)];
+        [btn_addaddress addTarget:self action:@selector(Btn_addressAddClick) forControlEvents:UIControlEventTouchUpInside];
+        [BackgroundView1 addSubview:btn_addaddress];
         [myPage addSubview:BackgroundView1];
-        lastView=BackgroundView1;
-        UIView * BackgroundView2=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+lastView.frame.origin.y+1, KWidth, 40)];
-        BackgroundView2.backgroundColor=[UIColor whiteColor];
-        UILabel * Pwd =[[UILabel alloc ] initWithFrame:CGRectMake(10, 10, 20, 30)];
-        Pwd.text=@"＊";
-        Pwd.textColor=[UIColor redColor];
-        [BackgroundView2 addSubview:Pwd];
-        lastView=[[BackgroundView2 subviews] lastObject];
-        x=lastView.frame.origin.x+lastView.frame.size.width;
-        txt_address=[[UITextField alloc] initWithFrame:CGRectMake(x, 0, 200, 40)];
-        [txt_address setPlaceholder:@"送餐地址"];
-        [txt_address setKeyboardType:UIKeyboardTypeDefault];
-        [BackgroundView2 addSubview:txt_address];
-        [myPage addSubview:BackgroundView2];
     }
-    
-    
-    
     UIView * lastView=[myPage.subviews lastObject];
-    UIView * fillview=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+lastView.frame.origin.y, KWidth, 5)];
+    UIView * fillview=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+lastView.frame.origin.y, SCREEN_WIDTH, 5)];
     [myPage addSubview:fillview];
     
     for (int i=0; i<_orderData.count; i++) {
          lastView=[myPage.subviews lastObject];
-        UIView *orderBackground=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+1, KWidth,30)];
+        UIView *orderBackground=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+1, SCREEN_WIDTH,30)];
         UIView * icon=[[UIView alloc] initWithFrame:CGRectMake(10, 12.5, 5, 5)];
         icon.layer.masksToBounds=YES;
         icon.layer.cornerRadius=2.5;
@@ -127,7 +108,7 @@
     }
     
     lastView=[myPage.subviews lastObject];
-    Costommessage=[[UITextView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+lastView.frame.origin.y+5, KWidth, 80)];
+    Costommessage=[[UITextView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+lastView.frame.origin.y+5, SCREEN_WIDTH, 80)];
     [Costommessage setKeyboardType:UIKeyboardTypeDefault];
     Costommessage.delegate=self;
     [myPage addSubview:Costommessage];
@@ -137,7 +118,7 @@
     uilabel.enabled = NO;//lable必须设置为不可用
     uilabel.backgroundColor = [UIColor clearColor];
     [myPage addSubview:uilabel];
-    lbl_zishu=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-160, lastView.frame.size.height+lastView.frame.origin.y+Costommessage.frame.size.height-15, 150, 15)];
+    lbl_zishu=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-160, lastView.frame.size.height+lastView.frame.origin.y+Costommessage.frame.size.height-15, 150, 15)];
     lbl_zishu.text=@"还能输入140个字";
     lbl_zishu.font=[UIFont systemFontOfSize:13];
     lbl_zishu.enabled=NO;
@@ -145,7 +126,7 @@
     [myPage addSubview:lbl_zishu];
     
     lastView=Costommessage;
-    UIView *peisongfeiView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+5, KWidth, 40)];
+    UIView *peisongfeiView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+5, SCREEN_WIDTH, 40)];
     peisongfeiView.backgroundColor=[UIColor whiteColor];
     UILabel * lbl_peisongfei=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 20)];
     lbl_peisongfei.text=@"配送费";
@@ -159,15 +140,15 @@
     [myPage addSubview:peisongfeiView];
     
     lastView=[myPage.subviews lastObject];
-    UIView * PayWayBackView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+5, KWidth, 80)];
+    UIView * PayWayBackView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+5, SCREEN_WIDTH, 80)];
     PayWayBackView.backgroundColor=[UIColor whiteColor];
     UILabel * lbl_payname=[[UILabel alloc] initWithFrame:CGRectMake(10, 5, 150, 20)];
     lbl_payname.text=@"支付方式";
     [PayWayBackView addSubview:lbl_payname];
-    UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(10, 40, KWidth-20, 1)];
+    UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(10, 40, SCREEN_WIDTH-20, 1)];
     fenge.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [PayWayBackView addSubview:fenge];
-    PayOnLine=[[UIButton alloc] initWithFrame:CGRectMake((KWidth/3-100)/2, 48, 100, 25)];
+    PayOnLine=[[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH/3-100)/2, 48, 100, 25)];
     [PayOnLine setTitle:@"支付宝" forState:UIControlStateNormal];
     PayOnLine.titleLabel.font=[UIFont systemFontOfSize:15];
     PayOnLine.tag=1;
@@ -175,7 +156,7 @@
     [PayOnLine addTarget:self action:@selector(ChangePayWay:) forControlEvents:UIControlEventTouchUpInside];
     [PayOnLine setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [PayWayBackView addSubview:PayOnLine];
-    PayWXWay=[[UIButton alloc] initWithFrame:CGRectMake(PayOnLine.frame.origin.x+PayOnLine.frame.size.width+(KWidth/3-100)/2, 48, 100, 25)];
+    PayWXWay=[[UIButton alloc] initWithFrame:CGRectMake(PayOnLine.frame.origin.x+PayOnLine.frame.size.width+(SCREEN_WIDTH/3-100)/2, 48, 100, 25)];
     [PayWXWay setTitle:@"微信支付" forState:UIControlStateNormal];
     PayWXWay.titleLabel.font=[UIFont systemFontOfSize:15];
     PayWXWay.tag=2;
@@ -183,7 +164,7 @@
     [PayWXWay addTarget:self action:@selector(ChangePayWay:) forControlEvents:UIControlEventTouchUpInside];
     [PayWXWay setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [PayWayBackView addSubview:PayWXWay];
-    PayOutLine=[[UIButton alloc] initWithFrame:CGRectMake(PayWXWay.frame.origin.x+PayWXWay.frame.size.width+(KWidth/3-100)/2, 48, 100, 25)];
+    PayOutLine=[[UIButton alloc] initWithFrame:CGRectMake(PayWXWay.frame.origin.x+PayWXWay.frame.size.width+(SCREEN_WIDTH/3-100)/2, 48, 100, 25)];
     [PayOutLine setTitle:@"货到付款" forState:UIControlStateNormal];
     [PayOutLine setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [PayOutLine setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
@@ -194,7 +175,7 @@
     [myPage addSubview:PayWayBackView];
     
     lastView=[myPage.subviews lastObject];
-    UIButton * submitOrder=[[UIButton alloc] initWithFrame:CGRectMake(20, lastView.frame.origin.y+lastView.frame.size.height+5, KWidth-40, 30)];
+    UIButton * submitOrder=[[UIButton alloc] initWithFrame:CGRectMake(20, lastView.frame.origin.y+lastView.frame.size.height+5, SCREEN_WIDTH-40, 30)];
     [submitOrder setTitle:@"提交订单" forState:UIControlStateNormal];
     [submitOrder setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     submitOrder.backgroundColor=[UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
@@ -203,6 +184,22 @@
     [submitOrder addTarget:self action:@selector(SubmitOrderfunc) forControlEvents:UIControlEventTouchUpInside];
     [myPage addSubview:submitOrder];
     [SVProgressHUD dismiss];
+}
+
+-(void)Btn_addressAddClick
+{
+    if (dictionary){
+        self.myaddresslist=[[AddressListViewController alloc] init];
+        self.myaddresslist.userid=dictionary[@"userid"];
+        self.myaddresslist.isSelect=YES;
+        [self.navigationController pushViewController:_myaddresslist animated:YES];
+    }else
+    {
+        _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
+        UIView * item =_myLogin.view;
+        [_myLogin setDelegateObject:self setBackFunctionName:@"LoginBackCall:"];
+        [self.view addSubview:item];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -214,12 +211,6 @@
 {
     [self.view removeFromSuperview];
 }
--(void)RightButtonClick
-{
-    [txt_phoneNum resignFirstResponder];
-    [txt_address resignFirstResponder];
-}
-
 -(void)textViewDidChange:(UITextView *)textView
 {
     int textlength=textView.text.length ;
@@ -250,7 +241,7 @@
     }
     if(2==sender.tag)
     {
-        PayOnLineForChange=NO;
+        PayOnLineForChange=YES;
         PayWX=YES;
         [PayWXWay setImage:[UIImage imageNamed:@"RadioButtonSelected"] forState:UIControlStateNormal];
         [PayOutLine setImage:[UIImage imageNamed:@"RadioButton"] forState:UIControlStateNormal];
@@ -284,7 +275,10 @@
 -(void)LoginBackCall:(id)dict
 {
     if (1==[dict[@"status"] integerValue]) {
-        [self BuildDataToSubmit:dict[@"data"]];
+        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+        dictionary =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
     }
 }
 #pragma mark 构建提交订餐所需的参数
@@ -297,15 +291,9 @@
     
     if (dict[@"userid"]) {
         if (address) {
-            [prm setObject:address[0][@"addressdetail"] forKey:@"address"];
-            [prm setObject:address[0][@"phonenum"] forKey:@"phonenum"];
-        }
-        else
-        {
-            [prm setObject:txt_address.text forKey:@"address"];
-            [prm setObject:txt_phoneNum.text forKey:@"phonenum"];
-        }
-        [prm setObject:dict[@"userid"] forKey:@"userid"];
+            [prm setObject:address[@"addressdetail"] forKey:@"address"];
+            [prm setObject:address[@"phonenum"] forKey:@"phonenum"];
+        }        [prm setObject:dict[@"userid"] forKey:@"userid"];
         
         if (dict[@"username"]) {
             [prm setObject:dict[@"userid"] forKey:@"username"];
@@ -395,13 +383,28 @@
     if (dict) {
         NSData* jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
         NSString* str_data = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        [Pingpp createPayment:str_data viewController:self appURLScheme:@"BGTakeOut" withCompletion:^(NSString *result, PingppError *error) {
-            if ([result isEqualToString:@"success"]) {
-                NSLog(@"支付成功");
-        } else {
-            NSLog(@"PingppError: code=%lu msg=%@", (unsigned long)error.code, [error getMsg]);
+        
+        if (PayOnLineForChange) {
+            if (PayWX) {
+                [Pingpp createPayment:str_data viewController:self appURLScheme:@"wx9039702cc87118c0" withCompletion:^(NSString *result, PingppError *error) {
+                    if ([result isEqualToString:@"success"]) {
+                        NSLog(@"支付成功");
+                    } else {
+                        NSLog(@"PingppError: code=%lu msg=%@", (unsigned long)error.code, [error getMsg]);
+                    }
+                }];
+            }else{
+                [Pingpp createPayment:str_data viewController:self appURLScheme:@"BGTakeOut" withCompletion:^(NSString *result, PingppError *error) {
+                    if ([result isEqualToString:@"success"]) {
+                        NSLog(@"支付成功");
+                    } else {
+                        NSLog(@"PingppError: code=%lu msg=%@", (unsigned long)error.code, [error getMsg]);
+                    }
+                }];
+            }
+            
         }
-        }];
+        
         
     }
 }
@@ -412,32 +415,43 @@
 -(void)Btn_AddressDefaultBackCall:(id)dict
 {
     if (1==[dict[@"status"] intValue]) {
-        address=dict[@"data"];
-        UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, 5, KWidth, 80)];
+        NSArray * arrayitem=[[NSArray alloc] init];
+        arrayitem=dict[@"data"];
+        if (arrayitem.count>0) {
+            address=arrayitem[0];
+        }
+        
+    }
+    [self BuildDefaultAddress];
+}
+
+
+-(void)BuildDefaultAddress
+{
+    if (address) {
+        UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
         BackgroundView1.backgroundColor=[UIColor grayColor];
-        UILabel * lbl_name=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 40, 20)];
-        lbl_name.text=address[0][@"realname"];
+        UILabel * lbl_name=[[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, 20)];
+        lbl_name.text=address[@"realname"];
         lbl_name.textColor=[UIColor whiteColor];
         [BackgroundView1 addSubview:lbl_name];
-        UILabel * lbl_phoneNum=[[UILabel alloc] initWithFrame:CGRectMake(KWidth-200, 10, 150, 20)];
-        lbl_phoneNum.text=address[0][@"phonenum"];
+        UILabel * lbl_phoneNum=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-160, 0, 150, 20)];
+        lbl_phoneNum.text=address[@"phonenum"];
         lbl_phoneNum.textColor=[UIColor whiteColor];
         [BackgroundView1 addSubview:lbl_phoneNum];
-        UILabel * lbl_address=[[UILabel alloc]initWithFrame:CGRectMake(10, lbl_name.frame.origin.y+lbl_name.frame.size.height+5,KWidth-50 , 30)];
+        UILabel * lbl_address=[[UILabel alloc]initWithFrame:CGRectMake(10, lbl_name.frame.origin.y+lbl_name.frame.size.height+3,SCREEN_WIDTH-50 , 20)];
         [lbl_address setLineBreakMode:NSLineBreakByWordWrapping];
         lbl_address.numberOfLines=0;
         lbl_address.font=[UIFont systemFontOfSize:13];
-        lbl_address.text=[NSString stringWithFormat:@"［默认］%@",address[0][@"addressdetail"]];
+        lbl_address.text=[NSString stringWithFormat:@"［默认］%@",address[@"addressdetail"]];
         lbl_address.textColor=[UIColor whiteColor];
         [BackgroundView1 addSubview:lbl_address];
+        UIButton * btn_addaddress=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, BackgroundView1.frame.size.width, BackgroundView1.frame.size.height)];
+        [btn_addaddress addTarget:self action:@selector(Btn_addressAddClick) forControlEvents:UIControlEventTouchUpInside];
+        [BackgroundView1 addSubview:btn_addaddress];
         [myPage addSubview:BackgroundView1];
-    }else
-    {
-        
     }
-    
 }
-
 
 -(void)existUserInfo
 {
@@ -447,6 +461,12 @@
     orderinfoVC.orderData=_orderData;
     [self.navigationController pushViewController:orderinfoVC animated:YES];
 
+}
+
+-(void)selectAddressBackCall:(NSNotification *)notice
+{
+    address=[notice object];
+    [self BuildDefaultAddress];
 }
 
 @end

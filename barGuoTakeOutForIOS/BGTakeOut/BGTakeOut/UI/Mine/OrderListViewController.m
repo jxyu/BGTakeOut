@@ -51,6 +51,7 @@
 -(void)GetOrderListBackCall:(id)dict
 {
     [SVProgressHUD dismiss];
+    [TableView_orderList footerEndRefreshing];
     if (1==[dict[@"status"] intValue]) {
         NSLog(@"order列表%@",dict);
         NSArray * array=dict[@"data"];
@@ -71,6 +72,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    
     return  1;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -149,6 +151,31 @@
     self.orderInfoVC=[[OrderInfoViewController alloc] init];
     _orderInfoVC.orderInfoDetial=orderListdata[indexPath.section];
     [self.navigationController pushViewController:_orderInfoVC animated:YES];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [orderListdata removeObjectAtIndex:indexPath.row];
+        // Delete the row from the data source.
+//        [TableView_orderList deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [TableView_orderList reloadData];
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"DelItemBackCall:"];
+        [dataprovider delOrderListItem:orderListdata[indexPath.row][@"ordernum"]];
+    }
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+    }
+}
+
+-(void)DelItemBackCall:(id)dict
+{
+    NSLog(@"%@",dict);
 }
 
 - (void)didReceiveMemoryWarning {

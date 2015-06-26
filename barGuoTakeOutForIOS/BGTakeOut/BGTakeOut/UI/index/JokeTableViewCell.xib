@@ -48,6 +48,8 @@
                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             </tableViewCellContentView>
             <connections>
+                <outlet property="BackViewBody" destination="fca-p3-d76" id="oHj-ce-EI2"/>
+                <outlet property="BackViewTitle" destination="pR8-l2-m6s" id="sn5-dj-ptB"/>
                 <outlet property="jokecontent" destination="q9i-Di-vkB" id="jma-Ug-rhq"/>
                 <outlet property="jokedate" destination="JVh-W7-IL0" id="QBS-OI-MTf"/>
                 <outlet property="jokename" destination="f0E-A6-0ww" id="p9w-co-F64"/>

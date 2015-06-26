@@ -102,7 +102,7 @@
 #pragma mark 获取城市列表
 -(void)GetArea:(NSString *) areaid andareatype:(NSString *)areatype
 {
-    NSString * url=[NSString stringWithFormat:@"%@getaddress.php",KURL];
+    NSString * url=[NSString stringWithFormat:@"%@server/Home/Node/api_getAvailableAddress",KURL];
     NSDictionary * prm =@{@"areaid":areaid,@"type":areatype};
     [self PostRequest:url andpram:prm];
     
@@ -206,9 +206,9 @@
 
 -(void)GetWeather:(NSString *)city
 {
-    NSString * url=@"http://api.36wu.com/Weather/GetMoreWeather";
-    NSDictionary * prm=@{@"district":city,@"format":@"json"};
-    [self PostRequest2:url andpram:prm];
+    NSString * url=[[NSString stringWithFormat:@"http://weather.51wnl.com/weatherinfo/GetMoreWeather?cityCode=%@&weatherType=1",city] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    NSDictionary * prm=@{@"cityname":city,@"key":@"402eb90f44824ec9a124735dc5eeddbc"};
+    [self PostRequest2:url andpram:nil];
 }
 -(void)GetUserInfoWithUserID:(NSString *)userid
 {
@@ -345,6 +345,7 @@
 -(void)GetOrdersList:(id)prm
 {
     if (prm) {
+//        NSString * url=[NSString stringWithFormat:@"%@server/Home/Order/api_getMyOrders",KURL];
         NSString * url=[NSString stringWithFormat:@"%@getorders.php",KURL];
         [self PostRequest:url andpram:prm];
     }
@@ -514,6 +515,30 @@
     }
 }
 
+-(void)delOrderListItem:(NSString *)ordernum
+{
+    if (ordernum) {
+        NSDictionary * prm =@{@"ordernumstr":ordernum};
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Order/api_deleteOrder",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+
+-(void)delAddress:(NSString *)addid
+{
+    if (addid) {
+        NSDictionary * prm =@{@"addid":addid};
+        NSString * url=[NSString stringWithFormat:@"%@deleteaddress.php",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+
+-(void)getRuller
+{
+    NSString * url=[NSString stringWithFormat:@"%@server/Home/My/api_getDailyStar",KURL];
+    [self PostRequest:url andpram:nil];
+}
 
 -(void)PostRequest:(NSString *)url andpram:(NSDictionary *)pram
 {
@@ -552,7 +577,7 @@
     AFHTTPRequestOperationManager * manage=[[AFHTTPRequestOperationManager alloc] init];
     manage.responseSerializer=[AFHTTPResponseSerializer serializer];
     manage.requestSerializer=[AFHTTPRequestSerializer serializer];
-    manage.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/json"];//可接收到的数据类型
+    manage.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/html"];//可接收到的数据类型
     manage.requestSerializer.timeoutInterval=10;//设置请求时限
     NSDictionary * prm =[[NSDictionary alloc] init];
     if (pram!=nil) {
@@ -612,13 +637,13 @@
 #pragma mark 获得餐厅评价
 -(void)getCommentsWihtPage:(NSInteger)page num:(NSInteger)num resid:(NSInteger)resid iscontaintext:(NSInteger)isText{
     NSDictionary* param=@{@"page":    [NSString stringWithFormat:@"%ld",page],@"num":    [NSString stringWithFormat:@"%ld",num],@"resid":    [NSString stringWithFormat:@"%ld",resid],@"iscontaintext":    [NSString stringWithFormat:@"%ld",isText]};
-    NSString * url=[NSString stringWithFormat:@"%@getcomments.php",KURL];
+    NSString * url=[NSString stringWithFormat:@"%@server/Home/Node/api_getResComment",KURL];
     [self PostRequest:url andpram:param];
 }
-#pragma mark 获得订单详情
+#pragma mark 餐厅评论获得订单详情
 -(void)getOrderDetailWithOrdernum:(NSString*)ordernum {
     NSDictionary* param=@{@"ordernum":ordernum };
-    NSString * url=[NSString stringWithFormat:@"%@getorderdetail.php",KURL];
+    NSString * url=[NSString stringWithFormat:@"%@server/Home/Order/api_getOrderDetail",KURL];
     [self PostRequest:url andpram:param];
 }
 #pragma mark 获得巴国榜分类

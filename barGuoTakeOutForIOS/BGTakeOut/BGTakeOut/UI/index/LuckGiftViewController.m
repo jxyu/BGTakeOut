@@ -18,14 +18,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _lblTitle.text=@"每日幸运星";
+    _lblTitle.text=@"每月幸运星";
     [self addLeftButton:@"ic_actionbar_back.png"];
     
     
     _btn_getnumber.layer.masksToBounds=YES;
     _btn_getnumber.layer.cornerRadius=3;
     [_btn_getnumber addTarget:self action:@selector(btn_getnumberClick) forControlEvents:UIControlEventTouchUpInside];
-    
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetRulueBackCall:"];
+    [dataprovider getRuller];
+}
+-(void)GetRulueBackCall:(id)dict
+{
+    NSLog(@"抽奖规则%@",dict);
+    if ([dict[@"status"] intValue]==1) {
+        _lbl_roll.text=dict[@"data"][@"dailystar"];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

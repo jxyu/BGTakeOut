@@ -15,8 +15,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
-#define KWidth self.view.frame.size.width
-#define KHeight self.view.frame.size.height
 #define ORIGINAL_MAX_WIDTH 640.0f
 #define KURL @"http://121.42.139.60/baguo/"
 
@@ -27,6 +25,7 @@
 
 @implementation UserInfoViewController
 {
+    NSMutableDictionary * userinfoWithFile;
     UIImageView * img_touxiang;
     UITextField *txt_pwd;
     UITextField * txt_phoneNum;
@@ -55,9 +54,9 @@
 }
 -(void)BuildView
 {
-    UIView * BackOfUserPhonenum =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+22, KWidth, 40)];
+    UIView * BackOfUserPhonenum =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+22, SCREEN_WIDTH, 40)];
     BackOfUserPhonenum.backgroundColor=[UIColor whiteColor];
-    UILabel * Phonenum=[[UILabel alloc] initWithFrame:CGRectMake(10, (BackOfUserPhonenum.frame.size.height-20)/2, KWidth-100, 20)];
+    UILabel * Phonenum=[[UILabel alloc] initWithFrame:CGRectMake(10, (BackOfUserPhonenum.frame.size.height-20)/2, SCREEN_WIDTH-100, 20)];
     NSMutableString *String1 = [[NSMutableString alloc] initWithString:_UserInfoData[@"username"]];
     if (String1.length>10) {
         [String1 replaceCharactersInRange:NSMakeRange(3,4) withString:@"****"];
@@ -67,12 +66,12 @@
     [self.view addSubview:BackOfUserPhonenum];
     
     
-    touxiangView =[[UIView alloc] initWithFrame:CGRectMake(0, BackOfUserPhonenum.frame.origin.y+BackOfUserPhonenum.frame.size.height+1, KWidth, 60)];
+    touxiangView =[[UIView alloc] initWithFrame:CGRectMake(0, BackOfUserPhonenum.frame.origin.y+BackOfUserPhonenum.frame.size.height+1, SCREEN_WIDTH, 60)];
     touxiangView.backgroundColor=[UIColor whiteColor];
-    UILabel * lbl_touxiang=[[UILabel alloc] initWithFrame:CGRectMake(10, (touxiangView.frame.size.height-20)/2, KWidth-200, 20)];
+    UILabel * lbl_touxiang=[[UILabel alloc] initWithFrame:CGRectMake(10, (touxiangView.frame.size.height-20)/2, SCREEN_WIDTH-200, 20)];
     lbl_touxiang.text=@"头像";
     [touxiangView addSubview:lbl_touxiang];
-    UIImageView * goImage=[[UIImageView alloc] initWithFrame:CGRectMake(KWidth-10-20, (touxiangView.frame.size.height-15)/2, 10, 15)];
+    UIImageView * goImage=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-10-20, (touxiangView.frame.size.height-15)/2, 10, 15)];
     
     goImage.image=[UIImage imageNamed:@"go.png"];
     [touxiangView addSubview:goImage];
@@ -87,12 +86,12 @@
     [btn_touxiang addTarget:self action:@selector(Btn_touxiangClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn_touxiang];
     
-    UIView * V_Name=[[UIView alloc] initWithFrame:CGRectMake(0, touxiangView.frame.origin.y+touxiangView.frame.size.height+1, KWidth, 40)];
+    UIView * V_Name=[[UIView alloc] initWithFrame:CGRectMake(0, touxiangView.frame.origin.y+touxiangView.frame.size.height+1, SCREEN_WIDTH, 40)];
     V_Name.backgroundColor=[UIColor whiteColor];
-    UILabel * lbl_name=[[UILabel alloc] initWithFrame:CGRectMake(10, (V_Name.frame.size.height-20)/2, KWidth-200, 20)];
+    UILabel * lbl_name=[[UILabel alloc] initWithFrame:CGRectMake(10, (V_Name.frame.size.height-20)/2, SCREEN_WIDTH-200, 20)];
     lbl_name.text=@"昵称";
     [V_Name addSubview:lbl_name];
-    UIImageView * goImage1=[[UIImageView alloc] initWithFrame:CGRectMake(KWidth-10-20, (V_Name.frame.size.height-15)/2, 10, 15)];
+    UIImageView * goImage1=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-10-20, (V_Name.frame.size.height-15)/2, 10, 15)];
     goImage1.image=[UIImage imageNamed:@"go.png"];
     [V_Name addSubview:goImage1];
     [self.view addSubview:V_Name];
@@ -101,12 +100,12 @@
     [btn_changenickname addTarget:self action:@selector(changeNickName) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn_changenickname];
     
-    UIView * V_pwd=[[UIView alloc] initWithFrame:CGRectMake(0, V_Name.frame.origin.y+V_Name.frame.size.height+1, KWidth, 40)];
+    UIView * V_pwd=[[UIView alloc] initWithFrame:CGRectMake(0, V_Name.frame.origin.y+V_Name.frame.size.height+1, SCREEN_WIDTH, 40)];
     V_pwd.backgroundColor=[UIColor whiteColor];
-    UILabel * lbl_pwd=[[UILabel alloc] initWithFrame:CGRectMake(10, (V_pwd.frame.size.height-20)/2, KWidth-200, 20)];
+    UILabel * lbl_pwd=[[UILabel alloc] initWithFrame:CGRectMake(10, (V_pwd.frame.size.height-20)/2, SCREEN_WIDTH-200, 20)];
     lbl_pwd.text=@"修改密码";
     [V_pwd addSubview:lbl_pwd];
-    UIImageView * goImage2=[[UIImageView alloc] initWithFrame:CGRectMake(KWidth-10-20, (V_pwd.frame.size.height-15)/2, 10, 15)];
+    UIImageView * goImage2=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-10-20, (V_pwd.frame.size.height-15)/2, 10, 15)];
     goImage2.image=[UIImage imageNamed:@"go.png"];
     [V_pwd addSubview:goImage2];
     [self.view addSubview:V_pwd];
@@ -115,12 +114,12 @@
     btn_pwd.frame=V_pwd.frame;
     [self.view addSubview:btn_pwd];
     
-    UIView * V_address=[[UIView alloc] initWithFrame:CGRectMake(0, V_pwd.frame.origin.y+V_pwd.frame.size.height+1, KWidth, 40)];
+    UIView * V_address=[[UIView alloc] initWithFrame:CGRectMake(0, V_pwd.frame.origin.y+V_pwd.frame.size.height+1, SCREEN_WIDTH, 40)];
     V_address.backgroundColor=[UIColor whiteColor];
-    UILabel * lbl_address=[[UILabel alloc] initWithFrame:CGRectMake(10, (V_address.frame.size.height-20)/2, KWidth-200, 20)];
+    UILabel * lbl_address=[[UILabel alloc] initWithFrame:CGRectMake(10, (V_address.frame.size.height-20)/2, SCREEN_WIDTH-200, 20)];
     lbl_address.text=@"我的收货地址";
     [V_address addSubview:lbl_address];
-    UIImageView * goImage3=[[UIImageView alloc] initWithFrame:CGRectMake(KWidth-10-20, (V_address.frame.size.height-15)/2, 10, 15)];
+    UIImageView * goImage3=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-10-20, (V_address.frame.size.height-15)/2, 10, 15)];
     goImage3.image=[UIImage imageNamed:@"go.png"];
     [V_address addSubview:goImage3];
     [self.view addSubview:V_address];
@@ -376,6 +375,11 @@
     NSLog(@"%@",dict);
     [img_touxiang setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,dict[@"data"][@"url"]]]]]
      ];
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+    userinfoWithFile =[[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    [userinfoWithFile setObject:dict[@"data"][@"url"] forKey:@"avatar"];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"ChangeAvatarBackCall:"];
     [dataprovider ChangeAvatar:dict[@"data"][@"url"] anduserid:_UserInfoData[@"userid"]];
@@ -384,6 +388,19 @@
 {
     [SVProgressHUD dismiss];
     NSLog(@"%@",dict);
+    if ([dict[@"status"] intValue]==1) {
+        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+        BOOL result= [userinfoWithFile writeToFile:plistPath atomically:YES];
+        if (result) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"change_Success" object:nil];
+            [self.navigationController popoverPresentationController];
+
+        }
+        
+    }
+    
 }
 
 
@@ -395,7 +412,7 @@
 
 -(void)resetPwd
 {
-    _page=[[UIView alloc] initWithFrame:CGRectMake(0, 0, KWidth, KHeight)];
+    _page=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     _page.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self.view addSubview:_page];
     UINavigationBar * navigationBarsub = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, 64)];
@@ -410,7 +427,7 @@
     [mynavigationItemsub setLeftBarButtonItem:leftButton];
     [_page addSubview:navigationBarsub];
     
-    UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, navigationBarsub.frame.size.height, KWidth, 40)];
+    UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, navigationBarsub.frame.size.height, SCREEN_WIDTH, 40)];
     BackgroundView1.backgroundColor=[UIColor whiteColor];
     UILabel * PhoneNum =[[UILabel alloc ] initWithFrame:CGRectMake(10, 5, 80, 30)];
     PhoneNum.text=@"旧密码：";
@@ -424,7 +441,7 @@
     [_page addSubview:BackgroundView1];
     
     lastView=BackgroundView1;
-    UIView * BackgroundView2=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+lastView.frame.origin.y+1, KWidth, 40)];
+    UIView * BackgroundView2=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+lastView.frame.origin.y+1, SCREEN_WIDTH, 40)];
     BackgroundView2.backgroundColor=[UIColor whiteColor];
     UILabel * Pwd =[[UILabel alloc ] initWithFrame:CGRectMake(10, 5, 80, 30)];
     Pwd.text=@"新密码：";
@@ -468,7 +485,7 @@
 
 -(void)changeNickName
 {
-    _page=[[UIView alloc] initWithFrame:CGRectMake(0, 0, KWidth, KHeight)];
+    _page=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     _page.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self.view addSubview:_page];
     UINavigationBar * navigationBarsub = [[UINavigationBar alloc] initWithFrame:CGRectMake(0,0, self.view.frame.size.width, 64)];
@@ -482,7 +499,7 @@
     [navigationBarsub pushNavigationItem:mynavigationItemsub animated:NO];
     [mynavigationItemsub setLeftBarButtonItem:leftButton];
     [_page addSubview:navigationBarsub];
-    UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, navigationBarsub.frame.size.height, KWidth, 40)];
+    UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, navigationBarsub.frame.size.height, SCREEN_WIDTH, 40)];
     BackgroundView1.backgroundColor=[UIColor whiteColor];
     UILabel * PhoneNum =[[UILabel alloc ] initWithFrame:CGRectMake(10, 5, 80, 30)];
     PhoneNum.text=@"昵称：";
@@ -515,6 +532,7 @@
     if (_UserInfoData[@"userid"]) {
         self.myaddressList=[[AddressListViewController alloc] init];
         self.myaddressList.userid=_UserInfoData[@"userid"];
+        self.myaddressList.isSelect=NO;
         [self.navigationController pushViewController:_myaddressList animated:YES];
     }
 }

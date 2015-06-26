@@ -36,8 +36,9 @@
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self setBarTitle:@"收货地址"];
     [self addLeftButton:@"ic_actionbar_back.png"];
-    [self addRightbuttontitle:@"保存"];
+    
     if (_dict) {
+        [self addRightbuttontitle:@"修改"];
         UIView * BackView_name=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, ScreenWidth, 40)];
         BackView_name.backgroundColor=[UIColor whiteColor];
         UILabel * lbl_nameTitle=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 20)];
@@ -45,7 +46,7 @@
         [lbl_nameTitle setTextColor:[UIColor grayColor]];
         [BackView_name addSubview:lbl_nameTitle];
         txt_name=[[UITextField alloc] initWithFrame:CGRectMake(lbl_nameTitle.frame.origin.x+lbl_nameTitle.frame.size.width+10, 10, ScreenWidth-110, 20)];
-        txt_name.placeholder=_dict[@"realname"];
+        txt_name.text=_dict[@"realname"]==[NSNull null]?@"":_dict[@"realname"];
         [txt_name setKeyboardType:UIKeyboardTypeDefault];
         [BackView_name addSubview:txt_name];
         [self.view addSubview:BackView_name];
@@ -57,7 +58,7 @@
         [lbl_phoneNumTitle setTextColor:[UIColor grayColor]];
         [BackView_phoneNum addSubview:lbl_phoneNumTitle];
         txt_phonenum=[[UITextField alloc] initWithFrame:CGRectMake(lbl_phoneNumTitle.frame.origin.x+lbl_phoneNumTitle.frame.size.width+10, 10, ScreenWidth-110, 20)];
-        txt_phonenum.placeholder=_dict[@"phonenum"];
+        txt_phonenum.text=_dict[@"phonenum"]==[NSNull null]?@"":_dict[@"phonenum"];
         [txt_phonenum setKeyboardType:UIKeyboardTypeNumberPad];
         [BackView_phoneNum addSubview:txt_phonenum];
         [self.view addSubview:BackView_phoneNum];
@@ -69,7 +70,7 @@
         [lbl_youbianTitle setTextColor:[UIColor grayColor]];
         [BackView_youbian addSubview:lbl_youbianTitle];
         txt_youbian=[[UITextField alloc] initWithFrame:CGRectMake(lbl_youbianTitle.frame.origin.x+lbl_youbianTitle.frame.size.width+10, 10, ScreenWidth-110, 20)];
-        txt_youbian.placeholder=_dict[@"postcode"];
+        txt_youbian.text=_dict[@"postcode"]==[NSNull null]?@"":_dict[@"postcode"];
         [txt_youbian setKeyboardType:UIKeyboardTypeNumberPad];
         [BackView_youbian addSubview:txt_youbian];
         [self.view addSubview:BackView_youbian];
@@ -81,7 +82,7 @@
         [lbl_areaTitle setTextColor:[UIColor grayColor]];
         [BackView_Area addSubview:lbl_areaTitle];
         txt_area=[[UITextField alloc] initWithFrame:CGRectMake(lbl_areaTitle.frame.origin.x+lbl_areaTitle.frame.size.width, 10, ScreenWidth-110, 20)];
-        txt_area.placeholder=_dict[@"address"];
+        txt_area.text=_dict[@"address"]==[NSNull null]?@"":_dict[@"address"];
         [txt_area setKeyboardType:UIKeyboardTypeDefault];
         [BackView_Area addSubview:txt_area];
         [self.view addSubview:BackView_Area];
@@ -93,13 +94,27 @@
         [lbl_addressTitle setTextColor:[UIColor grayColor]];
         [BackView_address addSubview:lbl_addressTitle];
         txt_address=[[UITextField alloc] initWithFrame:CGRectMake(lbl_addressTitle.frame.origin.x+lbl_addressTitle.frame.size.width, 10, ScreenWidth-110, 20)];
-        txt_address.placeholder=_dict[@"addressdetail"];
+        txt_address.text=_dict[@"addressdetail"]==[NSNull null]?@"":_dict[@"addressdetail"];
         [txt_address setKeyboardType:UIKeyboardTypeDefault];
         [BackView_address addSubview:txt_address];
         [self.view addSubview:BackView_address];
+        
+        
+        UIView * BackView_del=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_address.frame.size.height+BackView_address.frame.origin.y+20, ScreenWidth, 40)];
+        BackView_del.backgroundColor=[UIColor whiteColor];
+        UILabel * lbl_delTitle=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 200, 20)];
+        lbl_delTitle.text=@"删除收货地址";
+        [lbl_delTitle setTextColor:[UIColor redColor]];
+        [BackView_del addSubview:lbl_delTitle];
+        UIButton * btn_del=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, BackView_del.frame.size.width, BackView_del.frame.size.height)];
+        [btn_del addTarget:self action:@selector(delBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [BackView_del addSubview:btn_del];
+        [self.view addSubview:BackView_del];
+        
     }
     else
     {
+        [self addRightbuttontitle:@"保存"];
         UIView * BackView_name=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, ScreenWidth, 40)];
         BackView_name.backgroundColor=[UIColor whiteColor];
         UILabel * lbl_nameTitle=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 20)];
@@ -180,9 +195,22 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)sub_navigationLeftClickforAddress
+
+-(void)delBtnClick:(UIButton *)sender
 {
-    [self.view removeFromSuperview];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"delAddressBackCall:"];
+    [dataprovider delAddress:_dict[@"addid"]];
+    
+}
+
+-(void)delAddressBackCall:(id)dict
+{
+    NSLog(@"%@",dict);
+    if ([dict[@"status"] intValue]==1) {
+        [self.navigationController popViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh_Address" object:nil];
+    }
 }
 
 -(void)clickRightButton:(UIButton *)sender
@@ -200,7 +228,10 @@
                     [dict setObject:txt_area.text forKey:@"address"];
                     if (txt_address.text) {
                         [dict setObject:txt_address.text forKey:@"addressdetail"];
+                        
                         if (_dict) {
+                            [dict setObject:_dict[@"isdefault"] forKey:@"isdefault"];
+                            [dict setObject:_dict[@"addid"] forKey:@"addid"];
                             DataProvider *dataprovider=[[DataProvider alloc] init];
                             [dataprovider setDelegateObject:self setBackFunctionName:@"SaveAddressBackCall:"];
                             [dataprovider EditAddress:dict];
@@ -267,9 +298,10 @@
 -(void)SaveAddressBackCall:(id)dict
 {
     NSLog(@"保存收货地址%@",dict);
-    [SVProgressHUD showSuccessWithStatus:@"保存成功" maskType:SVProgressHUDMaskTypeBlack];
     if (1==[dict[@"status"] intValue]) {
-        [self.view removeFromSuperview];
+        [SVProgressHUD showSuccessWithStatus:@"保存成功" maskType:SVProgressHUDMaskTypeBlack];
+        [self.navigationController popViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh_Address" object:nil];
     }
     [SVProgressHUD dismiss];
 }

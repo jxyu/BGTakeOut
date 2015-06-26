@@ -161,7 +161,7 @@
     [self.view addSubview:_Page];
     // 数据
     self.sorts=@[@"促销活动"];
-    self.areas = @[@"全部",@"巴国推荐",@"超市",@"汉餐",@"清真",@"早餐",@"午餐",@"其他"];
+    self.areas = @[@"全部",@"巴国推荐",@"超市",@"汉餐",@"清真",@"早餐",@"午餐"];
     self.classifys = @[@"默认排序",@"已通过认证",@"距离最近",@"销量最大",@"评价最高",@"价位高到低",@"价位低到高"];
     imagearray1=@[@"zong.png",@"jian.png",@"dian.png",@"han.png",@"qing.png",@"zao.png",@"wu.png",@"ling.png"];
     imagearray2=@[@"xu.png",@"zheng.png",@"langWay@2x.png",@"xiaoliang.png",@"timer.png",@"jiawei.png",@"jiawei.png"];
@@ -373,8 +373,8 @@
         }
         cell.CantingName.text=tabledata[indexPath.row][@"name"];
         cell.Adress.text=tabledata[indexPath.row][@"addressname"];
-        cell.starRateView.scorePercent=[tabledata[indexPath.row][@"totalcredit"] floatValue]/5;
-//        cell.starRatingView.rating=[tabledata[indexPath.row][@"totalcredit"] intValue];
+//        cell.starRateView.scorePercent=[tabledata[indexPath.row][@"totalcredit"] floatValue]/5;
+        cell.starRatingView.rating=[tabledata[indexPath.row][@"totalcredit"] intValue];
         //        cell.starRatingView =[[TQStarRatingView alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height) numberOfStar:5 andlightstarnum:[tabledata[indexPath.row][@"totalcredit"] intValue]];
         //        [cell.PingjiaView addSubview:cell.starRatingView];
         //        UIButton * zhezhao=[[UIButton alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height)];

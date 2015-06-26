@@ -10,6 +10,7 @@
 #import "CommenDef.h"
 #import "AppDelegate.h"
 #import "DataProvider.h"
+#import "AMRatingControl.h"
 
 @interface PingjiaForOrderViewController ()
 
@@ -17,7 +18,7 @@
 
 @implementation PingjiaForOrderViewController
 {
-    TQStarRatingView * start_View;
+    AMRatingControl *starRatingView;
     NSString * starScore;
     UILabel * lbl_starTitle;
     
@@ -33,16 +34,21 @@
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self setBarTitle:@"餐厅名称"];
     [self addLeftButton:@"ic_actionbar_back.png"];
-    [self addRightbuttontitle:@"Done"];
+    [self addRightbuttontitle:@"取消"];
     
     UIView * BackView_Star=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 50)];
     BackView_Star.backgroundColor=[UIColor whiteColor];
     lbl_starTitle=[[UILabel alloc] initWithFrame:CGRectMake(10, 15, 80, 20)];
     lbl_starTitle.text=@"总体评价";
     [BackView_Star addSubview:lbl_starTitle];
-    start_View=[[TQStarRatingView alloc] initWithFrame:CGRectMake(lbl_starTitle.frame.origin.x+lbl_starTitle.frame.size.width, 15, 150, 23)];
-    start_View.delegate=self;
-    [BackView_Star addSubview:start_View];
+    starRatingView=[[AMRatingControl alloc] initWithLocation:CGPointMake(lbl_starTitle.frame.size.width+lbl_starTitle.frame.origin.x+5, 12)
+                                                        emptyColor:[UIColor lightGrayColor]
+                                                        solidColor:[UIColor redColor]
+                                                      andMaxRating:5];
+    [starRatingView setUserInteractionEnabled:YES];
+    starRatingView.backgroundColor=[UIColor clearColor];
+    [starRatingView addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
+    [BackView_Star addSubview:starRatingView];
     [self.view addSubview:BackView_Star];
     
     UIView * BackView_content=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_Star.frame.origin.y+BackView_Star.frame.size.height+20, SCREEN_WIDTH, 80)];
@@ -77,10 +83,10 @@
             itemName.text=_goodsList[i][@"goodsname"];
             [orderBackground addSubview:itemName];
             UILabel * itemnum=[[UILabel alloc] initWithFrame:CGRectMake(itemName.frame.origin.x+itemName.frame.size.width, 5, 40, 20)];
-            itemnum.text=[NSString stringWithFormat:@"X%@",_goodsList[i][@"goodsNum"]];
+            itemnum.text=[NSString stringWithFormat:@"%@",_goodsList[i][@"count"]];
             [orderBackground addSubview:itemnum];
-            UILabel * itemprice=[[UILabel alloc] initWithFrame:CGRectMake(itemnum.frame.origin.x+itemnum.frame.size.width, 5, 90, 20)];
-            itemprice.text=[NSString stringWithFormat:@"%.2f",[_goodsList[i][@"goodsNum"] intValue]*[_goodsList[i][@"goodsprice"] floatValue]];
+            UILabel * itemprice=[[UILabel alloc] initWithFrame:CGRectMake(orderBackground.frame.size.width-100, 5, 90, 20)];
+            itemprice.text=[NSString stringWithFormat:@"¥%.2f",[_goodsList[i][@"price"] floatValue]];
             [orderBackground addSubview:itemprice];
             [BackView_goodList addSubview:orderBackground];
         }
@@ -121,7 +127,7 @@
 -(void)SubmitFunction
 {
     if (_OrderInfo) {
-        NSDictionary* prm=@{@"userid":_OrderInfo[@"userid"],@"resid":_OrderInfo[@"resid"],@"starnum":[NSString stringWithFormat:@"%d",[starScore intValue]],@"ordernum":_OrderInfo[@"ordernum"],@"content":txtV_PingjiaContent.text};
+        NSDictionary* prm=@{@"userid":_OrderInfo[@"userid"],@"resid":_OrderInfo[@"resid"],@"starnum":starScore,@"ordernum":_OrderInfo[@"ordernum"],@"content":txtV_PingjiaContent.text};
         DataProvider * dataprovider=[[DataProvider alloc] init];
         [dataprovider setDelegateObject:self setBackFunctionName:@"SubmitBackCall:"];
         [dataprovider SubmitUserOrderPingjia:prm];
@@ -148,7 +154,7 @@
             [dataprovider AddBGbi:prm];
 
         }
-        [self.navigationController popoverPresentationController];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -156,4 +162,10 @@
 {
     NSLog(@"添加巴国币返回成功");
 }
+
+-(void)GetScoreForPingjia:(AMRatingControl *)sender
+{
+    starScore=[NSString stringWithFormat:@"%ld",(long)sender.rating];
+}
+
 @end

@@ -12,5 +12,5 @@
 
 @interface AddressListViewController : BaseNavigationController
 @property(nonatomic,strong)NSString * userid;
-
+@property(nonatomic)BOOL isSelect;
 @end

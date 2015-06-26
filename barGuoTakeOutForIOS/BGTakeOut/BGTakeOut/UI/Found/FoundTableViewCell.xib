@@ -51,11 +51,8 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q4p-L9-TjJ">
                         <rect key="frame" x="77" y="30" width="44" height="41"/>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="evq-Nk-GO3">
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="evq-Nk-GO3">
                         <rect key="frame" x="77" y="30" width="44" height="41"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="44" id="5Dg-iY-Fvr"/>
-                        </constraints>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -68,9 +65,6 @@
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bbg-uc-Mnr">
                         <rect key="frame" x="198" y="30" width="44" height="41"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="44" id="aud-Dw-mhl"/>
-                        </constraints>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -84,11 +78,8 @@
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GjP-tw-Cme">
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GjP-tw-Cme">
                         <rect key="frame" x="15" y="30" width="44" height="41"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="44" id="vc7-2Y-tqb"/>
-                        </constraints>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -101,31 +92,24 @@
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="haM-Ot-O3A">
                         <rect key="frame" x="138" y="30" width="44" height="41"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="44" id="QXH-Gd-Ahd"/>
-                        </constraints>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="GjP-tw-Cme" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="0jS-uz-cWY"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="GjP-tw-Cme" secondAttribute="bottom" constant="22" id="2sS-qX-mdF"/>
-                    <constraint firstItem="GjP-tw-Cme" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="5s7-ae-Zvs"/>
-                    <constraint firstItem="haM-Ot-O3A" firstAttribute="leading" secondItem="evq-Nk-GO3" secondAttribute="trailing" constant="17" id="5x6-EV-xlz"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="evq-Nk-GO3" secondAttribute="bottom" constant="22" id="8xV-Yb-TuZ"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="haM-Ot-O3A" secondAttribute="bottom" constant="22" id="HGh-Zj-BMr"/>
-                    <constraint firstItem="evq-Nk-GO3" firstAttribute="leading" secondItem="GjP-tw-Cme" secondAttribute="trailing" constant="18" id="Izz-Yv-0S0"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Xbi-gp-QJ8" secondAttribute="trailing" constant="11" id="NHU-V2-gaT"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="Bbg-uc-Mnr" secondAttribute="bottom" constant="22" id="TlT-YY-O9g"/>
-                    <constraint firstItem="haM-Ot-O3A" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="UKx-19-dw1"/>
-                    <constraint firstItem="evq-Nk-GO3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="VIx-UT-0Yo"/>
-                    <constraint firstItem="Bbg-uc-Mnr" firstAttribute="leading" secondItem="haM-Ot-O3A" secondAttribute="trailing" constant="16" id="apw-bl-f3e"/>
-                    <constraint firstItem="Xbi-gp-QJ8" firstAttribute="leading" secondItem="Bbg-uc-Mnr" secondAttribute="trailing" constant="15" id="gLF-3w-ECp"/>
-                    <constraint firstItem="Xbi-gp-QJ8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="haq-AW-spw"/>
-                    <constraint firstItem="Bbg-uc-Mnr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="jo2-4U-aQ7"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="Xbi-gp-QJ8" secondAttribute="bottom" constant="22" id="wq0-1X-ekH"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Bbg-uc-Mnr" secondAttribute="trailing" constant="70" id="3X8-ps-re7"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="haM-Ot-O3A" secondAttribute="bottom" constant="22" id="5dk-Ml-Wqg"/>
+                    <constraint firstItem="haM-Ot-O3A" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="97d-0d-X9x"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Bbg-uc-Mnr" secondAttribute="bottom" constant="22" id="AG2-2w-bfc"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="haM-Ot-O3A" secondAttribute="trailing" constant="130" id="B5c-oy-5v3"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Xbi-gp-QJ8" secondAttribute="bottom" constant="22" id="DAs-e3-ceg"/>
+                    <constraint firstItem="haM-Ot-O3A" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="130" id="ZVR-jx-jBY"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Xbi-gp-QJ8" secondAttribute="trailing" constant="11" id="cza-Sh-gJe"/>
+                    <constraint firstItem="Bbg-uc-Mnr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="190" id="eCb-cH-aKW"/>
+                    <constraint firstItem="Xbi-gp-QJ8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="iNY-4U-1tF"/>
+                    <constraint firstItem="Bbg-uc-Mnr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="jCe-Is-054"/>
+                    <constraint firstItem="Xbi-gp-QJ8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="249" id="xGd-lq-5Ix"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

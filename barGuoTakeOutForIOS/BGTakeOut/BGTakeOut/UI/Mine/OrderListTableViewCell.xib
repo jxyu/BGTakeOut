@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -20,8 +21,12 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NsS-lw-wxm">
-                        <rect key="frame" x="216" y="1" width="104" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NsS-lw-wxm">
+                        <rect key="frame" x="216" y="1" width="96" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="96" id="0kN-qY-E6x"/>
+                            <constraint firstAttribute="height" constant="21" id="Ygl-4u-wPc"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -29,9 +34,12 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f4Q-my-WiX">
                         <rect key="frame" x="8" y="29" width="40" height="43"/>
                     </imageView>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="diW-fQ-yWg">
-                        <rect key="frame" x="12" y="20" width="300" height="1"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="diW-fQ-yWg">
+                        <rect key="frame" x="12" y="21" width="300" height="1"/>
                         <color key="backgroundColor" red="0.792156862745098" green="0.792156862745098" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="6Sx-bi-LpR"/>
+                        </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMM-Zq-WQ5">
                         <rect key="frame" x="56" y="29" width="251" height="18"/>
@@ -45,10 +53,23 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="go.png" translatesAutoresizingMaskIntoConstraints="NO" id="tjd-QE-Slq">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="go.png" translatesAutoresizingMaskIntoConstraints="NO" id="tjd-QE-Slq">
                         <rect key="frame" x="295" y="51" width="12" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="I7q-nR-9IJ"/>
+                            <constraint firstAttribute="width" constant="12" id="T2Y-3d-LWZ"/>
+                        </constraints>
                     </imageView>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="tjd-QE-Slq" secondAttribute="trailing" constant="5" id="7g5-oz-VPZ"/>
+                    <constraint firstItem="diW-fQ-yWg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="4" id="JCP-I3-eF6"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="tjd-QE-Slq" secondAttribute="bottom" constant="7" id="MMe-1u-7Eh"/>
+                    <constraint firstItem="NsS-lw-wxm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-7" id="Ozf-TF-OUQ"/>
+                    <constraint firstItem="diW-fQ-yWg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="13" id="PDP-vM-iZm"/>
+                    <constraint firstItem="diW-fQ-yWg" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="StT-El-Q1B"/>
+                    <constraint firstItem="NsS-lw-wxm" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="yQ8-PO-Nz7"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="logo" destination="f4Q-my-WiX" id="lnm-C7-nUp"/>
@@ -57,7 +78,7 @@
                 <outlet property="status" destination="NsS-lw-wxm" id="Vmh-bx-3oi"/>
                 <outlet property="time" destination="Euf-nU-BT0" id="kFu-DD-SjE"/>
             </connections>
-            <point key="canvasLocation" x="553" y="295.5"/>
+            <point key="canvasLocation" x="342" y="301.5"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -85,22 +85,29 @@
 {
     static NSString *CellIdentifier = @"CustomCellIdentifier";
     TableViewCell *cell = (TableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell.layer.masksToBounds=YES;
+    cell.bounds=CGRectMake(0, 0, tableView.frame.size.width, cell.frame.size.height);
     if (cell == nil) {
         activearray=[[NSArray alloc] initWithArray:Canting[indexPath.row][@"activities"]];
         cell  = [[[NSBundle mainBundle] loadNibNamed:@"TableViewCell" owner:self options:nil] lastObject];
+        [cell initLayout];
         [cell.Canting_icon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,Canting[indexPath.row][@"logo"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+        cell.Canting_icon.layer.masksToBounds=YES;
+        cell.Canting_icon.layer.cornerRadius=4;
+        cell.layer.borderWidth=1;
+        cell.layer.borderColor=(__bridge CGColorRef)([UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0]);
         cell.CantingName.text=Canting[indexPath.row][@"name"];
         cell.Adress.text=Canting[indexPath.row][@"addressname"];
-        cell.starRatingView =[[TQStarRatingView alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height) numberOfStar:5 andlightstarnum:[Canting[indexPath.row][@"totalcredit"] intValue]];
-        [cell.PingjiaView addSubview:cell.starRatingView];
-        UIButton * zhezhao=[[UIButton alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height)];
-        [cell.PingjiaView addSubview:zhezhao];
-        for (int i=0; i<activearray.count; i++) {
-            UILabel * lbl_active=[[UILabel alloc] initWithFrame:CGRectMake(30, i*20+5, 200, 18)];
-            lbl_active.text=activearray[i][@"name"];
-            cell.CantingActive.frame=CGRectMake(cell.CantingActive.frame.origin.x, cell.CantingActive.frame.origin.y, cell.CantingActive.frame.size.width, cell.CantingActive.frame.size.height+20*(i-1));
-            [cell.CantingActive addSubview:lbl_active];
-        }
+        cell.starRatingView.rating=[Canting[indexPath.row][@"totalcredit"] intValue];
+        //UIButton * zhezhao=[[UIButton alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height)];
+        //[cell.PingjiaView addSubview:zhezhao];
+        
+//        for (int i=0; i<activearray.count; i++) {
+//            UILabel * lbl_active=[[UILabel alloc] initWithFrame:CGRectMake(30, i*20+5, 200, 18)];
+//            lbl_active.text=activearray[i][@"name"];
+//            cell.CantingActive.frame=CGRectMake(cell.CantingActive.frame.origin.x, cell.CantingActive.frame.origin.y, cell.CantingActive.frame.size.width, cell.CantingActive.frame.size.height+20*(i-1));
+//            [cell.CantingActive addSubview:lbl_active];
+//        }
         
         [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
     }
@@ -116,7 +123,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 130;
+    return 110;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

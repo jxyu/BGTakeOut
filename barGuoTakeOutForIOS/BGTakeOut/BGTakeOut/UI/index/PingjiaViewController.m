@@ -12,7 +12,7 @@
 #import "PingjiaTableViewCell.h"
 #import "DataProvider.h"
 #import "MJRefresh.h"
-#define per_page 1
+#define per_page 6
 
 @interface PingjiaViewController ()
 {NSMutableArray *tableData;  //tableView数据存放数组
@@ -128,9 +128,9 @@
     
 }
 -(void)getOrderDetailSuccess:(NSDictionary*)dict{
-    if ([[dict objectForKey:@""] isEqualToString:@"1"]) {
+    if ([[NSString stringWithFormat:@"%@",[dict objectForKey:@"status"]] isEqualToString:@"1"]) {
         NSString* content=[[dict objectForKey:@"data"] objectForKey:@"goodsdetail"];
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"订单内容" message:content delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"订单内容" message:content delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [alert show];
     }
 }
@@ -198,8 +198,8 @@
             cell  = [[PingjiaTableViewCell alloc] initWithReuseIdentifier:TableIdentifier];
         }
         
-//        cell.starRatingView.rating=[[[tableData objectAtIndex:indexPath.section] objectForKey:@"starnum"] integerValue];
-        cell.starRateView.scorePercent = [[[tableData objectAtIndex:indexPath.section] objectForKey:@"starnum"] floatValue]/10;
+        cell.starRatingView.rating=[[[tableData objectAtIndex:indexPath.section] objectForKey:@"starnum"] integerValue];
+//        cell.starRateView.scorePercent = [[[tableData objectAtIndex:indexPath.section] objectForKey:@"starnum"] floatValue]/10;
 NSString* phone=        [self phoneNumToSecret:[[tableData objectAtIndex:indexPath.section] objectForKey:@"username"]];
         cell.usernameLbl.text=phone;
         
@@ -264,8 +264,9 @@ NSString* phone=        [self phoneNumToSecret:[[tableData objectAtIndex:indexPa
     UIView* view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
     UILabel* dateLbl=[[UILabel alloc] init];
     dateLbl.font=[UIFont systemFontOfSize:15.0];
+    dateLbl.textAlignment=NSTextAlignmentRight;
     dateLbl.textColor=[UIColor lightGrayColor];
-    dateLbl.frame=CGRectMake(8, 8, 200, 22);
+    dateLbl.frame=CGRectMake(8, 8, view.frame.size.width-15, 22);
     if (tableView.tag==1000) {
         dateLbl.text=[[tableData objectAtIndex:section] objectForKey:@"updatetime"];;
     }else if(tableView.tag==1111) {
@@ -274,10 +275,10 @@ NSString* phone=        [self phoneNumToSecret:[[tableData objectAtIndex:indexPa
     
     [view addSubview:dateLbl];
     
-    UIView* divider=[[UIView alloc] init];
-    divider.frame=CGRectMake(SCREEN_WIDTH*2/3, 0, 1, 40);
-    divider.backgroundColor=tableView.separatorColor;
-    [view addSubview:divider];
+//    UIView* divider=[[UIView alloc] init];
+//    divider.frame=CGRectMake(SCREEN_WIDTH*2/3, 0, 1, 40);
+//    divider.backgroundColor=tableView.separatorColor;
+//    [view addSubview:divider];
     
     UIView* topDivider=[[UIView alloc] init];
     topDivider.frame=CGRectMake(0, 0, SCREEN_WIDTH, 1);
@@ -289,19 +290,19 @@ NSString* phone=        [self phoneNumToSecret:[[tableData objectAtIndex:indexPa
     downDivider.backgroundColor=tableView.separatorColor;
     [view addSubview:downDivider];
     
-    UIButton* detailBtn=[[UIButton alloc] init];
-    detailBtn.tag=section;
-    detailBtn.frame=CGRectMake(SCREEN_WIDTH*2/3+8, 8, SCREEN_WIDTH/3-16, 25);
-    [detailBtn setImage:[UIImage imageNamed:@"pingjia_orderdetail"] forState:UIControlStateNormal];
-    [detailBtn addTarget:self action:@selector(getOrderDetail:) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:detailBtn];
+//    UIButton* detailBtn=[[UIButton alloc] init];
+//    detailBtn.tag=section;
+//    detailBtn.frame=CGRectMake(SCREEN_WIDTH*2/3+8, 8, SCREEN_WIDTH/3-16, 25);
+//    [detailBtn setImage:[UIImage imageNamed:@"pingjia_orderdetail"] forState:UIControlStateNormal];
+//    [detailBtn addTarget:self action:@selector(getOrderDetail:) forControlEvents:UIControlEventTouchUpInside];
+//    [view addSubview:detailBtn];
     
     view.backgroundColor=[UIColor whiteColor];
     return view;
     
 }
 -(NSString*)phoneNumToSecret:(NSString*)phoneNum{
-NSString*       phone=[phoneNum stringByReplacingCharactersInRange:NSMakeRange(3, 6) withString:@"****"];
+    NSString * phone=[phoneNum stringByReplacingCharactersInRange:NSMakeRange(3, 6) withString:@"****"];
     return phone;
 }
 @end

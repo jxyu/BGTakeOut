@@ -54,7 +54,7 @@
     [btn_secrit addTarget:self action:@selector(btn_secritClick) forControlEvents:UIControlEventTouchUpInside];
     [backForPwd addSubview:btn_secrit];
     
-    UIButton * tijiao=[[UIButton alloc] initWithFrame:CGRectMake(30, 140, 260, 40)];
+    UIButton * tijiao=[[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-260)/2, 140, 260, 40)];
     [tijiao setTitle:@"确定" forState:UIControlStateNormal];
     [tijiao setTintColor:[UIColor whiteColor]];
     [tijiao setBackgroundColor:[UIColor redColor]];

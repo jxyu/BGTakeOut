@@ -20,7 +20,7 @@
 //执行回调函数
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName;
 
-@property(nonatomic,copy)id UserInfoData;
+@property(nonatomic,copy)NSMutableDictionary * UserInfoData;
 @property(nonatomic,strong)AddAddressViewController * myAddress;
 @property(nonatomic,strong)AddressListViewController * myaddressList;
 @end

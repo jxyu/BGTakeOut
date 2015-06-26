@@ -19,6 +19,8 @@
 
 #import "Pingpp.h"
 
+#import <PgySDK/PgyManager.h>
+
 
 #define app_Key @"6d6636b9d200"
 #define app_Secret @"04507a9ebfb819fedcb19e598d8be0f1"
@@ -127,6 +129,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeRootView) name:@"changeRootView" object:nil];
 
     [self.window makeKeyAndVisible];
+    
+    
+    /**
+     *  蒲公英bug收集
+     */
+    [[PgyManager sharedPgyManager] startManagerWithAppId:@"d9dcc9dab1f30575fa0c0d697a377885"];
     return YES;
 }
 
@@ -539,6 +547,24 @@
 {
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider GetSomeInfonWithType:type];
+}
+
+-(void)delOrderListItem:(NSString *)ordernum
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider delOrderListItem:ordernum];
+}
+
+-(void)delAddress:(NSString *)addid
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider delAddress:addid];
+}
+
+-(void)getRuller
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider getRuller];
 }
 
 @end

@@ -12,5 +12,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *jokename;
 @property (weak, nonatomic) IBOutlet UILabel *jokedate;
 @property (weak, nonatomic) IBOutlet UILabel *jokecontent;
+@property (weak, nonatomic) IBOutlet UIView *BackViewTitle;
+@property (weak, nonatomic) IBOutlet UIView *BackViewBody;
 
 @end

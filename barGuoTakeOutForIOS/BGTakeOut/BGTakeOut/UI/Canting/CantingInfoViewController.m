@@ -52,6 +52,8 @@
     NSMutableArray * lbl_array;
     UIView * BackView_gouwuche_icon;
     UITableView * tableView_gouwuche;
+    NSDictionary * cantingxiangqingData;
+    BOOL isShouCang;
     
     UIView * Backview;
 }
@@ -65,6 +67,7 @@
     // Do any additional setup after loading the view from its nib.
     @try {
         ShoppingCar=[[NSMutableArray alloc] init];
+        cantingxiangqingData=[[NSDictionary alloc] init];
         isClick=NO;
         isgouwucheShow=NO;
         [self setBarTitle:_name];
@@ -92,7 +95,7 @@
         self.CantingsegmentedControl.segmentIndicatorBorderWidth = 0.0f;
         self.CantingsegmentedControl.selectedSegmentIndex = 0;
         [self.CantingsegmentedControl sizeToFit];
-        self.CantingsegmentedControl.frame=CGRectMake(22, 2, KWidth-44, 36);
+        self.CantingsegmentedControl.frame=CGRectMake(22, 2, SCREEN_WIDTH-44, 36);
         [CantingsegmentView addSubview:_CantingsegmentedControl];
         [self.view addSubview:CantingsegmentView];
         
@@ -222,11 +225,6 @@
     
     
     
-}
-
--(void)CantingclickLeftButton
-{
-    [self.view removeFromSuperview];
 }
 
 -(void)CantingSegMentControlClick
@@ -399,7 +397,7 @@
             cell.btn_jian.tag=indexPath.row;
             [cell.btn_jia addTarget:self action:@selector(jia_btnClick:) forControlEvents:UIControlEventTouchUpInside];
             cell.btn_jia.tag=indexPath.row;
-            cell.lbl_price.text=[NSString stringWithFormat:@"¥%@",item.Goods[@"name"]];
+            cell.lbl_price.text=[NSString stringWithFormat:@"¥%@",item.Goods[@"price"]];
         }
         return cell;
     }
@@ -766,12 +764,14 @@
 {
     NSLog(@"%@",dict);
     if (dict[@"data"]) {
-        
+        cantingxiangqingData=dict[@"data"];
         if ([dict[@"data"][@"iscollected"] integerValue]==0) {
             [self addRightButton:@"shoucang@2x.png"];
+            isShouCang=NO;
         }
         else
         {
+            isShouCang=YES;
             [self addRightButton:@"shoucang-@2x.png"];
         }
         
@@ -800,19 +800,19 @@
         [btn_share addTarget:self action:@selector(Btn_shareClick) forControlEvents:UIControlEventTouchUpInside];
         [CantingHeadView addSubview:btn_share];
         
-//        AMRatingControl * amratingcontrol= [[AMRatingControl alloc] initWithLocation:CGPointMake(lbl_cantingName.frame.origin.x,lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height+8 )
-//                                       emptyColor:[UIColor lightGrayColor]
-//                                       solidColor:[UIColor redColor]
-//                                     andMaxRating:5];
-//        [amratingcontrol setUserInteractionEnabled:NO];
-//        amratingcontrol.backgroundColor=[UIColor clearColor];
-//        amratingcontrol.rating=[dict[@"data"][@"totalcredit"] intValue];
+        AMRatingControl * amratingcontrol= [[AMRatingControl alloc] initWithLocation:CGPointMake(lbl_cantingName.frame.origin.x,lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height+8 )
+                                       emptyColor:[UIColor lightGrayColor]
+                                       solidColor:[UIColor redColor]
+                                     andMaxRating:5];
+        [amratingcontrol setUserInteractionEnabled:NO];
+        amratingcontrol.backgroundColor=[UIColor clearColor];
+        amratingcontrol.rating=[dict[@"data"][@"totalcredit"] intValue];
         
-        CWStarRateView * cwstarrateView=[[CWStarRateView alloc] initWithFrame:CGRectMake(lbl_cantingName.frame.origin.x,lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height+10,lbl_cantingName.frame.origin.x,lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height-10 ) numberOfStars:5];
-        cwstarrateView.scorePercent = [dict[@"data"][@"totalcredit"] floatValue]/5;
-        cwstarrateView.allowIncompleteStar = NO;
-        cwstarrateView.hasAnimation = YES;
-        [CantingHeadView addSubview:cwstarrateView];
+//        CWStarRateView * cwstarrateView=[[CWStarRateView alloc] initWithFrame:CGRectMake(lbl_cantingName.frame.origin.x,lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height+10,lbl_cantingName.frame.origin.x,lbl_cantingName.frame.origin.y+lbl_cantingName.frame.size.height-10 ) numberOfStars:5];
+//        cwstarrateView.scorePercent = [dict[@"data"][@"totalcredit"] floatValue]/5;
+//        cwstarrateView.allowIncompleteStar = NO;
+//        cwstarrateView.hasAnimation = YES;
+        [CantingHeadView addSubview:amratingcontrol];
         
         
         
@@ -981,9 +981,9 @@
 
 -(void)GetPinglun
 {
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"getPinglunBackCall:"];
-    [dataprovider GetPinglun:_resid andpage:@"1" andnumInPage:@"6" andiscontaintext:@"1"];
+//    DataProvider * dataprovider=[[DataProvider alloc] init];
+//    [dataprovider setDelegateObject:self setBackFunctionName:@"getPinglunBackCall:"];
+//    [dataprovider GetPinglun:_resid andpage:@"1" andnumInPage:@"6" andiscontaintext:@"1"];
     
     PingjiaViewController * pingjia =[[PingjiaViewController alloc] init];
     pingjia.resid=_resid;
@@ -996,19 +996,33 @@
 //    [self.navigationController pushViewController:album animated:YES];
     [self presentViewController:album animated:YES completion:nil];
 }
--(void)getPinglunBackCall:(id)dict
-{
-    NSLog(@"评论%@",dict);
-}
+//-(void)getPinglunBackCall:(id)dict
+//{
+//    NSLog(@"评论%@",dict);
+//}
 
 -(void)clickRightButton:(UIButton *)sender
 {
     
     if (dictionary) {
-        DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider setDelegateObject:self setBackFunctionName:@"AddColctionBackCall:"];
-        NSDictionary * prm=@{@"resid":_resid,@"userid":dictionary[@"userid"],@"type":@"1"};
-        [dataprovider AddOrDelcollection:prm];
+        if (!isShouCang) {
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            [dataprovider setDelegateObject:self setBackFunctionName:@"AddColctionBackCall:"];
+            NSDictionary * prm=@{@"resid":_resid,@"userid":dictionary[@"userid"],@"type":@"1"};
+            [dataprovider AddOrDelcollection:prm];
+            isShouCang=YES;
+            [self addRightButton:@"shoucang-@2x.png"];
+        }
+        else
+        {
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            [dataprovider setDelegateObject:self setBackFunctionName:@"AddColctionBackCall:"];
+            NSDictionary * prm=@{@"resid":_resid,@"userid":dictionary[@"userid"],@"type":@"0"};
+            [dataprovider AddOrDelcollection:prm];
+            isShouCang=NO;
+            [self addRightButton:@"shoucang@2x.png"];
+        }
+        
     }else
     {
         UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:@"请先登录" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
@@ -1020,7 +1034,6 @@
 {
     UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:dict[@"msg"] delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
     [alert show];
-    [self addRightButton:@"shoucang-@2x.png"];
 }
 -(void)Btn_shareClick
 {

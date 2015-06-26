@@ -26,12 +26,9 @@
 {
     [super viewDidLoad];
     [self initView];
-    _lblTitle.text=@"每日幸运星";
+    _lblTitle.text=@"每月幸运星";
     [self addLeftButton:@"ic_actionbar_back.png"];
     _topView.backgroundColor=[UIColor redColor];
-    
-    
-    
 }
 -(void)initView{
     data = @[@"一等奖",@"二等奖",@"三等奖",@"再接再厉"];

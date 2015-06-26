@@ -63,6 +63,7 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"exit_userinfo" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"change_Success" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"login_success_userinfo" object:nil];
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     if (!userinfoWithFile[@"userid"]) {
@@ -220,6 +221,8 @@
     MineTableViewCell * cell=(MineTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell  = [[[NSBundle mainBundle] loadNibNamed:@"MineTableViewCell" owner:self options:nil] lastObject];
+        cell.layer.masksToBounds=YES;
+        cell.bounds=CGRectMake(0, 0, tableView.frame.size.width, cell.frame.size.height);
         switch (indexPath.section) {
             case 0:
                 cell.MineImg.image=[UIImage imageNamed:imageArray1[indexPath.row]];

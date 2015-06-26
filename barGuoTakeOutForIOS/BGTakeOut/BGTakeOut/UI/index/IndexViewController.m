@@ -82,7 +82,7 @@
         imgV_waimai1.image=[UIImage imageNamed:@"index_waimai1"];
         [BackView_Waimai addSubview:imgV_waimai1];
         UILabel * lbl_waimaititle=[[UILabel alloc] initWithFrame:CGRectMake(imgV_waimai1.frame.origin.x+imgV_waimai1.frame.size.width+5, 20, 150, 30)];
-        lbl_waimaititle.text=@"我要订外卖";
+        lbl_waimaititle.text=@"外卖订餐";
         lbl_waimaititle.textColor=[UIColor redColor];
         [BackView_Waimai addSubview:lbl_waimaititle];
         UILabel * lbl_waimaidetail=[[UILabel alloc] initWithFrame:CGRectMake(imgV_waimai1.frame.origin.x+imgV_waimai1.frame.size.width+5, lbl_waimaititle.frame.origin.y+lbl_waimaititle.frame.size.height+5, 150, 15)];
@@ -93,7 +93,7 @@
         UIImageView * imgV_waimai2=[[UIImageView alloc] initWithFrame:CGRectMake(lbl_waimaititle.frame.origin.x+lbl_waimaititle.frame.size.width, 20, 60, 60)];
         imgV_waimai2.image=[UIImage imageNamed:@"index_waimai2"];
         [BackView_Waimai addSubview:imgV_waimai2];
-        UIImageView * img_go=[[UIImageView alloc] initWithFrame:CGRectMake(imgV_waimai2.frame.origin.x+imgV_waimai2.frame.size.width+25, 40, 11, 16)];
+        UIImageView * img_go=[[UIImageView alloc] initWithFrame:CGRectMake(BackView_Waimai.frame.size.width-21, 40, 11, 16)];
         img_go.image=[UIImage imageNamed:@"go.png"];
         [BackView_Waimai addSubview:img_go];
         [page addSubview:BackView_Waimai];
@@ -105,6 +105,7 @@
         lastinarray=[page.subviews lastObject] ;
         y=[lastinarray frame].origin.y+lastinarray.frame.size.height+kJianXi;
         UIButton * Joke= [[UIButton alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH/2-1, 70)];
+        [Joke setBackgroundColor:[UIColor whiteColor]];
         [Joke setImage:[UIImage imageNamed:@"joke@2x.jpg"] forState:UIControlStateNormal];
         [Joke addTarget:self action:@selector(JumpToJoke) forControlEvents:UIControlEventTouchUpInside];
         [Joke setShowsTouchWhenHighlighted:YES];
@@ -115,6 +116,7 @@
         CGFloat x=lastinarray.frame.size.width+2;
         UIButton * luck= [[UIButton alloc] initWithFrame:CGRectMake(x, y, SCREEN_WIDTH/2-1, 70)];
         [luck setImage:[UIImage imageNamed:@"luck@2x.jpg"] forState:UIControlStateNormal];
+        [luck setBackgroundColor:[UIColor whiteColor]];
         [luck addTarget:self action:@selector(jumpToLuck) forControlEvents:UIControlEventTouchUpInside];
         [luck setShowsTouchWhenHighlighted:YES];
         [page addSubview:luck];
