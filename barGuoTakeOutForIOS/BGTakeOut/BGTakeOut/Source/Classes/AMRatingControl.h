@@ -19,6 +19,7 @@
 #pragma mark - Getters and Setters
 
 @property (nonatomic, assign) NSInteger rating;
+@property(nonatomic,assign)NSInteger FoutSize;
 
 
 /**************************************************************************************************/

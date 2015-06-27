@@ -67,19 +67,18 @@
     
     UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, 5, SCREEN_WIDTH, 50)];
     BackgroundView1.backgroundColor=[UIColor whiteColor];
-    if (!address) {
-        UIImageView * img_add=[[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 20, 20)];
-        img_add.image=[UIImage imageNamed:@"add-40"];
-        [BackgroundView1 addSubview:img_add];
-        UILabel * lbl_addtitle=[[UILabel alloc] initWithFrame:CGRectMake(img_add.frame.origin.x+img_add.frame.size.width+10, 15, 200, 20)];
-        lbl_addtitle.text=@"新增收餐地址";
-        lbl_addtitle.textColor=[UIColor redColor];
-        [BackgroundView1 addSubview:lbl_addtitle];
-        UIButton * btn_addaddress=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, BackgroundView1.frame.size.width, BackgroundView1.frame.size.height)];
-        [btn_addaddress addTarget:self action:@selector(Btn_addressAddClick) forControlEvents:UIControlEventTouchUpInside];
-        [BackgroundView1 addSubview:btn_addaddress];
-        [myPage addSubview:BackgroundView1];
-    }
+    UIImageView * img_add=[[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 20, 20)];
+    img_add.image=[UIImage imageNamed:@"add-40"];
+    [BackgroundView1 addSubview:img_add];
+    UILabel * lbl_addtitle=[[UILabel alloc] initWithFrame:CGRectMake(img_add.frame.origin.x+img_add.frame.size.width+10, 15, 200, 20)];
+    lbl_addtitle.text=@"新增收餐地址";
+    lbl_addtitle.textColor=[UIColor redColor];
+    [BackgroundView1 addSubview:lbl_addtitle];
+    UIButton * btn_addaddress=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, BackgroundView1.frame.size.width, BackgroundView1.frame.size.height)];
+    [btn_addaddress addTarget:self action:@selector(Btn_addressAddClick) forControlEvents:UIControlEventTouchUpInside];
+    [BackgroundView1 addSubview:btn_addaddress];
+    [myPage addSubview:BackgroundView1];
+    
     UIView * lastView=[myPage.subviews lastObject];
     UIView * fillview=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+lastView.frame.origin.y, SCREEN_WIDTH, 5)];
     [myPage addSubview:fillview];
@@ -132,12 +131,23 @@
     lbl_peisongfei.text=@"配送费";
     lbl_peisongfei.textColor=[UIColor colorWithRed:255/255.0 green:113/255.0 blue:14/255.0 alpha:1.0];
     [peisongfeiView addSubview:lbl_peisongfei];
-    
     UILabel * lbl_peisongprice=[[UILabel alloc] initWithFrame:CGRectMake(250, 10, 40, 20)];
     lbl_peisongprice.text=[NSString stringWithFormat:@"¥%@",_peiSongFeiData];
     lbl_peisongprice.textColor=[UIColor colorWithRed:255/255.0 green:113/255.0 blue:14/255.0 alpha:1.0];
     [peisongfeiView addSubview:lbl_peisongprice];
     [myPage addSubview:peisongfeiView];
+    
+    lastView=peisongfeiView;
+    UIView * hejiBackView=[[UIView alloc] initWithFrame:CGRectMake(0,  lastView.frame.origin.y+lastView.frame.size.height+5, SCREEN_WIDTH, 40)];
+    hejiBackView.backgroundColor=[UIColor whiteColor];
+    UILabel * lbl_title=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 20)];
+    lbl_title.text=@"合计";
+    [hejiBackView addSubview:lbl_title];
+    UILabel * lbl_orderprice=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-90, 10, 80, 20)];
+    lbl_orderprice.text=[NSString stringWithFormat:@"¥%.2f",[_orderSumPrice floatValue]+[_peiSongFeiData floatValue]];
+    lbl_orderprice.textAlignment= NSTextAlignmentRight;
+    [hejiBackView addSubview:lbl_orderprice];
+    [myPage addSubview:hejiBackView];
     
     lastView=[myPage.subviews lastObject];
     UIView * PayWayBackView=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+5, SCREEN_WIDTH, 80)];
@@ -178,7 +188,7 @@
     UIButton * submitOrder=[[UIButton alloc] initWithFrame:CGRectMake(20, lastView.frame.origin.y+lastView.frame.size.height+5, SCREEN_WIDTH-40, 30)];
     [submitOrder setTitle:@"提交订单" forState:UIControlStateNormal];
     [submitOrder setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    submitOrder.backgroundColor=[UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0];
+    submitOrder.backgroundColor=[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
     submitOrder.layer.masksToBounds=YES;
     submitOrder.layer.cornerRadius=3;
     [submitOrder addTarget:self action:@selector(SubmitOrderfunc) forControlEvents:UIControlEventTouchUpInside];
@@ -428,7 +438,7 @@
 
 -(void)BuildDefaultAddress
 {
-    if (address) {
+    if (address[@"realname"]) {
         UIView * BackgroundView1=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
         BackgroundView1.backgroundColor=[UIColor grayColor];
         UILabel * lbl_name=[[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, 20)];

@@ -332,6 +332,8 @@
         GoodsTableViewCell *cell = (GoodsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell  = [[[NSBundle mainBundle] loadNibNamed:@"GoodsTableViewCell" owner:self options:nil] lastObject];
+            cell.goodimg.layer.masksToBounds=YES;
+            cell.goodimg.layer.cornerRadius=4;
             [cell.goodimg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,GoodsListArray[indexPath.row][@"pic"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
             cell.goodName.text=GoodsListArray[indexPath.row][@"name"];
             cell.goodPrice.text=[NSString stringWithFormat:@"¥%@",GoodsListArray[indexPath.row][@"price"]];
@@ -677,7 +679,7 @@
         tableView_gouwuche.frame=CGRectMake(tableView_gouwuche.frame.origin.x, tableView_gouwuche.frame.origin.y+50, tableView_gouwuche.frame.size.width, tableView_gouwuche.frame.size.height);
         BackView_gouwuche_icon.frame=CGRectMake(BackView_gouwuche_icon.frame.origin.x, BackView_gouwuche_icon.frame.origin.y+50, BackView_gouwuche_icon.frame.size.width, BackView_gouwuche_icon.frame.size.height);
         _locationForbadge.frame=CGRectMake(_locationForbadge.frame.origin.x, _locationForbadge.frame.origin.y+50, 5, 5);
-        
+        Backview.frame=CGRectMake(Backview.frame.origin.x, Backview.frame.origin.y+50, Backview.frame.size.width, Backview.frame.size.height);
     }
     else
     {

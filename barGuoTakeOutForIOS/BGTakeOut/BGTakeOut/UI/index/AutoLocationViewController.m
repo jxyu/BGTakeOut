@@ -48,6 +48,7 @@
     UIScrollView * CityareaScroll;
     UIScrollView * ThirdareaScroll;
     UIScrollView * StreetScroll;
+    NSDictionary* userinfoWithFile;
 }
 
 #pragma mark 赋值回调
@@ -71,7 +72,7 @@
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
-    NSDictionary* userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
     if (userinfoWithFile[@"userid"]) {
         userid=userinfoWithFile[@"userid"];
         //添加导航栏
@@ -266,6 +267,14 @@
         [self setBarTitle:[array[1] stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
         image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 13, 15);
         image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 7);
+        NSDictionary * dict=[[NSDictionary alloc] init];
+        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
+        BOOL result= [dict writeToFile:plistPath atomically:YES];
+        if (result) {
+            
+        }
     }];
 }
 
@@ -284,14 +293,14 @@
 {
     
     if (!IsareaListShow) {
-        UIScrollView * areaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/5, _SelectView.frame.size.height)];
+        UIScrollView * areaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/3, _SelectView.frame.size.height)];
         areaScroll.scrollEnabled=YES;
-        areaScroll.backgroundColor=[UIColor grayColor];
+        areaScroll.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
         id result =dict;
         if (result) {
             NSArray * areaArray =[[NSArray alloc ] initWithArray:result[@"data"]];
             for (int i=0; i<areaArray.count; i++) {
-                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), SCREEN_WIDTH/5, KAreaListHeight)];
+                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), SCREEN_WIDTH/3, KAreaListHeight)];
                 areaitem.backgroundColor=[UIColor whiteColor];
                 [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"provincename"]] forState:UIControlStateNormal];
@@ -310,8 +319,6 @@
         [_SelectView removeFromSuperview];
         IsareaListShow=NO;
     }
-    
-    
     
 }
 
@@ -350,21 +357,6 @@
                 [dataProvider setDelegateObject:self setBackFunctionName:@"ThridBulidAreaList:"];
                 [dataProvider GetArea:str andareatype:@"2"];
                 break;
-            case 12:
-            {
-                district= sender.currentTitle;
-                districtid=str;
-                NSLog(@"00%ld",(long)sender.tag);
-//                UIButton * submitArea=[[UIButton alloc] initWithFrame:CGRectMake(0,300, SCREEN_WIDTH/4*3, 40)];
-//                submitArea.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-//                [submitArea setTitle:@"确定" forState:UIControlStateNormal];
-//                [submitArea addTarget:self action:@selector(submitAreaClick:) forControlEvents:UIControlEventTouchUpInside];
-//                [_SelectView addSubview:submitArea];
-                [dataProvider setDelegateObject:self setBackFunctionName:@"GetStreetBackcall:"];
-                [dataProvider GetArea:str andareatype:@"3"];
-            }
-                break;
-                
             default:
                 break;
         }
@@ -375,23 +367,20 @@
     @finally {
         
     }
-    
-    
-    
 }
 
 #pragma mark 创建市列表
 -(void)SecondBulidAreaList:(id)dict
 {
     @try {
-        CityareaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5, 0, SCREEN_WIDTH/5, _SelectView.frame.size.height)];
+        CityareaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3, 0, SCREEN_WIDTH/3, _SelectView.frame.size.height)];
         CityareaScroll.scrollEnabled=YES;
-        CityareaScroll.backgroundColor=[UIColor grayColor];
+        CityareaScroll.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
         id result =dict;
         if (result) {
             NSArray * areaArray =[[NSArray alloc ] initWithArray:result[@"data"]];
             for (int i=0; i<areaArray.count; i++) {
-                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), SCREEN_WIDTH/5, KAreaListHeight)];
+                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), SCREEN_WIDTH/3, KAreaListHeight)];
                 areaitem.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
                 [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"cityname"]] forState:UIControlStateNormal];
@@ -417,19 +406,19 @@
 -(void)ThridBulidAreaList:(id)dict
 {
     @try {
-        ThirdareaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5*2, 0, SCREEN_WIDTH/5, KScrollHeight)];
+        ThirdareaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3*2, 0, SCREEN_WIDTH/3, KScrollHeight)];
         ThirdareaScroll.scrollEnabled=YES;
-        ThirdareaScroll.backgroundColor=[UIColor grayColor];
+        ThirdareaScroll.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
         id result =dict;
         if (result) {
             NSArray * areaArray =[[NSArray alloc ] initWithArray:result[@"data"]];
             for (int i=0; i<areaArray.count; i++) {
-                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), SCREEN_WIDTH/5, KAreaListHeight)];
+                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), SCREEN_WIDTH/3, KAreaListHeight)];
                 areaitem.backgroundColor=[UIColor colorWithRed:232/255.0 green:232/255.0 blue:232/255.0 alpha:1.0];
                 [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"districtname"]] forState:UIControlStateNormal];
                 areaitem.tag=[areaArray[i][@"districtid"] intValue];
-                [areaitem addTarget:self action:@selector(AreaItemClick:) forControlEvents:UIControlEventTouchUpInside];
+                [areaitem addTarget:self action:@selector(submitAreaClick:) forControlEvents:UIControlEventTouchUpInside];
                 [ThirdareaScroll addSubview:areaitem];
             }
             ThirdareaScroll.contentSize=CGSizeMake(0, areaArray.count*(KAreaListHeight+1));
@@ -451,7 +440,7 @@
     @try {
         StreetScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/5*3, 0, SCREEN_WIDTH/5*2, _SelectView.frame.size.height)];
         StreetScroll.scrollEnabled=YES;
-        StreetScroll.backgroundColor=[UIColor grayColor];
+        StreetScroll.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
         id result =dict;
         if (result) {
             NSArray * areaArray =[[NSArray alloc ] initWithArray:result[@"data"]];
@@ -480,9 +469,12 @@
 #pragma mark 提交选定的地区
 -(void)submitAreaClick:(UIButton *)sender
 {
-    street=sender.currentTitle;
-    streetid=[NSString stringWithFormat:@"%ld",(long)sender.tag];
-    NSString *lastArea=[NSString stringWithFormat:@"%@%@%@%@",province,city,district,sender.currentTitle];
+//    street=sender.currentTitle;
+//    streetid=[NSString stringWithFormat:@"%ld",(long)sender.tag];
+    NSString * str=[NSString stringWithFormat:@"00%ld",(long)sender.tag];
+    district= sender.currentTitle;
+    districtid=str;
+    NSString *lastArea=[NSString stringWithFormat:@"%@%@%@",province,city,sender.currentTitle];
     [_selectArea setTitle:lastArea forState:UIControlStateNormal];
     _selectArea.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
     [_SelectView removeFromSuperview];
@@ -494,6 +486,11 @@
 -(void)submitBackCall:(id)dict
 {
     NSLog(@"%@",dict);
+    if ([dict[@"status"] intValue]==1) {
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"GetLocHistoryBackCall:"];
+        [dataprovider GetLocHistory:userinfoWithFile[@"userid"]];
+    }
 }
 
 -(void)changeAddressButtonClick
@@ -508,6 +505,14 @@
             [self.navigationController popToRootViewControllerAnimated:YES];
         }else{
             NSLog(@"回调失败...");
+        }
+        NSDictionary * dict=@{@"provinceid":provinceid,@"provinceTitle":province,@"cityid":cityid,@"cityTitle":city,@"districtid":districtid,@"districtTitle":district};
+        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
+        BOOL result= [dict writeToFile:plistPath atomically:YES];
+        if (result) {
+            
         }
     }
 }

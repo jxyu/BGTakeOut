@@ -28,7 +28,7 @@
                         <rect key="frame" x="74" y="8" width="243" height="82"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2.7km" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5x-SM-Wrm">
-                                <rect key="frame" x="201" y="54" width="42" height="21"/>
+                                <rect key="frame" x="201" y="58" width="42" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="42" id="9qd-g2-jGP"/>
                                     <constraint firstAttribute="height" constant="21" id="TFl-f4-Cpe"/>
@@ -38,19 +38,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="起送价：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npz-qm-qA4">
-                                <rect key="frame" x="170" y="35" width="50" height="21"/>
+                                <rect key="frame" x="170" y="40" width="50" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="已送2055单" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sUV-RN-pHf">
-                                <rect key="frame" x="99" y="35" width="67" height="21"/>
+                                <rect key="frame" x="99" y="40" width="67" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XiX-dX-jKv">
-                                <rect key="frame" x="0.0" y="33" width="83" height="17"/>
+                                <rect key="frame" x="0.0" y="39" width="83" height="17"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="川湘小厨" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdF-XT-y4s">
@@ -60,7 +60,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDS-a6-973">
-                                <rect key="frame" x="0.0" y="54" width="43" height="21"/>
+                                <rect key="frame" x="0.0" y="58" width="43" height="21"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="1It-hg-g9R"/>
@@ -71,7 +71,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zr6-Qb-NQq">
-                                <rect key="frame" x="41" y="54" width="145" height="21"/>
+                                <rect key="frame" x="41" y="58" width="145" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="8gh-qM-9W2"/>
                                 </constraints>
@@ -87,7 +87,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="¥14" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kma-kF-tWF">
-                                <rect key="frame" x="213" y="35" width="29" height="21"/>
+                                <rect key="frame" x="213" y="40" width="29" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -96,11 +96,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="zr6-Qb-NQq" firstAttribute="leading" secondItem="A9G-xw-eAN" secondAttribute="leading" constant="41" id="2U3-pW-3YD"/>
-                            <constraint firstAttribute="bottom" secondItem="zr6-Qb-NQq" secondAttribute="bottom" constant="7" id="3qo-QD-V4u"/>
-                            <constraint firstAttribute="bottom" secondItem="iDS-a6-973" secondAttribute="bottom" constant="7" id="77q-md-7AH"/>
+                            <constraint firstAttribute="bottom" secondItem="zr6-Qb-NQq" secondAttribute="bottom" constant="3" id="3qo-QD-V4u"/>
+                            <constraint firstAttribute="bottom" secondItem="iDS-a6-973" secondAttribute="bottom" constant="3" id="77q-md-7AH"/>
                             <constraint firstAttribute="trailing" secondItem="u5x-SM-Wrm" secondAttribute="trailing" id="AmO-Ij-ZmK"/>
                             <constraint firstAttribute="trailing" secondItem="vIF-V1-94T" secondAttribute="trailing" constant="9" id="Bcx-sQ-Zh1"/>
-                            <constraint firstAttribute="bottom" secondItem="u5x-SM-Wrm" secondAttribute="bottom" constant="7" id="Cot-p8-rR5"/>
+                            <constraint firstAttribute="bottom" secondItem="u5x-SM-Wrm" secondAttribute="bottom" constant="3" id="Cot-p8-rR5"/>
                             <constraint firstItem="vIF-V1-94T" firstAttribute="top" secondItem="A9G-xw-eAN" secondAttribute="top" constant="14" id="Is8-Uj-ebO"/>
                             <constraint firstAttribute="trailing" secondItem="zr6-Qb-NQq" secondAttribute="trailing" constant="57" id="WGz-mo-TRX"/>
                             <constraint firstItem="iDS-a6-973" firstAttribute="leading" secondItem="A9G-xw-eAN" secondAttribute="leading" id="vDI-HQ-6si"/>
@@ -137,6 +137,7 @@
                 <outlet property="PingjiaView" destination="XiX-dX-jKv" id="u8H-JN-4Zm"/>
                 <outlet property="Qisongjia" destination="Kma-kF-tWF" id="Z2a-Wj-eAB"/>
                 <outlet property="Renzheng" destination="vIF-V1-94T" id="FTc-Tg-A0G"/>
+                <outlet property="yisong" destination="sUV-RN-pHf" id="X0z-k9-4Up"/>
             </connections>
             <point key="canvasLocation" x="373" y="178.5"/>
         </tableViewCell>

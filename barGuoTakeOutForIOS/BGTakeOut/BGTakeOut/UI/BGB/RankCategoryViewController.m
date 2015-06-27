@@ -70,10 +70,10 @@
         }
     }
     for (int i=0; i<categary1.count; i++) {
-        UIButton * item=[[UIButton alloc] initWithFrame:CGRectMake(0, 100*i+1, menuScrollView.frame.size.width, 100)];
+        UIButton * item=[[UIButton alloc] initWithFrame:CGRectMake(0, 70*i+1, menuScrollView.frame.size.width, 70)];
         item.backgroundColor=[UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
         item.tag=i;
-        UIImageView * img_icom=[[UIImageView alloc] initWithFrame:CGRectMake(36, 20, 28, 28)];
+        UIImageView * img_icom=[[UIImageView alloc] initWithFrame:CGRectMake(36, 5, 28, 28)];
         switch ([categary1[i][@"oneid"] intValue]) {
             case 1:
                 img_icom.image=[UIImage imageNamed:@"res_hui"];
@@ -105,14 +105,14 @@
         }
         img_icom.tag=200;
         [item addSubview:img_icom];
-        UILabel * lbl_Title=[[UILabel alloc] initWithFrame:CGRectMake(10, img_icom.frame.origin.y+img_icom.frame.size.height+15, 80, 20)];
+        UILabel * lbl_Title=[[UILabel alloc] initWithFrame:CGRectMake(10, img_icom.frame.origin.y+img_icom.frame.size.height+8, 80, 20)];
         lbl_Title.text=categary1[i][@"name"];
         lbl_Title.tag=201;
         lbl_Title.font=[UIFont systemFontOfSize:16];
         lbl_Title.textColor=[UIColor colorWithRed:149/255.0 green:149/255.0 blue:149/255.0 alpha:1.0];
         [lbl_Title setTextAlignment:NSTextAlignmentCenter];
         [item addSubview:lbl_Title];
-        UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(10, 95, 80, 2)];
+        UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(10, 65, 80, 2)];
         fenge.layer.masksToBounds=YES;
         fenge.layer.cornerRadius=1;
         fenge.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
@@ -333,7 +333,7 @@
             [self.navigationController popToViewController:want animated:YES];
         }
     }
-//    [self MakePramAndGetData:@"1" andNum:_num andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm];
+//    [self MakePramAndGetData:@"1" andNum:8 andSort:sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm];
 }
 
 

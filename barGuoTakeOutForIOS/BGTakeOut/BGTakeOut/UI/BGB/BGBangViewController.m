@@ -65,6 +65,8 @@
     UIView * BackView_paixu;
     int clickCatgrayitem;
     NSMutableArray * colorArray;
+    
+    NSDictionary * AreaInfo;
 }
 
 
@@ -102,6 +104,7 @@
         image_right.tag=1112;
         image_right.image=[UIImage imageNamed:@"index_down"];
         [self.view addSubview:image_right];
+        
         [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
             NSLog(@"%@",addressString);
             NSArray *array = [addressString componentsSeparatedByString:@"省"]; //从字符A中分隔成2个元素的数组
@@ -144,7 +147,7 @@
         UIButton * btn_categray=[[UIButton alloc] initWithFrame:CGRectMake(10, 5, SCREEN_WIDTH/3-30, 30)];
         [btn_categray setTitle:@"默认分类" forState:UIControlStateNormal];
         [btn_categray setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [btn_categray addTarget:self action:@selector(btn_categrayClick) forControlEvents:UIControlEventTouchUpInside];
+        [btn_categray addTarget:self action:@selector(btn_BGBcategrayClick) forControlEvents:UIControlEventTouchUpInside];
         btn_categray.titleLabel.font=[UIFont systemFontOfSize:14];
         [BackView_menu addSubview:btn_categray];
         UIImageView * image1=[[UIImageView alloc] initWithFrame:CGRectMake(btn_categray.frame.origin.x+btn_categray.frame.size.width, 15, 15, 9)];
@@ -202,8 +205,16 @@
         NSDictionary * dict=@{@"name":@"热门分类"};
         MenuFirstTypeArray=[[NSMutableArray alloc] initWithObjects:dict, nil];
         
+        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
+        AreaInfo =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+        if (AreaInfo) {
+            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+        }
+        
         [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude]];
+            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
         }];
         
         menuScrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH/3, _Page.frame.size.height-40)];
@@ -236,7 +247,7 @@
 
 
 
--(void)MakePramAndGetData:(NSString *)page andNum:(NSString *)num andSort:(NSString *)sort andOneid:(NSString *)oneid andTwoid:(NSString *)twoid andThreeid:(NSString *)threeid anduserid:(NSString * )userid andlat:(NSString *)lat andlong:(NSString *)longprm
+-(void)MakePramAndGetData:(NSString *)page andNum:(NSString *)num andSort:(NSString *)sort andOneid:(NSString *)oneid andTwoid:(NSString *)twoid andThreeid:(NSString *)threeid anduserid:(NSString * )userid andlat:(NSString *)lat andlong:(NSString *)longprm provinceid:(NSString *)provinceid cityid:(NSString *)cityid districtid:(NSString *)districtid
 {
     NSDictionary * prm;
     DataProvider * dataprovider=[[DataProvider alloc] init];
@@ -250,7 +261,10 @@
               threeid,@"threeid",
               userid,@"userid",
               lat,@"latitude",
-              longprm,@"longitude",nil];
+              longprm,@"longitude",
+              provinceid,@"provinceid",
+            cityid,@"cityid",
+              districtid,@"districtid",nil];
     }
     _page=page;
     _num=num;
@@ -269,25 +283,36 @@
     [SVProgressHUD dismiss];
     [mytableView footerEndRefreshing];
     NSLog(@"%@",dict);
-    if ([dict[@"status"] intValue]==1) {
-        
-        if (!isAgain) {
-            NSArray * itemarray=dict[@"data"];
-            for (int i=0; i<itemarray.count; i++) {
-                [_TextArray addObject:itemarray[i]];
+    @try {
+        if ([dict[@"status"] intValue]==1) {
+            
+            if (!isAgain) {
+                NSArray * itemarray=dict[@"data"];
+                for (int i=0; i<itemarray.count; i++) {
+                    [_TextArray addObject:itemarray[i]];
+                }
             }
+            else
+            {
+                _TextArray=dict[@"data"];
+            }
+            [mytableView reloadData];
         }
         else
         {
-            _TextArray=dict[@"data"];
+            [_TextArray removeAllObjects];
+            [mytableView reloadData];
+            [SVProgressHUD showErrorWithStatus:dict[@"msg"] maskType:SVProgressHUDMaskTypeBlack];
         }
-        [mytableView reloadData];
+
     }
-    else
-    {
-        [SVProgressHUD showErrorWithStatus:dict[@"msg"] maskType:SVProgressHUDMaskTypeBlack];
+    @catch (NSException *exception) {
+        NSLog(@"%@",exception);
     }
-}
+    @finally {
+        
+    }
+    }
 
 // tableView分区数量，默认为1，可为其设置为多个列
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -302,7 +327,7 @@
     }
     else
     {
-        return _TextArray.count;
+        return _TextArray!=[NSNull null]?_TextArray.count:0;
     }
 }
 
@@ -406,7 +431,14 @@
         [menuScrollView removeFromSuperview];
         [firstScrollView removeFromSuperview];
         [BackView_paixu removeFromSuperview];
-        [self MakePramAndGetData:_page andNum:_num andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm];
+        if (AreaInfo) {
+            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+        }
+        
+        [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+        }];
+
     }
 }
 
@@ -458,7 +490,14 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
     [SVProgressHUD dismiss];
     if ([dict[@"status"] intValue]==1) {
         [SVProgressHUD showSuccessWithStatus:dict[@"msg"] maskType:SVProgressHUDMaskTypeBlack];
-        [self MakePramAndGetData:_page andNum:_num andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm];
+        if (AreaInfo) {
+            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+        }
+        
+        [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+        }];
+
         isAgain=YES;
         [mytableView reloadData];
     }
@@ -475,12 +514,20 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
 
 -(void)loadNewData
 {
+    isAgain=NO;
     [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
-    [self MakePramAndGetData:[NSString stringWithFormat:@"%ld",(long)table_page] andNum:_num andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm];
+    if (AreaInfo) {
+        [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+    }
+    
+    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+        [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+    }];
+
     table_page++;
 }
 
--(void)btn_categrayClick
+-(void)btn_BGBcategrayClick
 {
     NSLog(@"默认分类");
     if (!isClick) {
@@ -605,10 +652,10 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
         }
     }
     for (int i=0; i<categary1.count; i++) {
-        UIButton * item=[[UIButton alloc] initWithFrame:CGRectMake(0, 100*i+1, menuScrollView.frame.size.width, 100)];
+        UIButton * item=[[UIButton alloc] initWithFrame:CGRectMake(0, 70*i+1, menuScrollView.frame.size.width, 70)];
         item.backgroundColor=[UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
         item.tag=[categary1[i][@"oneid"] intValue];
-        UIImageView * img_icom=[[UIImageView alloc] initWithFrame:CGRectMake(36, 20, 28, 28)];
+        UIImageView * img_icom=[[UIImageView alloc] initWithFrame:CGRectMake(36, 5, 28, 28)];
         switch ([categary1[i][@"oneid"] intValue]) {
             case 1:
                 img_icom.image=[UIImage imageNamed:@"res_hui"];
@@ -640,14 +687,14 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
         }
         img_icom.tag=200;
         [item addSubview:img_icom];
-        UILabel * lbl_Title=[[UILabel alloc] initWithFrame:CGRectMake(10, img_icom.frame.origin.y+img_icom.frame.size.height+15, 80, 20)];
+        UILabel * lbl_Title=[[UILabel alloc] initWithFrame:CGRectMake(10, img_icom.frame.origin.y+img_icom.frame.size.height+8, 80, 20)];
         lbl_Title.text=categary1[i][@"name"];
         lbl_Title.tag=201;
         lbl_Title.font=[UIFont systemFontOfSize:16];
         lbl_Title.textColor=[UIColor colorWithRed:149/255.0 green:149/255.0 blue:149/255.0 alpha:1.0];
         [lbl_Title setTextAlignment:NSTextAlignmentCenter];
         [item addSubview:lbl_Title];
-        UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(10, 95, 80, 2)];
+        UIView * fenge=[[UIView alloc] initWithFrame:CGRectMake(10, 65, 80, 2)];
         fenge.layer.masksToBounds=YES;
         fenge.layer.cornerRadius=1;
         fenge.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
@@ -693,6 +740,7 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
                 [btnitem setTitle:categary3[i][@"name"] forState:UIControlStateNormal];
                 [btnitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 btnitem.titleLabel.font=[UIFont systemFontOfSize:13];
+                btnitem.tag=i;
                 [btnitem addTarget:self action:@selector(finishChoosefenlei:) forControlEvents:UIControlEventTouchUpInside];
                 [backview addSubview:btnitem];
             }
@@ -725,17 +773,31 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
 
 -(void)finishChoosefenlei:(UIButton *)sender
 {
+    isAgain=YES;
     _threeid=categary3[sender.tag][@"threeid"];
     [menuScrollView removeFromSuperview];
     [firstScrollView removeFromSuperview];
-    [self MakePramAndGetData:@"1" andNum:_num andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm];
+    if (AreaInfo) {
+        [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+    }
+    
+    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+        [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+    }];
 }
 
 -(void)GetListForOrder:(UIButton * )sender
 {
     isShow=NO;
     [BackView_paixu removeFromSuperview];
-    [self MakePramAndGetData:@"1" andNum:_num andSort:[NSString stringWithFormat:@"%ld",(long)sender.tag] andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm];
+    if (AreaInfo) {
+        [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+    }
+    
+    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+        [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+    }];
+
 }
 
 -(void)existUserInfo

@@ -103,6 +103,14 @@
 -(void)GetArea:(NSString *) areaid andareatype:(NSString *)areatype
 {
     NSString * url=[NSString stringWithFormat:@"%@server/Home/Node/api_getAvailableAddress",KURL];
+    NSDictionary * prm =@{@"areaid":areaid,@"type":areatype,@"isavailable":@"1"};
+    [self PostRequest:url andpram:prm];
+    
+}
+
+-(void)GetAllArea:(NSString *) areaid andareatype:(NSString *)areatype
+{
+    NSString * url=[NSString stringWithFormat:@"%@server/Home/Node/api_getAvailableAddress",KURL];
     NSDictionary * prm =@{@"areaid":areaid,@"type":areatype};
     [self PostRequest:url andpram:prm];
     
@@ -654,8 +662,8 @@
 }
 
 #pragma mark 巴国榜-我要推荐
--(void)commitRecommendWithusername:(NSString*)username resname:(NSString*)resname resaddress:(NSString*)adr contacts:(NSString*)contact resdetail:(NSString*)resdetail img1:(NSString*)img1 img2:(NSString*)img2 img3:(NSString*)img3 img4:(NSString*)img4 oneid:(NSString*)oneid twoid:(NSString*)twoid threeid:(NSString*)threeid{
-    NSDictionary* param=@{@"username":username,@"resname":resname,@"resaddress":adr,@"contacts":contact,@"resdetail":resdetail,@"img1":img1,@"img2":img2,@"img3":img3,@"img4":img4,@"oneid":oneid,@"twoid":twoid,@"threeid":threeid};
+-(void)commitRecommendWithusername:(NSString*)username resname:(NSString*)resname resaddress:(NSString*)adr contacts:(NSString*)contact resdetail:(NSString*)resdetail img1:(NSString*)img1 img2:(NSString*)img2 img3:(NSString*)img3 img4:(NSString*)img4 oneid:(NSString*)oneid twoid:(NSString*)twoid threeid:(NSString*)threeid provinceid:(NSString *)provinceid cityid:(NSString *)cityid districtid:(NSString *)districtid{
+    NSDictionary* param=@{@"username":username,@"resname":resname,@"resaddress":adr,@"contacts":contact,@"resdetail":resdetail,@"img1":img1,@"img2":img2,@"img3":img3,@"img4":img4,@"oneid":oneid,@"twoid":twoid,@"threeid":threeid,@"provinceid":provinceid,@"cityid":cityid,@"districtid":districtid};
     NSString* url=[NSString stringWithFormat:@"%@server/Home/Rank/api_commitBaguoRecommend",KURL];
     [self PostRequest:url andpram:param];
 }

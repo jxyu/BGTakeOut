@@ -43,6 +43,12 @@ static const NSString *kDefaultSolidChar = @"★";
     _rating = (rating > _maxRating) ? _maxRating : rating;
     [self setNeedsDisplay];
 }
+@synthesize FoutSize=_FoutSize;
+-(void)setFoutSize:(NSInteger)FoutSize
+{
+    _FoutSize=FoutSize;
+    [self setNeedsDisplay];
+}
 
 
 /**************************************************************************************************/
@@ -76,6 +82,7 @@ static const NSString *kDefaultSolidChar = @"★";
             solidColor:(UIColor *)solidColor
           andMaxRating:(NSInteger)maxRating
 {
+    
     return [self initWithLocation:location
                        emptyImage:nil
                        solidImage:nil
@@ -109,7 +116,7 @@ static const NSString *kDefaultSolidChar = @"★";
 		else
         {
             CGContextSetFillColorWithColor(UIGraphicsGetCurrentContext(), _solidColor.CGColor);
-            [kDefaultSolidChar drawAtPoint:currPoint withFont:[UIFont boldSystemFontOfSize:kFontSize]];
+            [kDefaultSolidChar drawAtPoint:currPoint withFont:[UIFont boldSystemFontOfSize:_FoutSize?_FoutSize:kFontSize]];
         }
 			
 		currPoint.x += kStarWidthAndHeight;
@@ -126,7 +133,7 @@ static const NSString *kDefaultSolidChar = @"★";
 		else
         {
             CGContextSetFillColorWithColor(UIGraphicsGetCurrentContext(), _emptyColor.CGColor);
-			[kDefaultEmptyChar drawAtPoint:currPoint withFont:[UIFont boldSystemFontOfSize:kFontSize]];
+			[kDefaultEmptyChar drawAtPoint:currPoint withFont:[UIFont boldSystemFontOfSize:_FoutSize?_FoutSize:kFontSize]];
         }
 		currPoint.x += kStarWidthAndHeight;
 	}

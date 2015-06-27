@@ -38,7 +38,7 @@
     scrollView_AfterPay.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     scrollView_AfterPay.scrollEnabled=YES;
     scrollView_AfterPay.delegate=self;
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RefReshView) name:@"Res_Resive_order" object:nil];
     OrderAfterPay =[[UIView alloc] init];
     OrderAfterPay.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     
@@ -961,6 +961,7 @@
         OrderInfo=dict[@"data"];
     }
     NSLog(@"刷新请求数据：%@",dict);
+    [self PayForOrder:dict[@"data"]];
 }
 
 -(void)CancelBtnClick
@@ -1073,6 +1074,13 @@
         return [NSString stringWithFormat:@"%2d点%2d分",hour,minute];
     }
     return @"";
+}
+
+-(void)RefReshView
+{
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetOrderInfoBackCall:"];
+    [dataprovider GetOrderInfoWithOrderNum:_orderInfoDetial[@"ordernum"]];
 }
 
 

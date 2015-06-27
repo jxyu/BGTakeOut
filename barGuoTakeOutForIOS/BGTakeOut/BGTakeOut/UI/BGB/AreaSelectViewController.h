@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseNavigationController.h"
 
-@interface AreaSelectViewController : UIViewController
+@interface AreaSelectViewController : BaseNavigationController
 
 @end

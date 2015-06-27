@@ -11,5 +11,6 @@
 @interface BGBTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 - (IBAction)inputEnd:(id)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *img_hongxing;
 
 @end

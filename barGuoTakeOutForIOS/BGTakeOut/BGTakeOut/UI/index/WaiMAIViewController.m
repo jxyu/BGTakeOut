@@ -332,8 +332,9 @@
             });
         }
     }else{
-        
+        tabledata=[[NSMutableArray alloc] init];
         [SVProgressHUD showErrorWithStatus:@"没有更多数据" maskType:SVProgressHUDMaskTypeBlack];
+        [_tableView reloadData];
     }
 //    [_tableView reloadData];
     [_tableView.footer endRefreshing];
@@ -375,6 +376,11 @@
         cell.Adress.text=tabledata[indexPath.row][@"addressname"];
 //        cell.starRateView.scorePercent=[tabledata[indexPath.row][@"totalcredit"] floatValue]/5;
         cell.starRatingView.rating=[tabledata[indexPath.row][@"totalcredit"] intValue];
+        cell.starRatingView.FoutSize=17;
+        cell.Qisongjia.text=[NSString stringWithFormat:@"¥%@",tabledata[indexPath.row][@"begindeliveryprice"]==[NSNull null]?@"":tabledata[indexPath.row][@"begindeliveryprice"]];
+        cell.yisong.text=[NSString stringWithFormat:@"已售%@单",tabledata[indexPath.row][@"soldcount"]==[NSNull null]?@"":tabledata[indexPath.row][@"soldcount"]];
+        float howlong=[tabledata[indexPath.row][@"distance"] floatValue]/1000;
+        cell.Howlong.text=[NSString stringWithFormat:@"%.1fkm",howlong];
         //        cell.starRatingView =[[TQStarRatingView alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height) numberOfStar:5 andlightstarnum:[tabledata[indexPath.row][@"totalcredit"] intValue]];
         //        [cell.PingjiaView addSubview:cell.starRatingView];
         //        UIButton * zhezhao=[[UIButton alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height)];
@@ -505,7 +511,7 @@
             lbl_title1.text=_areas[i];
             [itemView addSubview:lbl_title1];
             UIButton * btn_defaultPaixu=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, itemView.frame.size.width, 30)];
-            btn_defaultPaixu.tag=0;
+            btn_defaultPaixu.tag=i+1;
             [btn_defaultPaixu addTarget:self action:@selector(GetcateGrayList:) forControlEvents:UIControlEventTouchUpInside];
             [itemView addSubview:btn_defaultPaixu];
             [BackView_paixu addSubview:itemView];
@@ -541,7 +547,7 @@
             lbl_title1.text=_classifys[i];
             [itemView addSubview:lbl_title1];
             UIButton * btn_defaultPaixu=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, itemView.frame.size.width, 30)];
-            btn_defaultPaixu.tag=0;
+            btn_defaultPaixu.tag=i;
             [btn_defaultPaixu addTarget:self action:@selector(getOrderListData:) forControlEvents:UIControlEventTouchUpInside];
             [itemView addSubview:btn_defaultPaixu];
             [BackView_paixu addSubview:itemView];

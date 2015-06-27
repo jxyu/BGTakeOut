@@ -27,6 +27,13 @@
 @property(nonatomic,strong)NSString* threeid;
 @property(nonatomic,strong)NSString*    threetitle;
 
+@property(nonatomic,strong)NSString* privateid;
+@property(nonatomic,strong)NSString*    privatetitle;
+@property(nonatomic,strong)NSString* cityid;
+@property(nonatomic,strong)NSString*    citytitle;
+@property(nonatomic,strong)NSString* xianquid;
+@property(nonatomic,strong)NSString*    xianqutitle;
+
 - (IBAction)imgUpload1:(id)sender;
 - (IBAction)imgUpload2:(id)sender;
 

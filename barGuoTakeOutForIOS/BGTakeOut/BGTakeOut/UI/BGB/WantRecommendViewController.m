@@ -10,11 +10,13 @@
 #import "AppDelegate.h"
 #import "BGBTableViewCell.h"
 #import "RankCategoryViewController.h"
+#import "AreaSelectViewController.h"
 
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "UIImageView+WebCache.h"
 #import "VPImageCropperViewController.h"
 #import "DataProvider.h"
+
 
 #import <AssetsLibrary/AssetsLibrary.h>
 #define KWidth self.view.frame.size.width
@@ -29,6 +31,7 @@ typedef enum{
 } uploadNO;
 @interface WantRecommendViewController (){
     UILabel* text;
+    UILabel* text1;
     uploadNO selectedNum;
     
     NSString* imgUploadUrl1;
@@ -72,9 +75,12 @@ typedef enum{
 {
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] hiddenTabBar];
     if (![_threeid isEqualToString:@""]) {
-
         text.text=[NSString stringWithFormat:@"%@ - %@ - %@",_onetitle,_twotitle,_threetitle];
         text.textColor=[UIColor blackColor];
+    }
+    if (_xianquid) {
+        text1.text=[NSString stringWithFormat:@"%@ - %@ - %@",_privatetitle,_citytitle,_xianqutitle];
+        text1.textColor=[UIColor blackColor];
     }
 }
 
@@ -92,40 +98,52 @@ typedef enum{
                              TableIdentifier ];
     if (cell == nil) {
         
-        if(indexPath.section==1||indexPath.section==2){
+        if(indexPath.section==2||indexPath.section==3){
             BGBTableViewCell* cell=[tableView dequeueReusableCellWithIdentifier:
                                     TableIdentifier ];
             NSArray* array=[[NSBundle mainBundle] loadNibNamed:@"BGBTableViewCell" owner:self options:nil];
             cell=                        (BGBTableViewCell*)[array objectAtIndex:0];
             cell.textField.delegate=self;
-            if (indexPath.section==1&&indexPath.row==0) {
-                cell.textField.placeholder=@"店铺名称（必填）";
+            if (indexPath.section==2&&indexPath.row==0) {
+                cell.textField.placeholder=@"店铺名称";
                 nametf=cell.textField;
-            } else if(indexPath.section==1&&indexPath.row==1){
-                cell.textField.placeholder=@"店铺地址（必填）";
+            } else if(indexPath.section==2&&indexPath.row==1){
+                cell.textField.placeholder=@"店铺地址";
                 adrtf=cell.textField;
-            }else if(indexPath.section==1&&indexPath.row==2){
-                cell.textField.placeholder=@"联系方式（必填）";
+            }else if(indexPath.section==2&&indexPath.row==2){
+                cell.img_hongxing.hidden=YES;
+                cell.textField.placeholder=@"店铺联系";
                 contacttf=cell.textField;
-            }else if(indexPath.section==2&&indexPath.row==0){
-                cell.textField.placeholder=@"推荐详情（必填）";
+            }else if(indexPath.section==3&&indexPath.row==0){
+                cell.textField.placeholder=@"推荐理由";
                 detailtf=cell.textField;
             }
             return cell;
         }else{
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
-                                          reuseIdentifier: TableIdentifier ];
-            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.text=@"请选择推荐内容所属分类";
-            text=cell.textLabel;
-            cell.textLabel.textColor=[UIColor lightGrayColor];
+            if (indexPath.section==0&&indexPath.row==0) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                              reuseIdentifier: TableIdentifier ];
+                cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text=@"所属分类";
+                text=cell.textLabel;
+                cell.textLabel.textColor=[UIColor lightGrayColor];
+            }
+            else if(indexPath.section==1&&indexPath.row==0)
+            {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                              reuseIdentifier: TableIdentifier ];
+                cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text=@"所属地域";
+                text1=cell.textLabel;
+                cell.textLabel.textColor=[UIColor lightGrayColor];
+            }
         }
     }
     
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row==0&&indexPath.section==2) {
+    if (indexPath.row==0&&indexPath.section==3) {
         return 88.0;
     }
     return 44.0;
@@ -135,6 +153,8 @@ typedef enum{
     if (section==0) {
         row=1;
     }else if (section==1){
+        row=1;
+    }else if(section==2){
         row=3;
     }else{
         row=1;
@@ -143,7 +163,7 @@ typedef enum{
     
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 4;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
@@ -161,7 +181,7 @@ typedef enum{
     return u;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 30.0;
+    return 20.0;
 }
 #pragma mark - tableview-delegate
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -169,6 +189,10 @@ typedef enum{
         RankCategoryViewController* rank=[[RankCategoryViewController alloc] init];
         rank.rank=@0;
         [self.navigationController pushViewController:rank animated:YES];
+    }
+    if (indexPath.section==1) {
+        AreaSelectViewController * areaselect=[[AreaSelectViewController alloc] init];
+        [self.navigationController pushViewController:areaselect animated:YES];
     }
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow]animated:YES];
 }
@@ -224,7 +248,7 @@ typedef enum{
     if(![nametf.text isEqualToString:@""]&&![adrtf.text isEqualToString:@""]&&![contacttf.text isEqualToString:@""]&&![detailtf.text isEqualToString:@""]&&![_threeid isEqualToString:@""]){
         DataProvider*   dataProvider=[[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"commitSuccess:"];
-        [dataProvider commitRecommendWithusername:userinfoWithFile[@"username"] resname:nametf.text resaddress:adrtf.text contacts:contacttf.text resdetail:detailtf.text img1:imgUploadUrl1 img2:imgUploadUrl2 img3:imgUploadUrl3 img4:imgUploadUrl4 oneid:_oneid twoid:_twoid threeid:_threeid];
+        [dataProvider commitRecommendWithusername:userinfoWithFile[@"username"] resname:nametf.text resaddress:adrtf.text contacts:contacttf.text resdetail:detailtf.text img1:imgUploadUrl1 img2:imgUploadUrl2 img3:imgUploadUrl3 img4:imgUploadUrl4 oneid:_oneid twoid:_twoid threeid:_threeid provinceid:_privateid cityid:_cityid districtid:_xianquid];
     }else if([_threeid isEqualToString:@""]){
         [SVProgressHUD showErrorWithStatus:@"亲，请选择推荐的分类信息！" maskType:SVProgressHUDMaskTypeBlack];
     }else{

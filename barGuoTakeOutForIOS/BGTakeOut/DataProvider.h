@@ -73,6 +73,7 @@
 -(void)delOrderListItem:(NSString *)ordernum;
 -(void)delAddress:(NSString *)addid;
 -(void)getRuller;
+-(void)GetAllArea:(NSString *) areaid andareatype:(NSString *)areatype;
 
 /**
  *  获得兑吧详情页
@@ -150,7 +151,7 @@
  *  @param twoid     所属二级分类id
  *  @param threeid   所属三级分类id
  */
--(void)commitRecommendWithusername:(NSString*)username resname:(NSString*)resname resaddress:(NSString*)adr contacts:(NSString*)contact resdetail:(NSString*)resdetail img1:(NSString*)img1 img2:(NSString*)img2 img3:(NSString*)img3 img4:(NSString*)img4 oneid:(NSString*)oneid twoid:(NSString*)twoid threeid:(NSString*)threeid;
+-(void)commitRecommendWithusername:(NSString*)username resname:(NSString*)resname resaddress:(NSString*)adr contacts:(NSString*)contact resdetail:(NSString*)resdetail img1:(NSString*)img1 img2:(NSString*)img2 img3:(NSString*)img3 img4:(NSString*)img4 oneid:(NSString*)oneid twoid:(NSString*)twoid threeid:(NSString*)threeid provinceid:(NSString *)provinceid cityid:(NSString *)cityid districtid:(NSString *)districtid;
 /**
  *  获得餐厅相册
  *

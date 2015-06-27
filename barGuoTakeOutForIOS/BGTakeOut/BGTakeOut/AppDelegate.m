@@ -185,6 +185,10 @@
     //定制自定的的弹出框
     if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
     {
+        NSRange range=[content rangeOfString:@"餐厅已接单"];
+        if (range.length>0) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"Res_Resive_order" object:nil];
+        }
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
                                                             message:content
                                                            delegate:nil
@@ -565,6 +569,12 @@
 {
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider getRuller];
+}
+
+-(void)GetAllArea:(NSString *) areaid andareatype:(NSString *)areatype
+{
+    DataProvider *dataprovider=[[DataProvider alloc] init];
+    [dataprovider GetAllArea:areaid andareatype:areatype];
 }
 
 @end

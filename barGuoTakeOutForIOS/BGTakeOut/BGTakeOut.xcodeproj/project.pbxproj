@@ -230,6 +230,8 @@
 		80ADA42E1B3CF41B008A241B /* res_info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80ADA42D1B3CF41B008A241B /* res_info@2x.png */; };
 		80B5E0FF1B130A49008E6599 /* che.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B5E0FD1B130A49008E6599 /* che.png */; };
 		80B5E1001B130A49008E6599 /* quan.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B5E0FE1B130A49008E6599 /* quan.png */; };
+		80B91F201B3E8AA300253D7D /* AreaSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B91F1F1B3E8AA300253D7D /* AreaSelectViewController.m */; };
+		80B91F221B3EA92900253D7D /* AreaInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80B91F211B3EA92900253D7D /* AreaInfo.plist */; };
 		80B9F23A1AF87454003C264D /* MineBackImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B9F2391AF87454003C264D /* MineBackImage.png */; };
 		80B9F23E1AF87757003C264D /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B9F23D1AF87757003C264D /* VPImageCropperViewController.m */; };
 		80B9FD131B22992900BEB2D7 /* renzheng.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B9FD121B22992900BEB2D7 /* renzheng.png */; };
@@ -725,6 +727,9 @@
 		80ADA42D1B3CF41B008A241B /* res_info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "res_info@2x.png"; sourceTree = "<group>"; };
 		80B5E0FD1B130A49008E6599 /* che.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = che.png; sourceTree = "<group>"; };
 		80B5E0FE1B130A49008E6599 /* quan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = quan.png; sourceTree = "<group>"; };
+		80B91F1E1B3E8AA300253D7D /* AreaSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaSelectViewController.h; sourceTree = "<group>"; };
+		80B91F1F1B3E8AA300253D7D /* AreaSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaSelectViewController.m; sourceTree = "<group>"; };
+		80B91F211B3EA92900253D7D /* AreaInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AreaInfo.plist; sourceTree = "<group>"; };
 		80B9F2391AF87454003C264D /* MineBackImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MineBackImage.png; sourceTree = "<group>"; };
 		80B9F23C1AF87757003C264D /* VPImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageCropperViewController.h; sourceTree = "<group>"; };
 		80B9F23D1AF87757003C264D /* VPImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageCropperViewController.m; sourceTree = "<group>"; };
@@ -1125,6 +1130,7 @@
 				809ABD531AFC4DB000E7C662 /* UserInfo.plist */,
 				8AD6616A1B03764400D61EDA /* PrefixHeader.pch */,
 				80A492EA1B171D5800E98D81 /* OtherInfo.plist */,
+				80B91F211B3EA92900253D7D /* AreaInfo.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2108,6 +2114,8 @@
 				8AEF4F701B0D6F0500424CEA /* RankCategoryViewController.h */,
 				8AEF4F711B0D6F0500424CEA /* RankCategoryViewController.m */,
 				8AEF4F721B0D6F0500424CEA /* RankCategoryViewController.xib */,
+				80B91F1E1B3E8AA300253D7D /* AreaSelectViewController.h */,
+				80B91F1F1B3E8AA300253D7D /* AreaSelectViewController.m */,
 			);
 			name = WantRecommended;
 			sourceTree = "<group>";
@@ -2403,6 +2411,7 @@
 				80D309B81B04B73F009A2BF3 /* LoginViewController.xib in Resources */,
 				807FC7DA1B259406007B80BC /* SecriteViewController.xib in Resources */,
 				802C33E71AE61D5D003B83CC /* arrow_gray_collapse_n.png in Resources */,
+				80B91F221B3EA92900253D7D /* AreaInfo.plist in Resources */,
 				802DB4831AEA44FF00140AA9 /* like_icon_light.png in Resources */,
 				808EBFF91B21328A007E6902 /* langWay@2x.png in Resources */,
 				80D309691B04B706009A2BF3 /* JokeViewController.xib in Resources */,
@@ -2488,6 +2497,7 @@
 				80067CAE1ADCA0F100394FB7 /* ViewController.m in Sources */,
 				8AECF4851B073EA300410A47 /* SVProgressHUD.m in Sources */,
 				804E96C71B02325400803F5C /* Toolkit.m in Sources */,
+				80B91F201B3E8AA300253D7D /* AreaSelectViewController.m in Sources */,
 				80BDBE3A1B0F241000EC0CEA /* MultilevelTableViewCell.m in Sources */,
 				8A16D28C1B098C8A00974168 /* OrderPingjiaViewController.m in Sources */,
 				806383F71AF0BE6500AF9866 /* UIImageView+HighlightedWebCache.m in Sources */,
