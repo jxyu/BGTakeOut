@@ -48,6 +48,9 @@
     NSString* _long ;
     NSString* _activity;
     NSString* _category;
+    NSString* _provinceid;
+    NSString* _cityid;
+    NSString* _districtid;
     
     NSArray * Canting;
     
@@ -64,7 +67,7 @@
     BOOL isSortShow;
     BOOL isActiveShow;
     UIView * BackView_paixu;
-    
+    NSDictionary *AreaInfo;
 }
 
 - (void)viewDidLoad {
@@ -85,16 +88,21 @@
     
     [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     tabledata=[[NSMutableArray alloc] init];
-    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-        _lat=[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude] ;
-        _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
-        _page=[NSString stringWithFormat:@"%d",1];
-        _num =[NSString stringWithFormat:@"%d",KCantingNum];
-        _order=[NSString stringWithFormat:@"%d",1];
-        _activity=[NSString stringWithFormat:@"%d",1];
-        _category=[NSString stringWithFormat:@"%d",1];
-        [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:@"1" andCategory:@"1" andlat:_lat andlong:_long];
-    }];
+    
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
+    AreaInfo =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    if (AreaInfo) {
+        [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:@"1" andCategory:@"1" andlat:@"" andlong:@"" andprovinceid:AreaInfo[@"provinceid"] andcityid:AreaInfo[@"cityid"] anddistrictid:AreaInfo[@"districtid"]];
+    }
+    else
+    {
+        [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+            [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:@"1" andCategory:@"1" andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] andprovinceid:AreaInfo[@"provinceid"] andcityid:AreaInfo[@"cityid"] anddistrictid:AreaInfo[@"districtid"]];
+        }];
+        
+    }
     
     
     //添加导航栏
@@ -110,8 +118,7 @@
     [self.view addSubview:image_right];
     [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
         NSLog(@"%@",addressString);
-        NSArray *array = [addressString componentsSeparatedByString:@"省"]; //从字符A中分隔成2个元素的数组
-        [self setBarTitle:[array[1] stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+        [self setBarTitle:[addressString stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
         image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 13, 15);
         image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 7);
         
@@ -163,17 +170,9 @@
     self.sorts=@[@"促销活动"];
     self.areas = @[@"全部",@"巴国推荐",@"超市",@"汉餐",@"清真",@"早餐",@"午餐"];
     self.classifys = @[@"默认排序",@"已通过认证",@"距离最近",@"销量最大",@"评价最高",@"价位高到低",@"价位低到高"];
-    imagearray1=@[@"zong.png",@"jian.png",@"dian.png",@"han.png",@"qing.png",@"zao.png",@"wu.png",@"ling.png"];
+    imagearray1=@[@"zong.png",@"jian.png",@"dian.png",@"han.png",@"qing.png",@"zao.png",@"wu.png"];
     imagearray2=@[@"xu.png",@"zheng.png",@"langWay@2x.png",@"xiaoliang.png",@"timer.png",@"jiawei.png",@"jiawei.png"];
     //    imagearray3=@[@""]
-    
-    // 添加下拉菜单
-    
-    //    DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:44];
-    ////    menu.im
-    //    menu.delegate = self;
-    //    menu.dataSource = self;
-    //    [_Page addSubview:menu];
     
     
     UIView * BackView_menu=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
@@ -239,7 +238,7 @@
         [weakself loadNewData];
     }];
     
-    [self loadNewData];
+//    [self loadNewData];
     
 }
 
@@ -259,15 +258,26 @@
         //        _Page.hidden=YES;
         NSLog(@"other");
         isAgain=YES;
-        [self GetrestaurantListPage:@"1" andNum:_num andOrder:_order andActivity:_activity andCategory:@"8" andlat:_lat andlong:_long];
+        if (AreaInfo) {
+            [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:_activity andCategory:@"8" andlat:@"" andlong:@"" andprovinceid:AreaInfo[@"provinceid"] andcityid:AreaInfo[@"cityid"] anddistrictid:AreaInfo[@"districtid"]];
+        }
+        else
+        {
+            [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:_activity andCategory:@"1" andlat:_lat andlong:_long andprovinceid:@"" andcityid:@"" anddistrictid:@""];
+        }
         [_tableView reloadData];
     }
     else
     {
         //        _Page.hidden=NO;
         isAgain=YES;
-        [self GetrestaurantListPage:@"1" andNum:_num andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
-        
+        if (AreaInfo) {
+            [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:_activity andCategory:@"1" andlat:@"" andlong:@"" andprovinceid:AreaInfo[@"provinceid"] andcityid:AreaInfo[@"cityid"] anddistrictid:AreaInfo[@"districtid"]];
+        }
+        else
+        {
+                [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:_activity andCategory:@"1" andlat:_lat andlong:_long andprovinceid:@"" andcityid:@"" anddistrictid:@""];
+        }
         [_tableView reloadData];
     }
 }
@@ -281,7 +291,7 @@
     [dataprovider GetActivityList];
 }
 
--(void)GetrestaurantListPage:(NSString *)page andNum:(NSString*)num andOrder:(NSString*)order andActivity:(NSString*)activity andCategory:(NSString *)category andlat:(NSString*)alat andlong:(NSString *)along
+-(void)GetrestaurantListPage:(NSString *)page andNum:(NSString*)num andOrder:(NSString*)order andActivity:(NSString*)activity andCategory:(NSString *)category andlat:(NSString*)alat andlong:(NSString *)along andprovinceid:(NSString *)provinceid andcityid:(NSString *)cityid anddistrictid:(NSString *)districtid
 {
     NSDictionary * prm;
     DataProvider * dataprovider=[[DataProvider alloc] init];
@@ -294,7 +304,10 @@
               activity,@"activity",
               category,@"category",
               alat,@"lat",
-              along,@"long", nil];
+              along,@"long",
+              provinceid,@"provinceid",
+              cityid,@"cityid",
+              districtid,@"districtid", nil];
     }
     [dataprovider setDelegateObject:self setBackFunctionName:@"bulidrestaurantList:"];
     [dataprovider GetrestaurantList:prm];
@@ -478,18 +491,13 @@
 }
 
 -(void)loadNewData{
-    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-        _lat=[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude] ;
-        _long=[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude];
-        _page=[NSString stringWithFormat:@"%d",1];
-        _num =[NSString stringWithFormat:@"%d",KCantingNum];
-        _order=[NSString stringWithFormat:@"%d",1];
-        _activity=[NSString stringWithFormat:@"%d",1];
-        _category=[NSString stringWithFormat:@"%d",1];
-        [self GetrestaurantListPage:[NSString stringWithFormat:@"%ld",(long)table_page] andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
-    }];
-    
-    
+    if (AreaInfo) {
+        [self GetrestaurantListPage:[NSString stringWithFormat:@"%ld",(long)table_page] andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:_activity andCategory:_category andlat:@"" andlong:@"" andprovinceid:AreaInfo[@"provinceid"] andcityid:AreaInfo[@"cityid"] anddistrictid:AreaInfo[@"districtid"]];
+    }
+    else
+    {
+        [self GetrestaurantListPage:[NSString stringWithFormat:@"%ld",(long)table_page] andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:_activity andCategory:_category andlat:_lat andlong:_long andprovinceid:@"" andcityid:@"" anddistrictid:@""];
+    }
 }
 
 -(void)btn_categrayClick
@@ -624,14 +632,27 @@
 
 -(void)GetcateGrayList:(UIButton *)sender
 {
-    [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:_order andActivity:_activity andCategory:[NSString stringWithFormat:@"%ld",(long)sender.tag] andlat:_lat andlong:_long];
+    if (AreaInfo) {
+        [self GetrestaurantListPage:[NSString stringWithFormat:@"%ld",(long)table_page] andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:_order andActivity:_activity andCategory:[NSString stringWithFormat:@"%ld",(long)sender.tag] andlat:@"" andlong:@"" andprovinceid:AreaInfo[@"provinceid"] andcityid:AreaInfo[@"cityid"] anddistrictid:AreaInfo[@"districtid"]];
+    }
+    else
+    {
+        [self GetrestaurantListPage:[NSString stringWithFormat:@"%ld",(long)table_page] andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:_order andActivity:_activity andCategory:[NSString stringWithFormat:@"%ld",(long)sender.tag] andlat:_lat andlong:_long andprovinceid:@"" andcityid:@"" anddistrictid:@""];
+    }
+
     [BackView_paixu removeFromSuperview];
     iscategaryShow=NO;
     isAgain=YES;
 }
 -(void)getOrderListData:(UIButton *)sender
 {
-    [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:[NSString stringWithFormat:@"%ld",(long)sender.tag] andActivity:_activity andCategory:_category andlat:_lat andlong:_long];
+    if (AreaInfo) {
+        [self GetrestaurantListPage:[NSString stringWithFormat:@"%ld",(long)table_page] andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:[NSString stringWithFormat:@"%ld",(long)sender.tag] andActivity:_activity andCategory:_category andlat:@"" andlong:@"" andprovinceid:AreaInfo[@"provinceid"] andcityid:AreaInfo[@"cityid"] anddistrictid:AreaInfo[@"districtid"]];
+    }
+    else
+    {
+        [self GetrestaurantListPage:[NSString stringWithFormat:@"%ld",(long)table_page] andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:[NSString stringWithFormat:@"%ld",(long)sender.tag] andActivity:_activity andCategory:_category andlat:_lat andlong:_long andprovinceid:@"" andcityid:@"" anddistrictid:@""];
+    }
     [BackView_paixu removeFromSuperview];
     isSortShow=NO;
     isAgain=YES;
@@ -639,7 +660,15 @@
 
 -(void)GetActiveResList:(UIButton * )sender
 {
-    [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:_order andActivity:[NSString stringWithFormat:@"%ld",(long)sender.tag] andCategory:_category andlat:_lat andlong:_long];
+    
+    if (AreaInfo) {
+        [self GetrestaurantListPage:[NSString stringWithFormat:@"%ld",(long)table_page] andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:_order andActivity:[NSString stringWithFormat:@"%ld",(long)sender.tag] andCategory:_category andlat:@"" andlong:@"" andprovinceid:AreaInfo[@"provinceid"] andcityid:AreaInfo[@"cityid"] anddistrictid:AreaInfo[@"districtid"]];
+    }
+    else
+    {
+        [self GetrestaurantListPage:[NSString stringWithFormat:@"%ld",(long)table_page] andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:_order andActivity:[NSString stringWithFormat:@"%ld",(long)sender.tag]  andCategory:_category andlat:_lat andlong:_long andprovinceid:@"" andcityid:@"" anddistrictid:@""];
+    }
+
     [BackView_paixu removeFromSuperview];
     isActiveShow=NO;
     isAgain=YES;

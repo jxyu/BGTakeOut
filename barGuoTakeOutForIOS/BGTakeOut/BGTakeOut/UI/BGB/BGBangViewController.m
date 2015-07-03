@@ -17,6 +17,7 @@
 #import "MJRefresh.h"
 #import "UMSocial.h"
 #import "UMSocialSnsService.h"
+#import "UIImageView+WebCache.h"
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 #define KtextNum 6
@@ -38,8 +39,9 @@
 {
     BOOL isClick;
     BOOL isShow;
+    BOOL isrequest;
     UITableView * mytableView;
-    NSString * _page;
+    int _page;
     NSString * _num;
     NSString * _sort;
     NSString * _oneid;
@@ -67,6 +69,7 @@
     NSMutableArray * colorArray;
     
     NSDictionary * AreaInfo;
+    BOOL isfooterRefresh;
 }
 
 
@@ -75,7 +78,14 @@
     // Do any additional setup after loading the view from its nib.
     clickCatgrayitem=0;
     colorArray=[[NSMutableArray alloc] init];
-    
+    isfooterRefresh=NO;
+    isrequest=NO;
+    _page=1;
+    _num=@"8";
+    _sort=@"0";
+    _oneid=@"0";
+    _twoid=@"0";
+    _threeid=@"0";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"exit_userinfo" object:nil];
     [self buildColorArray];
     [self BuildBiewelement];
@@ -107,9 +117,7 @@
         
         [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
             NSLog(@"%@",addressString);
-            NSArray *array = [addressString componentsSeparatedByString:@"省"]; //从字符A中分隔成2个元素的数组
-            [self setBarTitle:[array[1] stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
-            CGSize singleLineStringSize = [array[1] sizeWithFont:[UIFont systemFontOfSize:15]];
+            [self setBarTitle:[addressString stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
             image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 13, 15);
             image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 7);
         }];
@@ -190,13 +198,12 @@
         [_Page addSubview:mytableView];
         __weak typeof(self) weakself=self;
         [mytableView addLegendFooterWithRefreshingBlock:^{
-            [weakself loadNewData];
+            if (!isfooterRefresh) {
+                [weakself loadNewData];
+                isfooterRefresh=YES;
+                [mytableView footerEndRefreshing];
+            }
         }];
-        [self loadNewData];
-        
-        DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider setDelegateObject:self setBackFunctionName:@"categaryFirstBackCall:"];
-        [dataprovider getBaguoRankCateWithType:@"0" upid:@"0"];
         
         // 数据
         self.sorts=@[@"我要推荐"];
@@ -210,12 +217,15 @@
         NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
         AreaInfo =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
         if (AreaInfo) {
-            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+            [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
         }
-        
-        [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
-        }];
+        else
+        {
+            [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+                [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+            }];
+
+        }
         
         menuScrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH/3, _Page.frame.size.height-40)];
         menuScrollView.scrollEnabled=YES;
@@ -225,6 +235,7 @@
         firstScrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3, 40, SCREEN_WIDTH/3*2, _Page.frame.size.height-40)];
         firstScrollView.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
         firstScrollView.scrollEnabled=YES;
+        
     }
     else
     {
@@ -247,13 +258,13 @@
 
 
 
--(void)MakePramAndGetData:(NSString *)page andNum:(NSString *)num andSort:(NSString *)sort andOneid:(NSString *)oneid andTwoid:(NSString *)twoid andThreeid:(NSString *)threeid anduserid:(NSString * )userid andlat:(NSString *)lat andlong:(NSString *)longprm provinceid:(NSString *)provinceid cityid:(NSString *)cityid districtid:(NSString *)districtid
+-(void)MakePramAndGetData:( int)page andNum:(NSString *)num andSort:(NSString *)sort andOneid:(NSString *)oneid andTwoid:(NSString *)twoid andThreeid:(NSString *)threeid anduserid:(NSString * )userid andlat:(NSString *)lat andlong:(NSString *)longprm provinceid:(NSString *)provinceid cityid:(NSString *)cityid districtid:(NSString *)districtid
 {
     NSDictionary * prm;
     DataProvider * dataprovider=[[DataProvider alloc] init];
     if (page && num && sort ) {
         prm =[NSDictionary dictionaryWithObjectsAndKeys:
-              page,@"page",
+              [NSString stringWithFormat:@"%d",page],@"page",
               num,@"num",
               sort,@"sort",
               oneid,@"oneid",
@@ -281,7 +292,7 @@
 -(void)BuildTextItem:(id)dict
 {
     [SVProgressHUD dismiss];
-    [mytableView footerEndRefreshing];
+    
     NSLog(@"%@",dict);
     @try {
         if ([dict[@"status"] intValue]==1) {
@@ -291,12 +302,13 @@
                 for (int i=0; i<itemarray.count; i++) {
                     [_TextArray addObject:itemarray[i]];
                 }
+                [mytableView reloadData];
             }
             else
             {
                 _TextArray=dict[@"data"];
+                [mytableView reloadData];
             }
-            [mytableView reloadData];
         }
         else
         {
@@ -304,7 +316,13 @@
             [mytableView reloadData];
             [SVProgressHUD showErrorWithStatus:dict[@"msg"] maskType:SVProgressHUDMaskTypeBlack];
         }
-
+        isfooterRefresh=NO;
+        if (!isrequest) {
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            [dataprovider setDelegateObject:self setBackFunctionName:@"categaryFirstBackCall:"];
+            [dataprovider getBaguoRankCateWithType:@"0" upid:@"0"];
+        }
+        
     }
     @catch (NSException *exception) {
         NSLog(@"%@",exception);
@@ -343,7 +361,7 @@
         cell.bounds=CGRectMake(0, 0, tableView.frame.size.width, cell.frame.size.height);
         cell.Name.text=_TextArray[indexPath.row][@"resname"];
         cell.adress.text=_TextArray[indexPath.row][@"resaddress"];
-        cell.logoImage.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,_TextArray[indexPath.row][@"reslogo"]]]]];
+        [cell.logoImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,_TextArray[indexPath.row][@"reslogo"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
         cell.logoImage.layer.masksToBounds=YES;
         cell.logoImage.layer.cornerRadius=4;
         if ([_TextArray[indexPath.row][@"isstarted"] intValue]==1) {
@@ -382,13 +400,6 @@
         
         [cell.Btn_share addTarget:self action:@selector(BGBangShare:) forControlEvents:UIControlEventTouchUpInside];
         [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
-    }
-    else
-    {
-        for (UIView *subView in cell.contentView.subviews)
-        {
-            [subView removeFromSuperview];
-        }
     }
     return cell;
     
@@ -432,13 +443,13 @@
         [firstScrollView removeFromSuperview];
         [BackView_paixu removeFromSuperview];
         if (AreaInfo) {
-            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+            [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+        }else
+        {
+            [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+                [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+            }];
         }
-        
-        [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
-        }];
-
     }
 }
 
@@ -491,12 +502,14 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
     if ([dict[@"status"] intValue]==1) {
         [SVProgressHUD showSuccessWithStatus:dict[@"msg"] maskType:SVProgressHUDMaskTypeBlack];
         if (AreaInfo) {
-            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+            [self MakePramAndGetData:_page andNum:@"8" andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
         }
-        
-        [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-            [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
-        }];
+        else
+        {
+            [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+                [self MakePramAndGetData:_page andNum:@"8" andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+            }];
+        }
 
         isAgain=YES;
         [mytableView reloadData];
@@ -514,16 +527,18 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
 
 -(void)loadNewData
 {
+    ++_page;
     isAgain=NO;
     [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     if (AreaInfo) {
-        [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+        [self MakePramAndGetData:_page andNum:@"8" andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
     }
-    
-    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-        [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
-    }];
-
+    else
+    {
+        [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+            [self MakePramAndGetData:_page andNum:@"8" andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+        }];
+    }
     table_page++;
 }
 
@@ -778,11 +793,11 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
     [menuScrollView removeFromSuperview];
     [firstScrollView removeFromSuperview];
     if (AreaInfo) {
-        [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+        [self MakePramAndGetData:1 andNum:@"8" andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
     }
     
     [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-        [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+        [self MakePramAndGetData:1 andNum:@"8" andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
     }];
 }
 
@@ -791,13 +806,15 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
     isShow=NO;
     [BackView_paixu removeFromSuperview];
     if (AreaInfo) {
-        [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+        [self MakePramAndGetData:1 andNum:@"8" andSort:[NSString stringWithFormat:@"%d",sender.tag] andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+    }
+    else
+    {
+        [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+            [self MakePramAndGetData:1 andNum:@"8" andSort:[NSString stringWithFormat:@"%d",sender.tag] andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+        }];
     }
     
-    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-        [self MakePramAndGetData:@"1" andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
-    }];
-
 }
 
 -(void)existUserInfo

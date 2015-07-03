@@ -303,47 +303,53 @@
         if (address) {
             [prm setObject:address[@"addressdetail"] forKey:@"address"];
             [prm setObject:address[@"phonenum"] forKey:@"phonenum"];
-        }        [prm setObject:dict[@"userid"] forKey:@"userid"];
-        
-        if (dict[@"username"]) {
-            [prm setObject:dict[@"userid"] forKey:@"username"];
+            [prm setObject:dict[@"userid"] forKey:@"userid"];
             
-            if (PayOnLineForChange) {
-                [prm setObject:@"0"forKey:@"payway"];
-            }else
-            {
-                [prm setObject:@"1"forKey:@"payway"];
-            }
-            if (Costommessage.text) {
-                [prm setObject:Costommessage.text forKey:@"remark"];
-            }
-            NSMutableArray * orderdataArray=[[NSMutableArray alloc] init];
-            
-            for (int i=0; i<_orderData.count; i++) {
-                NSMutableDictionary * dict=[[NSMutableDictionary alloc] init];
-                ShoppingCarModel *item=_orderData[i];
-                [dict setObject:item.Goods[@"goodsid"] forKey:@"goodsid"];
-                [dict setObject:item.Goods[@"name"] forKey:@"goodsname"];
-                [dict setObject:item.Goods[@"activity"] forKey:@"activity"];
-                [dict setObject:[NSString stringWithFormat:@"%d",item.Num] forKey:@"count"];
-                [dict setObject:item.Goods[@"price"] forKey:@"price"];
+            if (dict[@"username"]) {
+                [prm setObject:dict[@"userid"] forKey:@"username"];
                 
-                [orderdataArray addObject:dict];
+                if (PayOnLineForChange) {
+                    [prm setObject:@"0"forKey:@"payway"];
+                }else
+                {
+                    [prm setObject:@"1"forKey:@"payway"];
+                }
+                if (Costommessage.text) {
+                    [prm setObject:Costommessage.text forKey:@"remark"];
+                }
+                NSMutableArray * orderdataArray=[[NSMutableArray alloc] init];
                 
-                [prm setObject:item.Goods[@"resid"] forKey:@"resid"];
+                for (int i=0; i<_orderData.count; i++) {
+                    NSMutableDictionary * dict=[[NSMutableDictionary alloc] init];
+                    ShoppingCarModel *item=_orderData[i];
+                    [dict setObject:item.Goods[@"goodsid"] forKey:@"goodsid"];
+                    [dict setObject:item.Goods[@"name"] forKey:@"goodsname"];
+                    [dict setObject:item.Goods[@"activity"] forKey:@"activity"];
+                    [dict setObject:[NSString stringWithFormat:@"%d",item.Num] forKey:@"count"];
+                    [dict setObject:item.Goods[@"price"] forKey:@"price"];
+                    
+                    [orderdataArray addObject:dict];
+                    
+                    [prm setObject:item.Goods[@"resid"] forKey:@"resid"];
+                }
+                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:orderdataArray
+                                                                   options:NSJSONWritingPrettyPrinted
+                                                                     error:nil];
+                NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                             encoding:NSUTF8StringEncoding];
+                [prm setObject:jsonString  forKey:@"goodsdetail"];
+                DataProvider * dataprovider=[[DataProvider alloc] init];
+                [dataprovider setDelegateObject:self setBackFunctionName:@"submitOrderBackCall:"];
+                [dataprovider SubmitOrder:prm];
+                
+                
             }
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:orderdataArray
-                                                               options:NSJSONWritingPrettyPrinted
-                                                                 error:nil];
-            NSString *jsonString = [[NSString alloc] initWithData:jsonData
-                                                         encoding:NSUTF8StringEncoding];
-            [prm setObject:jsonString  forKey:@"goodsdetail"];
-            DataProvider * dataprovider=[[DataProvider alloc] init];
-            [dataprovider setDelegateObject:self setBackFunctionName:@"submitOrderBackCall:"];
-            [dataprovider SubmitOrder:prm];
-            
-            
+        }else
+        {
+            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择地址" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+            [alert show];
         }
+        
     }
     
 }
@@ -357,14 +363,14 @@
         [dataprovider setDelegateObject:self setBackFunctionName:@"GetChargeBackCall:"];
         if (PayOnLineForChange) {
             if (PayWX) {
-//                NSDictionary * prm=@{@"channel":@"wx",@"amount":[NSString stringWithFormat:@"%d",([_orderSumPrice intValue]+[_peiSongFeiData intValue]*100)],@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
-                NSDictionary * prm=@{@"channel":@"wx",@"amount":@"1",@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
+                NSDictionary * prm=@{@"channel":@"wx",@"amount":[NSString stringWithFormat:@"%d",([_orderSumPrice intValue]+[_peiSongFeiData intValue])*100],@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
+//                NSDictionary * prm=@{@"channel":@"wx",@"amount":@"1",@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
                 [dataprovider GetchargeForPay:prm];
             }
             else
             {
-//                NSDictionary * prm=@{@"channel":@"alipay",@"amount":[NSString stringWithFormat:@"%d",([_orderSumPrice intValue]+[_peiSongFeiData intValue]*100)],@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
-                NSDictionary * prm=@{@"channel":@"alipay",@"amount":@"1",@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
+                NSDictionary * prm=@{@"channel":@"alipay",@"amount":[NSString stringWithFormat:@"%d",([_orderSumPrice intValue]+[_peiSongFeiData intValue])*100],@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
+//                NSDictionary * prm=@{@"channel":@"alipay",@"amount":@"1",@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
                 [dataprovider GetchargeForPay:prm];
             }
             

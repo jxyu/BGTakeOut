@@ -62,11 +62,14 @@
 -(void)BuildJokeView:(id)dict
 {
     NSLog(@"%@",dict);
-    NSArray * itemarray=dict[@"data"];
-    for (int i=0; i<itemarray.count; i++) {
-        [JokeArray addObject:itemarray[i]];
+    if ([dict[@"status"] intValue]==1) {
+        NSArray * itemarray=dict[@"data"];
+        for (int i=0; i<itemarray.count; i++) {
+            [JokeArray addObject:itemarray[i]];
+        }
+        [mytableView reloadData];
     }
-    [mytableView reloadData];
+    [mytableView footerEndRefreshing];
     [SVProgressHUD dismiss];
 }
 

@@ -179,6 +179,9 @@
 -(void)GetLocHistoryBackCall:(id)dict
 {
     if ([dict[@"status"] intValue]==1) {
+        for (UIView *item in historyScrollView.subviews) {
+            [item removeFromSuperview];
+        }
         itemArray=dict[@"data"];
         for (int i=0; i<itemArray.count; i++) {
             UIView *lastview=[historyScrollView.subviews lastObject];
@@ -263,8 +266,7 @@
 {
     [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
         NSLog(@"%@",addressString);
-        NSArray *array = [addressString componentsSeparatedByString:@"省"]; //从字符A中分隔成2个元素的数组
-        [self setBarTitle:[array[1] stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+        [self setBarTitle:[addressString stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
         image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 13, 15);
         image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 7);
         NSDictionary * dict=[[NSDictionary alloc] init];
@@ -341,6 +343,7 @@
         [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         DataProvider * dataProvider =[[DataProvider alloc] init];
         NSString * str=[NSString stringWithFormat:@"00%ld",(long)sender.tag];
+        NSRange r= [sender.currentTitle rangeOfString:@"全省"];
         switch (str.length) {
             case 6:
                 [CityareaScroll removeFromSuperview];
@@ -358,6 +361,11 @@
                 [dataProvider GetArea:str andareatype:@"2"];
                 break;
             default:
+                if (r.length>0) {
+                    city=[NSString stringWithFormat:@"%@",sender.currentTitle];
+                    cityid=str;
+                    [self SubmitAllData];
+                }
                 break;
         }
     }
@@ -483,6 +491,18 @@
     [dataprovider setDelegateObject:self setBackFunctionName:@"submitBackCall:"];
     [dataprovider submitLocHistory:userid andlocation:lastArea];
 }
+
+-(void)SubmitAllData
+{
+    NSString *lastArea=[NSString stringWithFormat:@"%@%@",province,city];
+    [_selectArea setTitle:lastArea forState:UIControlStateNormal];
+    _selectArea.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
+    [_SelectView removeFromSuperview];
+    
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"submitBackCall:"];
+    [dataprovider submitLocHistory:userid andlocation:lastArea];
+}
 -(void)submitBackCall:(id)dict
 {
     NSLog(@"%@",dict);
@@ -514,6 +534,28 @@
         if (result) {
             
         }
+    }
+    else if (province&&city)
+    {
+        NSString *lastArea=[NSString stringWithFormat:@"%@%@",province,city];
+        NSDictionary * areadict=@{@"area":lastArea};
+        SEL func_selector = NSSelectorFromString(callBackFunctionName);
+        if ([CallBackObject respondsToSelector:func_selector]) {
+            NSLog(@"回调成功...");
+            [CallBackObject performSelectorInBackground:func_selector withObject:areadict];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }else{
+            NSLog(@"回调失败...");
+        }
+        NSDictionary * dict=@{@"provinceid":provinceid,@"provinceTitle":province,@"cityid":cityid,@"cityTitle":city};
+        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
+        BOOL result= [dict writeToFile:plistPath atomically:YES];
+        if (result) {
+            
+        }
+
     }
 }
 @end

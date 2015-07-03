@@ -91,11 +91,11 @@
      {
          if (placemarks.count > 0) {
              CLPlacemark *placemark = [placemarks objectAtIndex:0];
-             _lastCity = [NSString stringWithFormat:@"%@%@",placemark.administrativeArea,placemark.locality];
+             _lastCity = [NSString stringWithFormat:@"%@",placemark.locality];
              [standard setObject:_lastCity forKey:CCLastCity];//省市地址
 //             NSLog(@"______%@",_lastCity);
 
-             _lastAddress = [NSString stringWithFormat:@"%@%@%@%@%@%@",placemark.country,placemark.administrativeArea,placemark.locality,placemark.subLocality,placemark.thoroughfare,placemark.subThoroughfare];//详细地址
+             _lastAddress = [NSString stringWithFormat:@"%@%@%@%@",placemark.locality,placemark.subLocality,placemark.thoroughfare,placemark.subThoroughfare];//详细地址
 //             NSLog(@"______%@",_lastAddress);
 
 

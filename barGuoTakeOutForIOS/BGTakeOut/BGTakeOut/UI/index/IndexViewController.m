@@ -55,8 +55,7 @@
         [self.view addSubview:image_right];
         [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
             NSLog(@"%@",addressString);
-            NSArray *array = [addressString componentsSeparatedByString:@"省"]; //从字符A中分隔成2个元素的数组
-            [self setBarTitle:[array[1] stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+            [self setBarTitle:[addressString stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
             image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 13, 15);
             image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 7);
         }];
@@ -204,15 +203,7 @@
         [img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,result[@"data"][i][@"adurl"]]] placeholderImage:[UIImage imageNamed:@"placeholder@2x.png"] ];
         
         [images addObject:img];
-    }
-    
-    NSArray *titles = @[@"",
-                        @"",
-                        @"",
-                        @""
-                        ];
-    // 创建带标题的图片轮播器
-    for (UIView *item in page.subviews) {
+    }    for (UIView *item in page.subviews) {
         if(101==item.tag)
         {
             _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:item.frame imagesGroup:images ];
@@ -220,7 +211,6 @@
     }
     _cycleScrollView.pageControlAliment =     SDCycleScrollViewPageContolAlimentCenter;
     //    _cycleScrollView.delegate = self;
-    _cycleScrollView.titlesGroup = titles;
     
     [page addSubview:_cycleScrollView];
     
