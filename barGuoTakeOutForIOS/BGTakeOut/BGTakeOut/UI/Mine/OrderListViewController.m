@@ -130,10 +130,10 @@
     }
     else
     {
-        for (UIView *subView in cell.contentView.subviews)
-        {
-            [subView removeFromSuperview];
-        }
+//        for (UIView *subView in cell.contentView.subviews)
+//        {
+//            [subView removeFromSuperview];
+//        }
     }
     return cell;
 }

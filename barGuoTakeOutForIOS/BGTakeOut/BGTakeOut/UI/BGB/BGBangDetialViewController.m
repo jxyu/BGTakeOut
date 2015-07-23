@@ -251,7 +251,7 @@
     //分享巴国榜
     NSString *shareText = @"快来加入掌尚街，享受生活的乐趣吧！";             //分享内嵌文字
     UIImage *shareImage = [UIImage imageNamed:@"1136-1"];          //分享内嵌图片
-    NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSession,UMShareToEmail,UMShareToSms,nil];
+    NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSms,nil];
     //调用快速分享接口
     [UMSocialSnsService presentSnsIconSheetView:self
                                          appKey:umeng_app_key
@@ -262,11 +262,16 @@
 }
 -(void)dianzanFunction:(UIButton *)sender
 {
-    [SVProgressHUD showWithStatus:@"点赞" maskType:SVProgressHUDMaskTypeBlack];
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"dianzanBackCall:"];
-    [dataprovider BGBangDianzanFuncWithuserid:_userid  andartid:_articleid];
-    
+    if (_userid) {
+        [SVProgressHUD showWithStatus:@"点赞" maskType:SVProgressHUDMaskTypeBlack];
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"dianzanBackCall:"];
+        [dataprovider BGBangDianzanFuncWithuserid:_userid  andartid:_articleid];
+    }else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:@"请先登录" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+        [alert show];
+    }
 }
 -(void)dianzanBackCall:(id)dict
 {

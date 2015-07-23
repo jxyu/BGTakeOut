@@ -283,7 +283,6 @@
 #pragma mark 获取数据
 -(void)GetAreaList
 {
-    
     _SelectView =[[UIView alloc] initWithFrame:CGRectMake(0, KAreaListY, SCREEN_WIDTH, SCREEN_HEIGHT-KAreaListY)];
     DataProvider * dataProvider =[[DataProvider alloc] init];
     [dataProvider setDelegateObject:self setBackFunctionName:@"BulidAreaList:"];

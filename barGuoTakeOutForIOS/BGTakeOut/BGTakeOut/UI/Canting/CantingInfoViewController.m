@@ -337,8 +337,8 @@
             [cell.goodimg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,GoodsListArray[indexPath.row][@"pic"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
             cell.goodName.text=GoodsListArray[indexPath.row][@"name"];
             cell.goodPrice.text=[NSString stringWithFormat:@"¥%@",GoodsListArray[indexPath.row][@"price"]];
-            cell.goodSell.text=[NSString stringWithFormat:@"已售%@份",GoodsListArray[indexPath.row][@"soldnum"]];
-            cell.personPush.text=[NSString stringWithFormat:@"推荐%@",GoodsListArray[indexPath.row][@"recommendnum"]];
+            cell.goodSell.text=[[NSString stringWithFormat:@"已售%@份",GoodsListArray[indexPath.row][@"soldnum"] ]stringByReplacingOccurrencesOfString:@"<null>" withString:@"0"];
+            cell.personPush.text=[[NSString stringWithFormat:@"推荐%@",GoodsListArray[indexPath.row][@"recommendnum"] ]stringByReplacingOccurrencesOfString:@"<null>" withString:@"0"];
 //            UIButton * image_add=[[UIButton alloc] initWithFrame:CGRectMake(187, 57, 20, 20)];
 //            image_add.layer.masksToBounds=YES;
 //            image_add.layer.cornerRadius=12.5;
@@ -880,29 +880,29 @@
         [otherViewScroll addSubview:btn_pingjia];
         
         lastView=BackView_userPingjia;
-        UIView * BackView_youhuiquan=[[UIView alloc] initWithFrame:CGRectMake(0,lastView.frame.origin.y+lastView.frame.size.height+5 , KWidth, 40)];
-        BackView_youhuiquan.backgroundColor=[UIColor whiteColor];
-        UIImageView * imgView=[[UIImageView alloc] initWithFrame:CGRectMake(20, 12.5, 15, 15)];
-        imgView.image=[UIImage imageNamed:@"quan"];
-        [BackView_youhuiquan addSubview:imgView];
-        UILabel * lbl_Viewtitle=[[UILabel alloc] initWithFrame:CGRectMake(imgView.frame.origin.x+imgView.frame.size.width+8, 10, 200, 20)];
-        lbl_Viewtitle.text=[NSString stringWithFormat:@"餐厅可使用优惠券"];
-        [BackView_youhuiquan addSubview:lbl_Viewtitle];
-        [otherViewScroll addSubview:BackView_youhuiquan];
-        
-        lastView=BackView_youhuiquan;
-        UIView * BackView_che=[[UIView alloc] initWithFrame:CGRectMake(0,lastView.frame.origin.y+lastView.frame.size.height+1 , KWidth, 40)];
-        BackView_che.backgroundColor=[UIColor whiteColor];
-        UIImageView * imgView_che=[[UIImageView alloc] initWithFrame:CGRectMake(20, 12.5, 15, 15)];
-        imgView_che.image=[UIImage imageNamed:@"che"];
-        [BackView_che addSubview:imgView_che];
-        UILabel * lbl_cheViewtitle=[[UILabel alloc] initWithFrame:CGRectMake(imgView.frame.origin.x+imgView.frame.size.width+8, 10, 200, 20)];
-        lbl_cheViewtitle.text=[NSString stringWithFormat:@"新用户可获Uber 5-50元券"];
-        [BackView_che addSubview:lbl_cheViewtitle];
-        [otherViewScroll addSubview:BackView_che];
-        
-        
-        lastView=BackView_che;
+//        UIView * BackView_youhuiquan=[[UIView alloc] initWithFrame:CGRectMake(0,lastView.frame.origin.y+lastView.frame.size.height+5 , KWidth, 40)];
+//        BackView_youhuiquan.backgroundColor=[UIColor whiteColor];
+//        UIImageView * imgView=[[UIImageView alloc] initWithFrame:CGRectMake(20, 12.5, 15, 15)];
+//        imgView.image=[UIImage imageNamed:@"quan"];
+//        [BackView_youhuiquan addSubview:imgView];
+//        UILabel * lbl_Viewtitle=[[UILabel alloc] initWithFrame:CGRectMake(imgView.frame.origin.x+imgView.frame.size.width+8, 10, 200, 20)];
+//        lbl_Viewtitle.text=[NSString stringWithFormat:@"餐厅可使用优惠券"];
+//        [BackView_youhuiquan addSubview:lbl_Viewtitle];
+//        [otherViewScroll addSubview:BackView_youhuiquan];
+//        
+//        lastView=BackView_youhuiquan;
+//        UIView * BackView_che=[[UIView alloc] initWithFrame:CGRectMake(0,lastView.frame.origin.y+lastView.frame.size.height+1 , KWidth, 40)];
+//        BackView_che.backgroundColor=[UIColor whiteColor];
+//        UIImageView * imgView_che=[[UIImageView alloc] initWithFrame:CGRectMake(20, 12.5, 15, 15)];
+//        imgView_che.image=[UIImage imageNamed:@"che"];
+//        [BackView_che addSubview:imgView_che];
+//        UILabel * lbl_cheViewtitle=[[UILabel alloc] initWithFrame:CGRectMake(imgView.frame.origin.x+imgView.frame.size.width+8, 10, 200, 20)];
+//        lbl_cheViewtitle.text=[NSString stringWithFormat:@"新用户可获Uber 5-50元券"];
+//        [BackView_che addSubview:lbl_cheViewtitle];
+//        [otherViewScroll addSubview:BackView_che];
+//        
+//        
+//        lastView=BackView_che;
         UIView * BackView_pic=[[UIView alloc] initWithFrame:CGRectMake(0,lastView.frame.origin.y+lastView.frame.size.height+5 , KWidth, 40)];
         BackView_pic.backgroundColor=[UIColor whiteColor];
         UILabel * picviewTitle=[[UILabel alloc] initWithFrame:CGRectMake(20, 10, 100, 20)];

@@ -104,8 +104,7 @@
     categary3=[[NSMutableArray alloc] init];
     isClick=NO;
     isShow=NO;
-    if (dictionary[@"userid"]) {
-        [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
+//        [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
         UIImageView * image_left=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-45, _lblTitle.frame.origin.y+13, 13, 15)];
         image_left.tag=1111;
         image_left.image=[UIImage imageNamed:@"index_location"];
@@ -212,9 +211,7 @@
         NSDictionary * dict=@{@"name":@"热门分类"};
         MenuFirstTypeArray=[[NSMutableArray alloc] initWithObjects:dict, nil];
         
-        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                  NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
+        plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
         AreaInfo =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
         if (AreaInfo) {
             [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
@@ -235,14 +232,7 @@
         firstScrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3, 40, SCREEN_WIDTH/3*2, _Page.frame.size.height-40)];
         firstScrollView.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
         firstScrollView.scrollEnabled=YES;
-        
-    }
-    else
-    {
-        _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
-        [_myLogin setDelegateObject:self setBackFunctionName:@"LoginBackCall:"];
-        [self.navigationController pushViewController:_myLogin animated:YES];
-    }
+    
     
 }
 
@@ -379,7 +369,7 @@
         }
         else
         {
-            if (_TextArray[indexPath.row][@"starnum"]!=[NSNull null]) {
+            if (_TextArray[indexPath.row][@"starnum"]!=[NSNull null]&&dictionary[@"userid"]) {
                 [cell.dianzan setTitle:[NSString stringWithFormat:@"(%d)喜欢",[_TextArray[indexPath.row][@"starnum"] intValue]] forState:UIControlStateNormal];
             }
             else
@@ -458,7 +448,7 @@
     //分享巴国榜
     NSString *shareText = @"快来加入掌尚街，享受生活的乐趣吧！";             //分享内嵌文字
     UIImage *shareImage = [UIImage imageNamed:@"1136-1"];          //分享内嵌图片
-NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSession,UMShareToEmail,UMShareToSms,nil];
+NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSms,nil];
     //调用快速分享接口
     [UMSocialSnsService presentSnsIconSheetView:self
                                          appKey:umeng_app_key
@@ -490,11 +480,18 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
 
 -(void)dianzanFunction1:(UIButton *)sender
 {
-    [SVProgressHUD showWithStatus:@"点赞" maskType:SVProgressHUDMaskTypeBlack];
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"dianzanBackCall:"];
-    [dataprovider BGBangDianzanFuncWithuserid:dictionary[@"userid"] andartid:_TextArray[sender.tag][@"articleid"]];
-    
+    if (dictionary[@"userid"]) {
+        [SVProgressHUD showWithStatus:@"点赞" maskType:SVProgressHUDMaskTypeBlack];
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"dianzanBackCall:"];
+        [dataprovider BGBangDianzanFuncWithuserid:dictionary[@"userid"] andartid:_TextArray[sender.tag][@"articleid"]];
+    }
+    else
+    {
+        _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
+        [_myLogin setDelegateObject:self setBackFunctionName:@"LoginBackCall:"];
+        [self.navigationController pushViewController:_myLogin animated:YES];
+    }
 }
 -(void)dianzanBackCall:(id)dict
 {
