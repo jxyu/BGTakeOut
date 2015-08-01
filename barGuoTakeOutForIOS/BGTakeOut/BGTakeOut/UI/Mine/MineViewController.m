@@ -14,7 +14,7 @@
 #import "AppDelegate.h"
 #import "CreditNavigationController.h"
 #import "CreditWebViewController.h"
-#define KURL @"http://121.42.139.60/baguo/"
+#define KURL @"http://112.74.76.91/baguo/"
 
 @interface MineViewController ()
 

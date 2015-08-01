@@ -22,7 +22,7 @@
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 #define ORIGINAL_MAX_WIDTH 640.0f
-#define KURL @"http://121.42.139.60/baguo/"
+#define KURL @"http://112.74.76.91/baguo/"
 typedef enum{
     uploadImg1,
     uploadImg2,

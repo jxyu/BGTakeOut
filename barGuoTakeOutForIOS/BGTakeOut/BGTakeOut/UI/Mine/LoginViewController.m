@@ -94,9 +94,11 @@
     
     
     UIButton * btn_login=[[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-260)/2, btn_secrit.frame.origin.y+btn_secrit.frame.size.height+10, 260, 40)];
-    [btn_login setBackgroundColor:[UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0]];
+    [btn_login setBackgroundColor:[UIColor colorWithRed:228/255.0 green:58/255.0 blue:33/255.0 alpha:1.0]];
     [btn_login setTitle:@"登录" forState:UIControlStateNormal];
     [btn_login setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    btn_login.layer.masksToBounds=YES;
+    btn_login.layer.cornerRadius=5;
     [btn_login addTarget:self action:@selector(LoginClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn_login];
     

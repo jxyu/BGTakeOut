@@ -96,7 +96,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"foundCellIdentifier";
+    static NSString *CellIdentifier = @"FoundCellIdentifier";
     FoundTableViewCell *cell = (FoundTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell  = [[[NSBundle mainBundle] loadNibNamed:@"FoundTableViewCell" owner:self options:nil] lastObject];
@@ -255,13 +255,6 @@
         }
         //        [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
         
-    }
-    else
-    {
-        for (UIView *subView in cell.contentView.subviews)
-        {
-            [subView removeFromSuperview];
-        }
     }
     return cell;
 }

@@ -24,7 +24,7 @@
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 #define KAreaListHeight 60 //scollview中的button的高度
-#define KURL @"http://121.42.139.60/baguo/"
+#define KURL @"http://112.74.76.91/baguo/"
 
 @interface CantingInfoViewController ()
 

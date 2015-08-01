@@ -102,7 +102,7 @@
     lbl_title.text=JokeArray[indexPath.row][@"title"]!=[NSNull null]?JokeArray[indexPath.row][@"title"]:@"";
     [cell addSubview:lbl_title];
     UILabel * lbl_updatatime=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-100, 10, 100, 20)];
-    lbl_updatatime.text=JokeArray[indexPath.row][@"updatetime"]!=[NSNull null]?JokeArray[indexPath.row][@"updatetime"]:@"";
+    lbl_updatatime.text=JokeArray[indexPath.row][@"updatetime"]!=[NSNull null]?[self GetDateWithnsstring:JokeArray[indexPath.row][@"updatetime"]]:@"";
     lbl_updatatime.textColor=[UIColor grayColor];
     lbl_updatatime.font=[UIFont systemFontOfSize:14];
     [cell addSubview:lbl_updatatime];
@@ -149,6 +149,25 @@
                                         attributes:dic        // 文字的属性
                                            context:nil].size; // context上下文。包括一些信息，例如如何调整字间距以及缩放。该对象包含的信息将用于文本绘制。该参数可为nil
     return sizeToFit.height + 16.0;
+}
+
+-(NSString *)GetDateWithnsstring:(NSString *)dateprm
+{
+//    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateStyle:NSDateFormatterMediumStyle];
+//    [formatter setTimeStyle:NSDateFormatterShortStyle];
+//    [formatter setDateFormat:@"yyyyMMddHHMMss"];
+//    NSDate *date = [formatter dateFromString:dateprm];
+//    NSLog(@"date1:%@",date);
+//    return date;
+    double unixTimeStamp = [dateprm doubleValue];
+    NSTimeInterval _interval=unixTimeStamp;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:_interval];
+    NSDateFormatter *_formatter=[[NSDateFormatter alloc]init];
+    [_formatter setLocale:[NSLocale currentLocale]];
+    [_formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *_date=[_formatter stringFromDate:date];
+    return _date;
 }
 
 @end

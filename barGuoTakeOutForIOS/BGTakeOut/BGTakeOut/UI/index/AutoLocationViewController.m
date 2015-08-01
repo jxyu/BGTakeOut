@@ -342,31 +342,41 @@
         [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         DataProvider * dataProvider =[[DataProvider alloc] init];
         NSString * str=[NSString stringWithFormat:@"00%ld",(long)sender.tag];
-        NSRange r= [sender.currentTitle rangeOfString:@"全省"];
-        switch (str.length) {
-            case 6:
-                [CityareaScroll removeFromSuperview];
-                [ThirdareaScroll removeFromSuperview];
-                [StreetScroll removeFromSuperview];
-                province=[NSString stringWithFormat:@"%@",sender.currentTitle];
-                provinceid=str;
-                [dataProvider setDelegateObject:self setBackFunctionName:@"SecondBulidAreaList:"];
-                [dataProvider GetArea:str andareatype:@"1"];
-                break;
-            case 9:
-                city=[NSString stringWithFormat:@"%@",sender.currentTitle];
-                cityid=str;
-                [dataProvider setDelegateObject:self setBackFunctionName:@"ThridBulidAreaList:"];
-                [dataProvider GetArea:str andareatype:@"2"];
-                break;
-            default:
-                if (r.length>0) {
+        NSRange loaction= [sender.currentTitle rangeOfString:@"全国"];
+        if (loaction.length>0) {
+            province=[NSString stringWithFormat:@"%@",sender.currentTitle];
+            provinceid=str;
+            [self SubmitquanguoData];
+        }
+        else
+        {
+            NSRange r= [sender.currentTitle rangeOfString:@"全省"];
+            switch (str.length) {
+                case 6:
+                    [CityareaScroll removeFromSuperview];
+                    [ThirdareaScroll removeFromSuperview];
+                    [StreetScroll removeFromSuperview];
+                    province=[NSString stringWithFormat:@"%@",sender.currentTitle];
+                    provinceid=str;
+                    [dataProvider setDelegateObject:self setBackFunctionName:@"SecondBulidAreaList:"];
+                    [dataProvider GetArea:str andareatype:@"1"];
+                    break;
+                case 9:
                     city=[NSString stringWithFormat:@"%@",sender.currentTitle];
                     cityid=str;
-                    [self SubmitAllData];
-                }
-                break;
+                    [dataProvider setDelegateObject:self setBackFunctionName:@"ThridBulidAreaList:"];
+                    [dataProvider GetArea:str andareatype:@"2"];
+                    break;
+                default:
+                    if (r.length>0) {
+                        city=[NSString stringWithFormat:@"%@",sender.currentTitle];
+                        cityid=str;
+                        [self SubmitAllData];
+                    }
+                    break;
+            }
         }
+        
     }
     @catch (NSException *exception) {
         NSLog(@"定位页面%@",exception);
@@ -491,6 +501,17 @@
     [dataprovider submitLocHistory:userid andlocation:lastArea];
 }
 
+-(void)SubmitquanguoData
+{
+    NSString *lastArea=[NSString stringWithFormat:@"%@",province];
+    [_selectArea setTitle:lastArea forState:UIControlStateNormal];
+    _selectArea.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
+    [_SelectView removeFromSuperview];
+    
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"submitBackCall:"];
+    [dataprovider submitLocHistory:userid andlocation:lastArea];
+}
 -(void)SubmitAllData
 {
     NSString *lastArea=[NSString stringWithFormat:@"%@%@",province,city];
@@ -555,6 +576,27 @@
             
         }
 
+    }
+    else
+    {
+        NSString *lastArea=[NSString stringWithFormat:@"%@",province];
+        NSDictionary * areadict=@{@"area":lastArea};
+        SEL func_selector = NSSelectorFromString(callBackFunctionName);
+        if ([CallBackObject respondsToSelector:func_selector]) {
+            NSLog(@"回调成功...");
+            [CallBackObject performSelectorInBackground:func_selector withObject:areadict];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }else{
+            NSLog(@"回调失败...");
+        }
+        NSDictionary * dict=@{@"provinceid":provinceid,@"provinceTitle":province};
+        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
+        BOOL result= [dict writeToFile:plistPath atomically:YES];
+        if (result) {
+            
+        }
     }
 }
 @end

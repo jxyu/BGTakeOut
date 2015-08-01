@@ -119,7 +119,7 @@ static const NSString *kDefaultSolidChar = @"★";
             [kDefaultSolidChar drawAtPoint:currPoint withFont:[UIFont boldSystemFontOfSize:_FoutSize?_FoutSize:kFontSize]];
         }
 			
-		currPoint.x += kStarWidthAndHeight;
+		currPoint.x += kStarWidthAndHeight-5;
 	}
 	
 	NSInteger remaining = _maxRating - _rating;
@@ -135,7 +135,7 @@ static const NSString *kDefaultSolidChar = @"★";
             CGContextSetFillColorWithColor(UIGraphicsGetCurrentContext(), _emptyColor.CGColor);
 			[kDefaultEmptyChar drawAtPoint:currPoint withFont:[UIFont boldSystemFontOfSize:_FoutSize?_FoutSize:kFontSize]];
         }
-		currPoint.x += kStarWidthAndHeight;
+		currPoint.x += kStarWidthAndHeight-5;
 	}
 }
 

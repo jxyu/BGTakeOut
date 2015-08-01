@@ -16,7 +16,7 @@
 #import "UIImageView+WebCache.h"
 #import "UMSocial.h"
 #import "CWStarRateView.h"
-#define KURL @"http://121.42.139.60/baguo/"
+#define KURL @"http://112.74.76.91/baguo/"
 @interface BGBangDetialViewController ()
 @property(nonatomic,strong)SDCycleScrollView *cycleScrollView;
 @end

@@ -10,7 +10,7 @@
 #import "AFHTTPRequestOperation.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "AFURLRequestSerialization.h"
-#define KURL @"http://121.42.139.60/baguo/"
+#define KURL @"http://112.74.76.91/baguo/"
 
 
 
@@ -342,7 +342,7 @@
         NSDictionary * prm=@{@"userid":userid,@"token":token};
         [self PostRequest:url andpram:prm];
     }
-};
+}
 -(void)EditAddress:(id)prm
 {
     if (prm) {

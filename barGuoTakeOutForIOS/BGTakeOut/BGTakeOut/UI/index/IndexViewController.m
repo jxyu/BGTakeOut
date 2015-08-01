@@ -18,7 +18,7 @@
 #import "Toolkit.h"
 #define kJianXi 5
 #define tabBarButtonNum 4
-#define KURL @"http://121.42.139.60/baguo/"
+#define KURL @"http://112.74.76.91/baguo/"
 
 @interface IndexViewController ()
 {

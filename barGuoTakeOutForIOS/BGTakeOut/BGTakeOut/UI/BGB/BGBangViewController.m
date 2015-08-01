@@ -21,7 +21,7 @@
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 #define KtextNum 6
-#define KURL @"http://121.42.139.60/baguo/"
+#define KURL @"http://112.74.76.91/baguo/"
 
 
 @interface BGBangViewController ()<UMSocialUIDelegate>
@@ -56,8 +56,6 @@
     NSMutableArray * MenuSencondTypeArrau;
     BOOL isAgain;//标记是否为第二次请求列表数据
     
-    NSInteger table_page;
-    
     
     UIScrollView * menuScrollView;
     UIScrollView * firstScrollView;
@@ -70,6 +68,7 @@
     
     NSDictionary * AreaInfo;
     BOOL isfooterRefresh;
+    BOOL isfooterrequest;
 }
 
 
@@ -86,6 +85,7 @@
     _oneid=@"0";
     _twoid=@"0";
     _threeid=@"0";
+    isfooterrequest=NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"exit_userinfo" object:nil];
     [self buildColorArray];
     [self BuildBiewelement];
@@ -93,6 +93,7 @@
 
 -(void)BuildBiewelement
 {
+    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     [self setBarTitle:@"巴国榜"];
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                               NSUserDomainMask, YES) objectAtIndex:0];
@@ -114,12 +115,10 @@
         image_right.image=[UIImage imageNamed:@"index_down"];
         [self.view addSubview:image_right];
         
-        [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
-            NSLog(@"%@",addressString);
-            [self setBarTitle:[addressString stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
-            image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 13, 15);
-            image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 7);
-        }];
+    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+        _lat=[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude];
+    _long:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] ;
+    }];
         //添加Segmented Control
         UIView * lastView=[self.view.subviews lastObject];
         UIView * segmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 50)];
@@ -198,6 +197,7 @@
         __weak typeof(self) weakself=self;
         [mytableView addLegendFooterWithRefreshingBlock:^{
             if (!isfooterRefresh) {
+                isfooterrequest=YES;
                 [weakself loadNewData];
                 isfooterRefresh=YES;
                 [mytableView footerEndRefreshing];
@@ -214,12 +214,19 @@
         plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
         AreaInfo =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
         if (AreaInfo) {
-            [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+            [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+            _lblTitle.text=[[NSString stringWithFormat:@"%@%@%@",AreaInfo[@"provinceTitle"],AreaInfo[@"cityTitle"],AreaInfo[@"districtTitle"]] stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
         }
         else
         {
             [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-                [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+                [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+            }];
+            [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
+                NSLog(@"%@",addressString);
+                [self setBarTitle:[addressString stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+                image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 13, 15);
+                image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 7);
             }];
 
         }
@@ -302,9 +309,12 @@
         }
         else
         {
-            [_TextArray removeAllObjects];
-            [mytableView reloadData];
-            [SVProgressHUD showErrorWithStatus:dict[@"msg"] maskType:SVProgressHUDMaskTypeBlack];
+            if (!isfooterrequest) {
+                _TextArray=[[NSMutableArray alloc] init];
+            }
+            isfooterrequest=NO;
+//            [mytableView reloadData];
+//            [SVProgressHUD showErrorWithStatus:dict[@"msg"] maskType:SVProgressHUDMaskTypeBlack];
         }
         isfooterRefresh=NO;
         if (!isrequest) {
@@ -335,7 +345,7 @@
     }
     else
     {
-        return _TextArray!=[NSNull null]?_TextArray.count:0;
+        return _TextArray?_TextArray.count:0;
     }
 }
 
@@ -349,9 +359,9 @@
         cell  = [[[NSBundle mainBundle] loadNibNamed:@"BGBangTableViewCell" owner:self options:nil] lastObject];
         cell.layer.masksToBounds=YES;
         cell.bounds=CGRectMake(0, 0, tableView.frame.size.width, cell.frame.size.height);
-        cell.Name.text=_TextArray[indexPath.row][@"resname"];
-        cell.adress.text=_TextArray[indexPath.row][@"resaddress"];
-        [cell.logoImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,_TextArray[indexPath.row][@"reslogo"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+        cell.Name.text=_TextArray[indexPath.row][@"resname"]!=[NSNull null]?_TextArray[indexPath.row][@"resname"]:@"";
+        cell.adress.text=_TextArray[indexPath.row][@"resaddress"]!=[NSNull null]?_TextArray[indexPath.row][@"resaddress"]:@"";
+        [cell.logoImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,_TextArray[indexPath.row][@"reslogo"]!=[NSNull null]?_TextArray[indexPath.row][@"reslogo"]:@""]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
         cell.logoImage.layer.masksToBounds=YES;
         cell.logoImage.layer.cornerRadius=4;
         if ([_TextArray[indexPath.row][@"isstarted"] intValue]==1) {
@@ -416,14 +426,24 @@
     if (1==self.segmentedControl.selectedSegmentIndex) {
 //        _Page.hidden=YES;
         NSLog(@"other");
-        [menuScrollView removeFromSuperview];
-        [firstScrollView removeFromSuperview];
-        [BackView_paixu removeFromSuperview];
-        isAgain=YES;
-        NSDictionary * prm=@{@"userid":dictionary[@"userid"],@"page":@"1",@"num":@"8"};
-        DataProvider * dataprovider=[[DataProvider alloc] init];
-        [dataprovider setDelegateObject:self setBackFunctionName:@"OtherClickBackCall:"];
-        [dataprovider BGBangXintuijian:prm];
+        if (dictionary) {
+            [menuScrollView removeFromSuperview];
+            [firstScrollView removeFromSuperview];
+            [BackView_paixu removeFromSuperview];
+            isAgain=YES;
+            NSDictionary *prm=[[NSDictionary alloc] init];
+            prm=@{@"userid":dictionary[@"userid"],@"page":@"1",@"num":@"8"};
+            DataProvider * dataprovider=[[DataProvider alloc] init];
+            [dataprovider setDelegateObject:self setBackFunctionName:@"OtherClickBackCall:"];
+            [dataprovider BGBangXintuijian:prm];
+        }
+        else
+        {
+            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"请先登录" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+            [alert show];
+            _TextArray=[[NSMutableArray alloc] init];
+            [mytableView reloadData];
+        }
     }
     else
     {
@@ -433,11 +453,11 @@
         [firstScrollView removeFromSuperview];
         [BackView_paixu removeFromSuperview];
         if (AreaInfo) {
-            [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+            [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
         }else
         {
             [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-                [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"1" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+                [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
             }];
         }
     }
@@ -526,7 +546,7 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
 {
     ++_page;
     isAgain=NO;
-    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
+    
     if (AreaInfo) {
         [self MakePramAndGetData:_page andNum:@"8" andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
     }
@@ -536,7 +556,6 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
             [self MakePramAndGetData:_page andNum:@"8" andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
         }];
     }
-    table_page++;
 }
 
 -(void)btn_BGBcategrayClick
@@ -801,6 +820,7 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
 -(void)GetListForOrder:(UIButton * )sender
 {
     isShow=NO;
+    isAgain=YES;
     [BackView_paixu removeFromSuperview];
     if (AreaInfo) {
         [self MakePramAndGetData:1 andNum:@"8" andSort:[NSString stringWithFormat:@"%d",sender.tag] andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
@@ -827,6 +847,7 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
 
 -(void)fenleiItemClick:(UIButton *)sender
 {
+    _oneid=[NSString stringWithFormat:@"%ld",(long)sender.tag];
     for (UIView * items in menuScrollView.subviews) {
         if ([items isKindOfClass:[UIButton class]]) {
             UIButton *item=(UIButton *)items;
