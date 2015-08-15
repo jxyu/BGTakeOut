@@ -358,7 +358,7 @@
     if (cell == nil) {
         cell  = [[[NSBundle mainBundle] loadNibNamed:@"BGBangTableViewCell" owner:self options:nil] lastObject];
         cell.layer.masksToBounds=YES;
-        cell.bounds=CGRectMake(0, 0, tableView.frame.size.width, cell.frame.size.height);
+        cell.bounds=CGRectMake(0, 0, SCREEN_WIDTH, cell.frame.size.height);
         cell.Name.text=_TextArray[indexPath.row][@"resname"]!=[NSNull null]?_TextArray[indexPath.row][@"resname"]:@"";
         cell.adress.text=_TextArray[indexPath.row][@"resaddress"]!=[NSNull null]?_TextArray[indexPath.row][@"resaddress"]:@"";
         [cell.logoImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,_TextArray[indexPath.row][@"reslogo"]!=[NSNull null]?_TextArray[indexPath.row][@"reslogo"]:@""]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
@@ -399,6 +399,8 @@
         }
         
         [cell.Btn_share addTarget:self action:@selector(BGBangShare:) forControlEvents:UIControlEventTouchUpInside];
+        cell.fengeView.layer.masksToBounds=YES;
+        cell.fengeView.bounds=CGRectMake(0, 0, cell.frame.size.width, 1);
         [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
     }
     return cell;

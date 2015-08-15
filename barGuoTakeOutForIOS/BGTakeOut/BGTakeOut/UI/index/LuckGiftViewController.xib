@@ -59,12 +59,34 @@
                         </mask>
                     </variation>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="免责声明：本功能涉及竞赛和抽奖活动，有一定几率中奖，但本活动与Apple公司无关，本活动最终解释权归阿克苏巴国城网络科技有限公司所有" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rx9-MQ-KcH">
+                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="70" id="n3X-aK-m0P"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.39607843139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="n3X-aK-m0P"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="n3X-aK-m0P"/>
+                        </mask>
+                    </variation>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="rx9-MQ-KcH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="45" id="8h5-El-GSA"/>
+                <constraint firstAttribute="trailing" secondItem="rx9-MQ-KcH" secondAttribute="trailing" constant="34" id="MZ2-ak-T0a"/>
                 <constraint firstAttribute="trailing" secondItem="hHS-Rw-eiD" secondAttribute="trailing" constant="10" id="WMr-PA-rac"/>
                 <constraint firstItem="39N-xz-Nhd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="Xff-4c-dlO"/>
-                <constraint firstItem="39N-xz-Nhd" firstAttribute="top" secondItem="hHS-Rw-eiD" secondAttribute="bottom" constant="30" id="fK5-FN-ARd"/>
+                <constraint firstItem="rx9-MQ-KcH" firstAttribute="top" secondItem="39N-xz-Nhd" secondAttribute="bottom" constant="10" id="eRa-VL-Kgf"/>
+                <constraint firstItem="39N-xz-Nhd" firstAttribute="top" secondItem="hHS-Rw-eiD" secondAttribute="bottom" constant="20" id="fK5-FN-ARd"/>
                 <constraint firstAttribute="trailing" secondItem="39N-xz-Nhd" secondAttribute="trailing" constant="10" id="kcF-Ba-3Ve"/>
                 <constraint firstItem="hHS-Rw-eiD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="nPb-y1-BdS"/>
                 <constraint firstItem="hHS-Rw-eiD" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="69" id="p2q-cD-v1p"/>
@@ -73,6 +95,7 @@
                 <mask key="subviews">
                     <exclude reference="hHS-Rw-eiD"/>
                     <exclude reference="39N-xz-Nhd"/>
+                    <exclude reference="rx9-MQ-KcH"/>
                 </mask>
                 <mask key="constraints">
                     <exclude reference="WMr-PA-rac"/>
@@ -81,12 +104,16 @@
                     <exclude reference="Xff-4c-dlO"/>
                     <exclude reference="fK5-FN-ARd"/>
                     <exclude reference="kcF-Ba-3Ve"/>
+                    <exclude reference="8h5-El-GSA"/>
+                    <exclude reference="MZ2-ak-T0a"/>
+                    <exclude reference="eRa-VL-Kgf"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
                 <mask key="subviews">
                     <include reference="hHS-Rw-eiD"/>
                     <include reference="39N-xz-Nhd"/>
+                    <include reference="rx9-MQ-KcH"/>
                 </mask>
                 <mask key="constraints">
                     <include reference="WMr-PA-rac"/>
@@ -95,6 +122,9 @@
                     <include reference="Xff-4c-dlO"/>
                     <include reference="fK5-FN-ARd"/>
                     <include reference="kcF-Ba-3Ve"/>
+                    <include reference="8h5-El-GSA"/>
+                    <include reference="MZ2-ak-T0a"/>
+                    <include reference="eRa-VL-Kgf"/>
                 </mask>
             </variation>
         </view>

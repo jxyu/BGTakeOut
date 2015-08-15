@@ -281,10 +281,14 @@
             break;
         case 1:
             _myOther.Othertitle=@"公司简介";
+            _myOther.celltag=sender.tag;
+            [self.navigationController pushViewController:_myOther animated:YES];
             break;
         case 2:
             if (UserInfoData) {
                 _myOther.Othertitle=@"投诉处理";
+                _myOther.celltag=sender.tag;
+                [self.navigationController pushViewController:_myOther animated:YES];
             }else
             {
                 _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
@@ -293,20 +297,40 @@
             }
             break;
         case 10:
-            _myOther.Othertitle=@"诚聘";
+            if (UserInfoData) {
+                _myOther.Othertitle=@"诚聘";
+                _myOther.celltag=sender.tag;
+                [self.navigationController pushViewController:_myOther animated:YES];
+            }else
+            {
+                _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
+                [_myLogin setDelegateObject:self setBackFunctionName:@"LoginBackCall:"];
+                [self.navigationController pushViewController:_myLogin animated:YES];
+            }
+            
             break;
         case 11:
-            _myOther.Othertitle=@"招商加盟";
+            if (UserInfoData) {
+                _myOther.Othertitle=@"招商加盟";
+                _myOther.celltag=sender.tag;
+                [self.navigationController pushViewController:_myOther animated:YES];
+            }else
+            {
+                _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
+                [_myLogin setDelegateObject:self setBackFunctionName:@"LoginBackCall:"];
+                [self.navigationController pushViewController:_myLogin animated:YES];
+            }
             break;
         case 20:
             _myOther.Othertitle=@"设置";
-            
+            _myOther.celltag=sender.tag;
+            [self.navigationController pushViewController:_myOther animated:YES];
             break;
         default:
             break;
     }
-    _myOther.celltag=sender.tag;
-    [self.navigationController pushViewController:_myOther animated:YES];
+    
+    
     
 }
 

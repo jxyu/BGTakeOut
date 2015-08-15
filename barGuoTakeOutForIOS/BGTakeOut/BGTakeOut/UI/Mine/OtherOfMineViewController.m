@@ -67,13 +67,9 @@
             
             break;
         case 1:
-            companyshow=[[UILabel alloc] initWithFrame:CGRectMake(10, NavigationBar_HEIGHT+30, SCREEN_WIDTH-20, SCREEN_HEIGHT-NavigationBar_HEIGHT-40)];
-            companyshow.text=@"公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介";
-            companyshow.lineBreakMode=UILineBreakModeWordWrap;
-            companyshow.numberOfLines=0;
-            companyshow.font=[UIFont fontWithName:@"Helvetica" size:14];
-            companyshow.backgroundColor=[UIColor whiteColor];
-            [self.view addSubview:companyshow];
+            
+            [self Getjianjie];
+            
             break;
         case 2:
             tousu=[[UITextView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 80)];
@@ -256,6 +252,26 @@
                                             otherButtonTitles:nil, nil];
         [alert show];
     }
+}
+
+-(void)Getjianjie
+{
+    DataProvider * datarovider=[[DataProvider alloc] init];
+    [datarovider setDelegateObject:self setBackFunctionName:@"GetjianjieBackCall:"];
+    [datarovider GetSomeInfonWithType:@"business"];
+}
+-(void)GetjianjieBackCall:(id)dict
+{
+    if (1==[dict[@"status"] integerValue]) {
+        companyshow=[[UILabel alloc] initWithFrame:CGRectMake(10, NavigationBar_HEIGHT+30, SCREEN_WIDTH-20, SCREEN_HEIGHT-NavigationBar_HEIGHT-40)];
+        companyshow.text=dict[@"data"][@"business"];
+        companyshow.lineBreakMode=UILineBreakModeWordWrap;
+        companyshow.numberOfLines=0;
+        companyshow.font=[UIFont fontWithName:@"Helvetica" size:14];
+        companyshow.backgroundColor=[UIColor whiteColor];
+        [self.view addSubview:companyshow];
+    }
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

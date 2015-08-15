@@ -65,6 +65,9 @@
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bbg-uc-Mnr">
                         <rect key="frame" x="198" y="30" width="44" height="41"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="44" id="5ys-rF-gqe"/>
+                        </constraints>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -74,6 +77,9 @@
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xbi-gp-QJ8">
                         <rect key="frame" x="257" y="30" width="44" height="41"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="44" id="auG-yS-rvv"/>
+                        </constraints>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -98,7 +104,6 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="Bbg-uc-Mnr" secondAttribute="trailing" constant="70" id="3X8-ps-re7"/>
                     <constraint firstAttribute="bottomMargin" secondItem="haM-Ot-O3A" secondAttribute="bottom" constant="22" id="5dk-Ml-Wqg"/>
                     <constraint firstItem="haM-Ot-O3A" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="97d-0d-X9x"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Bbg-uc-Mnr" secondAttribute="bottom" constant="22" id="AG2-2w-bfc"/>
@@ -106,10 +111,9 @@
                     <constraint firstAttribute="bottomMargin" secondItem="Xbi-gp-QJ8" secondAttribute="bottom" constant="22" id="DAs-e3-ceg"/>
                     <constraint firstItem="haM-Ot-O3A" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="130" id="ZVR-jx-jBY"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Xbi-gp-QJ8" secondAttribute="trailing" constant="11" id="cza-Sh-gJe"/>
-                    <constraint firstItem="Bbg-uc-Mnr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="190" id="eCb-cH-aKW"/>
                     <constraint firstItem="Xbi-gp-QJ8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="iNY-4U-1tF"/>
                     <constraint firstItem="Bbg-uc-Mnr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="jCe-Is-054"/>
-                    <constraint firstItem="Xbi-gp-QJ8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="249" id="xGd-lq-5Ix"/>
+                    <constraint firstItem="Xbi-gp-QJ8" firstAttribute="leading" secondItem="Bbg-uc-Mnr" secondAttribute="trailing" constant="15" id="xyT-3z-yj8"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

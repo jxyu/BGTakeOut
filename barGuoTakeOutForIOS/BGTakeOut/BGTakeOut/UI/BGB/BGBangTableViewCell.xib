@@ -67,9 +67,12 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YG6-9E-raI">
-                        <rect key="frame" x="0.0" y="97" width="320" height="1"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YG6-9E-raI">
+                        <rect key="frame" x="8" y="89" width="304" height="1"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="CWV-RN-sjp"/>
+                        </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9dn-ub-ISt">
                         <rect key="frame" x="240" y="13" width="54" height="21"/>
@@ -82,12 +85,15 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="YG6-9E-raI" secondAttribute="bottom" id="01g-ft-tbC"/>
                     <constraint firstItem="1dF-uZ-Pzp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="DRR-5H-4KF"/>
+                    <constraint firstItem="YG6-9E-raI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="FDH-UT-dsY"/>
                     <constraint firstAttribute="bottomMargin" secondItem="PJG-p3-vAw" secondAttribute="bottom" constant="1" id="TmI-cA-USv"/>
                     <constraint firstItem="9dn-ub-ISt" firstAttribute="leading" secondItem="1dF-uZ-Pzp" secondAttribute="trailing" constant="-67" id="Tmq-L5-Z5Y"/>
                     <constraint firstItem="PJG-p3-vAw" firstAttribute="leading" secondItem="GmA-Xb-peU" secondAttribute="trailing" constant="14" id="bVM-8a-jbb"/>
                     <constraint firstItem="9dn-ub-ISt" firstAttribute="leading" secondItem="1dF-uZ-Pzp" secondAttribute="trailing" constant="-67" id="dTQ-VZ-kun"/>
-                    <constraint firstItem="9dn-ub-ISt" firstAttribute="top" secondItem="1dF-uZ-Pzp" secondAttribute="bottom" constant="-21" id="en1-Re-CWc"/>
+                    <constraint firstItem="9dn-ub-ISt" firstAttribute="top" secondItem="1dF-uZ-Pzp" secondAttribute="bottom" constant="-19" id="en1-Re-CWc"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="YG6-9E-raI" secondAttribute="trailing" id="gFb-cN-Blv"/>
                     <constraint firstAttribute="bottomMargin" secondItem="GmA-Xb-peU" secondAttribute="bottom" constant="1" id="i2W-lD-FJh"/>
                     <constraint firstAttribute="trailingMargin" secondItem="PJG-p3-vAw" secondAttribute="trailing" constant="24" id="ilQ-T8-avf"/>
                     <constraint firstAttribute="trailingMargin" secondItem="1dF-uZ-Pzp" secondAttribute="trailing" constant="5" id="nwP-ud-jbq"/>
@@ -98,6 +104,7 @@
                 <outlet property="Name" destination="ISg-kw-PKq" id="FSj-9n-7P2"/>
                 <outlet property="adress" destination="OMV-xc-1ur" id="ab5-Uy-hSP"/>
                 <outlet property="dianzan" destination="GmA-Xb-peU" id="URl-a6-GK6"/>
+                <outlet property="fengeView" destination="YG6-9E-raI" id="uiO-pw-00P"/>
                 <outlet property="lbl_renzheng" destination="9dn-ub-ISt" id="a3d-s3-ZDk"/>
                 <outlet property="logoImage" destination="9js-x8-fa3" id="a40-8A-we0"/>
                 <outlet property="renzheng" destination="1dF-uZ-Pzp" id="SJ1-jR-6oo"/>
