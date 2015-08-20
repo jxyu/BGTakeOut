@@ -1734,11 +1734,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Mine/OtherOfMineViewController.m"
-            timestampString = "461064003.57352"
+            timestampString = "461744030.911611"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "368"
-            endingLineNumber = "368"
+            startingLineNumber = "370"
+            endingLineNumber = "370"
             landmarkName = "-zhiweiSubmit"
             landmarkType = "5">
          </BreakpointContent>
@@ -3797,22 +3797,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BGTakeOut/UI/Mine/OtherOfMineViewController.m"
-            timestampString = "461063915.42799"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
-            landmarkName = "-zixunTelBackcall:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Mine/OrderListViewController.m"
             timestampString = "456906612.944848"
             startingColumnNumber = "9223372036854775807"
@@ -5222,22 +5206,6 @@
             startingLineNumber = "272"
             endingLineNumber = "272"
             landmarkName = "-gotoGiftLeft"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BGTakeOut/UI/Mine/OtherOfMineViewController.m"
-            timestampString = "461064003.57352"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "274"
-            endingLineNumber = "274"
-            landmarkName = "-GetjianjieBackCall:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
