@@ -159,6 +159,9 @@
  */
 -(void)getResAlbumWithResid:(NSString*)resid;
 
+
+-(void)GetpayWayInRes:(NSString *)res_id;
+
 //执行回调函数
 - (void)setDelegateObject:(id)cbobject setBackFunctionName:(NSString *)selectorName;
 

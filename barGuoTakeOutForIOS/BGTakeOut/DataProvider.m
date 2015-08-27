@@ -542,6 +542,15 @@
     }
 }
 
+-(void)GetpayWayInRes:(NSString *)res_id
+{
+    if (res_id) {
+        NSDictionary * prm =@{@"resid":res_id};
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Node/api_getPayWayStatus",KURL];
+        [self PostRequest:url andpram:prm];
+    }
+}
+
 -(void)getRuller
 {
     NSString * url=[NSString stringWithFormat:@"%@server/Home/My/api_getDailyStar",KURL];
