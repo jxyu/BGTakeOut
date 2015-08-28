@@ -2242,7 +2242,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
@@ -2258,7 +2258,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
@@ -2390,11 +2390,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
-            timestampString = "459768404.422778"
+            timestampString = "462439648.043912"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "535"
-            endingLineNumber = "535"
+            startingLineNumber = "537"
+            endingLineNumber = "537"
             landmarkName = "-btn_activeClick"
             landmarkType = "5">
          </BreakpointContent>
@@ -2406,11 +2406,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
-            timestampString = "459768404.422778"
+            timestampString = "462439648.043912"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "530"
-            endingLineNumber = "530"
+            startingLineNumber = "532"
+            endingLineNumber = "532"
             landmarkName = "-btn_activeClick"
             landmarkType = "5">
          </BreakpointContent>
@@ -2614,11 +2614,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
-            timestampString = "459768404.422778"
+            timestampString = "462439648.043912"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "426"
-            endingLineNumber = "426"
+            startingLineNumber = "428"
+            endingLineNumber = "428"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2902,11 +2902,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
-            timestampString = "459768404.422778"
+            timestampString = "462439648.043912"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "424"
-            endingLineNumber = "424"
+            startingLineNumber = "426"
+            endingLineNumber = "426"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2918,11 +2918,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
-            timestampString = "459768404.422778"
+            timestampString = "462439648.043912"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "625"
-            endingLineNumber = "625"
+            startingLineNumber = "627"
+            endingLineNumber = "627"
             landmarkName = "-isBetweenFromHour:toHour:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5260,7 +5260,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
@@ -5286,6 +5286,54 @@
             startingLineNumber = "164"
             endingLineNumber = "164"
             landmarkName = "-GetDateWithnsstring:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
+            timestampString = "462439399.062275"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "328"
+            endingLineNumber = "328"
+            landmarkName = "-bulidrestaurantList:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
+            timestampString = "462439684.02363"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
+            landmarkName = "-bulidrestaurantList:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
+            timestampString = "462439690.375783"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "337"
+            endingLineNumber = "337"
+            landmarkName = "-bulidrestaurantList:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

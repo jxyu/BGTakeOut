@@ -19,7 +19,7 @@
 #import "CWStarRateView.h"
 
 
-#define KCantingNum 10
+#define KCantingNum 6
 #define KURL @"http://112.74.76.91/baguo/"
 
 @interface WaiMAIViewController ()<DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -97,7 +97,7 @@
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
     AreaInfo =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
     [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-        [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:@"1" andCategory:@"1" andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] andprovinceid:AreaInfo[@"provinceid"] andcityid:AreaInfo[@"cityid"] anddistrictid:AreaInfo[@"districtid"]];
+        [self GetrestaurantListPage:@"1" andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"0" andActivity:@"1" andCategory:@"1" andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] andprovinceid:AreaInfo[@"provinceid"] andcityid:AreaInfo[@"cityid"] anddistrictid:AreaInfo[@"districtid"]];
     }];
     
     
@@ -348,10 +348,12 @@
             tabledata=[[NSMutableArray alloc] init];
         }
         isfooterRequest=NO;
+//        [SVProgressHUD showErrorWithStatus:dict[@"msg"] maskType:SVProgressHUDMaskTypeBlack];
 //        [SVProgressHUD showErrorWithStatus:@"没有更多数据" maskType:SVProgressHUDMaskTypeBlack];
 //        [_tableView reloadData];
     }
 //    [_tableView reloadData];
+    
     [_tableView.footer endRefreshing];
     
     
@@ -450,7 +452,7 @@
 -(void)loadNewData{
     isfooterRequest=YES;
     table_page++;
-    [self GetrestaurantListPage:[NSString stringWithFormat:@"%ld",(long)table_page] andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:@"1" andActivity:_activity andCategory:_category andlat:_lat andlong:_long andprovinceid:AreaInfo[@"provinceid"] andcityid:AreaInfo[@"cityid"] anddistrictid:AreaInfo[@"districtid"]];
+    [self GetrestaurantListPage:[NSString stringWithFormat:@"%ld",(long)table_page] andNum:[NSString stringWithFormat:@"%d",KCantingNum] andOrder:_order andActivity:_activity andCategory:_category andlat:_lat andlong:_long andprovinceid:AreaInfo[@"provinceid"] andcityid:AreaInfo[@"cityid"] anddistrictid:AreaInfo[@"districtid"]];
     
     
 }
