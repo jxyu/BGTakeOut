@@ -12,6 +12,7 @@
 #import "ShoppingCarModel.h"
 #import "DataProvider.h"
 #import "CantingInfoViewController.h"
+#import "Pingpp.h"
 
 
 @interface OrderInfoViewController ()
@@ -572,7 +573,7 @@
             btn_cuidan.layer.borderWidth=1.0;
             btn_cuidan.layer.cornerRadius=5;
             btn_cuidan.titleLabel.font=[UIFont systemFontOfSize:13];
-            [btn_cuidan addTarget:self action:@selector(PayForOrder) forControlEvents:UIControlEventTouchUpInside];
+            [btn_cuidan addTarget:self action:@selector(PayWithThisOrder:) forControlEvents:UIControlEventTouchUpInside];
             [BackView_OrderTitle addSubview:btn_cuidan];
             
             
@@ -764,6 +765,55 @@
             [BackView_img_status addSubview:firstImg];
             UILabel * lbl_Image_First=[[UILabel alloc] initWithFrame:CGRectMake(85, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 15)];
             lbl_Image_First.text=@"订单提交";
+            lbl_Image_First.font=[UIFont fontWithName:@"Helvetica" size:13];
+            [BackView_img_status addSubview:lbl_Image_First];
+            
+            UIView * gotoNext2=[[UIView alloc] initWithFrame:CGRectMake(firstImg.frame.origin.x+firstImg.frame.size.width, firstImg.frame.origin.y+(firstImg.frame.size.height/2), (SCREEN_WIDTH-160)/3, 1)];
+            gotoNext2.backgroundColor=[UIColor grayColor];
+            [BackView_img_status addSubview:gotoNext2];
+            UIImageView * ThirdImg=[[UIImageView alloc] initWithFrame:CGRectMake(gotoNext2.frame.origin.x+gotoNext2.frame.size.width, firstImg.frame.origin.y, 20, 20)];
+            ThirdImg.layer.masksToBounds=YES;
+            ThirdImg.layer.cornerRadius=10;
+            ThirdImg.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+            ThirdImg.image=[UIImage imageNamed:@"no_icon.png"];
+            [BackView_img_status addSubview:ThirdImg];
+            UILabel * lbl_Image_Third=[[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-280)/5*3+lbl_Image_First.frame.size.width*2, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 15)];
+            lbl_Image_Third.text=@"订单取消";
+            lbl_Image_Third.font=[UIFont fontWithName:@"Helvetica" size:13];
+            //    lbl_Image_Second.textColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+            [BackView_img_status addSubview:lbl_Image_Third];
+            [OrderAfterPay addSubview:BackView_img_status];
+        }
+            break;
+        case 11:
+        {
+            BackView_OrderTitle.frame=CGRectMake(BackView_OrderTitle.frame.origin.x, BackView_OrderTitle.frame.origin.y, SCREEN_WIDTH, 100);
+            UIView * backview_StatusInfo=[[UIView alloc] initWithFrame:CGRectMake(40, img_Status_icon.frame.origin.y+img_Status_icon.frame.size.height+2, SCREEN_WIDTH-80, 40)];
+            backview_StatusInfo.backgroundColor=[UIColor colorWithRed:253/255.0 green:229/255.0 blue:225/255.0 alpha:1.0];
+            UILabel * lbl_title=[[UILabel alloc] initWithFrame:CGRectMake(0, 10, backview_StatusInfo.frame.size.width, 20)];
+            [lbl_title setTextAlignment:NSTextAlignmentCenter];
+            lbl_title.font=[UIFont systemFontOfSize:12];
+            lbl_title.text=@"您的订单已经取消，正在为您退款";
+            [lbl_title setLineBreakMode:NSLineBreakByWordWrapping];
+            lbl_title.numberOfLines=0;
+            lbl_title.textColor=[UIColor grayColor];
+            [backview_StatusInfo addSubview:lbl_title];
+            [BackView_OrderTitle addSubview:backview_StatusInfo];
+            
+            
+            OrderAfterPay =[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 800)];
+            OrderAfterPay.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+            [OrderAfterPay addSubview:BackView_OrderTitle];
+            UIView * BackView_img_status=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_OrderTitle.frame.origin.y+BackView_OrderTitle.frame.size.height+5, SCREEN_WIDTH, 60)];
+            BackView_img_status.backgroundColor=[UIColor whiteColor];
+            UIImageView * firstImg=[[UIImageView alloc] initWithFrame:CGRectMake(105, 10, 20, 20)];
+            firstImg.layer.masksToBounds=YES;
+            firstImg.layer.cornerRadius=10;
+            firstImg.image=[UIImage imageNamed:@"first.png"];
+            firstImg.backgroundColor=[UIColor colorWithRed:83/255.0 green:193/255.0 blue:36/255.0 alpha:1.0];
+            [BackView_img_status addSubview:firstImg];
+            UILabel * lbl_Image_First=[[UILabel alloc] initWithFrame:CGRectMake(85, firstImg.frame.origin.y+firstImg.frame.size.height+10, 70, 15)];
+            lbl_Image_First.text=@"正在进行退款";
             lbl_Image_First.font=[UIFont fontWithName:@"Helvetica" size:13];
             [BackView_img_status addSubview:lbl_Image_First];
             
@@ -1081,6 +1131,57 @@
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetOrderInfoBackCall:"];
     [dataprovider GetOrderInfoWithOrderNum:_orderInfoDetial[@"ordernum"]];
+}
+
+-(void)PayWithThisOrder:(UIButton *)sender
+{
+    [SVProgressHUD showWithStatus:@"正在进行支付。。" maskType:SVProgressHUDMaskTypeBlack];
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetChargeBackCall:"];
+        if ([_orderInfoDetial[@"payway"] intValue]==3) {
+            NSDictionary * prm=@{@"channel":@"wx",@"amount":[NSString stringWithFormat:@"%d",(int)[_orderInfoDetial[@"orderprice"] floatValue]*100],@"ordernum":_orderInfoDetial[@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
+            //                NSDictionary * prm=@{@"channel":@"wx",@"amount":@"1",@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
+            [dataprovider GetchargeForPay:prm];
+        }
+        else if([_orderInfoDetial[@"payway"] intValue]==0)
+        {
+            NSDictionary * prm=@{@"channel":@"alipay",@"amount":[NSString stringWithFormat:@"%d",(int)[_orderInfoDetial[@"orderprice"] floatValue]*100],@"ordernum":_orderInfoDetial[@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
+            //                NSDictionary * prm=@{@"channel":@"alipay",@"amount":@"1",@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
+            [dataprovider GetchargeForPay:prm];
+        }
+    
+}
+-(void)GetChargeBackCall:(id)dict
+{
+    NSLog(@"%@",dict);
+    [SVProgressHUD dismiss];
+    
+    if (dict) {
+        NSData* jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
+        NSString* str_data = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
+            if ([_orderInfoDetial[@"payway"] intValue]==3) {
+                [Pingpp createPayment:str_data viewController:self appURLScheme:@"wx9039702cc87118c0" withCompletion:^(NSString *result, PingppError *error) {
+                    if ([result isEqualToString:@"success"]) {
+                        NSLog(@"支付成功");
+                    } else {
+                        NSLog(@"PingppError: code=%lu msg=%@", (unsigned long)error.code, [error getMsg]);
+                    }
+                }];
+            }else{
+                [Pingpp createPayment:str_data viewController:self appURLScheme:@"BGTakeOut" withCompletion:^(NSString *result, PingppError *error) {
+                    if ([result isEqualToString:@"success"]) {
+                        NSLog(@"支付成功");
+                    } else {
+                        NSLog(@"PingppError: code=%lu msg=%@", (unsigned long)error.code, [error getMsg]);
+                    }
+                }];
+            }
+            
+        
+        
+        
+    }
 }
 
 

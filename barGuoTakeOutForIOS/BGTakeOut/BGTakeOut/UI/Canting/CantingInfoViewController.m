@@ -756,7 +756,7 @@
         _myOrderView.orderData=ShoppingCar;
         _myOrderView.resid=_resid;
         _myOrderView.peiSongFeiData=_peisongData;
-        _myOrderView.orderSumPrice=dict[@"data"][@"totalprice"];
+        _myOrderView.orderSumPrice=dict[@"data"][@"activityprice"];
         [self.navigationController pushViewController:_myOrderView animated:YES];
 
     }

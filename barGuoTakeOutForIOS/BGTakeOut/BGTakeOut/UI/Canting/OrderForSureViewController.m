@@ -330,7 +330,15 @@
                 [prm setObject:dict[@"userid"] forKey:@"username"];
                 
                 if (PayOnLineForChange) {
-                    [prm setObject:@"0"forKey:@"payway"];
+                    if(PayWX)
+                    {
+                        [prm setObject:@"3"forKey:@"payway"];
+                    }
+                    else
+                    {
+                        [prm setObject:@"0"forKey:@"payway"];
+                    }
+                    
                 }else
                 {
                     [prm setObject:@"1"forKey:@"payway"];

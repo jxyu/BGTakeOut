@@ -2169,7 +2169,7 @@
 				TargetAttributes = {
 					80067CA11ADCA0F100394FB7 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = M7YC435M3S;
+						DevelopmentTeam = 7X578356T4;
 					};
 					80067CBA1ADCA0F100394FB7 = {
 						CreatedOnToolsVersion = 6.3;
