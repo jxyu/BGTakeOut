@@ -2469,22 +2469,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BGTakeOut/UI/Canting/CantingInfoViewController.m"
-            timestampString = "457084837.821193"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "754"
-            endingLineNumber = "754"
-            landmarkName = "-GetorderPriceBackCall:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/Canting/PingjiaForOrderViewController.m"
             timestampString = "457003480.382316"
             startingColumnNumber = "9223372036854775807"
@@ -3788,22 +3772,6 @@
             startingLineNumber = "163"
             endingLineNumber = "163"
             landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BGTakeOut/UI/Canting/CantingInfoViewController.m"
-            timestampString = "457084837.821193"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "768"
-            endingLineNumber = "768"
-            landmarkName = "-CanTingXiangqingBackCall:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5407,13 +5375,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BGTakeOut/UI/Canting/CantingInfoViewController.m"
-            timestampString = "462698691.232458"
+            filePath = "BGTakeOut/UI/Canting/OrderForSureViewController.m"
+            timestampString = "463221557.548308"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "759"
-            endingLineNumber = "759"
-            landmarkName = "-GetorderPriceBackCall:"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "-GetPayWayBackCall:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

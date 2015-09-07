@@ -756,7 +756,7 @@
         _myOrderView.orderData=ShoppingCar;
         _myOrderView.resid=_resid;
         _myOrderView.peiSongFeiData=_peisongData;
-        _myOrderView.orderSumPrice=dict[@"data"][@"activityprice"];
+        _myOrderView.orderSumPrice=dict[@"data"][@"totalprice"];
         [self.navigationController pushViewController:_myOrderView animated:YES];
 
     }
@@ -776,7 +776,6 @@
             isShouCang=YES;
             [self addRightButton:@"shoucang-@2x.png"];
         }
-        
         _imgRight.bounds=CGRectMake(0, 0, 20, 20);
         CGFloat y=CantingsegmentView.frame.origin.y+CantingsegmentView.frame.size.height;
         _CantingOtherPage=[[UIView alloc] initWithFrame:CGRectMake(0, y, KWidth, KHeight-y)];
