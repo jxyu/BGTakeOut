@@ -13,6 +13,7 @@
 #import "CommenDef.h"
 #import "OrderInfoViewController.h"
 #import "AddressListViewController.h"
+#import "OrderListViewController.h"
 
 @interface OrderForSureViewController ()
 @property(nonatomic,strong)AddressListViewController * myaddresslist;
@@ -48,7 +49,9 @@
     PayWX=NO;
     dictPayWay=[[NSDictionary alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"OrderPay_success" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(JumpToOrderList) name:@"OrderPay_filed" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectAddressBackCall:) name:@"select_address" object:nil];
+    
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self setBarTitle:@"订单确认"];
     [self addLeftButton:@"ic_actionbar_back.png"];
@@ -506,6 +509,17 @@
     orderinfoVC.orderData=_orderData;
     [self.navigationController pushViewController:orderinfoVC animated:YES];
 
+}
+-(void)JumpToOrderList
+{
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+    NSDictionary * userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+
+    OrderListViewController *myOrderList=[[OrderListViewController alloc] init];
+    myOrderList.userid=userinfoWithFile[@"userid"];
+    [self.navigationController pushViewController:myOrderList animated:YES];
 }
 
 -(void)selectAddressBackCall:(NSNotification *)notice

@@ -320,7 +320,7 @@
         UIView *lastView;
         UIView * BackView_zhaopinxinxi;
         if (i==0) {
-            BackView_zhaopinxinxi=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 100)];
+            BackView_zhaopinxinxi=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 140)];
         }
         else
         {
@@ -328,9 +328,9 @@
             BackView_zhaopinxinxi=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+lastView.frame.origin.y, SCREEN_WIDTH, 100)];
         }
         UILabel * lbl_zhiweiname=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, 20)];
-        lbl_zhiweiname.text=[NSString stringWithFormat:@"%d、%@",i,array[i][@"zhiwei"]==[NSNull null]?@"":array[i][@"zhiwei"]];
+        lbl_zhiweiname.text=[NSString stringWithFormat:@"%@",array[i][@"zhiwei"]==[NSNull null]?@"":array[i][@"zhiwei"]];
         [BackView_zhaopinxinxi addSubview:lbl_zhiweiname];
-        UITextView * lbl_zhiweicontent=[[UITextView alloc] initWithFrame:CGRectMake(10, lbl_zhiweiname.frame.size.height+10, SCREEN_WIDTH-20, 60)];
+        UITextView * lbl_zhiweicontent=[[UITextView alloc] initWithFrame:CGRectMake(10, lbl_zhiweiname.frame.size.height+10, SCREEN_WIDTH-20, 100)];
 //        [lbl_zhiweicontent setLineBreakMode:NSLineBreakByWordWrapping];
 //        lbl_zhiweicontent.numberOfLines=0;
         lbl_zhiweicontent.scrollEnabled=YES;
@@ -396,7 +396,7 @@
         UIView *lastView;
         UIView * BackView_zhaopinxinxi;
         if (i==0) {
-            BackView_zhaopinxinxi=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 100)];
+            BackView_zhaopinxinxi=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, SCREEN_HEIGHT-130-NavigationBar_HEIGHT-20)];
         }
         else
         {
@@ -404,9 +404,9 @@
             BackView_zhaopinxinxi=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.size.height+lastView.frame.origin.y, SCREEN_WIDTH, 100)];
         }
         UILabel * lbl_zhiweiname=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, 20)];
-        lbl_zhiweiname.text=[NSString stringWithFormat:@"%d、%@",i,array[i][@"title"]==[NSNull null]?@"":array[i][@"title"]];
+        lbl_zhiweiname.text=[NSString stringWithFormat:@"%@",array[i][@"title"]==[NSNull null]?@"":array[i][@"title"]];
         [BackView_zhaopinxinxi addSubview:lbl_zhiweiname];
-        UITextView * lbl_zhiweicontent=[[UITextView alloc] initWithFrame:CGRectMake(10, lbl_zhiweiname.frame.size.height+10, SCREEN_WIDTH-20, 60)];
+        UITextView * lbl_zhiweicontent=[[UITextView alloc] initWithFrame:CGRectMake(10, lbl_zhiweiname.frame.size.height+10, SCREEN_WIDTH-20, SCREEN_HEIGHT-130-lbl_zhiweiname.frame.size.height-80)];
 //        [lbl_zhiweicontent setLineBreakMode:NSLineBreakByWordWrapping];
 //        lbl_zhiweicontent.numberOfLines=0;
         lbl_zhiweicontent.scrollEnabled=YES;
@@ -415,26 +415,26 @@
         [BackView_zhaopinxinxi addSubview:lbl_zhiweicontent];
         [self.view addSubview:BackView_zhaopinxinxi];
     }
-    UIView * lastView=[self.view.subviews lastObject];
+//    UIView * lastView=[self.view.subviews lastObject];
     
-    zhaoshang=[[UITextView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+5, SCREEN_WIDTH, 80)];
+    zhaoshang=[[UITextView alloc] initWithFrame:CGRectMake(0,  SCREEN_HEIGHT-130, SCREEN_WIDTH, 80)];
     [zhaoshang setKeyboardType:UIKeyboardTypeDefault];
     zhaoshang.delegate=self;
     [self.view addSubview:zhaoshang];
     
-    uilabelzhaoshang=[[UILabel alloc] initWithFrame:CGRectMake(17, lastView.frame.origin.y+lastView.frame.size.height+5+8, 100, 15)];
+    uilabelzhaoshang=[[UILabel alloc] initWithFrame:CGRectMake(17, SCREEN_HEIGHT-117, 100, 15)];
     uilabelzhaoshang.text = @"请填写招商信息..";
     uilabelzhaoshang.enabled = NO;//lable必须设置为不可用
     uilabelzhaoshang.font=[UIFont systemFontOfSize:13];
     uilabelzhaoshang.backgroundColor = [UIColor clearColor];
     [self.view addSubview:uilabelzhaoshang];
-    UILabel * lbl_zishuzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-160, lastView.frame.origin.y+lastView.frame.size.height+5+zhiwei.frame.size.height-30, 150, 15)];
+//    UILabel * lbl_zishuzhiwei=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-160, lastView.frame.origin.y+lastView.frame.size.height+5+zhiwei.frame.size.height-30, 150, 15)];
     lbl_zishuzhaoshang.text=@"还能输入140个字";
     lbl_zishuzhaoshang.enabled=NO;
     lbl_zishuzhaoshang.font=[UIFont systemFontOfSize:13];
     lbl_zishuzhaoshang.backgroundColor=[UIColor clearColor];
     [self.view addSubview:lbl_zishuzhaoshang];
-    UIButton * btn_zhiwei=[[UIButton alloc] initWithFrame:CGRectMake(20, zhaoshang.frame.origin.y+zhaoshang.frame.size.height+10, SCREEN_WIDTH-40, 35)];
+    UIButton * btn_zhiwei=[[UIButton alloc] initWithFrame:CGRectMake(20, SCREEN_HEIGHT-50, SCREEN_WIDTH-40, 35)];
     btn_zhiwei.backgroundColor=[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
     [btn_zhiwei addTarget:self action:@selector(zhaoshangSubmit) forControlEvents:UIControlEventTouchUpInside];
     [btn_zhiwei setTitle:@"提交" forState:UIControlStateNormal];

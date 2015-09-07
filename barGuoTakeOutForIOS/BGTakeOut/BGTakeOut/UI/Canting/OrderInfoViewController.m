@@ -178,6 +178,14 @@
             [btn_canselOrder setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
             [btn_canselOrder addTarget:self action:@selector(CancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
             [BackView_OrderTitle addSubview:btn_canselOrder];
+            UIButton * btn_cuidan=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-140, backview_StatusInfo.frame.origin.y+backview_StatusInfo.frame.size.height+5, 60, 30)];
+            [btn_cuidan setTitle:@"电话催单" forState:UIControlStateNormal];
+            [btn_cuidan setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            btn_cuidan.layer.borderWidth=1.0;
+            btn_cuidan.layer.cornerRadius=5;
+            btn_cuidan.titleLabel.font=[UIFont systemFontOfSize:13];
+            [btn_cuidan addTarget:self action:@selector(CuidanForTel) forControlEvents:UIControlEventTouchUpInside];
+            [BackView_OrderTitle addSubview:btn_cuidan];
             
             [OrderAfterPay addSubview:BackView_OrderTitle];
             UIView * BackView_img_status=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_OrderTitle.frame.origin.y+BackView_OrderTitle.frame.size.height+5, SCREEN_WIDTH, 60)];

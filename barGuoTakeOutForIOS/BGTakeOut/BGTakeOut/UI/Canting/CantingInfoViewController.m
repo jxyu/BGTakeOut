@@ -821,7 +821,7 @@
         UIView * BackView_time=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+1, (KWidth-2)/3, 60)];
         BackView_time.backgroundColor=[UIColor whiteColor];
         UILabel * lbl_qisongjia=[[UILabel alloc] initWithFrame:CGRectMake(30, 10, 40, 30)];
-        lbl_qisongjia.text=[NSString stringWithFormat:@"¥%@",dict[@"data"][@"deliveryprice"]];
+        lbl_qisongjia.text=[NSString stringWithFormat:@"¥%@",dict[@"data"][@"begindeliveryprice"]];
         [lbl_qisongjia setTextAlignment:NSTextAlignmentCenter];
         [BackView_time addSubview:lbl_qisongjia];
         UILabel * lbl_qisongjianame=[[UILabel alloc] initWithFrame:CGRectMake(lbl_qisongjia.frame.origin.x, lbl_qisongjia.frame.origin.y+lbl_qisongjia.frame.size.height+5, 40, 15)];
@@ -835,7 +835,7 @@
         UIView * BackView_WaiSongFei=[[UIView alloc] initWithFrame:CGRectMake(BackView_time.frame.origin.x+BackView_time.frame.size.width+1, lastView.frame.origin.y+lastView.frame.size.height+1, (KWidth-2)/3, 60)];
         BackView_WaiSongFei.backgroundColor=[UIColor whiteColor];
         UILabel * lbl_waisongfei=[[UILabel alloc] initWithFrame:CGRectMake(30, 10, 40, 30)];
-        lbl_waisongfei.text=[NSString stringWithFormat:@"¥%@",dict[@"data"][@"begindeliveryprice"]];
+        lbl_waisongfei.text=[NSString stringWithFormat:@"¥%@",dict[@"data"][@"deliveryprice"]];
         [lbl_waisongfei setTextAlignment:NSTextAlignmentCenter];
         [BackView_WaiSongFei addSubview:lbl_waisongfei];
         UILabel * lbl_waisongfeiname=[[UILabel alloc] initWithFrame:CGRectMake(lbl_qisongjia.frame.origin.x, lbl_qisongjia.frame.origin.y+lbl_qisongjia.frame.size.height+5, 40, 15)];

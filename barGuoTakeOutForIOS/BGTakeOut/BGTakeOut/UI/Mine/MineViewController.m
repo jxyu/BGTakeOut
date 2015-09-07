@@ -280,7 +280,7 @@
             [self JumpToOffical];
             break;
         case 1:
-            _myOther.Othertitle=@"公司简介";
+            _myOther.Othertitle=@"简介";
             _myOther.celltag=sender.tag;
             [self.navigationController pushViewController:_myOther animated:YES];
             break;

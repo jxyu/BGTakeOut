@@ -249,7 +249,7 @@
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
-    NSDictionary* userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
     if(userinfoWithFile[@"userid"]){
         //!!!:  已经登录完成，调用接口获取免登陆链接在页面中显示
         DataProvider* dataProvider1=[[DataProvider alloc] init];
@@ -268,7 +268,7 @@
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
-    NSDictionary* userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
     if(userinfoWithFile[@"userid"]){
         //!!!:  已经登录完成，调用接口获取免登陆链接在页面中显示
         DataProvider* dataProvider1=[[DataProvider alloc] init];
@@ -287,7 +287,7 @@
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
-    NSDictionary* userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
     if(userinfoWithFile[@"userid"]){
         //!!!:  已经登录完成，调用接口获取免登陆链接在页面中显示
         DataProvider* dataProvider1=[[DataProvider alloc] init];
@@ -323,8 +323,8 @@
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
-    NSDictionary* userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
-    if(userinfoWithFile){
+    userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    if(userinfoWithFile[@"userid"]){
         //!!!:  已经登录完成，调用接口获取免登陆链接在页面中显示
         DataProvider* dataProvider=[[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getDuibaAutoLoginUrl:"];

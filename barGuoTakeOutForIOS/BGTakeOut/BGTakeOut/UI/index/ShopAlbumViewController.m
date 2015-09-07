@@ -57,7 +57,7 @@
         //        [imgView sd_setImageWithURL:[NSURL URLWithString:@"http://cc.cocimg.com/api/uploads/20150430/1430388577515100.jpg"] placeholderImage:[UIImage imageNamed:@"1136-1"]];
         //!!!: 图片显示使用上面的链接可以正常显示，使用服务器返回的图片链接，错误 -1100  ，怀疑是使用外链进行多次跳转，服务器没有设置商铺相册对应的模块
         UIImageView* imgView=[[UIImageView alloc] init];
-        [imgView sd_setImageWithURL:[NSURL URLWithString:[[dict objectAtIndex:i] objectForKey:@"picurl"]] placeholderImage:[UIImage imageNamed:@"1136-1"] options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
+        [imgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://112.74.76.91/baguo/%@",[[dict objectAtIndex:i] objectForKey:@"picurl"]]] placeholderImage:[UIImage imageNamed:@"1136-1"] options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
             [slideImageView addImage:imgView.image];
             [slideImageView setImageShadowsWtihDirectionX:2 Y:2 Alpha:0.7];
             

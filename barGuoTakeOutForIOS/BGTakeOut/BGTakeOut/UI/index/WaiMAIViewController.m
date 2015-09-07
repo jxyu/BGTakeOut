@@ -165,7 +165,7 @@
     [self.view addSubview:_Page];
     // 数据
     self.sorts=@[@"促销活动"];
-    self.areas = @[@"全部",@"订餐",@"超市",@"小吃",@"清真",@"早餐",@"午餐"];
+    self.areas = @[@"全部",@"糕点",@"超市",@"小吃",@"清真",@"早餐",@"正餐"];
     self.classifys = @[@"默认排序",@"距离最近",@"销量最大",@"评价最高"];
     imagearray1=@[@"zong.png",@"jian.png",@"dian.png",@"han.png",@"qing.png",@"zao.png",@"wu.png"];
     imagearray2=@[@"xu.png",@"langWay@2x.png",@"xiaoliang.png",@"timer.png"];

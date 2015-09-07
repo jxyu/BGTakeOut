@@ -236,6 +236,7 @@
                } else {
                    // 支付失败或取消
                    NSLog(@"Error: code=%lu msg=%@", (unsigned long)error.code, [error getMsg]);
+                   [[NSNotificationCenter defaultCenter] postNotificationName:@"OrderPay_filed" object:nil];
                }
            }];
     return  YES;

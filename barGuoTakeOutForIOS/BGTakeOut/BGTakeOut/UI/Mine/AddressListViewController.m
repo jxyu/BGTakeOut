@@ -67,7 +67,7 @@
             UIView * lastView=[scrollView_address.subviews lastObject];
             UIView * view_address=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+5, SCREEN_WIDTH, 100)];
             view_address.backgroundColor=[UIColor colorWithRed:94/255.0 green:107/255.0 blue:133/255.0 alpha:1.0];
-            UILabel * lbl_name=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 50)];
+            UILabel * lbl_name=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 20)];
             lbl_name.text=addressArray[i][@"realname"];
             lbl_name.font=[UIFont systemFontOfSize:14];
             lbl_name.textColor=[UIColor whiteColor];
