@@ -43,11 +43,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    numOfWeiDao=@"0";
-    numOfweisheng=@"0";
-    numOfHuanJing=@"0";
-    numOfFuWu=@"0";
-    numOfXingjiabi=@"0";
+    numOfWeiDao=@"1";
+    numOfweisheng=@"1";
+    numOfHuanJing=@"1";
+    numOfFuWu=@"1";
+    numOfXingjiabi=@"1";
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self setBarTitle:@"评论"];
     [self addLeftButton:@"ic_actionbar_back.png"];
@@ -61,6 +61,7 @@
                                                           emptyColor:[UIColor lightGrayColor]
                                                           solidColor:[UIColor redColor]
                                                         andMaxRating:10];
+    starRatingView_weidao.rating=1;
     [starRatingView_weidao setUserInteractionEnabled:YES];
     starRatingView_weidao.backgroundColor=[UIColor clearColor];
     [starRatingView_weidao addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
@@ -74,6 +75,7 @@
                                                             emptyColor:[UIColor lightGrayColor]
                                                             solidColor:[UIColor redColor]
                                                           andMaxRating:10];
+    starRatingView_weisheng.rating=1;
     [starRatingView_weisheng setUserInteractionEnabled:YES];
     starRatingView_weisheng.backgroundColor=[UIColor clearColor];
     [starRatingView_weisheng addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
@@ -88,6 +90,7 @@
                                                            emptyColor:[UIColor lightGrayColor]
                                                            solidColor:[UIColor redColor]
                                                          andMaxRating:10];
+    starRatingView_huanjing.rating=1;
     [starRatingView_huanjing setUserInteractionEnabled:YES];
     starRatingView_huanjing.backgroundColor=[UIColor clearColor];
     [starRatingView_huanjing addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
@@ -101,6 +104,7 @@
                                                         emptyColor:[UIColor lightGrayColor]
                                                         solidColor:[UIColor redColor]
                                                       andMaxRating:10];
+    starRatingView_fuwu.rating=1;
     [starRatingView_fuwu setUserInteractionEnabled:YES];
     starRatingView_fuwu.backgroundColor=[UIColor clearColor];
     [starRatingView_fuwu addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
@@ -114,6 +118,7 @@
                                                              emptyColor:[UIColor lightGrayColor]
                                                              solidColor:[UIColor redColor]
                                                            andMaxRating:10];
+    starRatingView_xingjiabi.rating=1;
     [starRatingView_xingjiabi setUserInteractionEnabled:YES];
     starRatingView_xingjiabi.backgroundColor=[UIColor clearColor];
     [starRatingView_xingjiabi addTarget:self action:@selector(GetScoreForPingjia:) forControlEvents:UIControlEventEditingDidEnd];
@@ -185,6 +190,7 @@
     [SVProgressHUD dismiss];
     if ([dict[@"status"] intValue]==1) {
         [SVProgressHUD showSuccessWithStatus:@"提交成功" maskType:SVProgressHUDMaskTypeBlack];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 -(void)clickRightButton:(UIButton *)sender

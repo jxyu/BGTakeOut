@@ -81,7 +81,7 @@
         image_left=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-45, _lblTitle.frame.origin.y+13, 13, 15)];
         image_left.tag=1111;
         image_left.image=[UIImage imageNamed:@"index_location"];
-        [self.view addSubview:image_left];
+//        [self.view addSubview:image_left];
         image_right=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2+35, _lblTitle.frame.origin.y+18, 12, 7)];
         image_right.tag=1112;
         image_right.image=[UIImage imageNamed:@"index_down"];
@@ -275,7 +275,7 @@
         NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
         BOOL result= [dict writeToFile:plistPath atomically:YES];
         if (result) {
-            
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"changecity_success" object:nil];
         }
     }];
 }
@@ -552,7 +552,7 @@
         NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
         BOOL result= [dict writeToFile:plistPath atomically:YES];
         if (result) {
-            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"changecity_success" object:nil];
         }
     }
     else if (province&&city)
@@ -573,7 +573,7 @@
         NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
         BOOL result= [dict writeToFile:plistPath atomically:YES];
         if (result) {
-            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"changecity_success" object:nil];
         }
 
     }
@@ -595,7 +595,7 @@
         NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
         BOOL result= [dict writeToFile:plistPath atomically:YES];
         if (result) {
-            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"changecity_success" object:nil];
         }
     }
 }

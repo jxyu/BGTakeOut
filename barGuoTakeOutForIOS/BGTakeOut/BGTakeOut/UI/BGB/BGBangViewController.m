@@ -49,6 +49,9 @@
     NSString * _threeid;
     NSString * _lat;
     NSString * _longprm;
+    NSString* _provinceid;
+    NSString* _cityid;
+    NSString* _districtid;
     NSMutableArray * _TextArray;
     NSDictionary *dictionary;
     
@@ -87,8 +90,43 @@
     _threeid=@"0";
     isfooterrequest=NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"exit_userinfo" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ChangeCityBackCall) name:@"changecity_success" object:nil];
     [self buildColorArray];
     [self BuildBiewelement];
+}
+
+-(void)ChangeCityBackCall
+{
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
+    AreaInfo =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    if (AreaInfo.count==0) {
+        [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
+            NSLog(@"%@",addressString);
+            [self setBarTitle:[addressString stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+//            image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 7);
+            
+        }];
+    }
+    else
+    {
+        if (AreaInfo.count==2) {
+            _lblTitle.text=AreaInfo[@"provinceTitle"];
+            _provinceid=[NSString stringWithFormat:@"%@",AreaInfo[@"provinceid"]];
+        }
+        else if (AreaInfo.count==4)
+        {
+            _lblTitle.text=[NSString stringWithFormat:@"%@%@",AreaInfo[@"provinceTitle"],AreaInfo[@"cityTitle"]];
+            _cityid=[NSString stringWithFormat:@"%@",AreaInfo[@"cityid"]];
+        }
+        else
+        {
+            _lblTitle.text=[NSString stringWithFormat:@"%@%@%@",AreaInfo[@"provinceTitle"],AreaInfo[@"cityTitle"],AreaInfo[@"districtTitle"]];
+            _districtid=[NSString stringWithFormat:@"%@",AreaInfo[@"districtid"]];
+        }
+    }
+
 }
 
 -(void)BuildBiewelement
@@ -109,7 +147,7 @@
         UIImageView * image_left=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-45, _lblTitle.frame.origin.y+13, 13, 15)];
         image_left.tag=1111;
         image_left.image=[UIImage imageNamed:@"index_location"];
-        [self.view addSubview:image_left];
+//        [self.view addSubview:image_left];
         UIImageView * image_right=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2+35, _lblTitle.frame.origin.y+18, 12, 7)];
         image_right.tag=1112;
         image_right.image=[UIImage imageNamed:@"index_down"];
@@ -164,7 +202,7 @@
         [BackView_menu addSubview:fenge1];
         UIButton * btn_paixu=[[UIButton alloc] initWithFrame:CGRectMake(fenge1.frame.origin.x+fenge1.frame.size.width+10, 5, SCREEN_WIDTH/3-30, 30)];
         [btn_paixu setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [btn_paixu setTitle:@"默认排序" forState:UIControlStateNormal];
+        [btn_paixu setTitle:@"排序方式" forState:UIControlStateNormal];
         btn_paixu.titleLabel.font=[UIFont systemFontOfSize:14];
         [btn_paixu addTarget:self action:@selector(btn_paixuClick) forControlEvents:UIControlEventTouchUpInside];
         [BackView_menu addSubview:btn_paixu];
@@ -203,7 +241,37 @@
                 [mytableView footerEndRefreshing];
             }
         }];
-        
+    plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
+    AreaInfo =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    if (AreaInfo.count==0) {
+        [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
+            NSLog(@"%@",addressString);
+            [self setBarTitle:[addressString stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
+            image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 13, 15);
+            image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 7);
+            
+        }];
+    }
+    else
+    {
+        if (AreaInfo.count==2) {
+            _lblTitle.text=AreaInfo[@"provinceTitle"];
+            _provinceid=[NSString stringWithFormat:@"%@",AreaInfo[@"provinceid"]];
+        }
+        else if (AreaInfo.count==4)
+        {
+            _lblTitle.text=[NSString stringWithFormat:@"%@%@",AreaInfo[@"provinceTitle"],AreaInfo[@"cityTitle"]];
+            _cityid=[NSString stringWithFormat:@"%@",AreaInfo[@"cityid"]];
+        }
+        else
+        {
+            _lblTitle.text=[NSString stringWithFormat:@"%@%@%@",AreaInfo[@"provinceTitle"],AreaInfo[@"cityTitle"],AreaInfo[@"districtTitle"]];
+            _districtid=[NSString stringWithFormat:@"%@",AreaInfo[@"districtid"]];
+        }
+    }
+    
+    
+    
         // 数据
         self.sorts=@[@"我要推荐"];
         self.areas = @[@"排序方式"];
@@ -211,25 +279,19 @@
         NSDictionary * dict=@{@"name":@"热门分类"};
         MenuFirstTypeArray=[[NSMutableArray alloc] initWithObjects:dict, nil];
         
-        plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
-        AreaInfo =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    
         if (AreaInfo) {
-            [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
-            _lblTitle.text=[[NSString stringWithFormat:@"%@%@%@",AreaInfo[@"provinceTitle"],AreaInfo[@"cityTitle"],AreaInfo[@"districtTitle"]] stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+            [self MakePramAndGetData:1 andNum:@"8" andSort:@"3" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
         }
         else
         {
             [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-                [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
-            }];
-            [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
-                NSLog(@"%@",addressString);
-                [self setBarTitle:[addressString stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
-                image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 13, 15);
-                image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 7);
+                [self MakePramAndGetData:1 andNum:@"8" andSort:@"3" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
             }];
 
         }
+    
+    
         
         menuScrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH/3, _Page.frame.size.height-40)];
         menuScrollView.scrollEnabled=YES;
@@ -585,11 +647,11 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
         UIView * itemView=[[UIView alloc] initWithFrame:CGRectMake(0, 1, BackView_paixu.frame.size.width, 30)];
         itemView.backgroundColor=[UIColor whiteColor];
         UIImageView * icon1=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 15)];
-        icon1.image=[UIImage imageNamed:@"xu.png"];
+        icon1.image=[UIImage imageNamed:@"like_icon_light.png"];
         [itemView addSubview:icon1];
         UILabel * lbl_title1=[[UILabel alloc] initWithFrame:CGRectMake(icon1.frame.origin.x+icon1.frame.size.width+10, 10, 250, 15)];
         lbl_title1.font=[UIFont systemFontOfSize:14];
-        lbl_title1.text=@"默认排序";
+        lbl_title1.text=@"点赞对多";
         [itemView addSubview:lbl_title1];
         UIButton * btn_defaultPaixu=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, itemView.frame.size.width, 30)];
         btn_defaultPaixu.tag=0;
@@ -600,10 +662,10 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
         UIView * itemView1=[[UIView alloc] initWithFrame:CGRectMake(0, itemView.frame.origin.y+itemView.frame.size.height+1, BackView_paixu.frame.size.width, 30)];
         itemView1.backgroundColor=[UIColor whiteColor];
         UIImageView * icon2=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 15)];
-        icon2.image=[UIImage imageNamed:@"like_icon_light.png"];
+        icon2.image=[UIImage imageNamed:@"Star_light.png"];
         [itemView1 addSubview:icon2];
         UILabel * lbl_title2=[[UILabel alloc] initWithFrame:CGRectMake(icon2.frame.origin.x+icon2.frame.size.width+10, 10, 250, 15)];
-        lbl_title2.text=@"点赞对多";
+        lbl_title2.text=@"评分最高";
         lbl_title2.font=[UIFont systemFontOfSize:14];
         [itemView1 addSubview:lbl_title2];
         UIButton * btn_dianzanPaixu=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, itemView1.frame.size.width, 30)];
@@ -616,10 +678,10 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
         UIView * itemView2=[[UIView alloc] initWithFrame:CGRectMake(0, itemView1.frame.origin.y+itemView1.frame.size.height+1, BackView_paixu.frame.size.width, 30)];
         itemView2.backgroundColor=[UIColor whiteColor];
         UIImageView * icon3=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 15)];
-        icon3.image=[UIImage imageNamed:@"Star_light.png"];
+        icon3.image=[UIImage imageNamed:@"zheng.png"];
         [itemView2 addSubview:icon3];
         UILabel * lbl_title3=[[UILabel alloc] initWithFrame:CGRectMake(icon3.frame.origin.x+icon3.frame.size.width+10, 10, 250, 15)];
-        lbl_title3.text=@"评分最高";
+        lbl_title3.text=@"认证最高";
         lbl_title3.font=[UIFont systemFontOfSize:14];
         [itemView2 addSubview:lbl_title3];
         UIButton * btn_pingfenPaixu=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, itemView2.frame.size.width, 30)];
@@ -631,10 +693,10 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
         UIView * itemView3=[[UIView alloc] initWithFrame:CGRectMake(0, itemView2.frame.origin.y+itemView2.frame.size.height+1, BackView_paixu.frame.size.width, 30)];
         itemView3.backgroundColor=[UIColor whiteColor];
         UIImageView * icon4=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 15, 15)];
-        icon4.image=[UIImage imageNamed:@"zheng.png"];
+        icon4.image=[UIImage imageNamed:@"langWay@2x.png"];
         [itemView3 addSubview:icon4];
         UILabel * lbl_title4=[[UILabel alloc] initWithFrame:CGRectMake(icon4.frame.origin.x+icon4.frame.size.width+10, 10, 250, 15)];
-        lbl_title4.text=@"认证最高";
+        lbl_title4.text=@"距离最近";
         lbl_title4.font=[UIFont systemFontOfSize:14];
         [itemView3 addSubview:lbl_title4];
         UIButton * btn_renzhengPaixu=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, itemView3.frame.size.width, 30)];

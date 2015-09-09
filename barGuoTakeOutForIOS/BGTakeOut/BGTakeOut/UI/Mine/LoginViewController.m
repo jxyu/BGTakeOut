@@ -103,7 +103,7 @@
     [self.view addSubview:btn_login];
     
     UIButton * btn_ForgetPwd=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-140, btn_login.frame.origin.y+btn_login.frame.size.height+10, 120, 20)];
-    [btn_ForgetPwd setTitle:@"忘记密码？" forState:UIControlStateNormal];
+    [btn_ForgetPwd setTitle:@"密码找回" forState:UIControlStateNormal];
     [btn_ForgetPwd setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btn_ForgetPwd addTarget:self action:@selector(Btn_ForgetPwdClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn_ForgetPwd];
@@ -122,7 +122,7 @@
 
 -(void)LoginClick
 {
-    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
+//    [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
     if (txt_phoneNum.text!=nil&&txt_pwd.text!=nil) {
         DataProvider * dataprovider =[[DataProvider alloc] init];
         [dataprovider setDelegateObject:self setBackFunctionName:@"LoginBack:"];
@@ -143,7 +143,7 @@
 -(void)LoginBack:(id)dict
 {
     [SVProgressHUD dismiss];
-    if (1==[dict[@"status"] integerValue]&&[dict[@"data"][@"isavailable"] isEqualToString:@"1"]) {
+    if (1==[dict[@"status"] intValue]&&[dict[@"data"][@"isavailable"] isEqualToString:@"1"]) {
 //        NSString * path=[[NSBundle mainBundle] pathForResource:@"UserInfo" ofType:@"plist"];
         NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                                   NSUserDomainMask, YES) objectAtIndex:0];
@@ -168,7 +168,7 @@
             [dataProvider commitdevicetokenWithUserid:dict[@"data"][@"userid"] token:token];
     }else
     {
-        [SVProgressHUD showErrorWithStatus:@"登录失败或者没有权限" maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showErrorWithStatus:@"账号或密码错误" maskType:SVProgressHUDMaskTypeBlack];
     }
     
 }

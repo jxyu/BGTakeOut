@@ -10,6 +10,7 @@
 #import "VerifyViewController.h"
 #import "SectionsViewController.h"
 #import "SecriteViewController.h"
+#import "DataProvider.h"
 
 #import <SMS_SDK/SMS_SDK.h>
 #import <SMS_SDK/CountryAndAreaCode.h>
@@ -125,6 +126,16 @@
 {
     if (1==buttonIndex)
     {
+        
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"CheckBackCall:"];
+        [dataprovider CheckIsPhoneExist:self.telField.text];
+    }
+}
+
+-(void)CheckBackCall:(id)dict
+{
+    if ([dict[@"status"] intValue]==1) {
         VerifyViewController* verify=[[VerifyViewController alloc] init];
         NSString* str2=[self.areaCodeField.text stringByReplacingOccurrencesOfString:@"+" withString:@""];
         [verify setPhone:self.telField.text AndAreaCode:str2];
@@ -132,24 +143,32 @@
         [SMS_SDK getVerificationCodeBySMSWithPhone:self.telField.text
                                               zone:str2
                                             result:^(SMS_SDKError *error)
-        {
-            if (!error)
-            {
-                [self.navigationController pushViewController:verify animated:YES];
-            }
-            else
-            {
-                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"codesenderrtitle", nil)
-                                                              message:[NSString stringWithFormat:@"状态码：%zi ,错误描述：%@",error.errorCode,error.errorDescription]
-                                                             delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"sure", nil)
-                                                    otherButtonTitles:nil, nil];
-                [alert show];
-            }
-            
-        }];
+         {
+             if (!error)
+             {
+                 [self.navigationController pushViewController:verify animated:YES];
+             }
+             else
+             {
+                 UIAlertView* alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"codesenderrtitle", nil)
+                                                               message:[NSString stringWithFormat:@"状态码：%zi ,错误描述：%@",error.errorCode,error.errorDescription]
+                                                              delegate:self
+                                                     cancelButtonTitle:NSLocalizedString(@"sure", nil)
+                                                     otherButtonTitles:nil, nil];
+                 [alert show];
+             }
+             
+         }];
+
     }
+    else
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:dict[@"msg"] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+        [alert show];
+    }
+    
 }
+
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {

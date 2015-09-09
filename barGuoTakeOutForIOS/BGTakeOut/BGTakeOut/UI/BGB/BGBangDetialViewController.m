@@ -212,7 +212,7 @@
         [btn_pinglun setTitleColor:[UIColor colorWithRed:121/255.0 green:121/255.0 blue:121/255.0 alpha:1.0] forState:UIControlStateNormal];
     }
     
-    [btn_pinglun setTitle:[NSString stringWithFormat:@"（%@）评论",dict[@"data"][@"authenscore"]!=[NSNull null]?dict[@"data"][@"authenscore"]:@"0"] forState:UIControlStateNormal];
+    [btn_pinglun setTitle:[NSString stringWithFormat:@"（%@）评论",dict[@"data"][@"count"]!=[NSNull null]?dict[@"data"][@"count"]:@"0"] forState:UIControlStateNormal];
     btn_pinglun.titleLabel.font=[UIFont systemFontOfSize:13];
     btn_pinglun.layer.borderWidth=1;
     [btn_pinglun addTarget:self action:@selector(showPinglunView) forControlEvents:UIControlEventTouchUpInside];

@@ -48,7 +48,7 @@
 
 -(void)CheckBackCall:(id)dict
 {
-    if ([dict[@"status"] intValue]==1) {
+    if ([dict[@"status"] intValue]==0) {
         VerifyViewController* verify=[[VerifyViewController alloc] init];
         [verify setPhone:_txt_PhoneNum.text AndAreaCode:@"86"];
         
@@ -71,11 +71,6 @@
              }
              
          }];
-    }
-    else
-    {
-        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:dict[@"msg"] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-        [alert show];
     }
     
 }

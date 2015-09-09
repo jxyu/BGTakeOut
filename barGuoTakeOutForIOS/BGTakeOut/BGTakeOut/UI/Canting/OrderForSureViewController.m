@@ -321,7 +321,7 @@
     NSMutableDictionary * prm=[[NSMutableDictionary alloc] init];
     [prm setObject:[NSString stringWithFormat:@"%d",[_orderSumPrice intValue]+[_peiSongFeiData intValue]] forKey:@"orderprice"];
     
-    [prm setObject:dict[@"userid"] forKey:@"realname"];//此处需修改
+    [prm setObject:dict[@"username"] forKey:@"realname"];//此处需修改
     
     if (dict[@"userid"]) {
         if (address) {
@@ -330,21 +330,21 @@
             [prm setObject:dict[@"userid"] forKey:@"userid"];
             
             if (dict[@"username"]) {
-                [prm setObject:dict[@"userid"] forKey:@"username"];
+                [prm setObject:dict[@"username"] forKey:@"username"];
                 
                 if (PayOnLineForChange) {
                     if(PayWX)
                     {
-                        [prm setObject:@"3"forKey:@"payway"];
+                        [prm setObject:@"微信"forKey:@"payway"];
                     }
                     else
                     {
-                        [prm setObject:@"0"forKey:@"payway"];
+                        [prm setObject:@"支付宝"forKey:@"payway"];
                     }
                     
                 }else
                 {
-                    [prm setObject:@"1"forKey:@"payway"];
+                    [prm setObject:@"货到付款"forKey:@"payway"];
                 }
                 if (Costommessage.text) {
                     [prm setObject:Costommessage.text forKey:@"remark"];

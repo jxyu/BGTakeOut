@@ -21,6 +21,7 @@
 #import "PingjiaViewController.h"
 #import "UMSocial.h"
 #import "CWStarRateView.h"
+#import "LoginViewController.h"
 #define KWidth self.view.frame.size.width
 #define KHeight self.view.frame.size.height
 #define KAreaListHeight 60 //scollview中的button的高度
@@ -73,6 +74,10 @@
         [self setBarTitle:_name];
         [self addLeftButton:@"ic_actionbar_back.png"];
         [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
+        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+        dictionary =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
         
         //添加Segmented Control
         UIView * lastView=[self.view.subviews lastObject];
@@ -238,10 +243,7 @@
             if (_badgeView) {
                 _badgeView.hidden=YES;
             }
-            NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                      NSUserDomainMask, YES) objectAtIndex:0];
-            NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
-            dictionary =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+            
             if (dictionary) {
                 
                 DataProvider *dataprovider=[[DataProvider alloc] init];
@@ -726,28 +728,43 @@
 
 -(void)payForShoppingCar
 {
-    NSMutableArray * orderdataArray=[[NSMutableArray alloc] init];
-    
-    for (int i=0; i<ShoppingCar.count; i++) {
-        NSMutableDictionary * dict=[[NSMutableDictionary alloc] init];
-        ShoppingCarModel *item=ShoppingCar[i];
-        [dict setObject:item.Goods[@"goodsid"] forKey:@"goodsid"];
-        [dict setObject:item.Goods[@"name"] forKey:@"goodsname"];
-        [dict setObject:item.Goods[@"activity"] forKey:@"activity"];
-        [dict setObject:[NSString stringWithFormat:@"%d",item.Num] forKey:@"count"];
-        [dict setObject:item.Goods[@"price"] forKey:@"price"];
+    if (dictionary) {
+        NSMutableArray * orderdataArray=[[NSMutableArray alloc] init];
         
-        [orderdataArray addObject:dict];
+        for (int i=0; i<ShoppingCar.count; i++) {
+            NSMutableDictionary * dict=[[NSMutableDictionary alloc] init];
+            ShoppingCarModel *item=ShoppingCar[i];
+            [dict setObject:item.Goods[@"goodsid"] forKey:@"goodsid"];
+            [dict setObject:item.Goods[@"name"] forKey:@"goodsname"];
+            [dict setObject:item.Goods[@"activity"] forKey:@"activity"];
+            [dict setObject:[NSString stringWithFormat:@"%d",item.Num] forKey:@"count"];
+            [dict setObject:item.Goods[@"price"] forKey:@"price"];
+            
+            [orderdataArray addObject:dict];
+        }
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:orderdataArray
+                                                           options:NSJSONWritingPrettyPrinted
+                                                             error:nil];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                     encoding:NSUTF8StringEncoding];
+        NSDictionary * prm=@{@"goodsdetail":jsonString};
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"GetorderPriceBackCall:"];
+        [dataprovider GetOrderPrice:prm];
     }
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:orderdataArray
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:nil];
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData
-                                                 encoding:NSUTF8StringEncoding];
-    NSDictionary * prm=@{@"goodsdetail":jsonString};
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"GetorderPriceBackCall:"];
-    [dataprovider GetOrderPrice:prm];
+    else
+    {
+        LoginViewController * _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
+        [_myLogin setDelegateObject:self setBackFunctionName:@"CantingLoginBackCall:"];
+        [self.navigationController pushViewController:_myLogin animated:YES];
+    }
+}
+-(void)CantingLoginBackCall:(id)dict
+{
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+    dictionary =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
 }
 -(void)GetorderPriceBackCall:(id)dict
 {
@@ -849,7 +866,7 @@
         UIView * BackView_WaiSongTime=[[UIView alloc] initWithFrame:CGRectMake(BackView_WaiSongFei.frame.origin.x+BackView_WaiSongFei.frame.size.width+1, lastView.frame.origin.y+lastView.frame.size.height+1, (KWidth-2)/3, 60)];
         BackView_WaiSongTime.backgroundColor=[UIColor whiteColor];
         UILabel * lbl_waisongtime=[[UILabel alloc] initWithFrame:CGRectMake(5, 10, 100, 30)];
-        lbl_waisongtime.text=[NSString stringWithFormat:@"%@",dict[@"data"][@"deliverytime"]];
+        lbl_waisongtime.text=[NSString stringWithFormat:@"%@分钟",dict[@"data"][@"deliverytime"]];
         [lbl_waisongtime setTextAlignment:NSTextAlignmentCenter];
         [BackView_WaiSongTime addSubview:lbl_waisongtime];
         UILabel * lbl_waisongtimename=[[UILabel alloc] initWithFrame:CGRectMake(lbl_qisongjia.frame.origin.x, lbl_qisongjia.frame.origin.y+lbl_qisongjia.frame.size.height+5, 60, 15)];
@@ -1042,7 +1059,7 @@
     //分享巴国榜
     NSString *shareText = @"快来加入掌尚街，享受生活的乐趣吧！";             //分享内嵌文字
     UIImage *shareImage = [UIImage imageNamed:@"1136-1"];          //分享内嵌图片
-    NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSession,UMShareToEmail,UMShareToSms,nil];
+    NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSms,nil];
     //调用快速分享接口
     [UMSocialSnsService presentSnsIconSheetView:self
                                          appKey:umeng_app_key

@@ -22,6 +22,8 @@
 
 @implementation MineViewController
 {
+    UITableView * MineTableView;
+    
     NSArray * imageArray1;
     NSArray * imageArray2;
     NSArray * imageArray3;
@@ -54,11 +56,11 @@
     userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
     
     imageArray1=[[NSArray alloc]initWithObjects:@"gw.png",@"gsjj.png",@"tscl.png",nil];
-    imageArray2=[[NSArray alloc]initWithObjects:@"cp.png", @"zsjm.png",nil];
+    imageArray2=[[NSArray alloc]initWithObjects:@"cp.png", @"zsjm.png",@"set.png",@"set.png",nil];
     imageArray3=[[NSArray alloc]initWithObjects:@"set.png",nil];
     
-    nameArray1=[[NSArray alloc]initWithObjects:@"官网",@"公司简介",@"投诉处理",nil];
-    nameArray2=[[NSArray alloc]initWithObjects:@"诚聘", @"招商加盟",nil];
+    nameArray1=[[NSArray alloc]initWithObjects:@"官网",@"简介",@"投诉处理",nil];
+    nameArray2=[[NSArray alloc]initWithObjects:@"诚聘", @"招商加盟",@"咨询电话",@"意见反馈",nil];
     nameArray3=[[NSArray alloc]initWithObjects:@"设置",nil];
     
     
@@ -184,13 +186,67 @@
     lastview =[[self.view subviews] lastObject];
     y=lastview.frame.origin.y+lastview.frame.size.height;
     
-    UITableView * MineTableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-49-y) style:UITableViewStyleGrouped];
+    MineTableView=[[UITableView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, SCREEN_HEIGHT-49-y) style:UITableViewStyleGrouped];
     MineTableView.delegate=self;
     MineTableView.dataSource=self;
     [self.view addSubview:MineTableView];
-    
+    if (userinfoWithFile[@"userid"]) {
+        [self buildTableFooterView];
+    }
     [SVProgressHUD dismiss];
 }
+
+
+-(void)buildTableFooterView
+{
+    UIView * footerview=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 100)];
+    footerview.backgroundColor=[UIColor clearColor];
+    UIButton * logout=[[UIButton alloc] initWithFrame:CGRectMake(40, 0, SCREEN_WIDTH-80, 50)];
+    logout.backgroundColor=[UIColor colorWithRed:229/255.0 green:57/255.0 blue:33/255.0 alpha:1.0];
+    [logout setTitle:@"退出账号" forState:UIControlStateNormal];
+    logout.layer.masksToBounds=YES;
+    logout.layer.cornerRadius=4;
+    [logout addTarget:self action:@selector(LogoutFuc) forControlEvents:UIControlEventTouchUpInside];
+    [logout setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [footerview addSubview:logout];
+    
+    UILabel *lbl_banquanfuhao=[[UILabel alloc] initWithFrame:CGRectMake(30, logout.frame.size.height+logout.frame.origin.y+5, SCREEN_WIDTH-60, 20)];
+    lbl_banquanfuhao.text=@"Coryright©2015-2018";
+    [lbl_banquanfuhao setTextAlignment:NSTextAlignmentCenter];
+    lbl_banquanfuhao.font=[UIFont fontWithName:@"Helvetica" size:12];
+    lbl_banquanfuhao.textColor=[UIColor grayColor];
+    [footerview addSubview:lbl_banquanfuhao];
+    
+    UILabel *lbl_zhongyang=[[UILabel alloc] initWithFrame:CGRectMake(30, lbl_banquanfuhao.frame.size.height+lbl_banquanfuhao.frame.origin.y+5, SCREEN_WIDTH-60, 20)];
+    lbl_zhongyang.text=@"阿克苏巴国城网络科技有限公司";
+    [lbl_zhongyang setTextAlignment:NSTextAlignmentCenter];
+    lbl_zhongyang.font=[UIFont fontWithName:@"Helvetica" size:12];
+    lbl_zhongyang.textColor=[UIColor grayColor];
+    [footerview addSubview:lbl_zhongyang];
+    
+    MineTableView.tableFooterView=footerview;
+}
+
+-(void)LogoutFuc
+{
+    NSDictionary * dict=[[NSDictionary alloc] init];
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+    //        NSString * data=[[NSString alloc] initWithFormat:dict];
+    //        NSDictionary * userdata=@{@"userdata":data};
+    //        NSArray * dataarray =[[NSArray alloc] initWithObjects:data, nil];
+    BOOL result= [dict writeToFile:plistPath atomically:YES];
+    if (result) {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:@"退出成功" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+        [alert show];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"exit_userinfo" object:nil];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        MineTableView.tableFooterView.hidden=YES;
+    }
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -199,19 +255,16 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (0==section) {
         return 3;
-    }else if (1==section)
-    {
-        return 2;
     }else
     {
-        return 1;
+        return 4;
     }
 }
 
@@ -219,40 +272,27 @@
 {
     static NSString * CellIdentifier=@"MineTableViewCell";
     MineTableViewCell * cell=(MineTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell  = [[[NSBundle mainBundle] loadNibNamed:@"MineTableViewCell" owner:self options:nil] lastObject];
-        cell.layer.masksToBounds=YES;
-        cell.bounds=CGRectMake(0, 0, tableView.frame.size.width, cell.frame.size.height);
-        switch (indexPath.section) {
-            case 0:
-                cell.MineImg.image=[UIImage imageNamed:imageArray1[indexPath.row]];
-                cell.cellBtn.tag=[[NSString stringWithFormat:@"%ld%ld",(long)indexPath.section,(long)indexPath.row] integerValue];
-                [cell.cellBtn addTarget:self action:@selector(cellBtnBackCall:) forControlEvents:UIControlEventTouchUpInside];
-                cell.MineName.text=nameArray1[indexPath.row];
-                break;
-            case 1:
-                cell.MineImg.image=[UIImage imageNamed:imageArray2[indexPath.row]];
-                cell.cellBtn.tag=[[NSString stringWithFormat:@"%ld%ld",(long)indexPath.section,(long)indexPath.row] integerValue];
-                [cell.cellBtn addTarget:self action:@selector(cellBtnBackCall:) forControlEvents:UIControlEventTouchUpInside];
-                cell.MineName.text=nameArray2[indexPath.row];
-                break;
-            case 2:
-                cell.MineImg.image=[UIImage imageNamed:imageArray3[indexPath.row]];
-                cell.cellBtn.tag=[[NSString stringWithFormat:@"%ld%ld",(long)indexPath.section,(long)indexPath.row] integerValue];
-                [cell.cellBtn addTarget:self action:@selector(cellBtnBackCall:) forControlEvents:UIControlEventTouchUpInside];
-                cell.MineName.text=nameArray3[indexPath.row];
-                break;
-            default:
-                break;
-        }
+    
+    cell  = [[[NSBundle mainBundle] loadNibNamed:@"MineTableViewCell" owner:self options:nil] lastObject];
+    cell.layer.masksToBounds=YES;
+    cell.bounds=CGRectMake(0, 0, tableView.frame.size.width, cell.frame.size.height);
+    switch (indexPath.section) {
+        case 0:
+            cell.MineImg.image=[UIImage imageNamed:imageArray1[indexPath.row]];
+            cell.cellBtn.tag=[[NSString stringWithFormat:@"%ld%ld",(long)indexPath.section,(long)indexPath.row] integerValue];
+            [cell.cellBtn addTarget:self action:@selector(cellBtnBackCall:) forControlEvents:UIControlEventTouchUpInside];
+            cell.MineName.text=nameArray1[indexPath.row];
+            break;
+        case 1:
+            cell.MineImg.image=[UIImage imageNamed:imageArray2[indexPath.row]];
+            cell.cellBtn.tag=[[NSString stringWithFormat:@"%ld%ld",(long)indexPath.section,(long)indexPath.row] integerValue];
+            [cell.cellBtn addTarget:self action:@selector(cellBtnBackCall:) forControlEvents:UIControlEventTouchUpInside];
+            cell.MineName.text=nameArray2[indexPath.row];
+            break;
+        default:
+            break;
     }
-    else
-    {
-        for (UIView *subView in cell.contentView.subviews)
-        {
-            [subView removeFromSuperview];
-        }
-    }
+    
     return cell;
 }
 -(CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

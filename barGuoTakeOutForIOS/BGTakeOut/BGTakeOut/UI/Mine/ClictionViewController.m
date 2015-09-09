@@ -101,6 +101,8 @@
         cell.starRatingView.rating=[Canting[indexPath.row][@"totalcredit"] intValue];
         cell.Qisongjia.text=[NSString stringWithFormat:@"¥%@",Canting[indexPath.row][@"begindeliveryprice"]==[NSNull null]?@"":Canting[indexPath.row][@"begindeliveryprice"]];
         cell.yisong.text=[NSString stringWithFormat:@"已售%@单",Canting[indexPath.row][@"soldcount"]==[NSNull null]?@"":Canting[indexPath.row][@"soldcount"]];
+        float howlong=[Canting[indexPath.row][@"distance"] floatValue]/1000;
+        cell.Howlong.text=[NSString stringWithFormat:@"%.1fkm",howlong];
         //UIButton * zhezhao=[[UIButton alloc] initWithFrame:CGRectMake(0,0 , cell.PingjiaView.frame.size.width, cell.PingjiaView.frame.size.height)];
         //[cell.PingjiaView addSubview:zhezhao];
         
