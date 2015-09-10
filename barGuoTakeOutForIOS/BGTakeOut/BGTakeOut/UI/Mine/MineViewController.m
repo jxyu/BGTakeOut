@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "CreditNavigationController.h"
 #import "CreditWebViewController.h"
+#import "SetInfoViewController.h"
 #define KURL @"http://112.74.76.91/baguo/"
 
 @interface MineViewController ()
@@ -361,6 +362,21 @@
                 [self.navigationController pushViewController:_myLogin animated:YES];
             }
             break;
+        case 12:
+            [self btn_zixunTel];
+            break;
+        case 13:
+            if (UserInfoData) {
+                SetInfoViewController *_setinfo=[[SetInfoViewController alloc] init];
+                _setinfo.setid=2;
+                [self.navigationController pushViewController:_setinfo animated:YES];
+            }else
+            {
+                _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
+                [_myLogin setDelegateObject:self setBackFunctionName:@"LoginBackCall:"];
+                [self.navigationController pushViewController:_myLogin animated:YES];
+            }
+            break;
         case 20:
             _myOther.Othertitle=@"设置";
             _myOther.celltag=sender.tag;
@@ -524,4 +540,25 @@
     NSLog(@"mineVC收到notice");
     [self BuildView];
 }
+
+-(void)btn_zixunTel
+{
+    UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"通知" message:@"是否拨打电话" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"拨打", nil];
+    [alert show];
+}
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (1==buttonIndex) {
+        DataProvider * datarovider=[[DataProvider alloc] init];
+        [datarovider setDelegateObject:self setBackFunctionName:@"zixunTelBackcall:"];
+        [datarovider GetSomeInfonWithType:@"contactphone"];
+    }
+}
+-(void)zixunTelBackcall:(id)dict
+{
+    if ([dict[@"status"] intValue]==1) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",dict[@"data"][@"contactphone"]]]]; //拨号
+    }
+}
+
 @end

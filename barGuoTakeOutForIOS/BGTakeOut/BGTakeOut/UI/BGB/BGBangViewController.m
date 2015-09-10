@@ -52,7 +52,7 @@
     NSString* _provinceid;
     NSString* _cityid;
     NSString* _districtid;
-    NSMutableArray * _TextArray;
+    NSArray * _TextArray;
     NSDictionary *dictionary;
     
     NSMutableArray *MenuFirstTypeArray;
@@ -72,6 +72,8 @@
     NSDictionary * AreaInfo;
     BOOL isfooterRefresh;
     BOOL isfooterrequest;
+    UIImageView * image_right;
+    BOOL isnewTuijian;
 }
 
 
@@ -89,6 +91,7 @@
     _twoid=@"0";
     _threeid=@"0";
     isfooterrequest=NO;
+    isnewTuijian=NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"exit_userinfo" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ChangeCityBackCall) name:@"changecity_success" object:nil];
     [self buildColorArray];
@@ -105,7 +108,7 @@
         [[CCLocationManager shareLocation] getAddress:^(NSString *addressString) {
             NSLog(@"%@",addressString);
             [self setBarTitle:[addressString stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
-//            image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 7);
+            image_right.frame=CGRectMake(_lblTitle.frame.origin.x+_lblTitle.frame.size.width+20, image_right.frame.origin.y, 12, 7);
             
         }];
     }
@@ -118,14 +121,29 @@
         else if (AreaInfo.count==4)
         {
             _lblTitle.text=[NSString stringWithFormat:@"%@%@",AreaInfo[@"provinceTitle"],AreaInfo[@"cityTitle"]];
+            _provinceid=[NSString stringWithFormat:@"%@",AreaInfo[@"provinceid"]];
             _cityid=[NSString stringWithFormat:@"%@",AreaInfo[@"cityid"]];
         }
         else
         {
             _lblTitle.text=[NSString stringWithFormat:@"%@%@%@",AreaInfo[@"provinceTitle"],AreaInfo[@"cityTitle"],AreaInfo[@"districtTitle"]];
+            _provinceid=[NSString stringWithFormat:@"%@",AreaInfo[@"provinceid"]];
+            _cityid=[NSString stringWithFormat:@"%@",AreaInfo[@"cityid"]];
             _districtid=[NSString stringWithFormat:@"%@",AreaInfo[@"districtid"]];
         }
+        image_right.frame=CGRectMake(_lblTitle.frame.origin.x+_lblTitle.frame.size.width+5, image_right.frame.origin.y, 12, 7);
     }
+    
+//    if (AreaInfo) {
+//        [self MakePramAndGetData:1 andNum:@"8" andSort:@"3" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+//    }
+//    else
+//    {
+//        [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+//            [self MakePramAndGetData:1 andNum:@"8" andSort:@"3" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+//        }];
+//        
+//    }
 
 }
 
@@ -137,7 +155,7 @@
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
     dictionary =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
-    _TextArray=[[NSMutableArray alloc] init];
+    _TextArray=[[NSArray alloc] init];
     categary1=[[NSMutableArray alloc] init];
     categary2=[[NSMutableArray alloc] init];
     categary3=[[NSMutableArray alloc] init];
@@ -148,14 +166,14 @@
         image_left.tag=1111;
         image_left.image=[UIImage imageNamed:@"index_location"];
 //        [self.view addSubview:image_left];
-        UIImageView * image_right=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2+35, _lblTitle.frame.origin.y+18, 12, 7)];
+        image_right=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2+35, _lblTitle.frame.origin.y+18, 12, 7)];
         image_right.tag=1112;
         image_right.image=[UIImage imageNamed:@"index_down"];
         [self.view addSubview:image_right];
         
     [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
         _lat=[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude];
-    _long:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] ;
+        _long:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] ;
     }];
         //添加Segmented Control
         UIView * lastView=[self.view.subviews lastObject];
@@ -232,15 +250,24 @@
         mytableView.delegate=self;
         mytableView.dataSource=self;
         [_Page addSubview:mytableView];
-        __weak typeof(self) weakself=self;
-        [mytableView addLegendFooterWithRefreshingBlock:^{
-            if (!isfooterRefresh) {
-                isfooterrequest=YES;
-                [weakself loadNewData];
-                isfooterRefresh=YES;
-                [mytableView footerEndRefreshing];
-            }
-        }];
+    // 下拉刷新
+    __weak typeof(self) weakself=self;
+    [mytableView addLegendHeaderWithRefreshingBlock:^{
+        [weakself StoreTopRefresh];
+        [mytableView.header endRefreshing];
+    }];
+    [mytableView.header beginRefreshing];
+    
+    // 上拉刷新
+    [mytableView addLegendFooterWithRefreshingBlock:^{
+        if (!isfooterRefresh) {
+            isfooterRefresh=YES;
+            [weakself StoreFootRefresh];
+        }
+        [mytableView.footer endRefreshing];
+    }];
+    // 默认先隐藏footer
+    mytableView.footer.hidden = NO;
     plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
     AreaInfo =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
     if (AreaInfo.count==0) {
@@ -261,49 +288,182 @@
         else if (AreaInfo.count==4)
         {
             _lblTitle.text=[NSString stringWithFormat:@"%@%@",AreaInfo[@"provinceTitle"],AreaInfo[@"cityTitle"]];
+            _provinceid=[NSString stringWithFormat:@"%@",AreaInfo[@"provinceid"]];
             _cityid=[NSString stringWithFormat:@"%@",AreaInfo[@"cityid"]];
         }
         else
         {
             _lblTitle.text=[NSString stringWithFormat:@"%@%@%@",AreaInfo[@"provinceTitle"],AreaInfo[@"cityTitle"],AreaInfo[@"districtTitle"]];
+            _provinceid=[NSString stringWithFormat:@"%@",AreaInfo[@"provinceid"]];
+            _cityid=[NSString stringWithFormat:@"%@",AreaInfo[@"cityid"]];
             _districtid=[NSString stringWithFormat:@"%@",AreaInfo[@"districtid"]];
         }
     }
     
     
     
-        // 数据
-        self.sorts=@[@"我要推荐"];
-        self.areas = @[@"排序方式"];
-        self.classifys = @[@"热门分类"];
-        NSDictionary * dict=@{@"name":@"热门分类"};
-        MenuFirstTypeArray=[[NSMutableArray alloc] initWithObjects:dict, nil];
-        
+    // 数据
+    self.sorts=@[@"我要推荐"];
+    self.areas = @[@"排序方式"];
+    self.classifys = @[@"热门分类"];
+    NSDictionary * dict=@{@"name":@"热门分类"};
+    MenuFirstTypeArray=[[NSMutableArray alloc] initWithObjects:dict, nil];
     
-        if (AreaInfo) {
-            [self MakePramAndGetData:1 andNum:@"8" andSort:@"3" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+    
+    //        if (AreaInfo) {
+    //            [self MakePramAndGetData:1 andNum:@"8" andSort:@"3" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:_lat andlong:_longprm provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
+    //        }
+    //        else
+    //        {
+    //            [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+    //                [self MakePramAndGetData:1 andNum:@"8" andSort:@"3" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
+    //            }];
+    //
+    //        }
+    
+    
+    
+    menuScrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH/3, _Page.frame.size.height-40)];
+    menuScrollView.scrollEnabled=YES;
+    menuScrollView.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
+    
+    
+    firstScrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3, 40, SCREEN_WIDTH/3*2, _Page.frame.size.height-40)];
+    firstScrollView.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
+    firstScrollView.scrollEnabled=YES;
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"categaryFirstBackCall:"];
+    [dataprovider getBaguoRankCateWithType:@"0" upid:@"0"];
+    
+}
+
+
+
+#pragma mark 数据请求
+-(void)StoreTopRefresh
+{
+    _page=1;
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"GetStoreListBackCall:"];
+    if (!isnewTuijian) {
+        
+        //    获取当前的经纬度
+        NSDictionary * prm;
+        if (_page && _num && _sort &&dictionary[@"userid"]) {
+            prm =[NSDictionary dictionaryWithObjectsAndKeys:
+                  [NSString stringWithFormat:@"%d",_page],@"page",
+                  _num,@"num",
+                  _sort,@"sort",
+                  _oneid,@"oneid",
+                  _twoid,@"twoid",
+                  _threeid,@"threeid",
+                  dictionary[@"userid"],@"userid",
+                  _lat,@"latitude",
+                  _longprm,@"longitude",
+                  _provinceid,@"provinceid",
+                  _cityid,@"cityid",
+                  _districtid,@"districtid",nil];
+            [dataprovider GetBGBangText:prm];
+        }
+    }
+    else
+    {
+        if (dictionary[@"userid"]) {
+            NSDictionary *prm=[[NSDictionary alloc] init];
+            prm=@{@"userid":dictionary[@"userid"],@"page":[NSString stringWithFormat:@"%d",_page],@"num":@"8"};
+            [dataprovider BGBangXintuijian:prm];
         }
         else
         {
-            [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-                [self MakePramAndGetData:1 andNum:@"8" andSort:@"3" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
-            }];
-
+            
+            //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
+            LoginViewController* loginVC= [[LoginViewController alloc] init];
+            [loginVC setDelegateObject:self setBackFunctionName:@"CantingLoginBackCall:"];
+            [self.navigationController pushViewController:loginVC animated:YES];
+            
         }
-    
-    
         
-        menuScrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH/3, _Page.frame.size.height-40)];
-        menuScrollView.scrollEnabled=YES;
-        menuScrollView.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
-        
-        
-        firstScrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/3, 40, SCREEN_WIDTH/3*2, _Page.frame.size.height-40)];
-        firstScrollView.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0];
-        firstScrollView.scrollEnabled=YES;
+    }
     
     
 }
+-(void)CantingLoginBackCall:(id)dict
+{
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+    dictionary =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+}
+-(void)StoreFootRefresh
+{
+    _page++;
+    DataProvider * dataprovider=[[DataProvider alloc] init];
+    [dataprovider setDelegateObject:self setBackFunctionName:@"FootRefireshBackCall:"];
+    if (!isnewTuijian) {
+        
+        NSDictionary * prm;
+        if (_page && _num && _sort &&dictionary[@"userid"]) {
+            prm =[NSDictionary dictionaryWithObjectsAndKeys:
+                  [NSString stringWithFormat:@"%d",_page],@"page",
+                  _num,@"num",
+                  _sort,@"sort",
+                  _oneid,@"oneid",
+                  _twoid,@"twoid",
+                  _threeid,@"threeid",
+                  dictionary[@"userid"],@"userid",
+                  _lat,@"latitude",
+                  _longprm,@"longitude",
+                  _provinceid,@"provinceid",
+                  _cityid,@"cityid",
+                  _districtid,@"districtid",nil];
+            [dataprovider GetBGBangText:prm];
+        }
+    }
+    else
+    {
+        NSDictionary *prm=[[NSDictionary alloc] init];
+        prm=@{@"userid":dictionary[@"userid"],@"page":[NSString stringWithFormat:@"%d",_page],@"num":@"8"};
+        [dataprovider BGBangXintuijian:prm];
+    }
+    
+    
+}
+
+-(void)FootRefireshBackCall:(id)dict
+{
+    
+    NSLog(@"上拉刷新");
+    // 结束刷新
+    [mytableView.footer endRefreshing];
+    isfooterRefresh=NO;
+    NSMutableArray *itemarray=[[NSMutableArray alloc] initWithArray:_TextArray];
+    if ([dict[@"status"]intValue]==1) {
+        NSArray * arrayitem=dict[@"data"];
+        for (id item in arrayitem) {
+            [itemarray addObject:item];
+        }
+        _TextArray=[[NSArray alloc] initWithArray:itemarray];
+        [mytableView reloadData];
+    }
+    
+}
+
+-(void)GetStoreListBackCall:(id)dict
+{
+    [SVProgressHUD dismiss];
+    NSLog(@"店铺列表%@",dict);
+    
+    if ([dict[@"status"]intValue]==1) {
+        NSLog(@"餐厅数据%@",dict);
+        _TextArray=[[NSArray alloc] initWithArray:dict[@"data"]];
+        [mytableView reloadData];
+    }else{
+        
+    }
+    
+    [mytableView.header endRefreshing];
+}
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -317,82 +477,82 @@
 
 
 
--(void)MakePramAndGetData:( int)page andNum:(NSString *)num andSort:(NSString *)sort andOneid:(NSString *)oneid andTwoid:(NSString *)twoid andThreeid:(NSString *)threeid anduserid:(NSString * )userid andlat:(NSString *)lat andlong:(NSString *)longprm provinceid:(NSString *)provinceid cityid:(NSString *)cityid districtid:(NSString *)districtid
-{
-    NSDictionary * prm;
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    if (page && num && sort ) {
-        prm =[NSDictionary dictionaryWithObjectsAndKeys:
-              [NSString stringWithFormat:@"%d",page],@"page",
-              num,@"num",
-              sort,@"sort",
-              oneid,@"oneid",
-              twoid,@"twoid",
-              threeid,@"threeid",
-              userid,@"userid",
-              lat,@"latitude",
-              longprm,@"longitude",
-              provinceid,@"provinceid",
-            cityid,@"cityid",
-              districtid,@"districtid",nil];
-    }
-    _page=page;
-    _num=num;
-    _sort=sort;
-    _oneid=oneid;
-    _twoid=twoid;
-    _threeid=threeid;
-    _lat=lat;
-    _longprm=longprm;
-    [dataprovider setDelegateObject:self setBackFunctionName:@"BuildTextItem:"];
-    [dataprovider GetBGBangText:prm];
-}
+//-(void)MakePramAndGetData:( int)page andNum:(NSString *)num andSort:(NSString *)sort andOneid:(NSString *)oneid andTwoid:(NSString *)twoid andThreeid:(NSString *)threeid anduserid:(NSString * )userid andlat:(NSString *)lat andlong:(NSString *)longprm provinceid:(NSString *)provinceid cityid:(NSString *)cityid districtid:(NSString *)districtid
+//{
+//    NSDictionary * prm;
+//    DataProvider * dataprovider=[[DataProvider alloc] init];
+//    if (page && num && sort ) {
+//        prm =[NSDictionary dictionaryWithObjectsAndKeys:
+//              [NSString stringWithFormat:@"%d",page],@"page",
+//              num,@"num",
+//              sort,@"sort",
+//              oneid,@"oneid",
+//              twoid,@"twoid",
+//              threeid,@"threeid",
+//              userid,@"userid",
+//              _lat,@"latitude",
+//              _longprm,@"longitude",
+//              _provinceid,@"provinceid",
+//            _cityid,@"cityid",
+//              _districtid,@"districtid",nil];
+//    }
+//    _page=page;
+//    _num=num;
+//    _sort=sort;
+//    _oneid=oneid;
+//    _twoid=twoid;
+//    _threeid=threeid;
+//    _lat=lat;
+//    _longprm=longprm;
+//    [dataprovider setDelegateObject:self setBackFunctionName:@"BuildTextItem:"];
+//    [dataprovider GetBGBangText:prm];
+//}
 
--(void)BuildTextItem:(id)dict
-{
-    [SVProgressHUD dismiss];
-    
-    NSLog(@"%@",dict);
-    @try {
-        if ([dict[@"status"] intValue]==1) {
-            
-            if (!isAgain) {
-                NSArray * itemarray=dict[@"data"];
-                for (int i=0; i<itemarray.count; i++) {
-                    [_TextArray addObject:itemarray[i]];
-                }
-                [mytableView reloadData];
-            }
-            else
-            {
-                _TextArray=dict[@"data"];
-                [mytableView reloadData];
-            }
-        }
-        else
-        {
-            if (!isfooterrequest) {
-                _TextArray=[[NSMutableArray alloc] init];
-            }
-            isfooterrequest=NO;
-//            [mytableView reloadData];
-//            [SVProgressHUD showErrorWithStatus:dict[@"msg"] maskType:SVProgressHUDMaskTypeBlack];
-        }
-        isfooterRefresh=NO;
-        if (!isrequest) {
-            DataProvider * dataprovider=[[DataProvider alloc] init];
-            [dataprovider setDelegateObject:self setBackFunctionName:@"categaryFirstBackCall:"];
-            [dataprovider getBaguoRankCateWithType:@"0" upid:@"0"];
-        }
-        
-    }
-    @catch (NSException *exception) {
-        NSLog(@"%@",exception);
-    }
-    @finally {
-        
-    }
-    }
+//-(void)BuildTextItem:(id)dict
+//{
+//    [SVProgressHUD dismiss];
+//    
+//    NSLog(@"%@",dict);
+//    @try {
+//        if ([dict[@"status"] intValue]==1) {
+//            
+//            if (!isAgain) {
+//                NSArray * itemarray=dict[@"data"];
+//                for (int i=0; i<itemarray.count; i++) {
+//                    [_TextArray addObject:itemarray[i]];
+//                }
+//                [mytableView reloadData];
+//            }
+//            else
+//            {
+//                _TextArray=dict[@"data"];
+//                [mytableView reloadData];
+//            }
+//        }
+//        else
+//        {
+//            if (!isfooterrequest) {
+//                _TextArray=[[NSMutableArray alloc] init];
+//            }
+//            isfooterrequest=NO;
+////            [mytableView reloadData];
+////            [SVProgressHUD showErrorWithStatus:dict[@"msg"] maskType:SVProgressHUDMaskTypeBlack];
+//        }
+//        isfooterRefresh=NO;
+//        if (!isrequest) {
+//            DataProvider * dataprovider=[[DataProvider alloc] init];
+//            [dataprovider setDelegateObject:self setBackFunctionName:@"categaryFirstBackCall:"];
+//            [dataprovider getBaguoRankCateWithType:@"0" upid:@"0"];
+//        }
+//        
+//    }
+//    @catch (NSException *exception) {
+//        NSLog(@"%@",exception);
+//    }
+//    @finally {
+//        
+//    }
+//    }
 
 // tableView分区数量，默认为1，可为其设置为多个列
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -495,11 +655,8 @@
             [firstScrollView removeFromSuperview];
             [BackView_paixu removeFromSuperview];
             isAgain=YES;
-            NSDictionary *prm=[[NSDictionary alloc] init];
-            prm=@{@"userid":dictionary[@"userid"],@"page":@"1",@"num":@"8"};
-            DataProvider * dataprovider=[[DataProvider alloc] init];
-            [dataprovider setDelegateObject:self setBackFunctionName:@"OtherClickBackCall:"];
-            [dataprovider BGBangXintuijian:prm];
+            isnewTuijian=YES;
+            
         }
         else
         {
@@ -516,15 +673,10 @@
         [menuScrollView removeFromSuperview];
         [firstScrollView removeFromSuperview];
         [BackView_paixu removeFromSuperview];
-        if (AreaInfo) {
-            [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
-        }else
-        {
-            [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-                [self MakePramAndGetData:1 andNum:@"8" andSort:@"0" andOneid:@"0" andTwoid:@"0" andThreeid:@"0" anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
-            }];
-        }
+        isnewTuijian=NO;
+        
     }
+    [mytableView.header beginRefreshing];
 }
 
 -(void)BGBangShare:(UIButton *)sender
@@ -582,45 +734,17 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
     [SVProgressHUD dismiss];
     if ([dict[@"status"] intValue]==1) {
         [SVProgressHUD showSuccessWithStatus:dict[@"msg"] maskType:SVProgressHUDMaskTypeBlack];
-        if (AreaInfo) {
-            [self MakePramAndGetData:_page andNum:@"8" andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
-        }
-        else
-        {
-            [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-                [self MakePramAndGetData:_page andNum:@"8" andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
-            }];
-        }
+        [mytableView.header beginRefreshing];
 
-        isAgain=YES;
-        [mytableView reloadData];
+//        isAgain=YES;
+//        [mytableView reloadData];
     }
 }
 
--(void)OtherClickBackCall:(id)dict
-{
-    NSLog(@"%@",dict);
-    _TextArray=dict[@"data"];
-    [mytableView reloadData];
-}
 
 
 
--(void)loadNewData
-{
-    ++_page;
-    isAgain=NO;
-    
-    if (AreaInfo) {
-        [self MakePramAndGetData:_page andNum:@"8" andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
-    }
-    else
-    {
-        [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-            [self MakePramAndGetData:_page andNum:@"8" andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
-        }];
-    }
-}
+
 
 -(void)btn_BGBcategrayClick
 {
@@ -872,13 +996,7 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
     _threeid=categary3[sender.tag][@"threeid"];
     [menuScrollView removeFromSuperview];
     [firstScrollView removeFromSuperview];
-    if (AreaInfo) {
-        [self MakePramAndGetData:1 andNum:@"8" andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
-    }
-    
-    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-        [self MakePramAndGetData:1 andNum:@"8" andSort:_sort andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
-    }];
+    [mytableView.header beginRefreshing];
 }
 
 -(void)GetListForOrder:(UIButton * )sender
@@ -886,15 +1004,9 @@ NSArray* snsList=    [NSArray arrayWithObjects:UMShareToQQ,UMShareToWechatSessio
     isShow=NO;
     isAgain=YES;
     [BackView_paixu removeFromSuperview];
-    if (AreaInfo) {
-        [self MakePramAndGetData:1 andNum:@"8" andSort:[NSString stringWithFormat:@"%d",sender.tag] andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:@"" andlong:@"" provinceid:AreaInfo[@"provinceid"] cityid:AreaInfo[@"cityid"] districtid:AreaInfo[@"districtid"]];
-    }
-    else
-    {
-        [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
-            [self MakePramAndGetData:1 andNum:@"8" andSort:[NSString stringWithFormat:@"%d",sender.tag] andOneid:_oneid andTwoid:_twoid andThreeid:_threeid anduserid:dictionary[@"userid"] andlat:[NSString  stringWithFormat:@"%f",locationCorrrdinate.latitude] andlong:[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude] provinceid:@"" cityid:@"" districtid:@""];
-        }];
-    }
+    _sort=[NSString stringWithFormat:@"%ld",(long)sender.tag];
+    [mytableView.header beginRefreshing];
+    
     
 }
 

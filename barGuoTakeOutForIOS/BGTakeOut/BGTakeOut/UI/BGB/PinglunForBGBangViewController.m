@@ -52,8 +52,9 @@
     [self setBarTitle:@"评论"];
     [self addLeftButton:@"ic_actionbar_back.png"];
     [self addRightbuttontitle:@"取消"];
+    UIScrollView * scrollview_pingjia=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
     // Do any additional setup after loading the view.
-    UIView * BackVeiw_star=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 170)];
+    UIView * BackVeiw_star=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170)];
     BackVeiw_star.backgroundColor=[UIColor whiteColor];
     UILabel * lbl_weidao=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 60, 20)];
     lbl_weidao.text=@"味道";
@@ -125,7 +126,7 @@
     starRatingView_xingjiabi.tag=5;
     [BackVeiw_star addSubview:lbl_xingjiabi];
     [BackVeiw_star addSubview:starRatingView_xingjiabi];
-    [self.view addSubview:BackVeiw_star];
+    [scrollview_pingjia addSubview:BackVeiw_star];
     UIView * BackView_content=[[UIView alloc] initWithFrame:CGRectMake(0, BackVeiw_star.frame.origin.y+BackVeiw_star.frame.size.height+20, SCREEN_WIDTH, 80)];
     BackView_content.backgroundColor=[UIColor whiteColor];
     txtV_PingjiaContent=[[UITextView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 80)];
@@ -145,7 +146,7 @@
     lbl_zishucontent.enabled=NO;
     lbl_zishucontent.backgroundColor=[UIColor clearColor];
     [BackView_content addSubview:lbl_zishucontent];
-    [self.view addSubview:BackView_content];
+    [scrollview_pingjia addSubview:BackView_content];
     
     btn_Submit=[[UIButton alloc] initWithFrame:CGRectMake(40, BackView_content.frame.origin.y+BackView_content.frame.size.height+20, SCREEN_WIDTH-80, 30)];
     [btn_Submit setTitle:@"提交" forState:UIControlStateNormal];
@@ -153,7 +154,9 @@
     btn_Submit.layer.masksToBounds=YES;
     btn_Submit.layer.cornerRadius=3;
     [btn_Submit addTarget:self action:@selector(SubmitFunction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn_Submit];
+    [scrollview_pingjia addSubview:btn_Submit];
+    scrollview_pingjia.contentSize=CGSizeMake(0, SCREEN_HEIGHT+200);
+    [self.view addSubview:scrollview_pingjia];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -170,6 +173,10 @@
         uilabelcontent.text = @"";
         lbl_zishucontent.text=[NSString stringWithFormat:@"还能输入%d个字",140-textlength];
     }
+}
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+    [textView resignFirstResponder];
 }
 -(void)viewWillAppear:(BOOL)animated
 {

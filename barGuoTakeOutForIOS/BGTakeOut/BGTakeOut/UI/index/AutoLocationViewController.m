@@ -579,23 +579,30 @@
     }
     else
     {
-        NSString *lastArea=[NSString stringWithFormat:@"%@",province];
-        NSDictionary * areadict=@{@"area":lastArea};
-        SEL func_selector = NSSelectorFromString(callBackFunctionName);
-        if ([CallBackObject respondsToSelector:func_selector]) {
-            NSLog(@"回调成功...");
-            [CallBackObject performSelectorInBackground:func_selector withObject:areadict];
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        }else{
-            NSLog(@"回调失败...");
+        if (provinceid&&province) {
+            NSString *lastArea=[NSString stringWithFormat:@"%@",province];
+            NSDictionary * areadict=@{@"area":lastArea};
+            SEL func_selector = NSSelectorFromString(callBackFunctionName);
+            if ([CallBackObject respondsToSelector:func_selector]) {
+                NSLog(@"回调成功...");
+                [CallBackObject performSelectorInBackground:func_selector withObject:areadict];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }else{
+                NSLog(@"回调失败...");
+            }
+            NSDictionary * dict=@{@"provinceid":provinceid,@"provinceTitle":province};
+            NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                      NSUserDomainMask, YES) objectAtIndex:0];
+            NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
+            BOOL result= [dict writeToFile:plistPath atomically:YES];
+            if (result) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"changecity_success" object:nil];
+            }
         }
-        NSDictionary * dict=@{@"provinceid":provinceid,@"provinceTitle":province};
-        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                  NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
-        BOOL result= [dict writeToFile:plistPath atomically:YES];
-        if (result) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"changecity_success" object:nil];
+        else
+        {
+            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择地区或者自动定位" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+            [alert show];
         }
     }
 }

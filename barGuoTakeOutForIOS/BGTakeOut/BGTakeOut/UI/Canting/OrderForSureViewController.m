@@ -321,15 +321,14 @@
     NSMutableDictionary * prm=[[NSMutableDictionary alloc] init];
     [prm setObject:[NSString stringWithFormat:@"%d",[_orderSumPrice intValue]+[_peiSongFeiData intValue]] forKey:@"orderprice"];
     
-    [prm setObject:dict[@"username"] forKey:@"realname"];//此处需修改
-    
     if (dict[@"userid"]) {
-        if (address) {
+        if (address[@"address"]&&address[@"phonenum"]) {
             [prm setObject:address[@"addressdetail"] forKey:@"address"];
             [prm setObject:address[@"phonenum"] forKey:@"phonenum"];
             [prm setObject:dict[@"userid"] forKey:@"userid"];
             
             if (dict[@"username"]) {
+                [prm setObject:dict[@"username"] forKey:@"realname"];//此处需修改
                 [prm setObject:dict[@"username"] forKey:@"username"];
                 
                 if (PayOnLineForChange) {

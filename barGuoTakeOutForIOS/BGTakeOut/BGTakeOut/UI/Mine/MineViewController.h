@@ -14,7 +14,7 @@
 #import "OrderListViewController.h"
 #import "ClictionViewController.h"
 
-@interface MineViewController : BaseNavigationController <UITableViewDelegate,UITableViewDataSource>
+@interface MineViewController : BaseNavigationController <UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 
 @property(nonatomic,strong)OtherOfMineViewController * myOther;
 

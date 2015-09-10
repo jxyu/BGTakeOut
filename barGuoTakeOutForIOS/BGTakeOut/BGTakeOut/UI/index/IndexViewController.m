@@ -270,10 +270,12 @@
     }else{
         //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
         LoginViewController* loginVC=        [[LoginViewController alloc] init];
+        [loginVC setDelegateObject:self setBackFunctionName:@"CantingLoginBackCall:"];
         [self.navigationController pushViewController:loginVC animated:YES];
         
     }
 }
+
 -(void)gotoGiftLeft{
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                               NSUserDomainMask, YES) objectAtIndex:0];
@@ -289,6 +291,7 @@
     }else{
         //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
         LoginViewController* loginVC=        [[LoginViewController alloc] init];
+        [loginVC setDelegateObject:self setBackFunctionName:@"CantingLoginBackCall:"];
         [self.navigationController pushViewController:loginVC animated:YES];
         
     }
@@ -308,6 +311,7 @@
     }else{
         //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
         LoginViewController* loginVC=        [[LoginViewController alloc] init];
+        [loginVC setDelegateObject:self setBackFunctionName:@"CantingLoginBackCall:"];
         [self.navigationController pushViewController:loginVC animated:YES];
         
     }
@@ -342,6 +346,7 @@
     }else{
         //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
         LoginViewController* loginVC= [[LoginViewController alloc] init];
+        [loginVC setDelegateObject:self setBackFunctionName:@"CantingLoginBackCall:"];
         [self.navigationController pushViewController:loginVC animated:YES];
         
     }
@@ -362,13 +367,13 @@
     //    [self.view addSubview:item];
 }
 -(void)jumpToLuck{
-    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                              NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
-    userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
-    
-    
-    if(userinfoWithFile[@"userid"]){
+//    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+//                                                              NSUserDomainMask, YES) objectAtIndex:0];
+//    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+//    userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+//    
+//    
+//    if(userinfoWithFile[@"userid"]){
         //!!!:  已经登录完成，调用接口获取免登陆链接在页面中显示
         self.myLuckGift=[[LuckGiftViewController alloc] initWithNibName:@"LuckGiftViewController" bundle:[NSBundle mainBundle]];
         _myLuckGift.userid=userinfoWithFile[@"userid"];
@@ -376,15 +381,15 @@
 //        DataProvider* dataProvider1=[[DataProvider alloc] init];
 //        [dataProvider1 setDelegateObject:self setBackFunctionName:@"IsLuckDayBackCall:"];
 //        [dataProvider1 IsLuckDay:userinfoWithFile[@"userid"]];
-    }
-    else
-    {
-        
-        //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
-        LoginViewController* loginVC= [[LoginViewController alloc] init];
-        [self.navigationController pushViewController:loginVC animated:YES];
-        
-    }
+//    }
+//    else
+//    {
+//        
+//        //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
+//        LoginViewController* loginVC= [[LoginViewController alloc] init];
+//        [self.navigationController pushViewController:loginVC animated:YES];
+//        
+//    }
 }
 
 -(void)IsLuckDayBackCall:(id)dict
@@ -402,6 +407,14 @@
         [alert show];
     }
 
+}
+
+-(void)CantingLoginBackCall:(id)dict
+{
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
+    userinfoWithFile =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
 }
 
 @end

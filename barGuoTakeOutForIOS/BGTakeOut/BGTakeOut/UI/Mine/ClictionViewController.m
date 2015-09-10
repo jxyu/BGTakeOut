@@ -13,6 +13,7 @@
 #import "TableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "MJRefresh.h"
+#import "CCLocationManager.h"
 
 #define KURL @"http://112.74.76.91/baguo/"
 
@@ -155,11 +156,14 @@
 -(void)loadNewData
 {
     [SVProgressHUD showWithStatus:@"加载中.." maskType:SVProgressHUDMaskTypeBlack];
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"GetClictionBackCall:"];
-    NSDictionary * dictionary=@{@"userid":_userid,@"page":[NSString stringWithFormat:@"%d",page],@"num":@"8"};
-    [dataprovider GetAllCollection:dictionary];
-    page++;
+    [[CCLocationManager shareLocation] getLocationCoordinate:^(CLLocationCoordinate2D locationCorrrdinate) {
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"GetClictionBackCall:"];
+        NSDictionary * dictionary=@{@"userid":_userid,@"page":[NSString stringWithFormat:@"%d",page],@"num":@"8",@"latitude":[NSString stringWithFormat:@"%f",locationCorrrdinate.latitude],@"longitude":[NSString stringWithFormat:@"%f",locationCorrrdinate.longitude]};
+        [dataprovider GetAllCollection:dictionary];
+        page++;
+    }];
+    
 }
 
 @end

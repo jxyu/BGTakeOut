@@ -728,7 +728,7 @@
 
 -(void)payForShoppingCar
 {
-    if (dictionary) {
+    if (dictionary[@"userid"]) {
         NSMutableArray * orderdataArray=[[NSMutableArray alloc] init];
         
         for (int i=0; i<ShoppingCar.count; i++) {

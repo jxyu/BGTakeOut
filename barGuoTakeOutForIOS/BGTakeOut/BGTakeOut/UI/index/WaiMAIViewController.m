@@ -82,6 +82,9 @@
     table_page=1;
     _page=@"1";
     _num=@"10";
+    _provinceid=@"";
+    _cityid=@"";
+    _districtid=@"";
     _order=@"0";
     _category=@"1";
     _activity=@"0";
@@ -123,7 +126,6 @@
             [self setBarTitle:[addressString stringByReplacingOccurrencesOfString:@"(null)" withString:@""]] ;
             image_left.frame=CGRectMake(_lblTitle.frame.origin.x-12, image_left.frame.origin.y, 13, 15);
             image_right.frame=CGRectMake(image_left.frame.origin.x+130, image_right.frame.origin.y, 12, 7);
-            
         }];
     }
     else
@@ -135,11 +137,14 @@
         else if (AreaInfo.count==4)
         {
             _lblTitle.text=[NSString stringWithFormat:@"%@%@",AreaInfo[@"provinceTitle"],AreaInfo[@"cityTitle"]];
+            _provinceid=[NSString stringWithFormat:@"%@",AreaInfo[@"provinceid"]];
             _cityid=[NSString stringWithFormat:@"%@",AreaInfo[@"cityid"]];
         }
         else
         {
             _lblTitle.text=[NSString stringWithFormat:@"%@%@%@",AreaInfo[@"provinceTitle"],AreaInfo[@"cityTitle"],AreaInfo[@"districtTitle"]];
+            _provinceid=[NSString stringWithFormat:@"%@",AreaInfo[@"provinceid"]];
+            _cityid=[NSString stringWithFormat:@"%@",AreaInfo[@"cityid"]];
             _districtid=[NSString stringWithFormat:@"%@",AreaInfo[@"districtid"]];
         }
     }
@@ -334,8 +339,9 @@
             [itemarray addObject:item];
         }
         Canting=[[NSArray alloc] initWithArray:itemarray];
+        [_tableView reloadData];
     }
-    [_tableView reloadData];
+    
 }
 
 -(void)GetStoreListBackCall:(id)dict
