@@ -747,7 +747,7 @@
                                                              error:nil];
         NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                      encoding:NSUTF8StringEncoding];
-        NSDictionary * prm=@{@"goodsdetail":jsonString};
+        NSDictionary * prm=@{@"goodsdetail":jsonString,@"deliveryprice":_beginprice};
         DataProvider * dataprovider=[[DataProvider alloc] init];
         [dataprovider setDelegateObject:self setBackFunctionName:@"GetorderPriceBackCall:"];
         [dataprovider GetOrderPrice:prm];

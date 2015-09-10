@@ -114,6 +114,15 @@
             case 9:
                 cell.status.text=@"退款成功，交易关闭";
                 break;
+            case 10:
+                cell.status.text=@"已接单，订单取消";
+                break;
+            case 11:
+                cell.status.text=@"退款中";
+                break;
+            case 12:
+                cell.status.text=@"评价完成";
+                break;
             default:
                 break;
         }
@@ -151,6 +160,7 @@
     self.orderInfoVC=[[OrderInfoViewController alloc] init];
     _orderInfoVC.orderInfoDetial=orderListdata[indexPath.section];
     [self.navigationController pushViewController:_orderInfoVC animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

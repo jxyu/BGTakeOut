@@ -511,7 +511,7 @@
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
     NSDictionary* userInfo =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
-    if(userInfo){
+    if(userinfoWithFile[@"userid"]||UserInfoData[@"userid"]){
         //!!!:  已经登录完成，调用接口获取免登陆链接在页面中显示
         DataProvider* dataProvider=[[DataProvider alloc] init];
         [dataProvider setDelegateObject:self setBackFunctionName:@"getDuibaAutoLoginUrl:"];
@@ -519,6 +519,7 @@
     }else{
         //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
         LoginViewController* loginVC=        [[LoginViewController alloc] init];
+        [loginVC setDelegateObject:self setBackFunctionName:@"CallBackFuc:"];
         [self.navigationController pushViewController:loginVC animated:YES];
         
     }
