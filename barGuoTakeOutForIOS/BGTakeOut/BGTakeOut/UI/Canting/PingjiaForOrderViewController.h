@@ -13,6 +13,6 @@
 @interface PingjiaForOrderViewController : BaseNavigationController<StarRatingViewDelegate,UITextViewDelegate>
 @property(nonatomic,strong)NSArray * goodsList;
 @property(nonatomic,strong)NSDictionary *OrderInfo;
-@property(nonatomic)NSInteger * price;
+@property(nonatomic)float price;
 
 @end

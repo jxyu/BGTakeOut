@@ -153,7 +153,7 @@
     UIView * lastView=[self.view.subviews lastObject];
     UIView * segmentView=[[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_HEIGHT+20, SCREEN_WIDTH, 50)];
     segmentView.backgroundColor=[UIColor colorWithRed:229/255.0 green:59/255.0 blue:33/255.0 alpha:1.0];
-    self.segmentedControl = [[NYSegmentedControl alloc] initWithItems:@[@"附近餐厅", @"其他订购"]];
+    self.segmentedControl = [[NYSegmentedControl alloc] initWithItems:@[@"附近餐厅", @"新推荐"]];
     [_segmentedControl addTarget:self action:@selector(SegMentControlClick) forControlEvents:UIControlEventValueChanged];
     self.segmentedControl.titleFont = [UIFont fontWithName:@"AvenirNext-Medium" size:14.0f];
     self.segmentedControl.titleTextColor = [UIColor whiteColor];

@@ -293,32 +293,40 @@
 -(void)BulidAreaList:(id)dict
 {
     
-    if (!IsareaListShow) {
-        UIScrollView * areaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/3, _SelectView.frame.size.height)];
-        areaScroll.scrollEnabled=YES;
-        areaScroll.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-        id result =dict;
-        if (result) {
-            NSArray * areaArray =[[NSArray alloc ] initWithArray:result[@"data"]];
-            for (int i=0; i<areaArray.count; i++) {
-                UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), SCREEN_WIDTH/3, KAreaListHeight)];
-                areaitem.backgroundColor=[UIColor whiteColor];
-                [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"provincename"]] forState:UIControlStateNormal];
-                areaitem.tag=[areaArray[i][@"provinceid"] intValue];
-                [areaitem addTarget:self action:@selector(AreaItemClick:) forControlEvents:UIControlEventTouchUpInside];
-                [areaScroll addSubview:areaitem];
+    @try {
+        if (!IsareaListShow) {
+            UIScrollView * areaScroll=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/3, _SelectView.frame.size.height)];
+            areaScroll.scrollEnabled=YES;
+            areaScroll.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
+            id result =dict;
+            if (result) {
+                NSArray * areaArray =[[NSArray alloc ] initWithArray:result[@"data"]];
+                for (int i=0; i<areaArray.count; i++) {
+                    UIButton * areaitem=[[UIButton alloc] initWithFrame:CGRectMake(0, i*(KAreaListHeight+1), SCREEN_WIDTH/3, KAreaListHeight)];
+                    areaitem.backgroundColor=[UIColor whiteColor];
+                    [areaitem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                    [areaitem setTitle:[NSString stringWithFormat:@"%@",areaArray[i][@"provincename"]] forState:UIControlStateNormal];
+                    areaitem.tag=[areaArray[i][@"provinceid"] intValue];
+                    [areaitem addTarget:self action:@selector(AreaItemClick:) forControlEvents:UIControlEventTouchUpInside];
+                    [areaScroll addSubview:areaitem];
+                }
+                areaScroll.contentSize=CGSizeMake(0, areaArray.count*(KAreaListHeight+5));
             }
-            areaScroll.contentSize=CGSizeMake(0, areaArray.count*(KAreaListHeight+5));
+            [_SelectView addSubview:areaScroll];
+            [self.view addSubview:_SelectView];
+            IsareaListShow=YES;
         }
-        [_SelectView addSubview:areaScroll];
-        [self.view addSubview:_SelectView];
-        IsareaListShow=YES;
+        else
+        {
+            [_SelectView removeFromSuperview];
+            IsareaListShow=NO;
+        }
     }
-    else
-    {
-        [_SelectView removeFromSuperview];
-        IsareaListShow=NO;
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
     }
     
 }
@@ -488,40 +496,64 @@
 {
 //    street=sender.currentTitle;
 //    streetid=[NSString stringWithFormat:@"%ld",(long)sender.tag];
-    NSString * str=[NSString stringWithFormat:@"00%ld",(long)sender.tag];
-    district= sender.currentTitle;
-    districtid=str;
-    NSString *lastArea=[NSString stringWithFormat:@"%@%@%@",province,city,sender.currentTitle];
-    [_selectArea setTitle:lastArea forState:UIControlStateNormal];
-    _selectArea.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
-    [_SelectView removeFromSuperview];
-    
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"submitBackCall:"];
-    [dataprovider submitLocHistory:userid andlocation:lastArea];
+    @try {
+        NSString * str=[NSString stringWithFormat:@"00%ld",(long)sender.tag];
+        district= sender.currentTitle;
+        districtid=str;
+        NSString *lastArea=[NSString stringWithFormat:@"%@%@%@",province,city,sender.currentTitle];
+        [_selectArea setTitle:lastArea forState:UIControlStateNormal];
+        _selectArea.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
+        [_SelectView removeFromSuperview];
+        
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"submitBackCall:"];
+        [dataprovider submitLocHistory:userid andlocation:lastArea];
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
 }
 
 -(void)SubmitquanguoData
 {
-    NSString *lastArea=[NSString stringWithFormat:@"%@",province];
-    [_selectArea setTitle:lastArea forState:UIControlStateNormal];
-    _selectArea.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
-    [_SelectView removeFromSuperview];
-    
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"submitBackCall:"];
-    [dataprovider submitLocHistory:userid andlocation:lastArea];
+    @try {
+        NSString *lastArea=[NSString stringWithFormat:@"%@",province];
+        [_selectArea setTitle:lastArea forState:UIControlStateNormal];
+        _selectArea.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
+        [_SelectView removeFromSuperview];
+        
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"submitBackCall:"];
+        [dataprovider submitLocHistory:userid andlocation:lastArea];
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
 }
 -(void)SubmitAllData
 {
-    NSString *lastArea=[NSString stringWithFormat:@"%@%@",province,city];
-    [_selectArea setTitle:lastArea forState:UIControlStateNormal];
-    _selectArea.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
-    [_SelectView removeFromSuperview];
-    
-    DataProvider * dataprovider=[[DataProvider alloc] init];
-    [dataprovider setDelegateObject:self setBackFunctionName:@"submitBackCall:"];
-    [dataprovider submitLocHistory:userid andlocation:lastArea];
+    @try {
+        NSString *lastArea=[NSString stringWithFormat:@"%@%@",province,city];
+        [_selectArea setTitle:lastArea forState:UIControlStateNormal];
+        _selectArea.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
+        [_SelectView removeFromSuperview];
+        
+        DataProvider * dataprovider=[[DataProvider alloc] init];
+        [dataprovider setDelegateObject:self setBackFunctionName:@"submitBackCall:"];
+        [dataprovider submitLocHistory:userid andlocation:lastArea];
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
 }
 -(void)submitBackCall:(id)dict
 {
@@ -535,52 +567,9 @@
 
 -(void)changeAddressButtonClick
 {
-    if (province&&city&&district) {
-        NSString *lastArea=[NSString stringWithFormat:@"%@%@%@",province,city,district];
-        NSDictionary * areadict=@{@"area":lastArea};
-        SEL func_selector = NSSelectorFromString(callBackFunctionName);
-        if ([CallBackObject respondsToSelector:func_selector]) {
-            NSLog(@"回调成功...");
-            [CallBackObject performSelectorInBackground:func_selector withObject:areadict];
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        }else{
-            NSLog(@"回调失败...");
-        }
-        NSDictionary * dict=@{@"provinceid":provinceid,@"provinceTitle":province,@"cityid":cityid,@"cityTitle":city,@"districtid":districtid,@"districtTitle":district};
-        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                  NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
-        BOOL result= [dict writeToFile:plistPath atomically:YES];
-        if (result) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"changecity_success" object:nil];
-        }
-    }
-    else if (province&&city)
-    {
-        NSString *lastArea=[NSString stringWithFormat:@"%@%@",province,city];
-        NSDictionary * areadict=@{@"area":lastArea};
-        SEL func_selector = NSSelectorFromString(callBackFunctionName);
-        if ([CallBackObject respondsToSelector:func_selector]) {
-            NSLog(@"回调成功...");
-            [CallBackObject performSelectorInBackground:func_selector withObject:areadict];
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        }else{
-            NSLog(@"回调失败...");
-        }
-        NSDictionary * dict=@{@"provinceid":provinceid,@"provinceTitle":province,@"cityid":cityid,@"cityTitle":city};
-        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                  NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
-        BOOL result= [dict writeToFile:plistPath atomically:YES];
-        if (result) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"changecity_success" object:nil];
-        }
-
-    }
-    else
-    {
-        if (provinceid&&province) {
-            NSString *lastArea=[NSString stringWithFormat:@"%@",province];
+    @try {
+        if (province&&city&&district) {
+            NSString *lastArea=[NSString stringWithFormat:@"%@%@%@",province,city,district];
             NSDictionary * areadict=@{@"area":lastArea};
             SEL func_selector = NSSelectorFromString(callBackFunctionName);
             if ([CallBackObject respondsToSelector:func_selector]) {
@@ -590,7 +579,7 @@
             }else{
                 NSLog(@"回调失败...");
             }
-            NSDictionary * dict=@{@"provinceid":provinceid,@"provinceTitle":province};
+            NSDictionary * dict=@{@"provinceid":provinceid,@"provinceTitle":province,@"cityid":cityid,@"cityTitle":city,@"districtid":districtid,@"districtTitle":district};
             NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                                       NSUserDomainMask, YES) objectAtIndex:0];
             NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
@@ -599,11 +588,62 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"changecity_success" object:nil];
             }
         }
+        else if (province&&city)
+        {
+            NSString *lastArea=[NSString stringWithFormat:@"%@%@",province,city];
+            NSDictionary * areadict=@{@"area":lastArea};
+            SEL func_selector = NSSelectorFromString(callBackFunctionName);
+            if ([CallBackObject respondsToSelector:func_selector]) {
+                NSLog(@"回调成功...");
+                [CallBackObject performSelectorInBackground:func_selector withObject:areadict];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }else{
+                NSLog(@"回调失败...");
+            }
+            NSDictionary * dict=@{@"provinceid":provinceid,@"provinceTitle":province,@"cityid":cityid,@"cityTitle":city};
+            NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                      NSUserDomainMask, YES) objectAtIndex:0];
+            NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
+            BOOL result= [dict writeToFile:plistPath atomically:YES];
+            if (result) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"changecity_success" object:nil];
+            }
+            
+        }
         else
         {
-            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择地区或者自动定位" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-            [alert show];
+            if (provinceid&&province) {
+                NSString *lastArea=[NSString stringWithFormat:@"%@",province];
+                NSDictionary * areadict=@{@"area":lastArea};
+                SEL func_selector = NSSelectorFromString(callBackFunctionName);
+                if ([CallBackObject respondsToSelector:func_selector]) {
+                    NSLog(@"回调成功...");
+                    [CallBackObject performSelectorInBackground:func_selector withObject:areadict];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                }else{
+                    NSLog(@"回调失败...");
+                }
+                NSDictionary * dict=@{@"provinceid":provinceid,@"provinceTitle":province};
+                NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                          NSUserDomainMask, YES) objectAtIndex:0];
+                NSString *plistPath = [rootPath stringByAppendingPathComponent:@"AreaInfo.plist"];
+                BOOL result= [dict writeToFile:plistPath atomically:YES];
+                if (result) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"changecity_success" object:nil];
+                }
+            }
+            else
+            {
+                UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择地区" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                [alert show];
+            }
         }
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
     }
 }
 @end

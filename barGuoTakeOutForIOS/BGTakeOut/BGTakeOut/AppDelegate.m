@@ -179,25 +179,31 @@
     //        [UMessage setAutoAlert:YES];
     
     DLog(@"remote:%@",userInfo);
-    [UMessage didReceiveRemoteNotification:userInfo];
+//    [UMessage didReceiveRemoteNotification:userInfo];
     NSString* content=[[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
     //        self.userInfo = userInfo;
-    //定制自定的的弹出框
-    if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
-    {
-        NSRange range=[content rangeOfString:@"餐厅已接单"];
-        if (range.length>0) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"Res_Resive_order" object:nil];
-        }
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
-                                                            message:content
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"确定"
-                                                  otherButtonTitles:nil];
-        
-        [alertView show];
-        
+    
+    NSRange range=[content rangeOfString:@"餐厅已接单"];
+    if (range.length>0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Res_Resive_order" object:nil];
     }
+    
+    //定制自定的的弹出框
+//    if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
+//    {
+//        NSRange range=[content rangeOfString:@"餐厅已接单"];
+//        if (range.length>0) {
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"Res_Resive_order" object:nil];
+//        }
+////        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+////                                                            message:content
+////                                                           delegate:nil
+////                                                  cancelButtonTitle:@"确定"
+////                                                  otherButtonTitles:nil];
+////        
+////        [alertView show];
+//        
+//    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

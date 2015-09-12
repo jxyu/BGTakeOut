@@ -626,7 +626,7 @@
             [backview_StatusInfo addSubview:lbl_TimeCount];
             fenge.backgroundColor=[UIColor colorWithRed:221/255.0 green:220/255.0 blue:218/255.0 alpha:1.0];
             [BackView_OrderTitle addSubview:backview_StatusInfo];
-            UIButton * cansalOrder=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-10-60, backview_StatusInfo.frame.origin.y+backview_StatusInfo.frame.size.height+5, 60, 30)];
+            UIButton * cansalOrder=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-40-60, backview_StatusInfo.frame.origin.y+backview_StatusInfo.frame.size.height+5, 60, 30)];
             [cansalOrder setTitle:@"取消订单" forState:UIControlStateNormal];
             [cansalOrder setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             cansalOrder.layer.borderWidth=1.0;
@@ -635,7 +635,7 @@
             cansalOrder.tag=[dict[@"status"] intValue];
             [cansalOrder addTarget:self action:@selector(CancelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             [BackView_OrderTitle addSubview:cansalOrder];
-            UIButton * btn_cuidan=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-140, backview_StatusInfo.frame.origin.y+backview_StatusInfo.frame.size.height+5, 60, 30)];
+            UIButton * btn_cuidan=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-170, backview_StatusInfo.frame.origin.y+backview_StatusInfo.frame.size.height+5, 60, 30)];
             [btn_cuidan setTitle:@"付款" forState:UIControlStateNormal];
             [btn_cuidan setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             btn_cuidan.layer.borderWidth=1.0;
@@ -1177,23 +1177,26 @@
     lbl_sumPrice.textAlignment=NSTextAlignmentRight;
     [BackView_SumPrice addSubview:lbl_sumPrice];
     [OrderAfterPay addSubview:BackView_SumPrice];
-    UIView * BackView_AgainOrder=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_SumPrice.frame.origin.y+BackView_SumPrice.frame.size.height+1, SCREEN_WIDTH, 50)];
-    BackView_AgainOrder.backgroundColor=[UIColor whiteColor];
-    UIButton * btn_OtherOrder=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-100-20, 10, 100, 30)];
-    btn_OtherOrder.layer.masksToBounds=YES;
-    btn_OtherOrder.layer.cornerRadius=6;
-    btn_OtherOrder.layer.borderWidth=1;
-    btn_OtherOrder.layer.borderColor=(__bridge CGColorRef)([UIColor colorWithRed:246/255.0 green:135/255.0 blue:82/255.0 alpha:1.0]);
-    [btn_OtherOrder setTitle:@"再来一单" forState:UIControlStateNormal];
-    [btn_OtherOrder setTitleColor:[UIColor colorWithRed:246/255.0 green:135/255.0 blue:82/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [btn_OtherOrder addTarget:self action:@selector(TryAnotherOrder) forControlEvents:UIControlEventTouchUpInside];
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 1,116/255.0, 15/255.0, 1 });
-    [btn_OtherOrder.layer setBorderColor:colorref];
-    [BackView_AgainOrder addSubview:btn_OtherOrder];
-    [OrderAfterPay addSubview:BackView_AgainOrder];
+    if ([dict[@"status"] intValue]!=1) {
+        UIView * BackView_AgainOrder=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_SumPrice.frame.origin.y+BackView_SumPrice.frame.size.height+1, SCREEN_WIDTH, 50)];
+        BackView_AgainOrder.backgroundColor=[UIColor whiteColor];
+        UIButton * btn_OtherOrder=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-100-20, 10, 100, 30)];
+        btn_OtherOrder.layer.masksToBounds=YES;
+        btn_OtherOrder.layer.cornerRadius=6;
+        btn_OtherOrder.layer.borderWidth=1;
+        btn_OtherOrder.layer.borderColor=(__bridge CGColorRef)([UIColor colorWithRed:246/255.0 green:135/255.0 blue:82/255.0 alpha:1.0]);
+        [btn_OtherOrder setTitle:@"再来一单" forState:UIControlStateNormal];
+        [btn_OtherOrder setTitleColor:[UIColor colorWithRed:246/255.0 green:135/255.0 blue:82/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [btn_OtherOrder addTarget:self action:@selector(TryAnotherOrder) forControlEvents:UIControlEventTouchUpInside];
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 1,116/255.0, 15/255.0, 1 });
+        [btn_OtherOrder.layer setBorderColor:colorref];
+        [BackView_AgainOrder addSubview:btn_OtherOrder];
+        [OrderAfterPay addSubview:BackView_AgainOrder];
+    }
+    lastView=[OrderAfterPay.subviews lastObject];
     
-    UIView * BackVeiw_OrderInfo=[[UIView alloc] initWithFrame:CGRectMake(0, BackView_AgainOrder.frame.origin.y+BackView_AgainOrder.frame.size.height+5, SCREEN_WIDTH, 180)];
+    UIView * BackVeiw_OrderInfo=[[UIView alloc] initWithFrame:CGRectMake(0, lastView.frame.origin.y+lastView.frame.size.height+5, SCREEN_WIDTH, 180)];
     BackVeiw_OrderInfo.backgroundColor=[UIColor whiteColor];
     UIImageView * Img_OrderInfo=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
     Img_OrderInfo.image=[UIImage imageNamed:@"res_info"];
@@ -1417,7 +1420,14 @@
             hour+=1;
             minute-=50;
         }
-        return [NSString stringWithFormat:@"%2d:%2d",hour,minute];
+        if (minute<10) {
+            return [NSString stringWithFormat:@"%2d:0%d",hour,minute];
+        }
+        else
+        {
+            return [NSString stringWithFormat:@"%2d:%2d",hour,minute];
+        }
+        
     }
     return @"";
 }
@@ -1434,14 +1444,14 @@
     [SVProgressHUD showWithStatus:@"正在进行支付。。" maskType:SVProgressHUDMaskTypeBlack];
     DataProvider * dataprovider=[[DataProvider alloc] init];
     [dataprovider setDelegateObject:self setBackFunctionName:@"GetChargeBackCall:"];
-        if ([_orderInfoDetial[@"payway"] intValue]==3) {
-            NSDictionary * prm=@{@"channel":@"wx",@"amount":[NSString stringWithFormat:@"%d",(int)[_orderInfoDetial[@"orderprice"] floatValue]*100],@"ordernum":_orderInfoDetial[@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
+        if ([OrderInfo[@"payway"] intValue]==2) {
+            NSDictionary * prm=@{@"channel":@"wx",@"amount":[NSString stringWithFormat:@"%.0f",[OrderInfo[@"orderprice"] floatValue]*100],@"ordernum":OrderInfo[@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
             //                NSDictionary * prm=@{@"channel":@"wx",@"amount":@"1",@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
             [dataprovider GetchargeForPay:prm];
         }
         else if([_orderInfoDetial[@"payway"] intValue]==0)
         {
-            NSDictionary * prm=@{@"channel":@"alipay",@"amount":[NSString stringWithFormat:@"%d",(int)[_orderInfoDetial[@"orderprice"] floatValue]*100],@"ordernum":_orderInfoDetial[@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
+            NSDictionary * prm=@{@"channel":@"alipay",@"amount":[NSString stringWithFormat:@"%.0f",[OrderInfo[@"orderprice"] floatValue]*100],@"ordernum":OrderInfo[@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
             //                NSDictionary * prm=@{@"channel":@"alipay",@"amount":@"1",@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
             [dataprovider GetchargeForPay:prm];
         }

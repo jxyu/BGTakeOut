@@ -162,7 +162,7 @@
         lbl_title.text=@"合计";
         [hejiBackView addSubview:lbl_title];
         UILabel * lbl_orderprice=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-90, 10, 80, 20)];
-        lbl_orderprice.text=[NSString stringWithFormat:@"¥%.2f",[_orderSumPrice floatValue]+[_peiSongFeiData floatValue]];
+        lbl_orderprice.text=[NSString stringWithFormat:@"¥%.2f",[_orderSumPrice floatValue]];//[_orderSumPrice floatValue]+[_peiSongFeiData floatValue]
         lbl_orderprice.textAlignment= NSTextAlignmentRight;
         [hejiBackView addSubview:lbl_orderprice];
         [myPage addSubview:hejiBackView];
@@ -319,7 +319,7 @@
 -(void)BuildDataToSubmit:(id)dict
 {
     NSMutableDictionary * prm=[[NSMutableDictionary alloc] init];
-    [prm setObject:[NSString stringWithFormat:@"%d",[_orderSumPrice intValue]+[_peiSongFeiData intValue]] forKey:@"orderprice"];
+    [prm setObject:[NSString stringWithFormat:@"%.2f",[_orderSumPrice floatValue]] forKey:@"orderprice"];
     
     if (dict[@"userid"]) {
         if (address[@"address"]&&address[@"phonenum"]) {
@@ -334,22 +334,22 @@
                 if (PayOnLineForChange) {
                     if(PayWX)
                     {
-                        [prm setObject:@"微信"forKey:@"payway"];
+                        [prm setObject:@"2"forKey:@"payway"];
                     }
                     else
                     {
-                        [prm setObject:@"支付宝"forKey:@"payway"];
+                        [prm setObject:@"0"forKey:@"payway"];
                     }
                     
                 }else
                 {
-                    [prm setObject:@"货到付款"forKey:@"payway"];
+                    [prm setObject:@"1"forKey:@"payway"];
                 }
                 if (Costommessage.text) {
                     [prm setObject:Costommessage.text forKey:@"remark"];
                 }
                 NSMutableArray * orderdataArray=[[NSMutableArray alloc] init];
-                
+
                 for (int i=0; i<_orderData.count; i++) {
                     NSMutableDictionary * dict=[[NSMutableDictionary alloc] init];
                     ShoppingCarModel *item=_orderData[i];
@@ -394,13 +394,13 @@
         [dataprovider setDelegateObject:self setBackFunctionName:@"GetChargeBackCall:"];
         if (PayOnLineForChange) {
             if (PayWX) {
-                NSDictionary * prm=@{@"channel":@"wx",@"amount":[NSString stringWithFormat:@"%d",([_orderSumPrice intValue]+[_peiSongFeiData intValue])*100],@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
+                NSDictionary * prm=@{@"channel":@"wx",@"amount":[NSString stringWithFormat:@"%.0f",([_orderSumPrice floatValue])*100],@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
 //                NSDictionary * prm=@{@"channel":@"wx",@"amount":@"1",@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖微信支付",@"body":@"外卖"};
                 [dataprovider GetchargeForPay:prm];
             }
             else
             {
-                NSDictionary * prm=@{@"channel":@"alipay",@"amount":[NSString stringWithFormat:@"%d",([_orderSumPrice intValue]+[_peiSongFeiData intValue])*100],@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
+                NSDictionary * prm=@{@"channel":@"alipay",@"amount":[NSString stringWithFormat:@"%.0f",([_orderSumPrice floatValue])*100],@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
 //                NSDictionary * prm=@{@"channel":@"alipay",@"amount":@"1",@"ordernum":dict[@"data"][@"ordernum"],@"subject":@"外卖2",@"body":@"外卖"};
                 [dataprovider GetchargeForPay:prm];
             }
@@ -411,7 +411,7 @@
             NSLog(@"货到付款，直接跳到订单详情页");
             OrderInfoViewController * orderinfoVC=[[OrderInfoViewController alloc] init];
             orderinfoVC.orderInfoDetial=dict[@"data"];
-            orderinfoVC.lastprice=[_orderSumPrice intValue]+[_peiSongFeiData intValue];
+            orderinfoVC.lastprice=[_orderSumPrice floatValue];
             orderinfoVC.orderData=_orderData;
             [self.navigationController pushViewController:orderinfoVC animated:YES];
         }

@@ -428,7 +428,7 @@
     NSLog(@"添加一份");
     isClick=NO;
     int goodsCount=0;
-    int SumPrice=0;
+    float SumPrice=0.00;
     for (UILabel *item in lbl_array) {
         if (item.tag==sender.tag) {
             item.text=[NSString stringWithFormat:@"%d",[item.text intValue]+1];
@@ -482,9 +482,9 @@
     for (int i=0; i<ShoppingCar.count; i++) {
         ShoppingCarModel * item=ShoppingCar[i];
         NSString * price=item.Goods[@"price"];
-        SumPrice+=item.Num*[price intValue];
+        SumPrice+=item.Num*[price floatValue];
     }
-    _lableinShoppingList.text=[NSString stringWithFormat:@"共¥%d",SumPrice];
+    _lableinShoppingList.text=[NSString stringWithFormat:@"共¥%.2f",SumPrice];
     
     if (SumPrice>=[_beginprice floatValue]) {
         [choseDone setEnabled:YES];
@@ -507,7 +507,7 @@
     
     isClick=NO;
     int goodsCount=0;
-    int SumPrice =0;
+    float SumPrice =0.00;
     if (ShoppingCar.count>0) {
         int i=0;
         BOOL isExit=false;
@@ -544,13 +544,13 @@
     for (int i=0; i<ShoppingCar.count; i++) {
         ShoppingCarModel * item=ShoppingCar[i];
         NSString * price=item.Goods[@"price"];
-        SumPrice+=item.Num*[price intValue];
+        SumPrice+=item.Num*[price floatValue];
     }
-    _lableinShoppingList.text=[NSString stringWithFormat:@"共¥%d",SumPrice];
+    _lableinShoppingList.text=[NSString stringWithFormat:@"共¥%.2f",SumPrice];
     if (SumPrice<[_beginprice floatValue]) {
         [choseDone setEnabled:NO];
-        int lastprice=[_beginprice intValue]-SumPrice;
-        [choseDone setTitle:[NSString stringWithFormat:@"还差%d元",lastprice]  forState:UIControlStateNormal];
+        float lastprice=[_beginprice intValue]-SumPrice;
+        [choseDone setTitle:[NSString stringWithFormat:@"还差%.2f元",lastprice]  forState:UIControlStateNormal];
         choseDone.backgroundColor=[UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:1.0];
     }
     else
@@ -635,10 +635,7 @@
     }
 }
 
--(void)clearnAll
-{
-    
-}
+
 
 - (UIColor *) stringTOColor:(NSString *)str
 {
@@ -747,7 +744,7 @@
                                                              error:nil];
         NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                      encoding:NSUTF8StringEncoding];
-        NSDictionary * prm=@{@"goodsdetail":jsonString,@"deliveryprice":_beginprice};
+        NSDictionary * prm=@{@"goodsdetail":jsonString,@"deliveryprice":_peisongData};
         DataProvider * dataprovider=[[DataProvider alloc] init];
         [dataprovider setDelegateObject:self setBackFunctionName:@"GetorderPriceBackCall:"];
         [dataprovider GetOrderPrice:prm];

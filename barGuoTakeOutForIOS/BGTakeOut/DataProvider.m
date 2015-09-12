@@ -353,8 +353,8 @@
 -(void)GetOrdersList:(id)prm
 {
     if (prm) {
-//        NSString * url=[NSString stringWithFormat:@"%@server/Home/Order/api_getMyOrders",KURL];
-        NSString * url=[NSString stringWithFormat:@"%@getorders.php",KURL];
+        NSString * url=[NSString stringWithFormat:@"%@server/Home/Order/api_getMyOrders",KURL];
+        //NSString * url=[NSString stringWithFormat:@"%@getorders.php",KURL];
         [self PostRequest:url andpram:prm];
     }
 }

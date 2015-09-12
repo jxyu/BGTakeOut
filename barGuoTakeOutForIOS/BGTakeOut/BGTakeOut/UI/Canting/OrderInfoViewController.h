@@ -17,7 +17,7 @@
 @interface OrderInfoViewController : BaseNavigationController <UIScrollViewDelegate,RefreshHeaderAndFooterViewDelegate,UIAlertViewDelegate,MZTimerLabelDelegate>
 @property(nonatomic,strong)NSDictionary * orderInfoDetial;
 @property(nonatomic,strong)NSArray * orderData;
-@property(nonatomic)NSInteger * lastprice;
+@property(nonatomic)float lastprice;
 @property(nonatomic,strong)PingjiaForOrderViewController *mypingjia;
 @property(nonatomic,strong)CantingInfoViewController * myCanting;
 @end

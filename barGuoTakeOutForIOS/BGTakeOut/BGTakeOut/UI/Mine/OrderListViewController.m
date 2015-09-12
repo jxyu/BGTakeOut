@@ -127,7 +127,7 @@
                 break;
         }
         if (orderListdata[indexPath.row][@"reslogo"]!=[NSNull null]) {
-            [cell.logo sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,orderListdata[indexPath.row][@"reslogo"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+            [cell.logo sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",KURL,orderListdata[indexPath.section][@"reslogo"]]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
             cell.logo.layer.masksToBounds=YES;
             cell.logo.layer.cornerRadius=4;
         }
