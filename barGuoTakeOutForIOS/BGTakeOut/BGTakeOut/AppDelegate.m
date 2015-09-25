@@ -134,7 +134,7 @@
     /**
      *  蒲公英bug收集
      */
-    [[PgyManager sharedPgyManager] startManagerWithAppId:@"d9dcc9dab1f30575fa0c0d697a377885"];
+//    [[PgyManager sharedPgyManager] startManagerWithAppId:@"d9dcc9dab1f30575fa0c0d697a377885"];
     return YES;
 }
 

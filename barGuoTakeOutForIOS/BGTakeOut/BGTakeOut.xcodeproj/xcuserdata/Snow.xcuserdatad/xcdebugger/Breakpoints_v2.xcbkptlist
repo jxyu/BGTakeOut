@@ -2006,11 +2006,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "558"
-            endingLineNumber = "558"
+            startingLineNumber = "570"
+            endingLineNumber = "570"
             landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2150,11 +2150,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "562"
-            endingLineNumber = "562"
+            startingLineNumber = "574"
+            endingLineNumber = "574"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2230,11 +2230,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "986"
-            endingLineNumber = "986"
+            startingLineNumber = "997"
+            endingLineNumber = "997"
             landmarkName = "-Getthirdcategray:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2246,11 +2246,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "993"
-            endingLineNumber = "993"
+            startingLineNumber = "1004"
+            endingLineNumber = "1004"
             landmarkName = "-finishChoosefenlei:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2262,11 +2262,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "670"
-            endingLineNumber = "670"
+            startingLineNumber = "681"
+            endingLineNumber = "681"
             landmarkName = "-SegMentControlClickbg"
             landmarkType = "5">
          </BreakpointContent>
@@ -2278,11 +2278,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
-            timestampString = "463545188.768606"
+            timestampString = "463722994.988802"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "432"
-            endingLineNumber = "432"
+            startingLineNumber = "436"
+            endingLineNumber = "436"
             landmarkName = "-GetActivityData:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2294,11 +2294,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
-            timestampString = "463545188.768606"
+            timestampString = "463722994.988802"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "433"
-            endingLineNumber = "433"
+            startingLineNumber = "437"
+            endingLineNumber = "437"
             landmarkName = "-GetActivityData:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2310,11 +2310,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
-            timestampString = "463545188.768606"
+            timestampString = "463722994.988802"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "650"
-            endingLineNumber = "650"
+            startingLineNumber = "654"
+            endingLineNumber = "654"
             landmarkName = "-btn_activeClick"
             landmarkType = "5">
          </BreakpointContent>
@@ -2326,11 +2326,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
-            timestampString = "463545188.768606"
+            timestampString = "463722994.988802"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "645"
-            endingLineNumber = "645"
+            startingLineNumber = "649"
+            endingLineNumber = "649"
             landmarkName = "-btn_activeClick"
             landmarkType = "5">
          </BreakpointContent>
@@ -2518,11 +2518,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
-            timestampString = "463545188.768606"
+            timestampString = "463722994.988802"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "541"
-            endingLineNumber = "541"
+            startingLineNumber = "545"
+            endingLineNumber = "545"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2534,11 +2534,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
-            timestampString = "463545188.768606"
+            timestampString = "463722994.988802"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "372"
-            endingLineNumber = "372"
+            startingLineNumber = "376"
+            endingLineNumber = "376"
             landmarkName = "-SegMentControlClick"
             landmarkType = "5">
          </BreakpointContent>
@@ -2710,11 +2710,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "582"
-            endingLineNumber = "582"
+            startingLineNumber = "594"
+            endingLineNumber = "594"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2790,11 +2790,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
-            timestampString = "463545188.768606"
+            timestampString = "463722994.988802"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "539"
-            endingLineNumber = "539"
+            startingLineNumber = "543"
+            endingLineNumber = "543"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2806,11 +2806,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
-            timestampString = "463545188.768606"
+            timestampString = "463723702.893524"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "742"
-            endingLineNumber = "742"
+            startingLineNumber = "743"
+            endingLineNumber = "743"
             landmarkName = "-isBetweenFromHour:toHour:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3190,11 +3190,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "701"
-            endingLineNumber = "701"
+            startingLineNumber = "712"
+            endingLineNumber = "712"
             landmarkName = "-GetSecondTypeBackCall:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3206,11 +3206,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "989"
-            endingLineNumber = "989"
+            startingLineNumber = "1000"
+            endingLineNumber = "1000"
             landmarkName = "-Getthirdcategray:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3222,11 +3222,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "954"
-            endingLineNumber = "954"
+            startingLineNumber = "965"
+            endingLineNumber = "965"
             landmarkName = "-BurildSecondScroll"
             landmarkType = "5">
          </BreakpointContent>
@@ -3238,11 +3238,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "956"
-            endingLineNumber = "956"
+            startingLineNumber = "967"
+            endingLineNumber = "967"
             landmarkName = "-BurildSecondScroll"
             landmarkType = "5">
          </BreakpointContent>
@@ -3254,11 +3254,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "958"
-            endingLineNumber = "958"
+            startingLineNumber = "969"
+            endingLineNumber = "969"
             landmarkName = "-BurildSecondScroll"
             landmarkType = "5">
          </BreakpointContent>
@@ -3270,11 +3270,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "957"
-            endingLineNumber = "957"
+            startingLineNumber = "968"
+            endingLineNumber = "968"
             landmarkName = "-BurildSecondScroll"
             landmarkType = "5">
          </BreakpointContent>
@@ -4182,11 +4182,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "570"
-            endingLineNumber = "570"
+            startingLineNumber = "582"
+            endingLineNumber = "582"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4198,11 +4198,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "864"
-            endingLineNumber = "864"
+            startingLineNumber = "875"
+            endingLineNumber = "875"
             landmarkName = "-categaryFirstBackCall:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4278,11 +4278,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "735"
-            endingLineNumber = "735"
+            startingLineNumber = "746"
+            endingLineNumber = "746"
             landmarkName = "-dianzanBackCall:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4326,11 +4326,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "999"
-            endingLineNumber = "999"
+            startingLineNumber = "1010"
+            endingLineNumber = "1010"
             landmarkName = "-finishChoosefenlei:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4406,11 +4406,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463550596.31339"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "-BuildBiewelement"
             landmarkType = "5">
          </BreakpointContent>
@@ -4438,11 +4438,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "584"
-            endingLineNumber = "584"
+            startingLineNumber = "596"
+            endingLineNumber = "596"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4454,11 +4454,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "626"
-            endingLineNumber = "626"
+            startingLineNumber = "638"
+            endingLineNumber = "638"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4470,11 +4470,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "583"
-            endingLineNumber = "583"
+            startingLineNumber = "595"
+            endingLineNumber = "595"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5184,11 +5184,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463550596.31339"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "-ChangeCityBackCall"
             landmarkType = "5">
          </BreakpointContent>
@@ -5200,11 +5200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463550596.31339"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "-ChangeCityBackCall"
             landmarkType = "5">
          </BreakpointContent>
@@ -5216,11 +5216,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463550596.31339"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "-ChangeCityBackCall"
             landmarkType = "5">
          </BreakpointContent>
@@ -5232,11 +5232,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "458"
-            endingLineNumber = "458"
+            startingLineNumber = "470"
+            endingLineNumber = "470"
             landmarkName = "-GetStoreListBackCall:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5248,11 +5248,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "426"
-            endingLineNumber = "426"
+            startingLineNumber = "438"
+            endingLineNumber = "438"
             landmarkName = "-StoreFootRefresh"
             landmarkType = "5">
          </BreakpointContent>
@@ -5264,11 +5264,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BGTakeOut/UI/BGB/BGBangViewController.m"
-            timestampString = "463564954.24266"
+            timestampString = "463720921.948313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "456"
-            endingLineNumber = "456"
+            startingLineNumber = "468"
+            endingLineNumber = "468"
             landmarkName = "-GetStoreListBackCall:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5430,6 +5430,70 @@
             startingLineNumber = "1447"
             endingLineNumber = "1447"
             landmarkName = "-PayWithThisOrder:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/index/AutoLocationViewController.m"
+            timestampString = "463721975.516283"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "-myinitView"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/Mine/LoginViewController.m"
+            timestampString = "463722746.166585"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
+            timestampString = "463723112.094456"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "356"
+            endingLineNumber = "356"
+            landmarkName = "-GetStoreListBackCall:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BGTakeOut/UI/index/WaiMAIViewController.m"
+            timestampString = "463723192.400275"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "324"
+            endingLineNumber = "324"
+            landmarkName = "-StoreFootRefresh"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

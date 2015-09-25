@@ -341,6 +341,10 @@
         Canting=[[NSArray alloc] initWithArray:itemarray];
         [_tableView reloadData];
     }
+//    else
+//    {
+//         Canting=[[NSArray alloc] init];
+//    }
     
 }
 
@@ -352,11 +356,11 @@
     if ([dict[@"status"]intValue]==1) {
         NSLog(@"餐厅数据%@",dict);
         Canting=[[NSArray alloc] initWithArray:dict[@"data"]];
-        [_tableView reloadData];
-    }else{
         
+    }else{
+        Canting=[[NSArray alloc] init];
     }
-
+    [_tableView reloadData];
     [_tableView.header endRefreshing];
 }
 
@@ -710,10 +714,7 @@
 }
 -(void)getOrderListData:(UIButton *)sender
 {
-    
-    if (sender.tag!=0) {
-        _order=[NSString stringWithFormat:@"%ld",(long)sender.tag+1];
-    }
+    _order=[NSString stringWithFormat:@"%ld",(long)sender.tag];
     [_tableView.header beginRefreshing];
     [BackView_paixu removeFromSuperview];
     isSortShow=NO;

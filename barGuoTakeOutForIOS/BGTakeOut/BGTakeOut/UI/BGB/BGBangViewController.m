@@ -93,6 +93,7 @@
     isfooterrequest=NO;
     isnewTuijian=NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"exit_userinfo" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(existUserInfo) name:@"user_login_info" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ChangeCityBackCall) name:@"changecity_success" object:nil];
     [self buildColorArray];
     [self BuildBiewelement];
@@ -256,7 +257,17 @@
         [weakself StoreTopRefresh];
         [mytableView.header endRefreshing];
     }];
-    [mytableView.header beginRefreshing];
+    if (dictionary[@"userid"]) {
+        [mytableView.header beginRefreshing];
+    }
+    else
+    {
+        //!!!:  还没有登录，跳转登录页面，登录成功后返回这一页面
+        LoginViewController* loginVC= [[LoginViewController alloc] init];
+        [loginVC setDelegateObject:self setBackFunctionName:@"CantingLoginBackCall:"];
+        [self.navigationController pushViewController:loginVC animated:YES];
+    }
+    
     
     // 上拉刷新
     [mytableView addLegendFooterWithRefreshingBlock:^{
@@ -393,6 +404,7 @@
                                                               NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"UserInfo.plist"];
     dictionary =[[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    [mytableView.header beginRefreshing];
 }
 -(void)StoreFootRefresh
 {
@@ -650,7 +662,7 @@
     if (1==self.segmentedControl.selectedSegmentIndex) {
 //        _Page.hidden=YES;
         NSLog(@"other");
-        if (dictionary) {
+        if (dictionary[@"userid"]) {
             [menuScrollView removeFromSuperview];
             [firstScrollView removeFromSuperview];
             [BackView_paixu removeFromSuperview];
@@ -660,10 +672,9 @@
         }
         else
         {
-            UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"请先登录" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
-            [alert show];
-            _TextArray=[[NSMutableArray alloc] init];
-            [mytableView reloadData];
+            _myLogin=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
+            [_myLogin setDelegateObject:self setBackFunctionName:@"LoginBackCall:"];
+            [self.navigationController pushViewController:_myLogin animated:YES];
         }
     }
     else
